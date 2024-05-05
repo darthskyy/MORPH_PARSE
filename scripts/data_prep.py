@@ -55,6 +55,7 @@ def main():
             lines = read_lines(os.path.join(f'../data/{dir}', in_file))
             lines = [line for line in lines if '<LINE#' not in line]
             lines = [format_line(line) for line in lines]
+            lines = ["word\tseg\tparse"] + lines
 
             # Write the formatted lines to a new file
             out_file = out_name_format.format(lang, dir)
