@@ -1,7 +1,7 @@
 import torch
 from torch import nn, optim
 from torch.utils.data import Dataset, DataLoader
-from typing import Generator, TypeAlias
+from typing import TypeAlias
 from torcheval.metrics.functional import multiclass_f1_score
 
 TextTaggedSequenced: TypeAlias = tuple[list[str], list[str]]
@@ -10,39 +10,56 @@ WORD_SEP_IX = 0
 WORD_SEP_TEXT = "<?word_sep?>"
 
 
+def split_words(words):
+    for morphemes, tags in words:
+        yield (morphemes, tags)
+
+
+def split_sentences(words):
+    morphemes_acc, tags_acc = [], []
+    for morphemes, tags in words:
+        if len(morphemes_acc) != 0:
+            morphemes_acc.append(WORD_SEP_TEXT)
+            tags_acc.append(WORD_SEP_TEXT)
+
+        morphemes_acc.extend(morphemes)
+        tags_acc.extend(tags)
+
+        if morphemes in [["."], ["!"], ["?"]]:
+            yield (morphemes_acc, tags_acc)
+            morphemes_acc, tags_acc = [], []
+
+    if len(morphemes_acc) != 0:
+        yield (morphemes_acc, tags_acc)
+
+
+def tokenize_into_morphemes(word):
+    return [word]
+
+
+def tokenize_into_chars(word):
+    return list(word) if word != WORD_SEP_TEXT else [WORD_SEP_TEXT]
+
+
+def combine_singleton_tensor(submorpheme_embeddings: torch.tensor):
+    assert submorpheme_embeddings.size() == (1,)
+    return submorpheme_embeddings.item()
+
+
+def combine_by_summing(submorpheme_embeddings: torch.tensor):
+    return torch.sum(submorpheme_embeddings)
+
+
 class AnnotatedCorpusDataset(Dataset):
-    def __init__(self, seqs: list[tuple[int, int]], num_morphemes: int, num_tags: int):
+    def __init__(self, seqs: list[tuple[int, int]], num_submorphemes: int, num_tags: int):
         super().__init__()
         self.seqs = seqs
-        self.num_morphemes = num_morphemes
+        self.num_submorphemes = num_submorphemes
         self.num_tags = num_tags
 
     @staticmethod
-    def split_words(words):
-        for morphemes, tags in words:
-            yield (morphemes, tags)
-
-    @staticmethod
-    def split_sentences(words):
-        morphemes_acc, tags_acc = [], []
-        for morphemes, tags in words:
-            if len(morphemes_acc) != 0:
-                morphemes_acc.append(WORD_SEP_TEXT)
-                tags_acc.append(WORD_SEP_TEXT)
-
-            morphemes_acc.extend(morphemes)
-            tags_acc.extend(tags)
-
-            if morphemes in [["."], ["!"], ["?"]]:
-                yield (morphemes_acc, tags_acc)
-                morphemes_acc, tags_acc = [], []
-
-        if len(morphemes_acc) != 0:
-            yield (morphemes_acc, tags_acc)
-
-    @staticmethod
-    def load_data(lang: str, split):
-        morpheme_to_ix = {WORD_SEP_TEXT: 0, "<?unk?>": 1}  # unk accounts for unseen morphemes
+    def load_data(lang: str, split=split_words, tokenize=tokenize_into_morphemes):
+        submorpheme_to_ix = {WORD_SEP_TEXT: 0, "<?unk?>": 1}  # unk accounts for unseen morphemes
         tag_to_ix = {WORD_SEP_TEXT: WORD_SEP_IX}
         ix_to_tag = {WORD_SEP_IX: WORD_SEP_TEXT}
 
@@ -69,9 +86,10 @@ class AnnotatedCorpusDataset(Dataset):
                     yield (morpheme_seq, tag_seq)
 
         for (morphemes, tags) in split(extract_morphemes_and_tags_from_file(f"data/TRAIN/{lang}_TRAIN.tsv")):
-            # Insert morphemes from train set into the embedding indices
+            # Insert submorphemes of morphemes from train set into the embedding indices
             for morpheme in morphemes:
-                morpheme_to_ix.setdefault(morpheme, len(morpheme_to_ix))
+                for submorpheme in tokenize(morpheme):
+                    submorpheme_to_ix.setdefault(submorpheme, len(submorpheme_to_ix))
 
             # Also insert tags into embedding indices
             insert_tags_into_dicts(tags)
@@ -95,8 +113,7 @@ class AnnotatedCorpusDataset(Dataset):
 
         def encode_dataset(dataset: list[tuple[str, str]]) -> list[tuple[torch.tensor, torch.tensor]]:
             return [
-                (
-                    prepare_sequence(morpheme_seq, morpheme_to_ix),
+                ([prepare_sequence(tokenize(m), submorpheme_to_ix) for m in morpheme_seq],
                     prepare_sequence(tag_seq, tag_to_ix, dtype=torch.uint8))
                 for (morpheme_seq, tag_seq) in dataset
             ]
@@ -105,8 +122,8 @@ class AnnotatedCorpusDataset(Dataset):
         training_data, testing_data = encode_dataset(training_data), encode_dataset(testing_data)
 
         return (
-            AnnotatedCorpusDataset(training_data, len(morpheme_to_ix), len(tag_to_ix)),
-            AnnotatedCorpusDataset(testing_data, len(morpheme_to_ix), len(tag_to_ix)),
+            AnnotatedCorpusDataset(training_data, len(submorpheme_to_ix), len(tag_to_ix)),
+            AnnotatedCorpusDataset(testing_data, len(submorpheme_to_ix), len(tag_to_ix)),
         )
 
     def __getitem__(self, item):
