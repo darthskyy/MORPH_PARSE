@@ -33,7 +33,7 @@ test_df = pd.read_csv(args.test, delimiter="\t", names=columns)
 print("Test set loaded_______________")
 
 
-def format_ner_results(ner_results):
+def format_ner_results(ner_results, model="xlmr"):
     """
     Format the NER results to be used for evaluation
 
@@ -57,17 +57,30 @@ def format_ner_results(ner_results):
     morphs = []
     tags = []
 
-    for i in range(len(ner_results)):
-        morph = ner_results[i]["word"]
-        tag = ner_results[i]["entity"]
+    if model=="xlmr":
+        for i in range(len(ner_results)):
+            morph = ner_results[i]["word"]
+            tag = ner_results[i]["entity"]
 
-        if morph.startswith("##"):
-            morphs[-1] += morph[2:]
-        else:
-            morphs.append(morph)
-            if "Dem" in tag:
-                continue
-            tags.append(tag)
+            if morph.startswith("_"):
+                morphs.append(morph[1:])
+                if "Dem" in tag:
+                    continue
+                tags.append(tag)
+            else:
+                morphs[-1] += morph
+    elif model=="bert":
+        for i in range(len(ner_results)):
+            morph = ner_results[i]["word"]
+            tag = ner_results[i]["entity"]
+
+            if morph.startswith("##"):
+                morphs[-1] += morph[2:]
+            else:
+                morphs.append(morph)
+                if "Dem" in tag:
+                    continue
+                tags.append(tag)
     
     return morphs, tags
 
