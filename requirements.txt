@@ -4,3 +4,5 @@ torch
 pandas
 numpy
 seqeval
+transformers[torch]
+accelerate
