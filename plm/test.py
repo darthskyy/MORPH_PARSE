@@ -10,7 +10,7 @@ parser.add_argument("--model", type=str, help="The path to the fine-tuned model"
 parser.add_argument("--tokenizer", type=str, help="The path to the tokenizer", required=True)
 parser.add_argument("--test", type=str, help="The path to the test set", required=True)
 parser.add_argument("--output", type=bool, help="The path to the output file", default=False)
-parser.add_argument("--metric", type=str, help="The metric to use for evaluation", default="f1")
+parser.add_argument("--metric", type=str, help="The metric to use for evaluation", default="f1", choices=["f1","precision","recall","accuracy","all"])
 args = parser.parse_args()
 
 # loading the model and tokenizer
@@ -62,7 +62,7 @@ def format_ner_results(ner_results, model="xlmr"):
             morph = ner_results[i]["word"]
             tag = ner_results[i]["entity"]
 
-            if morph.startswith("_"):
+            if morph.startswith("▁"):
                 morphs.append(morph[1:])
                 if "Dem" in tag:
                     continue
