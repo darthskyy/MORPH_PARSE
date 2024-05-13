@@ -13,11 +13,11 @@ cd /mnt/lustre/users/smawere/MORPH_PARSE
 
 data=data
 checkpoint=xlm-roberta-base
-output_dir=plm/models/$checkpoint
+lang=NR
+output_dir=plm/models/${checkpoint}_${lang}
 epochs=10
 batch_size=16
 evaluation_strategy=epoch
-lang=NR
 learning_rate=2e-5
 validation_split=0.1
 save_steps=500
@@ -35,14 +35,4 @@ python3 plm/train_plm.py \
     --validation_split $validation_split \
     --save_steps $save_steps \
     --save_total_limit $save_total_limit \
-    > $output_dir/train.txt
-
-echo "Evaluating model" > $output_dir/results.txt
-
-python3 plm/train.py \
-    --test $data/TEST/$lang_TEST.tsv
-    --model $checkpoint \
-    --tokenizeer $checkpoint \
-    --lang $lang \
-    --metric all \
-    > $output_dir/results.txt
+    > train_${checkpoint}_${lang}.log 2>&1
