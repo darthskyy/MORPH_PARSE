@@ -20,7 +20,7 @@ evaluation_strategy=epoch
 lang=NR
 learning_rate=2e-5
 validation_split=0.1
-save_steps=10
+save_steps=500
 save_total_limit=2
 
 python3 plm/train_plm.py \

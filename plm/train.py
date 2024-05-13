@@ -16,6 +16,8 @@ parser.add_argument("--weight_decay", type=float, default=0.01, help="The weight
 parser.add_argument("--evaluation_strategy", type=str, default="epoch", help="The evaluation strategy to use for training.")
 parser.add_argument("--lang", type=str, default="NR", help="The language to train the model on.", choices=["NR","SS","XH","ZU"])
 parser.add_argument("--validation_split", type=float, default=0.1, help="The fraction of the training data to use for validation.")
+parser.add_argument("--save_steps", type=int, default=500, help="The number of steps to save the model after.")
+parser.add_argument("--save_total_limit", type=int, default=2, help="The total number of models to save.")
 args = parser.parse_args()
 
 data_dir = args.data
@@ -137,7 +139,9 @@ args = TrainingArguments(
     per_device_eval_batch_size=16,
     num_train_epochs=args.epochs,
     weight_decay=args.weight_decay,
-    logging_dir=args.output+"/logs"
+    logging_dir=args.output+"/logs",
+    save_steps=args.save_steps,
+    save_total_limit=args.save_total_limit
 )
 
 # %%
