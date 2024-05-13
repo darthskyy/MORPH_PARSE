@@ -1,7 +1,9 @@
+import time
+import pprint as pp
 import torch
 from torch import nn, optim
 from torch.utils.data import Dataset, DataLoader
-from typing import TypeAlias
+from typing import TypeAlias, Any
 from torcheval.metrics.functional import multiclass_f1_score
 
 TextTaggedSequenced: TypeAlias = tuple[list[str], list[str]]
@@ -33,6 +35,18 @@ def split_sentences(words):
         yield (morphemes_acc, tags_acc)
 
 
+def _resplit_sentences(sentences):
+    for morphemes, tags in sentences:
+        morphemes_acc, tags_acc = [], []
+        for morpheme, tag in zip(morphemes, tags):
+            if morpheme == WORD_SEP_TEXT:
+                yield (morphemes_acc, tags_acc)
+                morphemes_acc, tags_acc = [], []
+            else:
+                morphemes_acc.append(morpheme)
+                tags_acc.append(tag)
+
+
 def tokenize_into_morphemes(word):
     return [word]
 
@@ -51,11 +65,12 @@ def combine_by_summing(submorpheme_embeddings: torch.tensor):
 
 
 class AnnotatedCorpusDataset(Dataset):
-    def __init__(self, seqs: list[tuple[int, int]], num_submorphemes: int, num_tags: int):
+    def __init__(self, seqs: list[tuple[int, int]], num_submorphemes: int, num_tags: int, ix_to_tag: dict[int, str]):
         super().__init__()
         self.seqs = seqs
         self.num_submorphemes = num_submorphemes
         self.num_tags = num_tags
+        self.ix_to_tag = ix_to_tag
 
     @staticmethod
     def load_data(lang: str, split=split_words, tokenize=tokenize_into_morphemes):
@@ -85,7 +100,15 @@ class AnnotatedCorpusDataset(Dataset):
 
                     yield (morpheme_seq, tag_seq)
 
-        for (morphemes, tags) in split(extract_morphemes_and_tags_from_file(f"data/TRAIN/{lang}_TRAIN.tsv")):
+        # First, we split by sentences in order to get a fair train/test split
+        sentences = list(split_sentences(extract_morphemes_and_tags_from_file(f"data/TRAIN/{lang}_TRAIN.tsv")))
+
+        # Split the data in half
+        test_amount = len(sentences) // 10
+        test_sentences = _resplit_sentences(sentences[:test_amount])
+        train_sentences = _resplit_sentences(sentences[test_amount:])
+
+        for (morphemes, tags) in split(train_sentences):
             # Insert submorphemes of morphemes from train set into the embedding indices
             for morpheme in morphemes:
                 for submorpheme in tokenize(morpheme):
@@ -96,7 +119,7 @@ class AnnotatedCorpusDataset(Dataset):
 
             training_data.append((morphemes, tags))
 
-        for (morphemes, tags) in split(extract_morphemes_and_tags_from_file(f"data/TRAIN/{lang}_TRAIN.tsv")):
+        for (morphemes, tags) in split(test_sentences):
             # We skip inserting morphemes from the test set into the embedding indices, because it is realistic
             # that there may be unseen morphemes
 
@@ -106,15 +129,17 @@ class AnnotatedCorpusDataset(Dataset):
 
             testing_data.append((morphemes, tags))
 
+        device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+
         # Encode a given sequence as a tensor of indices (from the to_ix dict)
-        def prepare_sequence(seq: list[str], to_ix: dict[str, int], dtype=torch.long) -> torch.tensor:
+        def prepare_sequence(seq: list[str], to_ix: dict[str, int]) -> torch.tensor:
             idxs = [to_ix[w] if w in to_ix else 0 for w in seq]
-            return torch.tensor(idxs, dtype=dtype)
+            return torch.tensor(idxs).to(device)
 
         def encode_dataset(dataset: list[tuple[str, str]]) -> list[tuple[torch.tensor, torch.tensor]]:
             return [
                 ([prepare_sequence(tokenize(m), submorpheme_to_ix) for m in morpheme_seq],
-                    prepare_sequence(tag_seq, tag_to_ix, dtype=torch.uint8))
+                 prepare_sequence(tag_seq, tag_to_ix))
                 for (morpheme_seq, tag_seq) in dataset
             ]
 
@@ -122,8 +147,8 @@ class AnnotatedCorpusDataset(Dataset):
         training_data, testing_data = encode_dataset(training_data), encode_dataset(testing_data)
 
         return (
-            AnnotatedCorpusDataset(training_data, len(submorpheme_to_ix), len(tag_to_ix)),
-            AnnotatedCorpusDataset(testing_data, len(submorpheme_to_ix), len(tag_to_ix)),
+            AnnotatedCorpusDataset(training_data, len(submorpheme_to_ix), len(tag_to_ix), ix_to_tag),
+            AnnotatedCorpusDataset(testing_data, len(submorpheme_to_ix), len(tag_to_ix), ix_to_tag),
         )
 
     def __getitem__(self, item):
@@ -133,11 +158,13 @@ class AnnotatedCorpusDataset(Dataset):
         return len(self.seqs)
 
 
-def _analyse_model(model, test: AnnotatedCorpusDataset) -> float:
+def _analyse_model(model, test: AnnotatedCorpusDataset) -> tuple[float, float, float, list[tuple[str, Any]]]:
     with torch.no_grad():
         # Set model to evaluation mode (affects layers such as BatchNorm)
         model.eval()
 
+        print("Evaluating model...")
+        start = time.time()
         predicted = []
         expected = []
 
@@ -149,10 +176,22 @@ def _analyse_model(model, test: AnnotatedCorpusDataset) -> float:
                 if expected_tag == WORD_SEP_IX:
                     continue
 
-                predicted.append(torch.argmax(morpheme).tolist())
-                expected.append(expected_tag)
+                predicted.append(torch.argmax(morpheme).item() - 1)
+                expected.append(expected_tag - 1)
 
-        return multiclass_f1_score(torch.Tensor(predicted), torch.Tensor(expected), num_classes=test.num_tags).item()
+        print(f"Took {time.time() - start:.2f}s")
+
+        predicted = torch.tensor(predicted, dtype=torch.long)
+        expected = torch.tensor(expected, dtype=torch.long)
+
+        # -1 to num tags to remove word_sep
+        f1_scores = multiclass_f1_score(predicted, expected, num_classes=test.num_tags - 1, average=None)
+        f1_scores = ((test.ix_to_tag[tag_ix + 1], score.item()) for tag_ix, score in enumerate(f1_scores))
+        f1_micro = multiclass_f1_score(predicted, expected, num_classes=test.num_tags - 1, average="micro").item()
+        f1_macro = multiclass_f1_score(predicted, expected, num_classes=test.num_tags - 1, average="macro").item()
+        f1_weighted = multiclass_f1_score(predicted, expected, num_classes=test.num_tags - 1, average="weighted").item()
+
+        return f1_micro, f1_macro, f1_weighted, sorted(f1_scores, key=lambda pair: -pair[1])
 
 
 def train_model(model, name: str, epochs: int, train: AnnotatedCorpusDataset, test: AnnotatedCorpusDataset):
@@ -160,11 +199,11 @@ def train_model(model, name: str, epochs: int, train: AnnotatedCorpusDataset, te
     optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
     train = DataLoader(train, shuffle=True, batch_size=1, collate_fn=lambda x: x[0])
 
-    best_f1 = 0.0
     for epoch in range(epochs):
         # Set model to training mode (affects layers such as BatchNorm)
         model.train()
 
+        start = time.time()
         for morphemes, expected_tags in iter(train):
             # Clear gradients
             model.zero_grad()
@@ -180,10 +219,9 @@ def train_model(model, name: str, epochs: int, train: AnnotatedCorpusDataset, te
             # Reset the model's hidden state
             model.init_hidden_state()
 
-        f1 = _analyse_model(model, test)
+        elapsed = time.time() - start
+        eta = elapsed * (epochs - epoch)
+        print(f"Epoch {epoch} done in {elapsed:.2f}s. ETA: {eta:.2f}")
 
-        if f1 >= best_f1:
-            best_f1 = f1
-            torch.save(model, f"saved_models/best_{name}.pt")
-
-        print(f"Epoch {epoch} F1 score: {f1}")
+    f1_micro, f1_macro, f1_weighted, f1_all = _analyse_model(model, test)
+    print(f"Micro F1: {f1_micro}. Macro f1: {f1_macro}. Weighted F1: {f1_weighted}. All: {pp.pformat(f1_all)}")

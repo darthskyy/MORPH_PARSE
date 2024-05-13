@@ -19,12 +19,13 @@ class LSTMTagger(nn.Module):
         # self.feedforward = nn.Linear(hidden_dim * 2, hidden_dim * 2)
         self.hidden2tag = nn.Linear(hidden_dim * 2, trainset.num_tags)
         self.hidden_state = None
+        self.dev = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
         self.init_hidden_state()
 
     def init_hidden_state(self):
         num_directions = 2
-        h = torch.zeros(num_directions, 1, self.hidden_dim, requires_grad=True)
-        c = torch.zeros(num_directions, 1, self.hidden_dim, requires_grad=True)
+        h = torch.zeros(num_directions, 1, self.hidden_dim, requires_grad=True, device=self.dev)
+        c = torch.zeros(num_directions, 1, self.hidden_dim, requires_grad=True, device=self.dev)
         self.hidden_state = (h, c)
 
     def forward(self, morphemes):
