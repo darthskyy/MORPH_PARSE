@@ -19,24 +19,21 @@ parser.add_argument("--validation_split", type=float, default=0.1, help="The fra
 args = parser.parse_args()
 
 data_dir = args.data
-langs = ["NR","SS","XH","ZU"]
-datasets = {}
 
+# load the dataset for the specified language
+lang = args.lang
 column_names = ["word", "parsed", "morpheme", "tag"]
-for lang in langs:
-    lang_set = {
-        "TRAIN": pd.read_csv(f"{data_dir}/TRAIN/{lang}_TRAIN.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names)
-        ,
-        "TEST": pd.read_csv(f"{data_dir}/TEST/{lang}_TEST.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names,)
-        ,
-    }
+lang_set = {
+    "TRAIN": pd.read_csv(f"{data_dir}/TRAIN/{lang}_TRAIN.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names)
+    ,
+    "TEST": pd.read_csv(f"{data_dir}/TEST/{lang}_TEST.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names,)
+    ,
+}
 
-    # split the training data into training and validation sets
+# split the training data into training and validation sets
 
-    lang_set["VAL"] = lang_set["TRAIN"].sample(frac=args.validation_split, random_state=42)
-    lang_set["TRAIN"] = lang_set["TRAIN"].drop(lang_set["VAL"].index)
-
-    datasets[lang] = lang_set
+lang_set["VAL"] = lang_set["TRAIN"].sample(frac=args.validation_split, random_state=42)
+lang_set["TRAIN"] = lang_set["TRAIN"].drop(lang_set["VAL"].index)
 
 
 
@@ -59,30 +56,25 @@ def extract_tag(seq: str) -> str:
     return seq
 
 # %%
-for lang in langs:
-    for item in ["TEST", "TRAIN", "VAL"]:
-        df = datasets[lang][item]
-        df['morpheme'] = df['morpheme'].apply(lambda x: x.split("_"))
-        df['tag'] = df['tag'].apply(lambda x: extract_tag(x))
-
-datasets
+for item in ["TEST", "TRAIN", "VAL"]:
+    df = lang_set[item]
+    df['morpheme'] = df['morpheme'].apply(lambda x: x.split("_"))
+    df['tag'] = df['tag'].apply(lambda x: extract_tag(x))
 
 # %%
 print("mapped the input")
 
 # %%
-for lang in langs:
-    lang_set = {
-        "train": Dataset.from_pandas(datasets[lang]["TRAIN"]),
-        "test": Dataset.from_pandas(datasets[lang]["TEST"]),
-        "validation": Dataset.from_pandas(datasets[lang]["VAL"])
-    }
+dataset = {
+    "train": Dataset.from_pandas(lang_set["TRAIN"]),
+    "test": Dataset.from_pandas(lang_set["TEST"]),
+    "validation": Dataset.from_pandas(lang_set["VAL"])
+}
 
-    datasets[lang] = DatasetDict(lang_set)
+lang_set = DatasetDict(dataset)
 
 # %%
 print("datasets created")
-datasets
 
 # %%
 from transformers import XLMRobertaTokenizerFast
@@ -127,7 +119,7 @@ def tokenize_and_align(example, label_all_tokens=True):
     return tokenized_input
 
 # %%
-tokenized_dataset = datasets[args.lang].map(tokenize_and_align, batched=True)
+tokenized_dataset = lang_set.map(tokenize_and_align, batched=True)
 
 # %%
 from transformers import AutoModelForTokenClassification
