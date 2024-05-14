@@ -192,16 +192,14 @@ trainer = Trainer(
 trainer.train()
 
 # %%
-model.save_pretrained("parse_model")
-tokenizer.save_pretrained("tokenizer")
+model.save_pretrained(args.output)
+tokenizer.save_pretrained(args.output)
 
 # %%
 import json
 
-config = json.load(open("parse_model/config.json"))
+config = json.load(open(f"{args.output}/config.json"))
 config["id2label"] = mappings_r
 config["label2id"] = mappings
 
-json.dump(config, open("parse_model/config.json", "w"))
-
-
+json.dump(config, open(f"{args.output}/config.json", "w"))
