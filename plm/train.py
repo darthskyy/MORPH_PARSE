@@ -4,7 +4,9 @@ import os, csv
 import pandas as pd
 import numpy as np
 import argparse
+import warnings
 
+# * load the arguments from the command line
 parser = argparse.ArgumentParser(description="Parsing inputs for training the model")
 parser.add_argument("--data", type=str, default="data", help="The directory where the data is stored.")
 parser.add_argument("--checkpoint", type=str, default="xlm-roberta-base", help="The pretrained checkpoint to use for the model. Must be a model that supports token classification.")
@@ -18,8 +20,16 @@ parser.add_argument("--lang", type=str, default="NR", help="The language to trai
 parser.add_argument("--validation_split", type=float, default=0.1, help="The fraction of the training data to use for validation.")
 parser.add_argument("--save_steps", type=int, default=500, help="The number of steps to save the model after.")
 parser.add_argument("--save_total_limit", type=int, default=2, help="The total number of models to save.")
+parser.add_argument("--warning", type=bool, default=False, help="Whether to show warnings or not.")
+parser.add_argument("--f", type=str, default="morpheme", help="The field to use for the morphemes.")
+parser.add_argument("--debug", type=bool, default=True, help="Whether to run the script in debug mode.")
 args = parser.parse_args()
 
+# * show warnings if the warning flag is set
+if not args.warning:
+    warnings.filterwarnings("ignore")
+
+# * load the dataset
 data_dir = args.data
 
 # load the dataset for the specified language
@@ -38,11 +48,10 @@ lang_set["VAL"] = lang_set["TRAIN"].sample(frac=args.validation_split, random_st
 lang_set["TRAIN"] = lang_set["TRAIN"].drop(lang_set["VAL"].index)
 
 
-
-# %%
 print("loaded the datasets")
 
 # %%
+# * map the rags to corresponding integers
 mappings = {}
 mappings_r = {}
 count = 0
@@ -57,16 +66,15 @@ def extract_tag(seq: str) -> str:
         seq[i] = mappings[tag]
     return seq
 
-# %%
 for item in ["TEST", "TRAIN", "VAL"]:
     df = lang_set[item]
     df['morpheme'] = df['morpheme'].apply(lambda x: x.split("_"))
     df['tag'] = df['tag'].apply(lambda x: extract_tag(x))
 
-# %%
 print("mapped the input")
 
 # %%
+# * create the dataset
 dataset = {
     "train": Dataset.from_pandas(lang_set["TRAIN"]),
     "test": Dataset.from_pandas(lang_set["TEST"]),
@@ -74,17 +82,19 @@ dataset = {
 }
 
 lang_set = DatasetDict(dataset)
-
-# %%
 print("datasets created")
 
 # %%
-from transformers import XLMRobertaTokenizerFast
+# * loading the tokenizer and model
+from transformers import XLMRobertaTokenizerFast, AutoModelForTokenClassification
 checkpoint = args.checkpoint
 tokenizer = XLMRobertaTokenizerFast.from_pretrained(checkpoint)
+model = AutoModelForTokenClassification.from_pretrained(checkpoint, num_labels=len(mappings))
 
+print("loaded the model and tokenizer")
 
 # %%
+# * tokenizing the input
 def tokenize_and_align(example, label_all_tokens=True):
     """
     Tokenizes the input example and aligns the labels with the tokenized input.
@@ -120,15 +130,12 @@ def tokenize_and_align(example, label_all_tokens=True):
     tokenized_input["labels"] = labels
     return tokenized_input
 
-# %%
 tokenized_dataset = lang_set.map(tokenize_and_align, batched=True)
 
-# %%
-from transformers import AutoModelForTokenClassification
-
-model = AutoModelForTokenClassification.from_pretrained(checkpoint, num_labels=len(mappings))
+print("tokenized the dataset")
 
 # %%
+# * loading the arguments and training the model
 from transformers import TrainingArguments
 
 train_args = TrainingArguments(
@@ -144,16 +151,27 @@ train_args = TrainingArguments(
     save_total_limit=args.save_total_limit
 )
 
+# print all the entered args
+print(f"output directory: {train_args.output_dir}")
+print(f"logging directory: {train_args.logging_dir}")
+print(f"evaluation strategy: {train_args.evaluation_strategy}")
+print(f"learning rate: {train_args.learning_rate}")
+print(f"epochs: {train_args.num_train_epochs}")
+print(f"weight decay: {train_args.weight_decay}")
+print(f"save steps: {train_args.save_steps}")
+print(f"save total limit: {train_args.save_total_limit}")
+print(f"per device train batch size: {train_args.per_device_train_batch_size}")
+print(f"per device eval batch size: {train_args.per_device_eval_batch_size}")
+
+
 # %%
+# * defining the compute metrics function
 from transformers import DataCollatorForTokenClassification
 data_collator = DataCollatorForTokenClassification(tokenizer)
-
 from datasets import load_metric
+import numpy as np
 
 metric = load_metric("seqeval")
-
-# %%
-import numpy as np
 def compute_metrics(eval_preds):
     pred_logits, labels = eval_preds
     pred_logits = np.argmax(pred_logits, axis=2)
@@ -176,6 +194,7 @@ def compute_metrics(eval_preds):
     }
 
 # %%
+# * adding the trainer
 from transformers import Trainer
 
 trainer = Trainer(
@@ -189,13 +208,22 @@ trainer = Trainer(
 )
 
 # %%
-trainer.train()
-
-# %%
+# * saving the model and tokenizer
 model.save_pretrained(args.output)
 tokenizer.save_pretrained(args.output)
 
 # %%
+# * training the model
+trainer.train()
+
+# %%
+# * evaluating the model on the test set
+x = trainer.evaluate(tokenized_dataset["test"])
+
+print(x)
+
+# %%
+# * saving the mappings to the config file
 import json
 
 config = json.load(open(f"{args.output}/config.json"))
