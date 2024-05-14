@@ -131,7 +131,7 @@ model = AutoModelForTokenClassification.from_pretrained(checkpoint, num_labels=l
 # %%
 from transformers import TrainingArguments
 
-args = TrainingArguments(
+train_args = TrainingArguments(
     output_dir=args.output,
     evaluation_strategy=args.evaluation_strategy,
     learning_rate=args.learning_rate,
@@ -180,7 +180,7 @@ from transformers import Trainer
 
 trainer = Trainer(
     model=model,
-    args=args,
+    args=train_args,
     train_dataset=tokenized_dataset["train"],
     eval_dataset=tokenized_dataset["validation"],
     data_collator=data_collator,
