@@ -231,3 +231,86 @@ config["id2label"] = mappings_r
 config["label2id"] = mappings
 
 json.dump(config, open(f"{args.output}/config.json", "w"))
+
+# %%
+# * testing the model
+from transformers import pipeline
+from seqeval.metrics import f1_score, precision_score, recall_score, classification_report
+
+print("Creating the pipeline")
+nlp = pipeline("ner", model=model, tokenizer=tokenizer)
+print("Pipeline created")
+
+# %%
+# * formatting the NER results
+def format_ner_results(ner_results, model="xlmr"):
+    """
+    Format the NER results to be used for evaluation
+
+    Args:
+    ner_results (list of dictionaries): The NER results containing word and entity information.
+
+    Returns:
+    tuple: A tuple containing two lists - morphs and tags. Morphs is a list of morphemes extracted from the NER results, and tags is a list of corresponding entity tags.
+
+    Example:
+    >>> ner_results = [
+            {"word": "U", "Entity": "NPrePre15"},
+            {"word": "ku", "Entity": "BPre15"},
+            {"word": "eng", "Entity": "VRoot"},
+            {"word": "##ez", "Entity": "VRoot"},
+            {"word": "a", "Entity": "VerbTerm"}
+        ]
+    >>> format_ner_results(ner_results)
+    (["u", "ku", "engez", "a"], ["NPrePre15", "BPre15", "VRoot", "VerbTerm"])
+    """
+    morphs = []
+    tags = []
+
+    if model=="xlmr":
+        for i in range(len(ner_results)):
+            morph = ner_results[i]["word"]
+            tag = ner_results[i]["entity"]
+
+            if morph.startswith("▁"):
+                morphs.append(morph[1:])
+                if "Dem" in tag:
+                    continue
+                tags.append(tag)
+            else:
+                morphs[-1] += morph
+    elif model=="bert":
+        for i in range(len(ner_results)):
+            morph = ner_results[i]["word"]
+            tag = ner_results[i]["entity"]
+
+            if morph.startswith("##"):
+                morphs[-1] += morph[2:]
+            else:
+                morphs.append(morph)
+                if "Dem" in tag:
+                    continue
+                tags.append(tag)
+    
+    return morphs, tags
+
+# %%
+# * predicting the tags for the test set
+test_set = lang_set["test"]
+references = []
+predictions = []
+
+for i in range(len(test_set)):
+    sentence = " ".join(test_set[i]["morpheme"])
+    ner_results = nlp(sentence)
+    morphs, tags = format_ner_results(ner_results)
+    expected_tags = ["_-" + mappings_r[x] for x in test_set[i]["tag"]]
+    tags = ["_-" + x for x in tags]
+    if len(expected_tags) != len(tags):
+        continue
+    predictions.append(tags)
+    references.append(expected_tags)
+# %%
+# * evaluating the model on the classification report of the test set
+print(classification_report(references, predictions))
+# %%
