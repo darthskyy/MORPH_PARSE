@@ -1,9 +1,9 @@
 #!/bin/bash
-#PBS -N train_plm
+#PBS -N train_plm_XH
 #PBS -q gpu_1
 #PBS -l select=1:ncpus=10:ngpus=1
 #PBS -P CSCI1674
-#PBS -l walltime=6:00:00
+#PBS -l walltime=8:00:00
 #PBS -m abe
 #PBS -M mwrsim003@myuct.ac.za
 ulimit -s unlimited
@@ -13,7 +13,7 @@ cd /mnt/lustre/users/smawere/MORPH_PARSE
 
 data=data
 checkpoint=xlm-roberta-base
-lang=NR
+lang=XH
 output_dir=plm/models/${checkpoint}_${lang}
 epochs=10
 batch_size=16
@@ -23,10 +23,10 @@ validation_split=0.1
 save_steps=500
 save_total_limit=2
 
-python3 plm/train_plm.py \
+python3 plm/train.py \
     --data $data \
     --checkpoint $checkpoint \
-    --output_dir $output_dir \
+    --output $output_dir \
     --epochs $epochs \
     --batch_size $batch_size \
     --evaluation_strategy $evaluation_strategy \
