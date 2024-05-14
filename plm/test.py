@@ -2,7 +2,7 @@ import pandas as pd
 import warnings
 import argparse
 from seqeval.metrics import classification_report, f1_score, precision_score, recall_score
-from transformers import AutoModelForTokenClassification, pipeline, BertTokenizerFast
+from transformers import AutoModelForTokenClassification, pipeline, XLMRobertaTokenizerFast
 
 # creating a parser for the command line arguments
 parser = argparse.ArgumentParser(description="Test the fine-tuned model on the test set")
@@ -19,7 +19,7 @@ model_fine_tuned = AutoModelForTokenClassification.from_pretrained(args.model)
 print("Model loaded____", end="\r")
 
 print("Loading tokenizer...", end="\r")
-tokenizer = BertTokenizerFast.from_pretrained(args.tokenizer)
+tokenizer = XLMRobertaTokenizerFast.from_pretrained(args.tokenizer)
 print("Tokenizer loaded____", end="\r")
 
 print("Creating NLP pipeline...", end="\r")
@@ -106,6 +106,7 @@ for i, item in test_df.iterrows():
     if len(expected_tags) != len(tags):
         continue
 
+    print(expected_tags, tags)
     references.append(expected_tags)
     predictions.append(tags)
     print(f"{i + 1:>4}", end="\r")
