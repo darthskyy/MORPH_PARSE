@@ -1,12 +1,11 @@
+import pprint
 import time
 import pprint as pp
 import torch
 from torch import nn, optim
 from torch.utils.data import Dataset, DataLoader
-from typing import TypeAlias, Any
+from typing import Any
 from torcheval.metrics.functional import multiclass_f1_score
-
-TextTaggedSequenced: TypeAlias = tuple[list[str], list[str]]
 
 WORD_SEP_IX = 0
 WORD_SEP_TEXT = "<?word_sep?>"
@@ -65,7 +64,7 @@ def combine_by_summing(submorpheme_embeddings: torch.tensor):
 
 
 class AnnotatedCorpusDataset(Dataset):
-    def __init__(self, seqs: list[tuple[int, int]], num_submorphemes: int, num_tags: int, ix_to_tag: dict[int, str]):
+    def __init__(self, seqs, num_submorphemes: int, num_tags: int, ix_to_tag):
         super().__init__()
         self.seqs = seqs
         self.num_submorphemes = num_submorphemes
@@ -77,6 +76,7 @@ class AnnotatedCorpusDataset(Dataset):
         submorpheme_to_ix = {WORD_SEP_TEXT: 0, "<?unk?>": 1}  # unk accounts for unseen morphemes
         tag_to_ix = {WORD_SEP_TEXT: WORD_SEP_IX}
         ix_to_tag = {WORD_SEP_IX: WORD_SEP_TEXT}
+        submorpheme_frequencies = dict()
 
         training_data = []
         testing_data = []
@@ -105,20 +105,29 @@ class AnnotatedCorpusDataset(Dataset):
 
         # Split the data in half
         test_amount = len(sentences) // 10
-        test_sentences = _resplit_sentences(sentences[:test_amount])
-        train_sentences = _resplit_sentences(sentences[test_amount:])
+        test_sentences = list(_resplit_sentences(sentences[:test_amount]))
+        train_sentences = list(_resplit_sentences(sentences[test_amount:]))
 
         for (morphemes, tags) in split(train_sentences):
             # Insert submorphemes of morphemes from train set into the embedding indices
             for morpheme in morphemes:
                 for submorpheme in tokenize(morpheme):
-                    submorpheme_to_ix.setdefault(submorpheme, len(submorpheme_to_ix))
+                    submorpheme_frequencies.setdefault(submorpheme, 0)
+                    submorpheme_frequencies[submorpheme] += 1
+
+        for (morphemes, tags) in split(train_sentences):
+            # Insert submorphemes of morphemes from train set into the embedding indices
+            for morpheme in morphemes:
+                for submorpheme in tokenize(morpheme):
+                    if submorpheme_frequencies[submorpheme] > 1:
+                        submorpheme_to_ix.setdefault(submorpheme, len(submorpheme_to_ix))
 
             # Also insert tags into embedding indices
             insert_tags_into_dicts(tags)
 
             training_data.append((morphemes, tags))
 
+        unseen = set()
         for (morphemes, tags) in split(test_sentences):
             # We skip inserting morphemes from the test set into the embedding indices, because it is realistic
             # that there may be unseen morphemes
@@ -129,15 +138,22 @@ class AnnotatedCorpusDataset(Dataset):
 
             testing_data.append((morphemes, tags))
 
+            for morpheme in morphemes:
+                for submorpheme in tokenize(morpheme):
+                    if submorpheme not in submorpheme_to_ix:
+                        unseen.add(submorpheme)
+
+        print(f"{(len(unseen) / len(submorpheme_to_ix)) * 100.0}% not found in train!")
+
         device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
         # Encode a given sequence as a tensor of indices (from the to_ix dict)
-        def prepare_sequence(seq: list[str], to_ix: dict[str, int]) -> torch.tensor:
+        def prepare_sequence(seq, to_ix) -> torch.tensor:
             idxs = [to_ix[w] if w in to_ix else 0 for w in seq]
             return torch.tensor(idxs).to(device)
 
-        def encode_dataset(dataset: list[tuple[str, str]]) -> list[tuple[torch.tensor, torch.tensor]]:
-            return [
+        def encode_dataset(dataset):
+            return [  # TODO make it all one tensor somehow
                 ([prepare_sequence(tokenize(m), submorpheme_to_ix) for m in morpheme_seq],
                  prepare_sequence(tag_seq, tag_to_ix))
                 for (morpheme_seq, tag_seq) in dataset
@@ -181,12 +197,13 @@ def _analyse_model(model, test: AnnotatedCorpusDataset) -> tuple[float, float, f
 
         print(f"Took {time.time() - start:.2f}s")
 
+        all_expected_tags = set(expected)
         predicted = torch.tensor(predicted, dtype=torch.long)
         expected = torch.tensor(expected, dtype=torch.long)
 
         # -1 to num tags to remove word_sep
         f1_scores = multiclass_f1_score(predicted, expected, num_classes=test.num_tags - 1, average=None)
-        f1_scores = ((test.ix_to_tag[tag_ix + 1], score.item()) for tag_ix, score in enumerate(f1_scores))
+        f1_scores = ((test.ix_to_tag[tag_ix + 1], score.item()) for tag_ix, score in enumerate(f1_scores) if tag_ix in all_expected_tags)
         f1_micro = multiclass_f1_score(predicted, expected, num_classes=test.num_tags - 1, average="micro").item()
         f1_macro = multiclass_f1_score(predicted, expected, num_classes=test.num_tags - 1, average="macro").item()
         f1_weighted = multiclass_f1_score(predicted, expected, num_classes=test.num_tags - 1, average="weighted").item()
@@ -222,6 +239,8 @@ def train_model(model, name: str, epochs: int, train: AnnotatedCorpusDataset, te
         elapsed = time.time() - start
         eta = elapsed * (epochs - epoch)
         print(f"Epoch {epoch} done in {elapsed:.2f}s. ETA: {eta:.2f}")
+        f1_micro, f1_macro, f1_weighted, f1_all = _analyse_model(model, test)
+        print(f"Micro F1: {f1_micro}.")
 
     f1_micro, f1_macro, f1_weighted, f1_all = _analyse_model(model, test)
     print(f"Micro F1: {f1_micro}. Macro f1: {f1_macro}. Weighted F1: {f1_weighted}. All: {pp.pformat(f1_all)}")
