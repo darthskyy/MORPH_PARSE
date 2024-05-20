@@ -5,10 +5,36 @@ import pandas as pd
 import numpy as np
 import argparse
 import warnings
+import time
 
+# * for timing purposes
+absolute_start = time.time()
+def format_time(t):
+    """
+    Formats the time in seconds to a human readable format.
+
+    Args:
+        t (float): The time in seconds.
+
+    Returns:
+        str: The formatted time in hours, minutes, and seconds.
+    """
+    h = int(t//3600)
+    m = int((t%3600)//60)
+    s = int(t%60)
+    return f"{h:02d}:{m:02d}:{s:02d}"
+
+def log_message(message):
+    """
+    Logs a message to the console with the time elapsed since the start of the script.
+
+    Args:
+        message (str): The message to log.
+    """
+    print(f"{format_time(time.time()-absolute_start)}\t-\t{message}")
 # * load the arguments from the command line
 parser = argparse.ArgumentParser(description="Parsing inputs for training the model")
-parser.add_argument("--data", type=str, default="data", help="The directory where the data is stored.")
+parser.add_argument("--data", type=str, default="../data", help="The directory where the data is stored.")
 parser.add_argument("--checkpoint", type=str, default="xlm-roberta-base", help="The pretrained checkpoint to use for the model. Must be a model that supports token classification.")
 parser.add_argument("--output", type=str, default="xlmr", help="The output directory for the model in the models directory.")
 parser.add_argument("--epochs", type=int, default=1, help="The number of epochs to train the model for.")
@@ -20,6 +46,7 @@ parser.add_argument("--lang", type=str, default="NR", help="The language to trai
 parser.add_argument("--validation_split", type=float, default=0.1, help="The fraction of the training data to use for validation.")
 parser.add_argument("--save_steps", type=int, default=500, help="The number of steps to save the model after.")
 parser.add_argument("--save_total_limit", type=int, default=2, help="The total number of models to save.")
+parser.add_argument("--metric", type=str, default="all", help="The metric to use for evaluation.", choices=["all", "f1", "precision", "recall"])
 parser.add_argument("--warning", type=bool, default=False, help="Whether to show warnings or not.")
 parser.add_argument("--f", type=str, default="morpheme", help="The field to use for the morphemes.")
 parser.add_argument("--debug", type=bool, default=True, help="Whether to run the script in debug mode.")
@@ -30,6 +57,7 @@ if not args.warning:
     warnings.filterwarnings("ignore")
 
 # * load the dataset
+
 data_dir = args.data
 
 # load the dataset for the specified language
@@ -48,7 +76,7 @@ lang_set["VAL"] = lang_set["TRAIN"].sample(frac=args.validation_split, random_st
 lang_set["TRAIN"] = lang_set["TRAIN"].drop(lang_set["VAL"].index)
 
 
-print("loaded the datasets")
+log_message("loaded the datasets")
 
 # %%
 # * map the rags to corresponding integers
@@ -71,7 +99,7 @@ for item in ["TEST", "TRAIN", "VAL"]:
     df['morpheme'] = df['morpheme'].apply(lambda x: x.split("_"))
     df['tag'] = df['tag'].apply(lambda x: extract_tag(x))
 
-print("mapped the input")
+log_message("mapped the input")
 
 # %%
 # * create the dataset
@@ -82,7 +110,7 @@ dataset = {
 }
 
 lang_set = DatasetDict(dataset)
-print("datasets created")
+log_message("datasets created")
 
 # %%
 # * loading the tokenizer and model
@@ -91,7 +119,7 @@ checkpoint = args.checkpoint
 tokenizer = XLMRobertaTokenizerFast.from_pretrained(checkpoint)
 model = AutoModelForTokenClassification.from_pretrained(checkpoint, num_labels=len(mappings))
 
-print("loaded the model and tokenizer")
+log_message("loaded the model and tokenizer")
 
 # %%
 # * tokenizing the input
@@ -132,7 +160,7 @@ def tokenize_and_align(example, label_all_tokens=True):
 
 tokenized_dataset = lang_set.map(tokenize_and_align, batched=True)
 
-print("tokenized the dataset")
+log_message("tokenized the dataset")
 
 # %%
 # * loading the arguments and training the model
@@ -148,7 +176,9 @@ train_args = TrainingArguments(
     weight_decay=args.weight_decay,
     logging_dir=args.output+"/logs",
     save_steps=args.save_steps,
-    save_total_limit=args.save_total_limit
+    save_total_limit=args.save_total_limit,
+    disable_tqdm=True,
+    load_best_model_at_end=True,
 )
 
 # print all the entered args
@@ -207,6 +237,8 @@ trainer = Trainer(
     compute_metrics=compute_metrics
 )
 
+log_message("added the trainer")
+
 # %%
 # * saving the model and tokenizer
 model.save_pretrained(args.output)
@@ -218,9 +250,12 @@ trainer.train()
 
 # %%
 # * evaluating the model on the test set
+log_message("evaluating the model on the test set: run 1")
 x = trainer.evaluate(tokenized_dataset["test"])
 
 print(x)
+log_message("evaluation complete")
+
 
 # %%
 # * saving the mappings to the config file
@@ -233,13 +268,16 @@ config["label2id"] = mappings
 json.dump(config, open(f"{args.output}/config.json", "w"))
 
 # %%
+
+model.config.id2label = mappings_r
+model.config.label2id = mappings
 # * testing the model
 from transformers import pipeline
 from seqeval.metrics import f1_score, precision_score, recall_score, classification_report
 
-print("Creating the pipeline")
+log_message("Creating the pipeline")
 nlp = pipeline("ner", model=model, tokenizer=tokenizer)
-print("Pipeline created")
+log_message("Pipeline created")
 
 # %%
 # * formatting the NER results
@@ -300,6 +338,7 @@ test_set = lang_set["test"]
 references = []
 predictions = []
 
+log_message("Predicting the tags for the test set")
 for i in range(len(test_set)):
     sentence = " ".join(test_set[i]["morpheme"])
     ner_results = nlp(sentence)
@@ -310,7 +349,20 @@ for i in range(len(test_set)):
         continue
     predictions.append(tags)
     references.append(expected_tags)
+
+log_message("Predictions complete")
 # %%
 # * evaluating the model on the classification report of the test set
-print(classification_report(references, predictions))
-# %%
+
+log_message("Evaluating the model on the test set: run 2")
+if args.metric == "all":
+    print(classification_report(references, predictions))
+elif args.metric == "f1":
+    print(f1_score(references, predictions))
+elif args.metric == "precision":
+    print(precision_score(references, predictions))
+elif args.metric == "recall":
+    print(recall_score(references, predictions))
+
+log_message("Evaluation complete")
+log_message("Script complete")
