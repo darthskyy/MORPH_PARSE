@@ -47,6 +47,9 @@ parser.add_argument("--validation_split", type=float, default=0.1, help="The fra
 parser.add_argument("--save_steps", type=int, default=500, help="The number of steps to save the model after.")
 parser.add_argument("--save_total_limit", type=int, default=2, help="The total number of models to save.")
 parser.add_argument("--metric", type=str, default="all", help="The metric to use for evaluation.", choices=["all", "f1", "precision", "recall"])
+parser.add_argument("--load_best_model_at_end", type=bool, default=True, help="Whether to load the best model at the end of training.")
+parser.add_argument("--metric_for_best_model", type=str, default="loss", help="The metric to use for the best model.")
+parser.add_argument("--greater_is_better", type=bool, default=False, help="Whether a greater value of the metric is better.")
 parser.add_argument("--warning", type=bool, default=False, help="Whether to show warnings or not.")
 parser.add_argument("--f", type=str, default="morpheme", help="The field to use for the morphemes.")
 parser.add_argument("--debug", type=bool, default=True, help="Whether to run the script in debug mode.")
@@ -178,7 +181,9 @@ train_args = TrainingArguments(
     save_steps=args.save_steps,
     save_total_limit=args.save_total_limit,
     disable_tqdm=True,
-    load_best_model_at_end=True,
+    load_best_model_at_end=args.load_best_model_at_end,
+    metric_for_best_model=args.metric_for_best_model,
+    greater_is_better=args.greater_is_better
 )
 
 # print all the entered args
