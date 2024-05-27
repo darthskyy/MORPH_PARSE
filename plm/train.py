@@ -50,6 +50,7 @@ parser.add_argument("--metric", type=str, default="all", help="The metric to use
 parser.add_argument("--load_best_model_at_end", type=bool, default=True, help="Whether to load the best model at the end of training.")
 parser.add_argument("--metric_for_best_model", type=str, default="loss", help="The metric to use for the best model.")
 parser.add_argument("--greater_is_better", type=bool, default=False, help="Whether a greater value of the metric is better.")
+parser.add_argument("--resume_from_checkpoint", type=bool, default=False, help="Whether to resume training from a checkpoint.")
 parser.add_argument("--warning", type=bool, default=False, help="Whether to show warnings or not.")
 parser.add_argument("--f", type=str, default="morpheme", help="The field to use for the morphemes.")
 parser.add_argument("--debug", type=bool, default=True, help="Whether to run the script in debug mode.")
@@ -251,7 +252,7 @@ tokenizer.save_pretrained(args.output)
 
 # %%
 # * training the model
-trainer.train()
+trainer.train(resume_from_checkpoint=args.resume_from_checkpoint)
 
 # %%
 # * evaluating the model on the test set
