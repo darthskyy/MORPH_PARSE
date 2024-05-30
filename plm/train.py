@@ -57,16 +57,16 @@ if not args.warning:
 
 # * setting up the logging
 logger = logging.getLogger(f"train_{args.lang}_{args.checkpoint}")
-logger.setLevel(logger.DEBUG)
+logger.setLevel("DEBUG")
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
 # setting up the file handler
 fh = logging.FileHandler(args.log)
-fh.setLevel(logger.DEBUG)
+fh.setLevel("DEBUG")
 
 # setting up the console handler
 ch = logging.StreamHandler(sys.stdout)
-ch.setLevel(logger.DEBUG)
+ch.setLevel("DEBUG")
 
 # setting up the formatter
 fh.setFormatter(formatter)
