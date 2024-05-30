@@ -132,8 +132,8 @@ log_message("datasets created")
 load_start = time.time()
 from transformers import XLMRobertaTokenizerFast, AutoModelForTokenClassification
 checkpoint = args.checkpoint
-tokenizer = XLMRobertaTokenizerFast.from_pretrained(checkpoint)
-model = AutoModelForTokenClassification.from_pretrained(checkpoint, num_labels=len(mappings))
+tokenizer = XLMRobertaTokenizerFast.from_pretrained(checkpoint, cache_dir=".cache")
+model = AutoModelForTokenClassification.from_pretrained(checkpoint, num_labels=len(mappings), cache_dir=".cache")
 
 log_message(f"loaded the model and tokenizer in {format_time(time.time()-load_start)}")
 log_message("loaded the model and tokenizer")
@@ -247,7 +247,7 @@ def compute_metrics(eval_preds):
 # %%
 # * adding the trainer
 from transformers import Trainer
-
+model = AutoModelForTokenClassification.from_pretrained("models/xlm-roberta-large_NR/checkpoint-17500", num_labels=len(mappings), cache_dir=".cache")
 trainer = Trainer(
     model=model,
     args=train_args,
@@ -261,9 +261,20 @@ trainer = Trainer(
 log_message("added the trainer")
 
 # %%
-# * saving the model and tokenizer
+# * saving the model, tokenizer and mappings
+import json
+args.output = "models/xlm-roberta-large_NR/checkpoint-17500"
 model.save_pretrained(args.output)
 tokenizer.save_pretrained(args.output)
+
+config = json.load(open(f"{args.output}/config.json"))
+config["id2label"] = mappings_r
+config["label2id"] = mappings
+
+model.config.id2label = mappings_r
+model.config.label2id = mappings
+
+json.dump(config, open(f"{args.output}/config.json", "w"))
 
 # %%
 # * training the model
@@ -277,21 +288,6 @@ x = trainer.evaluate(tokenized_dataset["test"])
 print(x)
 log_message("evaluation complete")
 
-
-# %%
-# * saving the mappings to the config file
-import json
-
-config = json.load(open(f"{args.output}/config.json"))
-config["id2label"] = mappings_r
-config["label2id"] = mappings
-
-json.dump(config, open(f"{args.output}/config.json", "w"))
-
-# %%
-
-model.config.id2label = mappings_r
-model.config.label2id = mappings
 # * testing the model
 from transformers import pipeline
 from seqeval.metrics import f1_score, precision_score, recall_score, classification_report
