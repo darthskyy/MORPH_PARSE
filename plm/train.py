@@ -80,15 +80,12 @@ if not args.warning:
 
 # * load the dataset
 
-data_dir = args.data
-
 # load the dataset for the specified language
-lang = args.lang
 column_names = ["word", "parsed", "morpheme", "tag"]
 lang_set = {
-    "TRAIN": pd.read_csv(f"{data_dir}/TRAIN/{lang}_TRAIN.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names)
+    "TRAIN": pd.read_csv(f"{args.data}/TRAIN/{args.lang}_TRAIN.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names)
     ,
-    "TEST": pd.read_csv(f"{data_dir}/TEST/{lang}_TEST.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names,)
+    "TEST": pd.read_csv(f"{args.data}/TEST/{args.lang}_TEST.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names,)
     ,
 }
 
@@ -287,10 +284,12 @@ json.dump(config, open(f"{args.output}/config.json", "w"))
 if args.resume_from_checkpoint:
     log_message("checking for checkpoint")
     dirs = os.listdir(f"{args.output}")
-    resume_points = [x for x in dirs if "checkpoint" in x]
-    steps = [int(x.split("-")[1]) for x in checkpoint]
-    resume_point = resume_points[np.argmax(steps)]
-    args.resume_from_checkpoint = f"{args.output}/{resume_point}"
+    if any([x for x in dirs if "checkpoint" in x]):
+        resume_points = [x for x in dirs if "checkpoint" in x]
+        steps = [int(x.split("-")[1]) for x in resume_points]
+        # get the checkpoint with the highest number of steps
+        resume_point = resume_points[np.argmax(steps)]
+        args.resume_from_checkpoint = f"{args.output}/{resume_point}"
 
 trainer.train(resume_from_checkpoint=args.resume_from_checkpoint)
 
