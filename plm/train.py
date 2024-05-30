@@ -6,32 +6,9 @@ import numpy as np
 import argparse
 import warnings
 import time
+import logging
+import sys
 
-# * for timing purposes
-absolute_start = time.time()
-def format_time(t):
-    """
-    Formats the time in seconds to a human readable format.
-
-    Args:
-        t (float): The time in seconds.
-
-    Returns:
-        str: The formatted time in hours, minutes, and seconds.
-    """
-    h = int(t//3600)
-    m = int((t%3600)//60)
-    s = int(t%60)
-    return f"{h:02d}:{m:02d}:{s:02d}"
-
-def log_message(message):
-    """
-    Logs a message to the console with the time elapsed since the start of the script.
-
-    Args:
-        message (str): The message to log.
-    """
-    print(f"{format_time(time.time()-absolute_start)}\t-\t{message}")
 # * load the arguments from the command line
 parser = argparse.ArgumentParser(description="Parsing inputs for training the model")
 # model data, loading and saving arguments
@@ -78,6 +55,29 @@ if args.load_best_model_at_end:
 if not args.warning:
     warnings.filterwarnings("ignore")
 
+# * setting up the logging
+logger = logging.getLogger(f"train_{args.lang}_{args.checkpoint}")
+logger.setLevel(logger.DEBUG)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+
+# setting up the file handler
+fh = logging.FileHandler(args.log)
+fh.setLevel(logger.DEBUG)
+
+# setting up the console handler
+ch = logging.StreamHandler(sys.stdout)
+ch.setLevel(logger.DEBUG)
+
+# setting up the formatter
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+
+# adding the handlers to the logger
+logger.addHandler(fh)
+logger.addHandler(ch)
+
+logger.debug("Logging setup complete")
+logger.info(f"Arguments: {args}")
 # * load the dataset
 
 # load the dataset for the specified language
@@ -95,7 +95,10 @@ lang_set["VAL"] = lang_set["TRAIN"].sample(frac=args.validation_split, random_st
 lang_set["TRAIN"] = lang_set["TRAIN"].drop(lang_set["VAL"].index)
 
 
-log_message("loaded the datasets")
+logger.debug("loaded the datasets")
+logger.info(f"Training set: {len(lang_set['TRAIN'])}")
+logger.info(f"Validation set: {len(lang_set['VAL'])}")
+logger.info(f"Test set: {len(lang_set['TEST'])}")
 
 # %%
 # * map the rags to corresponding integers
@@ -118,7 +121,8 @@ for item in ["TEST", "TRAIN", "VAL"]:
     df['morpheme'] = df['morpheme'].apply(lambda x: x.split("_"))
     df['tag'] = df['tag'].apply(lambda x: extract_tag(x))
 
-log_message("mapped the input")
+logger.debug("mapped the input")
+logger.info(f"No. of tags: {len(mappings)}")
 
 # %%
 # * create the dataset
@@ -129,18 +133,17 @@ dataset = {
 }
 
 lang_set = DatasetDict(dataset)
-log_message("datasets created")
+logger.debug("datasets created")
 
 # %%
 # * loading the tokenizer and model
-load_start = time.time()
 from transformers import XLMRobertaTokenizerFast, AutoModelForTokenClassification
 checkpoint = args.checkpoint
 tokenizer = XLMRobertaTokenizerFast.from_pretrained(checkpoint, cache_dir=".cache")
 model = AutoModelForTokenClassification.from_pretrained(checkpoint, num_labels=len(mappings), cache_dir=".cache")
 
-log_message(f"loaded the model and tokenizer in {format_time(time.time()-load_start)}")
-log_message("loaded the model and tokenizer")
+logger.debug("loaded the model and tokenizer")
+logger.info(f"Model: {checkpoint}")
 
 # %%
 # * tokenizing the input
@@ -181,7 +184,7 @@ def tokenize_and_align(example, label_all_tokens=True):
 
 tokenized_dataset = lang_set.map(tokenize_and_align, batched=True)
 
-log_message("tokenized the dataset")
+logger.debug("tokenized the dataset")
 
 # %%
 # * loading the arguments and training the model
@@ -261,7 +264,7 @@ trainer = Trainer(
     compute_metrics=compute_metrics
 )
 
-log_message("added the trainer")
+logger.debug("added the trainer")
 
 # %%
 # * saving the model, tokenizer and mappings
@@ -278,11 +281,12 @@ model.config.label2id = mappings
 
 json.dump(config, open(f"{args.output}/config.json", "w"))
 
+logger.debug("saved the model, tokenizer and mappings")
 # %%
 # * training the model
 # check if the model is to be resumed from a checkpoint
 if args.resume_from_checkpoint:
-    log_message("checking for checkpoint")
+    logger.debug("checking for checkpoint")
     dirs = os.listdir(f"{args.output}")
     if any([x for x in dirs if "checkpoint" in x]):
         resume_points = [x for x in dirs if "checkpoint" in x]
@@ -290,24 +294,29 @@ if args.resume_from_checkpoint:
         # get the checkpoint with the highest number of steps
         resume_point = resume_points[np.argmax(steps)]
         args.resume_from_checkpoint = f"{args.output}/{resume_point}"
+        logger.info(f"Resuming from checkpoint: {args.resume_from_checkpoint}")
+        logger.info(f"Resuming from step: {max(steps)}")
+    else:
+        args.resume_from_checkpoint = None
+        logger.warning("No checkpoint found. Training from scratch.")
 
 trainer.train(resume_from_checkpoint=args.resume_from_checkpoint)
 
 # %%
 # * evaluating the model on the test set
-log_message("evaluating the model on the test set: run 1")
+logger.debug("evaluating the model on the test set: run 1")
 x = trainer.evaluate(tokenized_dataset["test"])
 
-print(x)
-log_message("evaluation complete")
+logger.debug("evaluation complete")
+logger.info(f"Results: {x}")
 
 # * testing the model
 from transformers import pipeline
 from seqeval.metrics import f1_score, precision_score, recall_score, classification_report
 
-log_message("Creating the pipeline")
+logger.debug("Creating the pipeline")
 nlp = pipeline("ner", model=model, tokenizer=tokenizer)
-log_message("Pipeline created")
+logger.debug("Pipeline created")
 
 # %%
 # * formatting the NER results
@@ -368,7 +377,7 @@ test_set = lang_set["test"]
 references = []
 predictions = []
 
-log_message("Predicting the tags for the test set")
+logger.debug("Predicting the tags for the test set")
 for i in range(len(test_set)):
     sentence = " ".join(test_set[i]["morpheme"])
     ner_results = nlp(sentence)
@@ -380,19 +389,23 @@ for i in range(len(test_set)):
     predictions.append(tags)
     references.append(expected_tags)
 
-log_message("Predictions complete")
+logger.debug("Predictions complete")
 # %%
 # * evaluating the model on the classification report of the test set
 
-log_message("Evaluating the model on the test set: run 2")
+logger.debug("Evaluating the model on the test set: run 2")
+metric = None
 if args.metric == "all":
-    print(classification_report(references, predictions))
+    metric = classification_report
 elif args.metric == "f1":
-    print(f1_score(references, predictions))
+    metric = f1_score
 elif args.metric == "precision":
-    print(precision_score(references, predictions))
+    metric = precision_score
 elif args.metric == "recall":
-    print(recall_score(references, predictions))
+    metric = recall_score
 
-log_message("Evaluation complete")
-log_message("Script complete")
+results = metric(references, predictions)
+logger.info(f"Results: {results}")
+
+logger.debug("Evaluation complete")
+logger.debug("Script complete")
