@@ -283,7 +283,16 @@ json.dump(config, open(f"{args.output}/config.json", "w"))
 
 # %%
 # * training the model
-trainer.train(resume_from_checkpoint="models/xlm-roberta-large_NR/checkpoint-17500")
+# check if the model is to be resumed from a checkpoint
+if args.resume_from_checkpoint:
+    log_message("checking for checkpoint")
+    dirs = os.listdir(f"{args.output}")
+    resume_points = [x for x in dirs if "checkpoint" in x]
+    steps = [int(x.split("-")[1]) for x in checkpoint]
+    resume_point = resume_points[np.argmax(steps)]
+    args.resume_from_checkpoint = f"{args.output}/{resume_point}"
+
+trainer.train(resume_from_checkpoint=args.resume_from_checkpoint)
 
 # %%
 # * evaluating the model on the test set
