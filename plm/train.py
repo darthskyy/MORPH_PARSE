@@ -47,14 +47,14 @@ parser.add_argument("--epochs", type=int, default=1, help="The number of epochs 
 parser.add_argument("--batch_size", type=int, default=16, help="The batch size to use for training and evaluation.")
 parser.add_argument("--learning_rate", type=float, default=2e-5, help="The learning rate to use for training.")
 parser.add_argument("--weight_decay", type=float, default=0.01, help="The weight decay to use for training.")
-parser.add_argument("--evaluation_strategy", type=str, default="epoch", help="The evaluation strategy to use for training.")
+parser.add_argument("--evaluation_strategy", type=str, default="steps", help="The evaluation strategy to use for training.", choices=["epoch", "steps"])
 parser.add_argument("--validation_split", type=float, default=0.1, help="The fraction of the training data to use for validation.")
 parser.add_argument("--save_steps", type=int, default=500, help="The number of steps to save the model after.")
 parser.add_argument("--save_total_limit", type=int, default=2, help="The total number of models to save.")
 parser.add_argument("--metric", type=str, default="all", help="The metric to use for evaluation.", choices=["all", "f1", "precision", "recall"])
 
 # training flags
-parser.add_argument("--load_best_model_at_end", type=bool, default=True, help="Whether to load the best model at the end of training.")
+parser.add_argument("--load_best_model_at_end", action="store_true", help="Whether to load the best model at the end of training.")
 parser.add_argument("--metric_for_best_model", type=str, default="loss", help="The metric to use for the best model.")
 parser.add_argument("--greater_is_better", type=bool, default=False, help="Whether a greater value of the metric is better.")
 parser.add_argument("--warning", type=bool, default=False, help="Whether to show warnings or not.")
@@ -66,6 +66,13 @@ parser.add_argument("--log", type=str, default="train.log", help="The log file t
 parser.add_argument("--verbose", type=bool, default=True, help="Whether to show verbose output or not.")
 
 args = parser.parse_args()
+
+# * checking correctness of the arguments in relation to each other
+if args.evaluation_strategy == "steps":
+    assert args.save_steps, "The save steps must be specified when using steps evaluation strategy."
+
+if args.load_best_model_at_end:
+    assert args.evaluation_strategy == "steps", "The evaluation strategy must be steps when loading the best model at the end."
 
 # * show warnings if the warning flag is set
 if not args.warning:
@@ -194,7 +201,7 @@ train_args = TrainingArguments(
     logging_dir=args.output+"/logs",
     save_steps=args.save_steps,
     save_total_limit=args.save_total_limit,
-    disable_tqdm=True,
+    disable_tqdm=not args.debug,
     load_best_model_at_end=args.load_best_model_at_end,
     metric_for_best_model=args.metric_for_best_model,
     greater_is_better=args.greater_is_better,
@@ -247,7 +254,6 @@ def compute_metrics(eval_preds):
 # %%
 # * adding the trainer
 from transformers import Trainer
-model = AutoModelForTokenClassification.from_pretrained("models/xlm-roberta-large_NR/checkpoint-17500", num_labels=len(mappings), cache_dir=".cache")
 trainer = Trainer(
     model=model,
     args=train_args,
@@ -263,7 +269,6 @@ log_message("added the trainer")
 # %%
 # * saving the model, tokenizer and mappings
 import json
-args.output = "models/xlm-roberta-large_NR/checkpoint-17500"
 model.save_pretrained(args.output)
 tokenizer.save_pretrained(args.output)
 
@@ -278,7 +283,7 @@ json.dump(config, open(f"{args.output}/config.json", "w"))
 
 # %%
 # * training the model
-trainer.train(resume_from_checkpoint=args.resume_from_checkpoint)
+trainer.train(resume_from_checkpoint="models/xlm-roberta-large_NR/checkpoint-17500")
 
 # %%
 # * evaluating the model on the test set
