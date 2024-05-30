@@ -34,26 +34,37 @@ def log_message(message):
     print(f"{format_time(time.time()-absolute_start)}\t-\t{message}")
 # * load the arguments from the command line
 parser = argparse.ArgumentParser(description="Parsing inputs for training the model")
+# model data, loading and saving arguments
 parser.add_argument("--data", type=str, default="../data", help="The directory where the data is stored.")
+parser.add_argument("--lang", type=str, default="NR", help="The language to train the model on.", choices=["NR","SS","XH","ZU"])
 parser.add_argument("--checkpoint", type=str, default="xlm-roberta-base", help="The pretrained checkpoint to use for the model. Must be a model that supports token classification.")
+parser.add_argument("--resume_from_checkpoint", action="store_true", help="Whether to resume training from a checkpoint.")
 parser.add_argument("--output", type=str, default="xlmr", help="The output directory for the model in the models directory.")
+
+# training arguments
+parser.add_argument("--seed", type=int, default=42, help="The seed to use for reproducibility.")
 parser.add_argument("--epochs", type=int, default=1, help="The number of epochs to train the model for.")
 parser.add_argument("--batch_size", type=int, default=16, help="The batch size to use for training and evaluation.")
 parser.add_argument("--learning_rate", type=float, default=2e-5, help="The learning rate to use for training.")
 parser.add_argument("--weight_decay", type=float, default=0.01, help="The weight decay to use for training.")
 parser.add_argument("--evaluation_strategy", type=str, default="epoch", help="The evaluation strategy to use for training.")
-parser.add_argument("--lang", type=str, default="NR", help="The language to train the model on.", choices=["NR","SS","XH","ZU"])
 parser.add_argument("--validation_split", type=float, default=0.1, help="The fraction of the training data to use for validation.")
 parser.add_argument("--save_steps", type=int, default=500, help="The number of steps to save the model after.")
 parser.add_argument("--save_total_limit", type=int, default=2, help="The total number of models to save.")
 parser.add_argument("--metric", type=str, default="all", help="The metric to use for evaluation.", choices=["all", "f1", "precision", "recall"])
+
+# training flags
 parser.add_argument("--load_best_model_at_end", type=bool, default=True, help="Whether to load the best model at the end of training.")
 parser.add_argument("--metric_for_best_model", type=str, default="loss", help="The metric to use for the best model.")
 parser.add_argument("--greater_is_better", type=bool, default=False, help="Whether a greater value of the metric is better.")
-parser.add_argument("--resume_from_checkpoint", type=bool, default=False, help="Whether to resume training from a checkpoint.")
 parser.add_argument("--warning", type=bool, default=False, help="Whether to show warnings or not.")
+
+# debugging and logging
 parser.add_argument("--f", type=str, default="morpheme", help="The field to use for the morphemes.")
 parser.add_argument("--debug", type=bool, default=True, help="Whether to run the script in debug mode.")
+parser.add_argument("--log", type=str, default="train.log", help="The log file to write to.")
+parser.add_argument("--verbose", type=bool, default=True, help="Whether to show verbose output or not.")
+
 args = parser.parse_args()
 
 # * show warnings if the warning flag is set
@@ -76,7 +87,7 @@ lang_set = {
 
 # split the training data into training and validation sets
 
-lang_set["VAL"] = lang_set["TRAIN"].sample(frac=args.validation_split, random_state=42)
+lang_set["VAL"] = lang_set["TRAIN"].sample(frac=args.validation_split, random_state=args.seed)
 lang_set["TRAIN"] = lang_set["TRAIN"].drop(lang_set["VAL"].index)
 
 
@@ -118,11 +129,13 @@ log_message("datasets created")
 
 # %%
 # * loading the tokenizer and model
+load_start = time.time()
 from transformers import XLMRobertaTokenizerFast, AutoModelForTokenClassification
 checkpoint = args.checkpoint
 tokenizer = XLMRobertaTokenizerFast.from_pretrained(checkpoint)
 model = AutoModelForTokenClassification.from_pretrained(checkpoint, num_labels=len(mappings))
 
+log_message(f"loaded the model and tokenizer in {format_time(time.time()-load_start)}")
 log_message("loaded the model and tokenizer")
 
 # %%
@@ -184,7 +197,9 @@ train_args = TrainingArguments(
     disable_tqdm=True,
     load_best_model_at_end=args.load_best_model_at_end,
     metric_for_best_model=args.metric_for_best_model,
-    greater_is_better=args.greater_is_better
+    greater_is_better=args.greater_is_better,
+    resume_from_checkpoint=args.resume_from_checkpoint,
+    seed=args.seed,
 )
 
 # print all the entered args
