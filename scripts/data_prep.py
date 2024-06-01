@@ -1,3 +1,4 @@
+import argparse
 import re
 import os
 
@@ -40,10 +41,19 @@ def main():
     # script/
     #   data_prep.py
 
+    parser = argparse.ArgumentParser(description='Format the SADII files.')
+    parser.add_argument('--data', type=str, default='../data', help='The directory containing the SADII files.')
+    parser.add_argument('--clean', action='store_true', help='Remove the source files after formatting them.')
+    args = parser.parse_args()
+
+    if args.data == '../data':
+        print("Please specify the directory containing the SADII files.")
+        return
+
     # outputs the files in the following format:
     # word{tab}canonical_segmentation{tab}morpholgical_parse
     for dir in dirs:
-        for in_file in os.listdir(f'../data/{dir}'):
+        for in_file in os.listdir(os.path.join(args.data, dir)):
             # Skip the English files
             if 'EN' in in_file:
                 continue
@@ -52,15 +62,22 @@ def main():
             lang = in_file.split('.')[1]
 
             # Read the lines of the file and remove the lines with the <LINE#> tag
-            lines = read_lines(os.path.join(f'../data/{dir}', in_file))
+            lines = read_lines(os.path.join(os.path.join(args.data, dir), in_file))
             lines = [line for line in lines if '<LINE#' not in line]
             lines = [format_line(line) for line in lines]
             lines = ["word\tseg\tparse"] + lines
 
             # Write the formatted lines to a new file
             out_file = out_name_format.format(lang, dir)
-            write_lines(os.path.join(f'../data/{dir}', out_file), lines)
+            write_lines(os.path.join(args.data, dir, out_file), lines)
 
+            # Remove the source file if the --clean flag is set
+            if args.clean:
+                os.remove(os.path.join(os.path.join(args.data, dir), in_file))
+
+    if args.clean:
+        # remove the Protocols dire
+        print("Source files removed.")
 
 if __name__ == '__main__':
     main()
