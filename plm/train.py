@@ -12,6 +12,7 @@ import sys
 # * load the arguments from the command line
 parser = argparse.ArgumentParser(description="Parsing inputs for training the model")
 # model data, loading and saving arguments
+parser.add_argument("--server", type=str, default="local", help="The server to run the script on. If this is set to anything other than local, data directory will be inferred.", choices=["local", "uct", "nicis"])
 parser.add_argument("--data", type=str, default="../data", help="The directory where the data is stored.")
 parser.add_argument("--lang", type=str, default="NR", help="The language to train the model on.", choices=["NR","SS","XH","ZU"])
 parser.add_argument("--checkpoint", type=str, default="xlm-roberta-base", help="The pretrained checkpoint to use for the model. Must be a model that supports token classification.")
@@ -80,15 +81,38 @@ logger.debug("Logging setup complete")
 logger.info(f"Arguments: {args}")
 # * load the dataset
 
+if args.server != "local":
+    base_dir = os.path.expanduser("~")
+    if args.server == "uct":
+        suffix = "MORPH_PARSE"
+    elif args.server == "nicis":
+        suffix = "lustre/MORPH_PARSE"
+    args.data = os.path.join(base_dir, suffix)
+    args.output = os.path.join(base_dir, suffix, args.output)
+    logger.info(f"Server: {args.server}")
+    logger.info(f"Inferred data directory: {args.data}")
+    logger.info(f"Inferred output directory: {args.output}")
+else:
+    args.data = os.path.abspath(args.data)
+    args.output = os.path.abspath(args.output)
+    logger.info(f"Data directory: {args.data}")
+    logger.info(f"Output directory: {args.output}")
+
 # load the dataset for the specified language
 column_names = ["word", "parsed", "morpheme", "tag"]
-lang_set = {
-    "TRAIN": pd.read_csv(f"{args.data}/TRAIN/{args.lang}_TRAIN.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names)
-    ,
-    "TEST": pd.read_csv(f"{args.data}/TEST/{args.lang}_TEST.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names,)
-    ,
-}
 
+try:
+    lang_set = {
+        "TRAIN": pd.read_csv(f"{args.data}/TRAIN/{args.lang}_TRAIN.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names)
+        ,
+        "TEST": pd.read_csv(f"{args.data}/TEST/{args.lang}_TEST.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names,)
+        ,
+    }
+except FileNotFoundError as e:
+    logger.error(f"File not found: {e}")
+    logger.info(f"Files can be found for download at: https://repo.sadilar.org/handle/20.500.12185/546.")
+    logger.info("Please download the files and place them in the data directory. (or use the --download_data flag to download the data)")
+    sys.exit(1)
 # split the training data into training and validation sets
 
 lang_set["VAL"] = lang_set["TRAIN"].sample(frac=args.validation_split, random_state=args.seed)
@@ -298,7 +322,7 @@ if args.resume_from_checkpoint:
         logger.info(f"Resuming from step: {max(steps)}")
     else:
         args.resume_from_checkpoint = None
-        logger.warning("No checkpoint found. Training from scratch.")
+        logger.warning("No checkpoint found. Training from scratch.") 
 
 trainer.train(resume_from_checkpoint=args.resume_from_checkpoint)
 
