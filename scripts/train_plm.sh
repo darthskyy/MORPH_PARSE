@@ -1,16 +1,23 @@
 #!/bin/bash
 #PBS -N XH_XLMRL
 #PBS -q gpu_1
-#PBS -l select=1:ncpus=9:ngpus=1
+#PBS -l select=1:ncpus=2:ngpus=1
 #PBS -P CSCI1674
 #PBS -l walltime=12:00:00
 #PBS -m abe
 #PBS -M mwrsim003@myuct.ac.za
 ulimit -s unlimited
 
-source /mnt/lustre/users/smawere/MORPH_PARSE/myenv/bin/activate
+echo "Starting script at $(date)"
 cd /mnt/lustre/users/smawere/MORPH_PARSE
+module purge
+module load chpc/python/anaconda/3-2021.05
+module load chpc/cuda/11.2/PCIe/11.2
 
+echo "Installing requirements"
+pip3 install -r requirements.txt
+
+echo "Training PLM"
 data=data
 checkpoint=xlm-roberta-large
 lang=XH
