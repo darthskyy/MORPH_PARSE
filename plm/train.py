@@ -8,6 +8,7 @@ import warnings
 import time
 import logging
 import sys
+import torch
 
 # * load the arguments from the command line
 parser = argparse.ArgumentParser(description="Parsing inputs for training the model")
@@ -98,9 +99,14 @@ else:
     logger.info(f"Data directory: {args.data}")
     logger.info(f"Output directory: {args.output}")
 
+# * checking for gpu availability
+USING_GPU = torch.cuda.is_available()
+logger.info(f"Using GPU: {USING_GPU}")
+
 # load the dataset for the specified language
 column_names = ["word", "parsed", "morpheme", "tag"]
 
+# TODO add the download data flag
 try:
     lang_set = {
         "TRAIN": pd.read_csv(f"{args.data}/TRAIN/{args.lang}_TRAIN.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names)
@@ -169,6 +175,9 @@ model = AutoModelForTokenClassification.from_pretrained(checkpoint, num_labels=l
 logger.debug("loaded the model and tokenizer")
 logger.info(f"Model: {checkpoint}")
 
+if USING_GPU:
+    model.to("cuda")
+    logger.info("Model on GPU")
 # %%
 # * tokenizing the input
 def tokenize_and_align(example, label_all_tokens=True):
@@ -339,7 +348,10 @@ from transformers import pipeline
 from seqeval.metrics import f1_score, precision_score, recall_score, classification_report
 
 logger.debug("Creating the pipeline")
-nlp = pipeline("ner", model=model, tokenizer=tokenizer)
+if USING_GPU:
+    nlp = pipeline("ner", model=model, tokenizer=tokenizer, device=0, batch_size=16)
+else:
+    nlp = pipeline("ner", model=model, tokenizer=tokenizer)
 logger.debug("Pipeline created")
 
 # %%
