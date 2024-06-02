@@ -46,7 +46,7 @@ python3 plm/train.py \
     --validation_split $validation_split \
     --save_steps $save_steps \
     --save_total_limit $save_total_limit \
-    --load_best_model_at_end $load_best_model_at_end \
+    --load_best_model_at_end \
     --metric_for_best_model $metric_for_best_model \
     --greater_is_better $greater_is_better \
-    --resume_from_checkpoint $resume_from_checkpoint
+    --resume_from_checkpoint
