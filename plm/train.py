@@ -60,7 +60,7 @@ if not args.warning:
 # * setting up the logging
 logger = logging.getLogger(f"train_{args.lang}_{args.checkpoint}")
 logger.setLevel("DEBUG")
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)-8s - %(message)s")  # Modified line
 
 # setting up the file handler
 fh = logging.FileHandler(args.log)
