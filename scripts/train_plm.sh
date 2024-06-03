@@ -51,4 +51,7 @@ for lang in NR SS XH ZU; do
         --greater_is_better $greater_is_better \
         --resume_from_checkpoint \
         --log train${lang}.log
+    
+    mv train${lang}.log $output_dir
+    echo "Finished training PLM for $lang"
 done
