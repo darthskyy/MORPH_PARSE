@@ -79,7 +79,19 @@ logger.addHandler(fh)
 logger.addHandler(ch)
 
 logger.debug("Logging setup complete")
-logger.info(f"Arguments: {args}")
+# format the arguments better
+def format_args(args):
+    out = ""
+    for arg in vars(args):
+        # put quotes around strings
+        if isinstance(getattr(args, arg), str):
+            out += f"\t{arg:25}: '{getattr(args, arg)}'\n"
+        else:
+            out += f"\t{arg:25}: {getattr(args, arg)}\n"
+    return out
+
+logger.info(f"\nSetup Arguments Parsed\n{format_args(args)}")
+
 # * load the dataset
 
 if args.server != "local":
