@@ -30,6 +30,7 @@ load_best_model_at_end=True
 metric_for_best_model=loss
 greater_is_better=False
 resume_from_checkpoint=True
+log_file_prefix=train_$(date +%Y%m%d%H%M%S)
 
 for lang in NR SS XH ZU; do
     echo "Training PLM for $lang"
@@ -50,8 +51,8 @@ for lang in NR SS XH ZU; do
         --metric_for_best_model $metric_for_best_model \
         --greater_is_better $greater_is_better \
         --resume_from_checkpoint \
-        --log train${lang}.log
+        --log ${log_file_prefix}_${lang}.log
     
-    mv train${lang}.log $output_dir
+    mv ${log_file_prefix}_${lang}.log $output_dir
     echo "Finished training PLM for $lang"
 done
