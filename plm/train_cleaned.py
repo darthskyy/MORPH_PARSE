@@ -1,13 +1,20 @@
-from datasets import load_dataset, Dataset, DatasetDict, Features, Value
-import os, csv
-import pandas as pd
-import numpy as np
 import argparse
-import warnings
-import time
+import csv
+import json
 import logging
+import os
 import sys
+import warnings
+
+from datasets import Dataset, DatasetDict
+from datasets import load_metric
+import numpy as np
+import pandas as pd
 import torch
+from transformers import (XLMRobertaTokenizerFast, AutoModelForTokenClassification, DataCollatorForTokenClassification)
+from transformers import (TrainingArguments, Trainer)
+from transformers import pipeline
+from seqeval.metrics import f1_score, precision_score, recall_score, classification_report
 
 # * load the arguments from the command line
 parser = argparse.ArgumentParser(description="Parsing inputs for training the model")
@@ -278,7 +285,6 @@ logger.debug("datasets created")
 
 
 # * loading the tokenizer and model
-from transformers import XLMRobertaTokenizerFast, AutoModelForTokenClassification
 checkpoint = args.checkpoint
 tokenizer = XLMRobertaTokenizerFast.from_pretrained(checkpoint, cache_dir=".cache")
 model = AutoModelForTokenClassification.from_pretrained(checkpoint, num_labels=len(mappings), cache_dir=".cache")
@@ -332,7 +338,6 @@ logger.debug("tokenized the dataset")
 
 
 # * loading the arguments and training the model
-from transformers import TrainingArguments
 
 train_args = TrainingArguments(
     output_dir=args.output,
@@ -368,10 +373,7 @@ print(f"per device eval batch size: {train_args.per_device_eval_batch_size}")
 
 
 # * defining the compute metrics function
-from transformers import DataCollatorForTokenClassification
 data_collator = DataCollatorForTokenClassification(tokenizer)
-from datasets import load_metric
-import numpy as np
 
 metric = load_metric("seqeval")
 def compute_metrics(eval_preds):
@@ -397,7 +399,6 @@ def compute_metrics(eval_preds):
 
 
 # * adding the trainer
-from transformers import Trainer
 trainer = Trainer(
     model=model,
     args=train_args,
@@ -412,7 +413,6 @@ logger.debug("added the trainer")
 
 
 # * saving the model, tokenizer and mappings
-import json
 model.save_pretrained(args.output)
 tokenizer.save_pretrained(args.output)
 
@@ -455,8 +455,6 @@ logger.debug("evaluation complete")
 logger.info(f"Results: {x}")
 
 # * testing the model
-from transformers import pipeline
-from seqeval.metrics import f1_score, precision_score, recall_score, classification_report
 
 logger.debug("Creating the pipeline")
 if USING_GPU:
