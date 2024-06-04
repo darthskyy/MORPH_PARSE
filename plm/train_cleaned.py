@@ -234,14 +234,15 @@ USING_GPU = torch.cuda.is_available()
 logger.info("Using GPU: %s", USING_GPU)
 
 # load the dataset for the specified language
-column_names = ["word", "parsed", "morpheme", "tag"]
-
 # TODO add the download data flag
 try:
+    column_names = ["word", "parsed", "morpheme", "tag"]
+    train_path = os.path.join(args.data, "TRAIN", f"{args.lang}_TRAIN.tsv")
+    test_path = os.path.join(args.data, "TEST", f"{args.lang}_TEST.tsv")
     lang_set = {
-        "TRAIN": pd.read_csv(f"{args.data}/TRAIN/{args.lang}_TRAIN.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names)
+        "TRAIN": pd.read_csv(train_path, delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names)
         ,
-        "TEST": pd.read_csv(f"{args.data}/TEST/{args.lang}_TEST.tsv", delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names,)
+        "TEST": pd.read_csv(test_path, delimiter="\t", quoting=csv.QUOTE_NONE, names=column_names,)
         ,
     }
 except FileNotFoundError as e:
