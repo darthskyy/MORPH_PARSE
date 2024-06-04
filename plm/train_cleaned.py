@@ -38,6 +38,162 @@ def format_args(arguments):
     return out
 
 
+mappings = {}
+mappings_r = {}
+count = 0
+def extract_tag(seq: str) -> str:
+    """
+    Extract the tags from the sequence and map them to integers.
+
+    Args:
+        seq (str): The sequence of tags to extract.
+    
+    Uses:
+        mappings (dict): The dictionary to map tags to integers.
+        mappings_r (dict): The dictionary to map integers to tags.
+        count (int): The count of the number of tags.
+
+    Returns:
+        list: The list of tags mapped to integers.
+    """
+    global mappings, count, mappings_r
+    seq = seq.split("_")
+    for i, tag in enumerate(seq):
+        if tag not in mappings.keys():
+            mappings[tag] = count
+            mappings_r[count] = tag
+            count+=1
+        seq[i] = mappings[tag]
+    return seq
+
+def tokenize_and_align(example, label_all_tokens=True):
+    """
+    Tokenizes the input example and aligns the labels with the tokenized input.
+
+    Args:
+        example (dict): The input example containing the "morpheme" and "tag" fields.
+        label_all_tokens (bool, optional): Whether to include labels for all tokens. Defaults to True.
+
+    Returns:
+        dict: The tokenized input with aligned labels.
+
+    """
+    tokenized_input = tokenizer(example["morpheme"], truncation=True, is_split_into_words=True)
+    labels = []
+
+    for i, label in enumerate(example["tag"]):
+        word_ids = tokenized_input.word_ids(batch_index=i)
+
+        previous_word_idx = None
+        label_ids = []
+
+        for word_idx in word_ids:
+            if word_idx is None:
+                label_ids.append(-100)
+            elif word_idx != previous_word_idx:
+                label_ids.append(label[word_idx])
+            else:
+                label_ids.append(label[word_idx] if label_all_tokens else -100)
+            previous_word_idx = word_idx
+        
+        labels.append(label_ids)
+    
+    tokenized_input["labels"] = labels
+    return tokenized_input
+
+metric = load_metric("seqeval")
+def compute_metrics(eval_preds):
+    """
+    Compute the metrics for the model evaluation.
+
+    Args:
+    eval_preds (tuple): The tuple containing the predictions and labels.
+
+    Returns:
+    dict: A dictionary containing the precision, recall, f1 and accuracy scores.
+    """
+
+    # get the predictions and labels
+    pred_logits, labels = eval_preds
+    pred_logits = np.argmax(pred_logits, axis=2)
+
+    # get the predictions and true labels
+    # remove the -100 labels from the predictions because they are not real labels but rather morphemes
+    # split up into parts by the tokenization
+
+    # adds the mappings to the predictions and true labels with "_-" before the tag since 
+    # seqeval requires it
+    # 
+    predictions = [
+        ["_-"+mappings_r[eval_preds] for (eval_preds, l) in zip(prediction, label) if l != -100]
+        for prediction, label in zip(pred_logits, labels)
+    ]
+
+    true_labels = [
+        ["_-"+mappings_r[l] for (eval_preds, l) in zip(prediction, label) if l != -100]
+        for prediction, label in zip(pred_logits, labels)
+    ]
+
+    results = metric.compute(predictions=predictions, references=true_labels)
+
+    return {
+        "precision": results["overall_precision"],
+        "recall": results["overall_recall"],
+        "f1": results["overall_f1"] ,
+        "accuracy": results["overall_accuracy"],
+    }
+
+def format_ner_results(ner_results, model="xlmr"):
+    """
+    Format the NER results to be used for evaluation
+
+    Args:
+    ner_results (list of dictionaries): The NER results containing word and entity information.
+
+    Returns:
+    tuple: A tuple containing two lists - morphs and tags. Morphs is a list of morphemes extracted from the NER results, and tags is a list of corresponding entity tags.
+
+    Example:
+    >>> ner_results = [
+            {"word": "U", "Entity": "NPrePre15"},
+            {"word": "ku", "Entity": "BPre15"},
+            {"word": "eng", "Entity": "VRoot"},
+            {"word": "##ez", "Entity": "VRoot"},
+            {"word": "a", "Entity": "VerbTerm"}
+        ]
+    >>> format_ner_results(ner_results)
+    (["u", "ku", "engez", "a"], ["NPrePre15", "BPre15", "VRoot", "VerbTerm"])
+    """
+    morphs = []
+    tags = []
+
+    if model=="xlmr":
+        for i in range(len(ner_results)):
+            morph = ner_results[i]["word"]
+            tag = ner_results[i]["entity"]
+
+            if morph.startswith("▁"):
+                morphs.append(morph[1:])
+                if "Dem" in tag:
+                    continue
+                tags.append(tag)
+            else:
+                morphs[-1] += morph
+    elif model=="bert":
+        for i in range(len(ner_results)):
+            morph = ner_results[i]["word"]
+            tag = ner_results[i]["entity"]
+
+            if morph.startswith("##"):
+                morphs[-1] += morph[2:]
+            else:
+                morphs.append(morph)
+                if "Dem" in tag:
+                    continue
+                tags.append(tag)
+    
+    return morphs, tags
+
 # * load the arguments from the command line
 parser = argparse.ArgumentParser(description="Parsing inputs for training the model")
 # model data, loading and saving arguments
@@ -51,7 +207,7 @@ parser.add_argument(
 
 parser.add_argument(
     "--data",
-    type=str, default="../data",
+    type=str, default="./data",
     help="The directory where the data is stored."
 )
 parser.add_argument(
@@ -262,21 +418,7 @@ logger.info("Validation set: %s", len(lang_set['VAL']))
 logger.info("Test set: %s", len(lang_set['TEST']))
 
 
-# * map the rags to corresponding integers
-mappings = {}
-mappings_r = {}
-count = 0
-def extract_tag(seq: str) -> str:
-    global mappings, count
-    seq = seq.split("_")
-    for i, tag in enumerate(seq):
-        if tag not in mappings.keys():
-            mappings[tag] = count
-            mappings_r[count] = tag
-            count+=1
-        seq[i] = mappings[tag]
-    return seq
-
+# * map the tags to corresponding integers
 # map the tags to integers for the model
 for item in ["TEST", "TRAIN", "VAL"]:
     df = lang_set[item]
@@ -285,7 +427,6 @@ for item in ["TEST", "TRAIN", "VAL"]:
 
 logger.debug("mapped the input")
 logger.info("No. of tags: %s", len(mappings))
-
 
 # * create the dataset
 dataset = {
@@ -315,41 +456,6 @@ if USING_GPU:
     logger.info("Model on GPU")
 
 # * tokenizing the input
-def tokenize_and_align(example, label_all_tokens=True):
-    """
-    Tokenizes the input example and aligns the labels with the tokenized input.
-
-    Args:
-        example (dict): The input example containing the "morpheme" and "tag" fields.
-        label_all_tokens (bool, optional): Whether to include labels for all tokens. Defaults to True.
-
-    Returns:
-        dict: The tokenized input with aligned labels.
-
-    """
-    tokenized_input = tokenizer(example["morpheme"], truncation=True, is_split_into_words=True)
-    labels = []
-
-    for i, label in enumerate(example["tag"]):
-        word_ids = tokenized_input.word_ids(batch_index=i)
-
-        previous_word_idx = None
-        label_ids = []
-
-        for word_idx in word_ids:
-            if word_idx is None:
-                label_ids.append(-100)
-            elif word_idx != previous_word_idx:
-                label_ids.append(label[word_idx])
-            else:
-                label_ids.append(label[word_idx] if label_all_tokens else -100)
-            previous_word_idx = word_idx
-        
-        labels.append(label_ids)
-    
-    tokenized_input["labels"] = labels
-    return tokenized_input
-
 tokenized_dataset = lang_set.map(tokenize_and_align, batched=True)
 logger.debug("tokenized the dataset")
 
@@ -390,50 +496,6 @@ print(f"per device eval batch size: {train_args.per_device_eval_batch_size}")
 
 # * defining the compute metrics function
 data_collator = DataCollatorForTokenClassification(tokenizer)
-
-# using the seqeval metric for computation
-metric = load_metric("seqeval")
-def compute_metrics(eval_preds):
-    """
-    Compute the metrics for the model evaluation.
-
-    Args:
-    eval_preds (tuple): The tuple containing the predictions and labels.
-
-    Returns:
-    dict: A dictionary containing the precision, recall, f1 and accuracy scores.
-    """
-
-    # get the predictions and labels
-    pred_logits, labels = eval_preds
-    pred_logits = np.argmax(pred_logits, axis=2)
-
-    # get the predictions and true labels
-    # remove the -100 labels from the predictions because they are not real labels but rather morphemes
-    # split up into parts by the tokenization
-
-    # adds the mappings to the predictions and true labels with "_-" before the tag since 
-    # seqeval requires it
-    # 
-    predictions = [
-        ["_-"+mappings_r[eval_preds] for (eval_preds, l) in zip(prediction, label) if l != -100]
-        for prediction, label in zip(pred_logits, labels)
-    ]
-
-    true_labels = [
-        ["_-"+mappings_r[l] for (eval_preds, l) in zip(prediction, label) if l != -100]
-        for prediction, label in zip(pred_logits, labels)
-    ]
-
-    results = metric.compute(predictions=predictions, references=true_labels)
-
-    return {
-        "precision": results["overall_precision"],
-        "recall": results["overall_recall"],
-        "f1": results["overall_f1"] ,
-        "accuracy": results["overall_accuracy"],
-    }
-
 
 # * adding the trainer
 trainer = Trainer(
@@ -506,57 +568,6 @@ logger.debug("Pipeline created")
 
 
 # * formatting the NER results
-def format_ner_results(ner_results, model="xlmr"):
-    """
-    Format the NER results to be used for evaluation
-
-    Args:
-    ner_results (list of dictionaries): The NER results containing word and entity information.
-
-    Returns:
-    tuple: A tuple containing two lists - morphs and tags. Morphs is a list of morphemes extracted from the NER results, and tags is a list of corresponding entity tags.
-
-    Example:
-    >>> ner_results = [
-            {"word": "U", "Entity": "NPrePre15"},
-            {"word": "ku", "Entity": "BPre15"},
-            {"word": "eng", "Entity": "VRoot"},
-            {"word": "##ez", "Entity": "VRoot"},
-            {"word": "a", "Entity": "VerbTerm"}
-        ]
-    >>> format_ner_results(ner_results)
-    (["u", "ku", "engez", "a"], ["NPrePre15", "BPre15", "VRoot", "VerbTerm"])
-    """
-    morphs = []
-    tags = []
-
-    if model=="xlmr":
-        for i in range(len(ner_results)):
-            morph = ner_results[i]["word"]
-            tag = ner_results[i]["entity"]
-
-            if morph.startswith("▁"):
-                morphs.append(morph[1:])
-                if "Dem" in tag:
-                    continue
-                tags.append(tag)
-            else:
-                morphs[-1] += morph
-    elif model=="bert":
-        for i in range(len(ner_results)):
-            morph = ner_results[i]["word"]
-            tag = ner_results[i]["entity"]
-
-            if morph.startswith("##"):
-                morphs[-1] += morph[2:]
-            else:
-                morphs.append(morph)
-                if "Dem" in tag:
-                    continue
-                tags.append(tag)
-    
-    return morphs, tags
-
 
 # * predicting the tags for the test set
 test_set = lang_set["test"]
