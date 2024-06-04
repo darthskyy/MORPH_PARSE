@@ -237,11 +237,11 @@ except FileNotFoundError as e:
     logger.info(f"Files can be found for download at: https://repo.sadilar.org/handle/20.500.12185/546.")
     logger.info("Please download the files and place them in the data directory. (or use the --download_data flag to download the data)")
     sys.exit(1)
-# split the training data into training and validation sets
 
+
+# split the training data into training and validation sets
 lang_set["VAL"] = lang_set["TRAIN"].sample(frac=args.validation_split, random_state=args.seed)
 lang_set["TRAIN"] = lang_set["TRAIN"].drop(lang_set["VAL"].index)
-
 
 logger.debug("loaded the datasets")
 logger.info(f"Training set: {len(lang_set['TRAIN'])}")
@@ -264,6 +264,7 @@ def extract_tag(seq: str) -> str:
         seq[i] = mappings[tag]
     return seq
 
+# map the tags to integers for the model
 for item in ["TEST", "TRAIN", "VAL"]:
     df = lang_set[item]
     df['morpheme'] = df['morpheme'].apply(lambda x: x.split("_"))
@@ -286,8 +287,12 @@ logger.debug("datasets created")
 
 # * loading the tokenizer and model
 checkpoint = args.checkpoint
-tokenizer = XLMRobertaTokenizerFast.from_pretrained(checkpoint, cache_dir=".cache")
-model = AutoModelForTokenClassification.from_pretrained(checkpoint, num_labels=len(mappings), cache_dir=".cache")
+tokenizer = XLMRobertaTokenizerFast.from_pretrained(
+    checkpoint, cache_dir=".cache"
+)
+model = AutoModelForTokenClassification.from_pretrained(
+    checkpoint, num_labels=len(mappings), cache_dir=".cache"
+)
 
 logger.debug("loaded the model and tokenizer")
 logger.info(f"Model: {checkpoint}")
@@ -333,12 +338,10 @@ def tokenize_and_align(example, label_all_tokens=True):
     return tokenized_input
 
 tokenized_dataset = lang_set.map(tokenize_and_align, batched=True)
-
 logger.debug("tokenized the dataset")
 
 
 # * loading the arguments and training the model
-
 train_args = TrainingArguments(
     output_dir=args.output,
     evaluation_strategy=args.evaluation_strategy,
@@ -375,17 +378,38 @@ print(f"per device eval batch size: {train_args.per_device_eval_batch_size}")
 # * defining the compute metrics function
 data_collator = DataCollatorForTokenClassification(tokenizer)
 
+# using the seqeval metric for computation
 metric = load_metric("seqeval")
 def compute_metrics(eval_preds):
+    """
+    Compute the metrics for the model evaluation.
+
+    Args:
+    eval_preds (tuple): The tuple containing the predictions and labels.
+
+    Returns:
+    dict: A dictionary containing the precision, recall, f1 and accuracy scores.
+    """
+
+    # get the predictions and labels
     pred_logits, labels = eval_preds
     pred_logits = np.argmax(pred_logits, axis=2)
 
+    # get the predictions and true labels
+    # remove the -100 labels from the predictions because they are not real labels but rather morphemes
+    # split up into parts by the tokenization
+
+    # adds the mappings to the predictions and true labels with "_-" before the tag since 
+    # seqeval requires it
+    # 
     predictions = [
-        ["_-"+mappings_r[eval_preds] for (eval_preds, l) in zip(prediction, label) if l != -100] for prediction, label in zip(pred_logits, labels)
+        ["_-"+mappings_r[eval_preds] for (eval_preds, l) in zip(prediction, label) if l != -100]
+        for prediction, label in zip(pred_logits, labels)
     ]
 
     true_labels = [
-        ["_-"+mappings_r[l] for (eval_preds, l) in zip(prediction, label) if l != -100] for prediction, label in zip(pred_logits, labels)
+        ["_-"+mappings_r[l] for (eval_preds, l) in zip(prediction, label) if l != -100]
+        for prediction, label in zip(pred_logits, labels)
     ]
 
     results = metric.compute(predictions=predictions, references=true_labels)
@@ -416,6 +440,7 @@ logger.debug("added the trainer")
 model.save_pretrained(args.output)
 tokenizer.save_pretrained(args.output)
 
+# save the mappings in the config file
 config = json.load(open(f"{args.output}/config.json"))
 config["id2label"] = mappings_r
 config["label2id"] = mappings
@@ -443,9 +468,12 @@ if args.resume_from_checkpoint:
     else:
         args.resume_from_checkpoint = None
         logger.warning("No checkpoint found. Training from scratch.") 
+else:
+    logger.info("Training from scratch.")
 
+logger.debug("training the model")
 trainer.train(resume_from_checkpoint=args.resume_from_checkpoint)
-
+logger.debug("training complete")
 
 # * evaluating the model on the test set
 logger.debug("evaluating the model on the test set: run 1")
