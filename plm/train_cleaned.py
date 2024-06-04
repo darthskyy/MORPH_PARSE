@@ -16,6 +16,28 @@ from transformers import (TrainingArguments, Trainer)
 from transformers import pipeline
 from seqeval.metrics import f1_score, precision_score, recall_score, classification_report
 
+# * functions
+
+def format_args(arguments):
+    """
+    Format the arguments for better printing.
+
+    Args:
+        arguments (argparse.Namespace): The arguments to format.
+
+    Returns:
+        str: The formatted arguments.
+    """
+    out = ""
+    for arg in vars(arguments):
+        # put quotes around strings
+        if isinstance(getattr(arguments, arg), str):
+            out += f"\t{arg:25}: '{getattr(arguments, arg)}'\n"
+        else:
+            out += f"\t{arg:25}: {getattr(arguments, arg)}\n"
+    return out
+
+
 # * load the arguments from the command line
 parser = argparse.ArgumentParser(description="Parsing inputs for training the model")
 # model data, loading and saving arguments
@@ -186,16 +208,6 @@ logger.addHandler(ch)
 
 logger.debug("Logging setup complete")
 # format the arguments better
-def format_args(args):
-    out = ""
-    for arg in vars(args):
-        # put quotes around strings
-        if isinstance(getattr(args, arg), str):
-            out += f"\t{arg:25}: '{getattr(args, arg)}'\n"
-        else:
-            out += f"\t{arg:25}: {getattr(args, arg)}\n"
-    return out
-
 logger.info("\nSetup Arguments Parsed\n%s", format_args(args))
 
 # * load the dataset
