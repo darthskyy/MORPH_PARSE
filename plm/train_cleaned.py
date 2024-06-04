@@ -196,7 +196,7 @@ def format_args(args):
             out += f"\t{arg:25}: {getattr(args, arg)}\n"
     return out
 
-logger.info(f"\nSetup Arguments Parsed\n{format_args(args)}")
+logger.info("\nSetup Arguments Parsed\n%s", format_args(args))
 
 # * load the dataset
 
@@ -208,18 +208,18 @@ if args.server != "local":
         suffix = "lustre/MORPH_PARSE"
     args.data = os.path.join(base_dir, suffix)
     args.output = os.path.join(base_dir, suffix, args.output)
-    logger.info(f"Server: {args.server}")
-    logger.info(f"Inferred data directory: {args.data}")
-    logger.info(f"Inferred output directory: {args.output}")
+    logger.info("Server: %s", args.server)
+    logger.info("Inferred data directory: %s", args.data)
+    logger.info("Inferred output directory: %s", args.output)
 else:
     args.data = os.path.abspath(args.data)
     args.output = os.path.abspath(args.output)
-    logger.info(f"Data directory: {args.data}")
-    logger.info(f"Output directory: {args.output}")
+    logger.info("Data directory: %s", args.data)
+    logger.info("Output directory: %s", args.output)
 
 # * checking for gpu availability
 USING_GPU = torch.cuda.is_available()
-logger.info(f"Using GPU: {USING_GPU}")
+logger.info("Using GPU: %s", USING_GPU)
 
 # load the dataset for the specified language
 column_names = ["word", "parsed", "morpheme", "tag"]
@@ -233,8 +233,8 @@ try:
         ,
     }
 except FileNotFoundError as e:
-    logger.error(f"File not found: {e}")
-    logger.info(f"Files can be found for download at: https://repo.sadilar.org/handle/20.500.12185/546.")
+    logger.error("File not found: %s", e)
+    logger.info("Files can be found for download at: https://repo.sadilar.org/handle/20.500.12185/546.")
     logger.info("Please download the files and place them in the data directory. (or use the --download_data flag to download the data)")
     sys.exit(1)
 
@@ -244,9 +244,9 @@ lang_set["VAL"] = lang_set["TRAIN"].sample(frac=args.validation_split, random_st
 lang_set["TRAIN"] = lang_set["TRAIN"].drop(lang_set["VAL"].index)
 
 logger.debug("loaded the datasets")
-logger.info(f"Training set: {len(lang_set['TRAIN'])}")
-logger.info(f"Validation set: {len(lang_set['VAL'])}")
-logger.info(f"Test set: {len(lang_set['TEST'])}")
+logger.info("Training set: %s", len(lang_set['TRAIN']))
+logger.info("Validation set: %s", len(lang_set['VAL']))
+logger.info("Test set: %s", len(lang_set['TEST']))
 
 
 # * map the rags to corresponding integers
@@ -271,7 +271,7 @@ for item in ["TEST", "TRAIN", "VAL"]:
     df['tag'] = df['tag'].apply(lambda x: extract_tag(x))
 
 logger.debug("mapped the input")
-logger.info(f"No. of tags: {len(mappings)}")
+logger.info("No. of tags: %s", len(mappings))
 
 
 # * create the dataset
@@ -295,7 +295,7 @@ model = AutoModelForTokenClassification.from_pretrained(
 )
 
 logger.debug("loaded the model and tokenizer")
-logger.info(f"Model: {checkpoint}")
+logger.info("Model: %s", checkpoint)
 
 if USING_GPU:
     model.to("cuda")
@@ -463,8 +463,8 @@ if args.resume_from_checkpoint:
         # get the checkpoint with the highest number of steps
         resume_point = resume_points[np.argmax(steps)]
         args.resume_from_checkpoint = f"{args.output}/{resume_point}"
-        logger.info(f"Resuming from checkpoint: {args.resume_from_checkpoint}")
-        logger.info(f"Resuming from step: {max(steps)}")
+        logger.info("Resuming from checkpoint: %s", args.resume_from_checkpoint)
+        logger.info("Resuming from step: %s", max(steps))
     else:
         args.resume_from_checkpoint = None
         logger.warning("No checkpoint found. Training from scratch.") 
@@ -480,7 +480,7 @@ logger.debug("evaluating the model on the test set: run 1")
 x = trainer.evaluate(tokenized_dataset["test"])
 
 logger.debug("evaluation complete")
-logger.info(f"Results: {x}")
+logger.info("Results: %s", x)
 
 # * testing the model
 
@@ -578,7 +578,7 @@ elif args.metric == "recall":
     metric = recall_score
 
 results = metric(references, predictions)
-logger.info(f"Results: {results}")
+logger.info("Results: %s", results)
 
 logger.debug("Evaluation complete")
 logger.debug("Script complete")
