@@ -208,7 +208,8 @@ class MorphParseModel():
 
         # parsing the arguments for the Trainer
         self.args = self._parse_args()
-        self.trainer = self.load_trainer()
+        self.trainer = None
+        self.load_trainer()
     
     def load(self):
         """
@@ -245,6 +246,7 @@ class MorphParseModel():
         Returns:
             None
         """
+        self.load_trainer()
         self.trainer.train()
 
     def _compute_metrics(self, eval_preds):
@@ -294,7 +296,7 @@ class MorphParseModel():
         Returns:
             Trainer: The Trainer for the model.
         """
-        return Trainer(
+        self.trainer = Trainer(
             model=self.model,
             args=TrainingArguments(**vars(self.args)),
             train_dataset=self.dataset.train,
@@ -412,6 +414,15 @@ class MorphParseModel():
         if torch.cuda.is_available():
             self.model.to("cuda")
 
+    def evaluate(self):
+        """
+        Evaluates the model.
+
+        Returns:
+            dict: A dictionary containing the precision, recall, f1 and accuracy scores.
+        """
+        return self.trainer.evaluate()
+    
     def __repr__(self):
         return f"MorphParseModel({self.language}) lr={self.args.learning_rate}, epochs={self.args.num_train_epochs}, batch_size={self.args.per_device_train_batch_size}"     
     
@@ -436,6 +447,9 @@ class MorphParseArgs():
         self.parser.add_argument(
             "--data_dir",
             type=str, default="data")
+        self.parser.add_argument(
+            "--log_file",
+            type=str, default="logs.log")
         self.parser.add_argument(
             "--language",
             type=str, default="XH", choices=["NR", "SS", "XH", "ZU"])
@@ -471,21 +485,24 @@ def main():
     model.load()
 
     # grid search for hyperparameters
-    # hyperparameters = {
-    #     "learning_rate": [1e-5, 2e-5, 3e-5],
-    #     "num_train_epochs": [3, 4, 5],
-    #     "per_device_train_batch_size": [8, 16, 32]
-    # }
+    hyperparameters = {
+        "learning_rate": [1e-5, 2e-5, 3e-5],
+        "num_train_epochs": [3, 5, 10],
+        "per_device_train_batch_size": [8, 16, 32]
+    }
 
-    # for lr in hyperparameters["learning_rate"]:
-    #     for epochs in hyperparameters["num_train_epochs"]
-    #         for batch_size in hyperparameters["per_device_train_batch_size"]:
-    #             model.args.learning_rate = lr
-    #             model.args.num_train_epochs = epochs
-    #             model.args.per_device_train_batch_size = batch_size
-    #             model.train()
-    #             model.evaluate()
-    model.train()
+    for epochs in hyperparameters["num_train_epochs"]:
+        for lr in hyperparameters["learning_rate"]:
+            for batch_size in hyperparameters["per_device_train_batch_size"]:
+                model.args.learning_rate = lr
+                model.args.num_train_epochs = epochs
+                model.args.per_device_train_batch_size = batch_size
+                print(model)
+                model.train()
+                results = model.evaluate()
+                with open(args["log_file"], "a") as f:
+                    f.write(f"Results for {model}: {results}\n")
+    # model.train()
 
 if __name__ == "__main__":
     main()
