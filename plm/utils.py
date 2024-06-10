@@ -7,6 +7,7 @@ import torch
 import numpy as np
 import pandas as pd
 from datasets import Dataset, DatasetDict, load_metric
+import evaluate
 from transformers import XLMRobertaTokenizerFast, AutoModelForTokenClassification, DataCollatorForTokenClassification
 from transformers import Trainer, TrainingArguments
 
@@ -190,7 +191,7 @@ class MorphParseModel():
         self.language = language
         self.path = path
         self.model = None
-        self.metrics = load_metric("seqeval")
+        self.metrics = evaluate.load("seqeval")
         self.loaded = False
 
         # loading the tokenizer and dataset
@@ -207,7 +208,7 @@ class MorphParseModel():
 
         # parsing the arguments for the Trainer
         self.args = self._parse_args()
-        self.trainer = self._get_trainer()
+        self.trainer = self.load_trainer()
     
     def load(self):
         """
@@ -286,7 +287,7 @@ class MorphParseModel():
             "f1": results["overall_f1"] ,
             "accuracy": results["overall_accuracy"],
         }
-    def _get_trainer(self):
+    def load_trainer(self):
         """
         Returns the Trainer for the model.
 
@@ -399,7 +400,7 @@ class MorphParseModel():
         parser.add_argument("--do_predict", action="store_true")
         """
 
-        return parser.parse_args()
+        return parser.parse_known_args()[0]
 
     def to_gpu(self):
         """
@@ -446,7 +447,7 @@ class MorphParseArgs():
             type=int, default=42)
         
 
-        self.args = self.parser.parse_args()
+        self.args = self.parser.parse_known_args()[0]
     
     def __getitem__(self, key):
         return vars(self.args)[key]
@@ -468,6 +469,22 @@ def main():
     model = MorphParseModel(
         language=args["language"], path=args["model_dir"], tokenizer=tokenizer, dataset=dataset)
     model.load()
+
+    # grid search for hyperparameters
+    # hyperparameters = {
+    #     "learning_rate": [1e-5, 2e-5, 3e-5],
+    #     "num_train_epochs": [3, 4, 5],
+    #     "per_device_train_batch_size": [8, 16, 32]
+    # }
+
+    # for lr in hyperparameters["learning_rate"]:
+    #     for epochs in hyperparameters["num_train_epochs"]
+    #         for batch_size in hyperparameters["per_device_train_batch_size"]:
+    #             model.args.learning_rate = lr
+    #             model.args.num_train_epochs = epochs
+    #             model.args.per_device_train_batch_size = batch_size
+    #             model.train()
+    #             model.evaluate()
     model.train()
 
 if __name__ == "__main__":
