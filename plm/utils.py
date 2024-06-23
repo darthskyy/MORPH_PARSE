@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 from datasets import Dataset, DatasetDict, load_metric
 import evaluate
+from seqeval.metrics import classification_report
 from transformers import XLMRobertaTokenizerFast, AutoModelForTokenClassification, DataCollatorForTokenClassification
 from transformers import Trainer, TrainingArguments
 
@@ -283,14 +284,17 @@ class MorphParseModel():
             for prediction, label in zip(pred_logits, labels)
         ]
 
-        results = self.metrics.compute(predictions=predictions, references=true_labels)
+        results = classification_report(true_labels, predictions, output_dict=True)
 
         return {
-            "precision": results["overall_precision"],
-            "recall": results["overall_recall"],
-            "f1": results["overall_f1"] ,
-            "accuracy": results["overall_accuracy"],
+            "precision": results["micro avg"]["precision"],
+            "recall": results["micro avg"]["recall"],
+            "f1": results["micro avg"]["f1-score"] ,
+            "macro-f1": results["macro avg"]["f1-score"],
+            "macro-precision": results["macro avg"]["precision"],
+            "macro-recall": results["macro avg"]["recall"],
         }
+    
     def load_trainer(self):
         """
         Returns the Trainer for the model.
