@@ -1,6 +1,8 @@
 import argparse
+from datetime import datetime
 import os
 import csv
+import warnings
 
 
 import torch
@@ -191,7 +193,7 @@ class MorphParseModel():
         self.language = language
         self.path = path
         self.model = None
-        self.metrics = evaluate.load("seqeval")
+        self.metrics = evaluate.load("seqeval", experiment_id=datetime.now().strftime("%Y%m%d%H%M%S"))
         self.loaded = False
 
         # loading the tokenizer and dataset
@@ -470,6 +472,8 @@ class MorphParseArgs():
         vars(self.args)[key] = value
 
 def main():
+    # disable the warnings
+    warnings.filterwarnings("ignore")
     # getting the Runner arguments for the program
     args = MorphParseArgs()
 
