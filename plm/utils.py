@@ -224,6 +224,9 @@ class MorphParseModel():
         self.model = AutoModelForTokenClassification.from_pretrained(self.path, num_labels=len(self.dataset.id2label), cache_dir=".cache")
         self.loaded = True
     
+    def get_model(self):
+        return self.model
+    
     def save(self):
         """
         Saves the model to the given path.
@@ -305,6 +308,10 @@ class MorphParseModel():
             compute_metrics=self._compute_metrics,
             tokenizer=self.tokenizer
         )
+    
+    def get_trainer(self):
+        self.load_trainer()
+        return self.trainer
     def _parse_args(self):
         """
         Parses the arguments for the Trainer from the command line.
