@@ -275,6 +275,7 @@ from datasets import load_metric
 import numpy as np
 
 metric = load_metric("seqeval")
+from seqeval.metrics import classification_report
 def compute_metrics(eval_preds):
     pred_logits, labels = eval_preds
     pred_logits = np.argmax(pred_logits, axis=2)
@@ -287,13 +288,15 @@ def compute_metrics(eval_preds):
         ["_-"+mappings_r[l] for (eval_preds, l) in zip(prediction, label) if l != -100] for prediction, label in zip(pred_logits, labels)
     ]
 
-    results = metric.compute(predictions=predictions, references=true_labels)
+    results = classification_report(true_labels, predictions, output_dict=True)
 
     return {
-        "precision": results["overall_precision"],
-        "recall": results["overall_recall"],
-        "f1": results["overall_f1"] ,
-        "accuracy": results["overall_accuracy"],
+        "precision": results["micro avg"]["precision"],
+        "recall": results["micro avg"]["recall"],
+        "f1": results["micro avg"]["f1-score"] ,
+        "macro-f1": results["macro avg"]["f1-score"],
+        "macro-precision": results["macro avg"]["precision"],
+        "macro-recall": results["macro avg"]["recall"],
     }
 
 # %%
@@ -345,7 +348,7 @@ if args.resume_from_checkpoint:
         args.resume_from_checkpoint = None
         logger.warning("No checkpoint found. Training from scratch.") 
 
-trainer.train(resume_from_checkpoint=args.resume_from_checkpoint)
+# trainer.train(resume_from_checkpoint=args.resume_from_checkpoint)
 
 # %%
 # * evaluating the model on the test set

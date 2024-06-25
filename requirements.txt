@@ -6,3 +6,7 @@ numpy
 seqeval
 transformers[torch]
 accelerate
+evaluate
+scikit-learn
+ray[tune]
+optuna
