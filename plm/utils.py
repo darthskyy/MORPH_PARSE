@@ -436,6 +436,15 @@ class MorphParseModel():
         """
         return self.trainer.evaluate()
     
+    def evaluate_test(self):
+        """
+        Evaluates the model on the test set.
+
+        Returns:
+            dict: A dictionary containing the precision, recall, f1 and accuracy scores.
+        """
+        return self.trainer.evaluate(self.dataset.test)
+    
     def __repr__(self):
         return f"MorphParseModel({self.language}) lr={self.args.learning_rate}, epochs={self.args.num_train_epochs}, batch_size={self.args.per_device_train_batch_size}"     
     
