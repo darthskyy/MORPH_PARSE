@@ -18,9 +18,9 @@ echo "Installing requirements"
 pip3 install -r requirements.txt
 
 language=ZU
-output_dir=plm/models/grid/${language}_search
+output_dir=plm/models/grid/${language}_search_X
 data_dir=data
-model_dir=xlm-roberta-large
-python3 plm/utils.py --language $language --output_dir $output_dir \
+model_dir=Davlan/afro-xlmr-large-76L
+python3 plm/grid_search.py --language $language --output_dir $output_dir \
     --logging_steps 200 --disable_tqdm --data_dir $data_dir --model_dir $model_dir \
     --log_file ${language}_search_X.txt --overwrite_output_dir
