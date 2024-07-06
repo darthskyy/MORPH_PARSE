@@ -11,16 +11,64 @@ import pandas as pd
 from datasets import Dataset, DatasetDict, load_metric
 import evaluate
 from seqeval.metrics import classification_report
-from transformers import XLMRobertaTokenizerFast, AutoModelForTokenClassification, DataCollatorForTokenClassification
+from transformers import (
+    XLMRobertaTokenizerFast,
+    AutoModelForTokenClassification,
+    DataCollatorForTokenClassification,
+)
 from transformers import Trainer, TrainingArguments
 
 
-class MorphParseDataset():
-    def __init__(self, language: str, path: str="data", validation_split: float=0.1, seed: int=42, tokenizer=None) -> None:
+class MorphParseDataset:
+    """
+    A class to represent a morphological parsing dataset.
+
+    Attributes:
+        language (str): The language of the dataset.
+        path (str): The path to the dataset.
+        validation_split (float): The fraction of the training data to be used for validation.
+        seed (int): The seed for the random number generator.
+        tokenizer (XLMRobertaTokenizerFast): The tokenizer to be used for tokenization.
+        train (Dataset): The training dataset.
+        valid (Dataset): The validation dataset.
+        test (Dataset): The test dataset.
+        column_names (list): The column names of the dataset.
+        id2label (dict): A dictionary mapping label ids to labels.
+        label2id (dict): A dictionary mapping labels to label ids.
+        loaded (bool): Whether the dataset has been loaded.
+        tokenized (bool): Whether the dataset has been tokenized.
+
+    Methods:
+        load: Loads the dataset from the given path.
+        extract_labels: Extracts the labels from the dataset and assigns an id to each label.
+        tokenize_and_align_item: Tokenizes the input example and aligns the labels with the tokenized input.
+        tokenize: Tokenizes the dataset.
+        num_labels: Returns the number of labels in the dataset.
+        __len__: Returns the length of the dataset.
+        __getitem__: Returns the item at the given index.
+        __iter__: Iterates over the dataset.
+        __repr__: Returns a string representation of the dataset.
+
+
+    """
+
+    def __init__(
+        self,
+        language: str,
+        path: str = "data",
+        validation_split: float = 0.1,
+        seed: int = 42,
+        tokenizer=None,
+    ) -> None:
         self.language = language
         self.path = path
-        self.tokenizer = XLMRobertaTokenizerFast.from_pretrained("xlm-roberta-large", cache_dir=".cache") \
-            if tokenizer is None else tokenizer
+        self.tokenizer = (
+            XLMRobertaTokenizerFast.from_pretrained(
+                "xlm-roberta-large", cache_dir=".cache"
+            )
+            if tokenizer is None
+            else tokenizer
+        )
         self.train = None
         self.valid = None
         self.test = None
@@ -28,21 +76,20 @@ class MorphParseDataset():
         self.validation_split = validation_split
         self.seed = seed
 
-        self. column_names = ["word", "parsed", "morpheme", "tag"]
+        self.column_names = ["word", "parsed", "morpheme", "tag"]
         self.id2label = {}
         self.label2id = {}
 
-
         self.loaded = False
         self.tokenized = False
-    
+
     def load(self):
         """
         Loads the dataset from the given path.
 
         Args:
             path (str): The path to the dataset.
-            The dataset should be in the following format: 
+            The dataset should be in the following format:
             path/
             ├── TEST/
             │   ├── {lang)_TEST.tsv
@@ -62,23 +109,33 @@ class MorphParseDataset():
 
         # first checking if the directory exists
         if not os.path.exists(self.path):
-            raise FileNotFoundError(f"Directory {self.path} not found. Please check the path and try again.")
+            raise FileNotFoundError(
+                f"Directory {self.path} not found. Please check the path and try again."
+            )
 
         train_path = os.path.join(self.path, "TRAIN", f"{self.language}_TRAIN.tsv")
         test_path = os.path.join(self.path, "TEST", f"{self.language}_TEST.tsv")
         # valid_path = os.path.join(path, "VALID", f"{self.language}_VALID.tsv")
 
-        train_data = pd.read_csv(train_path, delimiter="\t", names=self.column_names, quoting=csv.QUOTE_NONE)
-        test_data = pd.read_csv(test_path, delimiter="\t", names=self.column_names, quoting=csv.QUOTE_NONE)
+        train_data = pd.read_csv(
+            train_path, delimiter="\t", names=self.column_names, quoting=csv.QUOTE_NONE
+        )
+        test_data = pd.read_csv(
+            test_path, delimiter="\t", names=self.column_names, quoting=csv.QUOTE_NONE
+        )
 
         # getting the validation data
-        validation_data = train_data.sample(frac=self.validation_split, random_state=self.seed)
+        validation_data = train_data.sample(
+            frac=self.validation_split, random_state=self.seed
+        )
         train_data.drop(validation_data.index, inplace=True)
-        
+
         # extracting the labels and converting them to ids
         self.extract_labels(pd.concat([train_data, validation_data, test_data]))
         for df in [train_data, validation_data, test_data]:
-            df["tag"] = df["tag"].apply(lambda x: [self.label2id[label] for label in x.split("_")])
+            df["tag"] = df["tag"].apply(
+                lambda x: [self.label2id[label] for label in x.split("_")]
+            )
             df["morpheme"] = df["morpheme"].apply(lambda x: x.split("_"))
 
         # converting the data to HuggingFace Dataset format
@@ -86,10 +143,14 @@ class MorphParseDataset():
         self.valid = Dataset.from_pandas(validation_data)
         self.test = Dataset.from_pandas(test_data)
         self.loaded = True
-    
+
     def extract_labels(self, data: pd.DataFrame):
         """
-        Extracts the labels from the dataset and assigns an id to each label.
+        Extracts the labels from the dataset and assigns an id (0-indexed) to each label (helper function for load). \n
+        The labels are extracted from the "tag" column of the dataset. \n
+        The labels are then split by "_" and converted to a set to remove duplicates. \n
+        The labels are then converted to a list and assigned an id (0-indexed) in the order they appear. \n
+        The id2label and label2id mappings are then created.
 
         Args:
             data (pd.DataFrame): The dataset from which the labels are to be extracted.
@@ -116,7 +177,10 @@ class MorphParseDataset():
             dict: The tokenized input with aligned labels.
 
         """
-        tokenized_input = self.tokenizer(example["morpheme"], truncation=True, is_split_into_words=True)
+
+        tokenized_input = self.tokenizer(
+            example["morpheme"], truncation=True, is_split_into_words=True
+        )
         labels = []
 
         for i, label in enumerate(example["tag"]):
@@ -125,17 +189,23 @@ class MorphParseDataset():
             previous_word_idx = None
             label_ids = []
 
+            # aligning the labels with the tokenized input
             for word_idx in word_ids:
                 if word_idx is None:
+                    # if the word index is None, then add -100
+                    # the label is not added because it is a subword token
                     label_ids.append(-100)
                 elif word_idx != previous_word_idx:
+                    # if the word index is not the same as the previous word index, then add the label
                     label_ids.append(label[word_idx])
                 else:
+                    # if the word index is the same as the previous word index, then add -100
+                    # the label is not added because it is a subword token
                     label_ids.append(label[word_idx] if label_all_tokens else -100)
                 previous_word_idx = word_idx
-            
+
             labels.append(label_ids)
-        
+
         tokenized_input["labels"] = labels
         return tokenized_input
 
@@ -155,10 +225,19 @@ class MorphParseDataset():
 
         if self.tokenized:
             return
-        
-        self.train = self.train.map(lambda example: self.tokenize_and_align_item(example, label_all_tokens), batched=True)
-        self.valid = self.valid.map(lambda example: self.tokenize_and_align_item(example, label_all_tokens), batched=True)
-        self.test = self.test.map(lambda example: self.tokenize_and_align_item(example, label_all_tokens), batched=True)
+
+        self.train = self.train.map(
+            lambda example: self.tokenize_and_align_item(example, label_all_tokens),
+            batched=True,
+        )
+        self.valid = self.valid.map(
+            lambda example: self.tokenize_and_align_item(example, label_all_tokens),
+            batched=True,
+        )
+        self.test = self.test.map(
+            lambda example: self.tokenize_and_align_item(example, label_all_tokens),
+            batched=True,
+        )
 
         self.tokenized = True
 
@@ -173,7 +252,7 @@ class MorphParseDataset():
 
     def __len__(self):
         return len(self.train) + len(self.valid) + len(self.test)
-    
+
     def __getitem__(self, idx):
         if idx < len(self.train):
             return self.train[idx]
@@ -188,35 +267,92 @@ class MorphParseDataset():
 
     def __repr__(self):
         return f"Dataset({self.language}); Train: {len(self.train)}, Valid: {len(self.valid)}, Test: {len(self.test)}"
-    
-class MorphParseModel():
-    def __init__(self, language: str, path: str="xlm-roberta-large", tokenizer=None, dataset: MorphParseDataset=None, collator=None) -> None:
+
+
+class MorphParseModel:
+    """
+    A class to represent a morphological parsing model. \n
+    This class uses the XLM-RoBERTa model for token classification. \n
+    The model is trained using the Trainer class from the HuggingFace Transformers library. \n
+    The model is evaluated using the seqeval library.
+
+    Attributes:
+        language (str): The language of the model.
+        path (str): The path to the model.
+        model (AutoModelForTokenClassification): The model to be used for morphological parsing.
+        metrics (evaluate.Metrics): The metrics to be used for evaluation.
+        loaded (bool): Whether the model has been loaded.
+        tokenizer (XLMRobertaTokenizerFast): The tokenizer to be used for tokenization.
+        dataset (MorphParseDataset): The dataset to be used for training and evaluation.
+        collator (DataCollatorForTokenClassification): The collator to be used for training.
+        args (argparse.Namespace): The arguments for the Trainer.
+        trainer (Trainer): The Trainer for the model.
+
+    Methods:
+        load: Loads the model from the given path.
+        save: Saves the model to the given path.
+        train: Reloads the Trainer for the model and trains the model.
+        _compute_metrics: Compute the metrics for the model evaluation.
+        load_trainer: Returns the Trainer for the model.
+        get_trainer: Returns the Trainer for the model.
+        _parse_args: Parses the arguments for the Trainer from the command line.
+        to_gpu: Moves the model to the GPU.
+        evaluate: Evaluates the model.
+        evaluate_test: Evaluates the model on the test set.
+        __repr__: Returns a string representation of the model.
+        __str__: Returns a string representation of the model.
+
+
+    """
+
+    def __init__(
+        self,
+        language: str,
+        path: str = "xlm-roberta-large",
+        tokenizer=None,
+        dataset: MorphParseDataset = None,
+        collator=None,
+    ) -> None:
         self.language = language
         self.path = path
         self.model = None
-        self.metrics = evaluate.load("seqeval", experiment_id=datetime.now().strftime("%Y%m%d%H%M%S"))
+        self.metrics = evaluate.load(
+            "seqeval", experiment_id=datetime.now().strftime("%Y%m%d%H%M%S")
+        )
         self.loaded = False
 
         # loading the tokenizer and dataset
-        self.tokenizer = XLMRobertaTokenizerFast.from_pretrained("xlm-roberta-large", cache_dir=".cache") \
-            if tokenizer is None else tokenizer
-        self.dataset = MorphParseDataset(language, path="data") if dataset is None else dataset
+        self.tokenizer = (
+            XLMRobertaTokenizerFast.from_pretrained(
+                "xlm-roberta-large", cache_dir=".cache"
+            )
+            if tokenizer is None
+            else tokenizer
+        )
+        self.dataset = (
+            MorphParseDataset(language, path="data") if dataset is None else dataset
+        )
         self.dataset.load()
         self.dataset.tokenize()
-        
+
         # loading the model and collator
         self.load()
         self.to_gpu()
-        self.collator = DataCollatorForTokenClassification(tokenizer=self.tokenizer) if collator is None else collator
+        self.collator = (
+            DataCollatorForTokenClassification(tokenizer=self.tokenizer)
+            if collator is None
+            else collator
+        )
 
         # parsing the arguments for the Trainer
         self.args = self._parse_args()
         self.trainer = None
         self.load_trainer()
-    
+
     def load(self):
         """
-        Loads the model from the given path.
+        Loads the model from the given path.\n
+        This can either be a path to a pretrained model from HuggingFace or a path to a directory containing the model.
 
         Args:
             path (str, optional): The path to the model. Defaults to "xlm-roberta-large".
@@ -224,12 +360,14 @@ class MorphParseModel():
         Returns:
             None
         """
-        self.model = AutoModelForTokenClassification.from_pretrained(self.path, num_labels=len(self.dataset.id2label), cache_dir=".cache")
+        self.model = AutoModelForTokenClassification.from_pretrained(
+            self.path, num_labels=len(self.dataset.id2label), cache_dir=".cache"
+        )
         self.loaded = True
-    
+
     def get_model(self):
         return self.model
-    
+
     def save(self):
         """
         Saves the model to the given path.
@@ -244,7 +382,7 @@ class MorphParseModel():
         self.model.config.label2id = self.dataset.label2id
         self.model.save_pretrained(self.args.output_dir)
         self.tokenizer.save_pretrained(self.args.output_dir)
-    
+
     def train(self):
         """
         Trains the model.
@@ -258,12 +396,21 @@ class MorphParseModel():
     def _compute_metrics(self, eval_preds):
         """
         Compute the metrics for the model evaluation.
+        The metrics are computed using the seqeval library.
 
         Args:
-        eval_preds (tuple): The tuple containing the predictions and labels.
+            eval_preds (tuple): The tuple containing the predictions and labels.
 
         Returns:
-        dict: A dictionary containing the precision, recall, f1 and accuracy scores.
+            dict: A dictionary containing the precision, recall, f1 and accuracy scores. \n
+            The dictionary contains the following keys: \n
+            - precision: The micro-averaged precision score. \n
+            - recall: The micro-averaged recall score. \n
+            - f1: The micro-averaged f1 score. \n
+            - macro-f1: The macro-averaged f1 score. \n
+            - macro-precision: The macro-averaged precision score. \n
+            - macro-recall: The macro-averaged recall score.
+
         """
 
         # get the predictions and labels
@@ -274,16 +421,24 @@ class MorphParseModel():
         # remove the -100 labels from the predictions because they are not real labels but rather morphemes
         # split up into parts by the tokenization
 
-        # adds the mappings to the predictions and true labels with "_-" before the tag since 
+        # adds the mappings to the predictions and true labels with "_-" before the tag since
         # seqeval requires it
-        # 
+        #
         predictions = [
-            ["_-"+self.dataset.id2label[eval_preds] for (eval_preds, l) in zip(prediction, label) if l != -100]
+            [
+                "_-" + self.dataset.id2label[eval_preds]
+                for (eval_preds, l) in zip(prediction, label)
+                if l != -100
+            ]
             for prediction, label in zip(pred_logits, labels)
         ]
 
         true_labels = [
-            ["_-"+self.dataset.id2label[l] for (eval_preds, l) in zip(prediction, label) if l != -100]
+            [
+                "_-" + self.dataset.id2label[l]
+                for (eval_preds, l) in zip(prediction, label)
+                if l != -100
+            ]
             for prediction, label in zip(pred_logits, labels)
         ]
 
@@ -292,12 +447,12 @@ class MorphParseModel():
         return {
             "precision": results["micro avg"]["precision"],
             "recall": results["micro avg"]["recall"],
-            "f1": results["micro avg"]["f1-score"] ,
+            "f1": results["micro avg"]["f1-score"],
             "macro-f1": results["macro avg"]["f1-score"],
             "macro-precision": results["macro avg"]["precision"],
             "macro-recall": results["macro avg"]["recall"],
         }
-    
+
     def load_trainer(self):
         """
         Returns the Trainer for the model.
@@ -312,12 +467,13 @@ class MorphParseModel():
             eval_dataset=self.dataset.valid,
             data_collator=self.collator,
             compute_metrics=self._compute_metrics,
-            tokenizer=self.tokenizer
+            tokenizer=self.tokenizer,
         )
-    
+
     def get_trainer(self):
         self.load_trainer()
         return self.trainer
+
     def _parse_args(self):
         """
         Parses the arguments for the Trainer from the command line.
@@ -327,65 +483,36 @@ class MorphParseModel():
         """
         parser = argparse.ArgumentParser()
         # core arguments
-        parser.add_argument(
-            "--output_dir",
-            type=str, default="output")
-        parser.add_argument(
-            "--seed",
-            type=int, default=42)
-        parser.add_argument(
-            "--num_train_epochs",
-            type=int, default=3)
-        parser.add_argument(
-            "--per_device_train_batch_size",
-            type=int, default=16)
-        parser.add_argument(
-            "--per_device_eval_batch_size",
-            type=int, default=16)
-        parser.add_argument(
-            "--learning_rate",
-            type=float, default=2e-5)
-        parser.add_argument(
-            "--weight_decay",
-            type=float, default=0.01)
-        
+        parser.add_argument("--output_dir", type=str, default="output")
+        parser.add_argument("--seed", type=int, default=42)
+        parser.add_argument("--num_train_epochs", type=int, default=3)
+        parser.add_argument("--per_device_train_batch_size", type=int, default=16)
+        parser.add_argument("--per_device_eval_batch_size", type=int, default=16)
+        parser.add_argument("--learning_rate", type=float, default=2e-5)
+        parser.add_argument("--weight_decay", type=float, default=0.01)
+
         # saving/loading arguments
         parser.add_argument(
             "--evaluation_strategy",
-            type=str, default="steps", choices=["steps", "epoch"])
+            type=str,
+            default="steps",
+            choices=["steps", "epoch"],
+        )
         parser.add_argument(
-            "--save_strategy",
-            type=str, default="steps", choices=["steps", "epoch"])
-        parser.add_argument(
-            "--save_steps",
-            type=int, default=200)
-        parser.add_argument(
-            "--eval_steps",
-            type=int, default=200)
-        parser.add_argument(
-            "--save_total_limit",
-            type=int, default=2)
-            
-        parser.add_argument(
-            "--load_best_model_at_end",
-            action="store_true")
-        parser.add_argument(
-            "--metric_for_best_model",
-            type=str, default="loss")
-        parser.add_argument(
-            "--greater_is_better",
-            action="store_true")
-        parser.add_argument(
-            "--resume_from_checkpoint",
-            action="store_true")
-        
-        parser.add_argument(
-            "--logging_steps",
-            type=int, default=10)
-        parser.add_argument(
-            "--disable_tqdm",
-            action="store_true")
-        
+            "--save_strategy", type=str, default="steps", choices=["steps", "epoch"]
+        )
+        parser.add_argument("--save_steps", type=int, default=200)
+        parser.add_argument("--eval_steps", type=int, default=200)
+        parser.add_argument("--save_total_limit", type=int, default=2)
+
+        parser.add_argument("--load_best_model_at_end", action="store_true")
+        parser.add_argument("--metric_for_best_model", type=str, default="loss")
+        parser.add_argument("--greater_is_better", action="store_true")
+        parser.add_argument("--resume_from_checkpoint", action="store_true")
+
+        parser.add_argument("--logging_steps", type=int, default=10)
+        parser.add_argument("--disable_tqdm", action="store_true")
+
         """
         # advanced arguments
         parser.add_argument("--warmup_steps", type=int, default=500)
@@ -426,17 +553,17 @@ class MorphParseModel():
             self.model.to("cuda")
             print("put on gpu")
         else:
-            print("8888888888888888888888FFFFFFFFFFFFF88888888888888888888888888888")
+            print("failed to put on gpu, no gpu available")
 
     def evaluate(self):
         """
-        Evaluates the model.
+        Evaluates the model on the validation set.
 
         Returns:
             dict: A dictionary containing the precision, recall, f1 and accuracy scores.
         """
         return self.trainer.evaluate()
-    
+
     def evaluate_test(self):
         """
         Evaluates the model on the test set.
@@ -445,52 +572,59 @@ class MorphParseModel():
             dict: A dictionary containing the precision, recall, f1 and accuracy scores.
         """
         return self.trainer.evaluate(self.dataset.test)
-    
+
     def __repr__(self):
-        return f"MorphParseModel({self.language}) lr={self.args.learning_rate}, epochs={self.args.num_train_epochs}, batch_size={self.args.per_device_train_batch_size}"     
-    
+        return f"MorphParseModel({self.language}) lr={self.args.learning_rate}, epochs={self.args.num_train_epochs}, batch_size={self.args.per_device_train_batch_size}"
+
     def __str__(self):
         return self.__repr__()
-    
-class MorphParseArgs():
+
+
+class MorphParseArgs:
     """
     Parses the arguments for the MorphParseModel.
 
     Note: This is a class to allow for easy parsing of the arguments from the command line. Not to be confused with arguments for transformers.TrainingArguments.
     """
+
     def __init__(self) -> None:
         self.parser = argparse.ArgumentParser()
         # core arguments
         self.parser.add_argument(
             "--output_dir",
-            type=str, default="output")
+            type=str,
+            default="output",
+            help="The output directory for the model.",
+        )
         self.parser.add_argument(
             "--model_dir",
-            type=str, default="xlm-roberta-large")
+            type=str,
+            default="xlm-roberta-large",
+            help="The directory for the model. Can be a pretrained model from HuggingFace or a directory containing the model.",
+        )
         self.parser.add_argument(
             "--data_dir",
-            type=str, default="data")
+            type=str,
+            default="data",
+            help="The directory containing the data.",
+        )
+        self.parser.add_argument("--log_file", type=str, default="logs.log")
         self.parser.add_argument(
-            "--log_file",
-            type=str, default="logs.log")
-        self.parser.add_argument(
-            "--language",
-            type=str, default="XH", choices=["NR", "SS", "XH", "ZU"])
-        self.parser.add_argument(
-            "--cache_dir",
-            type=str, default=".cache")
-        self.parser.add_argument(
-            "--seed",
-            type=int, default=42)
-        
+            "--language", type=str, default="XH", choices=["NR", "SS", "XH", "ZU"]
+        )
+        self.parser.add_argument("--cache_dir", type=str, default=".cache")
+        self.parser.add_argument("--seed", type=int, default=42)
 
         self.args = self.parser.parse_known_args()[0]
-    
+        # updating the class variables with the parsed arguments
+        self.__dict__.update(vars(self.args))
+
     def __getitem__(self, key):
         return vars(self.args)[key]
-    
+
     def __setitem__(self, key, value):
         vars(self.args)[key] = value
+
 
 def main():
     # disable the warnings
@@ -498,22 +632,32 @@ def main():
     # getting the Runner arguments for the program
     args = MorphParseArgs()
 
-    tokenizer = XLMRobertaTokenizerFast.from_pretrained(args["model_dir"], cache_dir=args["cache_dir"])
-    
+    tokenizer = XLMRobertaTokenizerFast.from_pretrained(
+        args["model_dir"], cache_dir=args["cache_dir"]
+    )
+
     dataset = MorphParseDataset(
-        language=args["language"], tokenizer=tokenizer, path=args["data_dir"], seed=args["seed"])
+        language=args["language"],
+        tokenizer=tokenizer,
+        path=args["data_dir"],
+        seed=args["seed"],
+    )
     dataset.load()
     dataset.tokenize()
-    
+
     model = MorphParseModel(
-        language=args["language"], path=args["model_dir"], tokenizer=tokenizer, dataset=dataset)
+        language=args["language"],
+        path=args["model_dir"],
+        tokenizer=tokenizer,
+        dataset=dataset,
+    )
     model.load()
 
     # grid search for hyperparameters
     hyperparameters = {
         "learning_rate": [1e-5, 2e-5, 3e-5],
         "num_train_epochs": [3, 5, 10],
-        "per_device_train_batch_size": [8, 16, 32]
+        "per_device_train_batch_size": [8, 16, 32],
     }
 
     for epochs in hyperparameters["num_train_epochs"]:
@@ -528,6 +672,7 @@ def main():
                 with open(args["log_file"], "a") as f:
                     f.write(f"Results for {model}: {results}\n")
     # model.train()
+
 
 if __name__ == "__main__":
     main()
