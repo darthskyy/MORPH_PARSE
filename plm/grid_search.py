@@ -2,9 +2,16 @@ import warnings
 from utils import MorphParseArgs, MorphParseDataset, MorphParseModel
 from transformers import XLMRobertaTokenizerFast
 import time
+import argparse
+import os
 
 def main():
-    # parsing the hyperparameters for the 
+    # parsing the hyperparameters for the hyperparam search
+    search_args = argparse.ArgumentParser(description='Process the hyperparameters')
+    search_args.add_argument("--epoch_list", type=int, nargs='+', help="List of epochs to be used for the grid search", required=True)
+    search_args.add_argument("--batch_size_list", type=int, nargs='+', help="List of batch sizes to be used for the grid search", required=True)
+    search_args.add_argument("--learning_rate_list", type=float, nargs='+', help="List of learning rates to be used for the grid search", required=True)
+    search_args = search_args.parse_known_args()[0]
 
     # disable the warnings
     warnings.filterwarnings("ignore")
@@ -26,11 +33,13 @@ def main():
 
     # grid search for hyperparameters
     hyperparameters = {
-        "learning_rate": [1e-5, 2e-5, 3e-5],
-        "num_train_epochs": [3, 5, 10],
-        "per_device_train_batch_size": [8, 16, 32]
+        "learning_rate": search_args.learning_rate_list,
+        "num_train_epochs": search_args.epoch_list,
+        "per_device_train_batch_size": search_args.batch_size_list
     }
-
+    if not os.path.exists(args["log_file"]):
+        with open(args["log_file"], "w") as f:
+            print("language,model,lr,epochs,batch_size,loss,f1,precision,recall,runtime", file=f)
     for epochs in hyperparameters["num_train_epochs"]:
         for lr in hyperparameters["learning_rate"]:
             for batch_size in hyperparameters["per_device_train_batch_size"]:
@@ -46,7 +55,7 @@ def main():
                 # language{sep}model{sep}lr{sep}epochs{sep}batch_size{sep}loss{sep}f1{sep}precision{sep}recall{sep}runtime
                 # enters the macro-averaged F1, precision, and recall scores
                 with open(args["log_file"], "a") as f:
-                    print(f"{args['language']},{args['model_dir']},{model.args.learning_rate},{model.args.num_train_epochs},{model.args.per_device_train_batch_size},{results['eval_macro-f1']},{results['eval_macro-precision']},{results['eval_macro-recall']},{runtime:.4f}", file=f)
+                    print(f"{args['language']},{args['model_dir']},{model.args.learning_rate},{model.args.num_train_epochs},{model.args.per_device_train_batch_size},{results['eval_loss']},{results['eval_macro-f1']},{results['eval_macro-precision']},{results['eval_macro-recall']},{runtime:.4f}", file=f)
                 
     # model.train()
 

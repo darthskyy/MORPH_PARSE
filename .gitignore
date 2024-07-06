@@ -16,3 +16,6 @@ plm/still_testing
 .vscode
 results.csv
 x.py
+test
+*.csv
+logs/

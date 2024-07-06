@@ -380,9 +380,6 @@ class MorphParseModel():
             action="store_true")
         
         parser.add_argument(
-            "--logging_dir",
-            type=str, default="logs")
-        parser.add_argument(
             "--logging_steps",
             type=int, default=10)
         parser.add_argument(
@@ -425,7 +422,11 @@ class MorphParseModel():
             None
         """
         if torch.cuda.is_available():
+            torch.cuda.empty_cache()
             self.model.to("cuda")
+            print("put on gpu")
+        else:
+            print("8888888888888888888888FFFFFFFFFFFFF88888888888888888888888888888")
 
     def evaluate(self):
         """
