@@ -5,7 +5,7 @@ import time
 import random
 
 
-def create_config_file(filename: str = 'results/config.json')
+def create_config_file(filename: str = "results/config.json"):
     if not os.path.exists(filename):
         configs = {}
         # these are the main ones for my grid search, can be altered to suit other needs
@@ -30,10 +30,10 @@ def create_config_file(filename: str = 'results/config.json')
                                 "micro_precision": 0.0,
                                 "loss": 0.0,
                                 "runtime": 0.0,
-                                "timestamp": 0.0
+                                "timestamp": 0.0,
                             }
                             configs[config["id"]] = config
-        with open(filename, 'w') as f:
+        with open(filename, "w") as f:
             json.dump(configs, f, indent=4)
 
 
@@ -41,15 +41,15 @@ def import_csv(file_path, config_file):
     if not os.path.exists(config_file):
         create_config_file(config_file)
     lines = []
-    with open(file_path, 'r') as f:
+    with open(file_path, "r") as f:
         lines = f.readlines()[1:]
-    
+
     configs = {}
-    with open(config_file, 'r') as f:
+    with open(config_file, "r") as f:
         configs = json.load(f)
-    
+
     for line in lines:
-        parts = line.split(',')
+        parts = line.split(",")
         language = parts[0]
         model = parts[1]
         lr = float(parts[2])
@@ -72,11 +72,12 @@ def import_csv(file_path, config_file):
             configs[id_]["completed"] = True
             configs[id_]["timestamp"] = time.time()
 
-    with open(config_file, 'w') as f:
+    with open(config_file, "w") as f:
         json.dump(configs, f, indent=4)
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     try:
-        import_csv('results/all_final.csv', 'results/config.json')
+        import_csv("results/all_final.csv", "results/config.json")
     except:
         print("CSV file not found")
