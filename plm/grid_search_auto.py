@@ -6,6 +6,7 @@ import os
 import pprint
 import time
 import random
+import sys
 
 def main():
     START_TIME = time.time()
@@ -35,10 +36,10 @@ def main():
         for model in ["Davlan/afro-xlmr-large-76L", "xlm-roberta-large"]:
             for language in ["NR", "SS", "XH", "ZU"]:
                 for learning_rate in [1e-5, 3e-5, 5e-5]:
-                    for batch_size in [8, 16, 32]:
+                    for batch_size in [16, 32]:
                         for epoch in [5, 10, 15]:
                             config = {
-                                "id": f"{language}_{str(learning_rate)[0]}_{batch_size}_{epoch}_{model.split('/')[-1][0]}",
+                                "id":  f"{language}_{str(learning_rate)[0]}_{batch_size}_{epoch}_{model.split('/')[-1][0]}",
                                 "language": language,
                                 "learning_rate": learning_rate,
                                 "batch_size": batch_size,
@@ -59,12 +60,6 @@ def main():
         with open('results/config.json', 'w') as f:
             json.dump(configs, f, indent=4)
 
-    # grid search for hyperparameters
-    hyperparameters = {
-        "learning_rate": [1e-5, 3e-5, 5e-5],
-        "num_train_epochs": [5, 10, 15],
-        "per_device_train_batch_size": [[8, 16, 32]]
-    }
     lang = args["language"]
     model_name = args["model_dir"]
     
@@ -73,17 +68,17 @@ def main():
 
         # checking for incomplete configurations
         config = json.load(open('results/config.json'))
-        incomplete_configs = [id_ for id_ in config if not config[id_]["completed"] and config[id_]["language"] == lang and config[id_]["model"] == model_name and "_8_" not in id_]
+        incomplete_configs = [id_ for id_ in config if not config[id_]["completed"] and config[id_]["language"] == lang and config[id_]["model"] == model_name]
 
         # checks if all the configurations for the Language x Model have been exhausted 
         if len(incomplete_configs) == 0:
             print("all configs are completed")
-            break
+            sys.exit()
 
         # checking if we've rejected all the remaining configurations
         if len(rejected_configs) == len(incomplete_configs):
             print("all configs are rejected for remaining time")
-            break
+            sys.exit()
 
         # picks a random configuration to work on which hasn't been rejected yet because of time constraints
         curr_config = random.choice([x for x in incomplete_configs if x not in rejected_configs])
@@ -130,8 +125,10 @@ def main():
         start = time.time()
         model.train()
         results = model.evaluate()
+        os.system(f"rm {model.args.output_dir}/* -rf")
         runtime = float(time.time() - start)/3600
-        
+        print(f"{curr_config} final results")
+        print(results)
         config[curr_config]["completed"] = True
         config[curr_config]["macro_f1"] = results["eval_macro-f1"]
         config[curr_config]["micro_f1"] = results["eval_f1"]
@@ -145,51 +142,6 @@ def main():
 
         with open('results/config.json', 'w') as f:
             json.dump(config, f, indent=4)
-    """
-    for epoch in [5, 10, 15]:
-        for learning_rate in [1e-5, 3e-5, 5e-5]:
-            for batch_size in [32, 16, 8]:
-                id = f"{lang}_{str(learning_rate)[0]}_{batch_size}_{epoch}_{model_name.split('/')[-1][0]}"
-                
-                # check if id exists
-                config = json.load(open('results/config.json'))
-                # if it exists, check if it is completed
-                if config[id]["completed"]:
-                    print(f"{id} is already completed")
-                    continue
-                
-                # if it is not completed, run the model and save the results
-                if epoch == 15 and batch_size == 8 and END_TIME - time.time() < 3*60*60:
-                    break
-
-                if epoch == 15 and END_TIME - time.time() < 2*60*60:
-                    break
-
-                model.args.learning_rate = learning_rate
-                model.args.num_train_epochs = epoch
-                model.args.per_device_train_batch_size = batch_size
-                
-                print(f"running: {id}")
-                start = time.time()
-                model.train()
-                results = model.evaluate_test()
-                runtime = float(time.time() - start)/3600
-                
-                config[id]["completed"] = True
-                config[id]["macro_f1"] = results["eval_macro-f1"]
-                config[id]["micro_f1"] = results["eval_f1"]
-                config[id]["macro_recall"] = results["eval_macro-recall"]
-                config[id]["micro_recall"] = results["eval_recall"]
-                config[id]["macro_precision"] = results["eval_macro-precision"]
-                config[id]["micro_precision"] = results["eval_precision"]
-                config[id]["loss"] = results["eval_loss"]
-                config[id]["runtime"] = runtime
-                config[id]["timestamp"] = time.time()
-
-                with open('results/config.json', 'w') as f:
-                    json.dump(config, f, indent=4)
-    """
-
     print("Script done")
 if __name__ == "__main__":
     main()
