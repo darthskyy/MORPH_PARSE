@@ -12,7 +12,7 @@ def create_config_file(filename: str = "results/config.json"):
         for model in ["Davlan/afro-xlmr-large-76L", "xlm-roberta-large"]:
             for language in ["NR", "SS", "XH", "ZU"]:
                 for learning_rate in [1e-5, 3e-5, 5e-5]:
-                    for batch_size in [8, 16, 32]:
+                    for batch_size in [16, 32]:
                         for epoch in [5, 10, 15]:
                             config = {
                                 "id": f"{language}_{str(learning_rate)[0]}_{batch_size}_{epoch}_{model.split('/')[-1][0]}",
@@ -77,7 +77,36 @@ def import_csv(file_path, config_file):
 
 
 if __name__ == "__main__":
-    try:
-        import_csv("results/all_final.csv", "results/config.json")
-    except:
-        print("CSV file not found")
+    with open("results/config.json", "r") as f:
+        configs = json.load(f)
+    for key in list(configs.keys()):
+        if "_8_" in key:
+            del configs[key]
+    
+    for model in ["francois-meyer/nguni-xlmr-large"]:
+        for language in ["NR", "SS", "XH", "ZU"]:
+            for learning_rate in [1e-5, 3e-5, 5e-5]:
+                for batch_size in [16, 32]:
+                    for epoch in [5, 10, 15]:
+                        config = {
+                            "id": f"{language}_{str(learning_rate)[0]}_{batch_size}_{epoch}_{model.split('/')[-1][0]}",
+                            "language": language,
+                            "learning_rate": learning_rate,
+                            "batch_size": batch_size,
+                            "epoch": epoch,
+                            "model": model,
+                            "completed": False,
+                            "macro_f1": 0.0,
+                            "micro_f1": 0.0,
+                            "macro_recall": 0.0,
+                            "micro_recall": 0.0,
+                            "macro_precision": 0.0,
+                            "micro_precision": 0.0,
+                            "loss": 0.0,
+                            "runtime": 0.0,
+                            "timestamp": 0.0,
+                        }
+                        configs[config["id"]] = config
+    
+    with open("results/config.json", "w") as f:
+        json.dump(configs, f, indent=4)

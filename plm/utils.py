@@ -351,11 +351,11 @@ class MorphParseModel():
         
         # saving/loading arguments
         parser.add_argument(
-            "--evaluation_strategy",
-            type=str, default="steps", choices=["steps", "epoch"])
+            "--eval_strategy",
+            type=str, default="steps", choices=["no", "steps", "epoch"])
         parser.add_argument(
             "--save_strategy",
-            type=str, default="steps", choices=["steps", "epoch"])
+            type=str, default="steps", choices=["no", "steps", "epoch"])
         parser.add_argument(
             "--save_steps",
             type=int, default=200)
@@ -475,7 +475,7 @@ class MorphParseArgs():
             type=str, default="logs.log")
         self.parser.add_argument(
             "--language",
-            type=str, default="XH", choices=["NR", "SS", "XH", "ZU"])
+            type=str, default="XH", choices=["NR", "SS", "XH", "ZU", "ALL"])
         self.parser.add_argument(
             "--cache_dir",
             type=str, default=".cache")
