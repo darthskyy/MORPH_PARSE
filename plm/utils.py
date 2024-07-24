@@ -185,6 +185,18 @@ class MorphParseDataset():
     def __iter__(self):
         for i in range(len(self)):
             yield self[i]
+    
+    def __contains__(self, key):
+        for item in self:
+            if key.lower() in [item["word"].lower(), item["parsed"].lower(), " ".join(item["morpheme"]), "_".join(item["morpheme"])]:
+                return True
+        return False
+    
+    def find(self, key):
+        for idx, item in enumerate(self):
+            if key.lower() in [item["word"].lower(), item["parsed"].lower(), " ".join(item["morpheme"]), "_".join(item["morpheme"])]:
+                return idx
+        return -1
 
     def __repr__(self):
         return f"Dataset({self.language}); Train: {len(self.train)}, Valid: {len(self.valid)}, Test: {len(self.test)}"
