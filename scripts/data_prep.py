@@ -5,11 +5,11 @@ dirs = ['TEST', 'TRAIN']
 out_name_format = "{0}_{1}.tsv"
 
 
-def read_lines(file_path: str) -> list:
+def read_lines(file_path: str, skip_first=False) -> list:
     """Reads the lines of a file and returns them as a list."""
     with open(file_path, 'r') as f:
-        return f.readlines()
-
+        lines = f.readlines()
+        return lines if not skip_first else lines[1:]
 
 def format_line(line: str) -> str:
     """
@@ -24,8 +24,8 @@ def format_line(line: str) -> str:
 
 def split_tags(text: str) -> (str, list[str]):
     """Split a word into its canonical segmentation and morpheme tags."""
-    split = [morpheme for morpheme in re.split(r'\[[a-zA-Z-_0-9]*?]-?', text) if morpheme != ""]
-    return (split, re.findall(r'\[([a-zA-Z-_0-9]*?)]', text))
+    split = [morpheme for morpheme in re.split(r'\[[a-zA-Z-_0-9|]*?]-?', text) if morpheme != ""]
+    return (split, re.findall(r'\[([a-zA-Z-_0-9|]*?)]', text))
 
 
 def write_lines(file_path: str, lines: list) -> None:
