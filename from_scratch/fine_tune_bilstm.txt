@@ -1,0 +1,267 @@
+trained on isizulu. Take the best model based on _macro_ F1
+
+MORPHEME embeddings, WORD context
+===================
+
+# Trial 1. Embed target & Hidden dim
+"embed_target_embed": tune.grid_search([2 ** i for i in range(3, 12)][::-1])
+"hidden_dim": tune.grid_search([2 ** i for i in range(3, 12)][::-1]),
+
+BEST:
+{
+ 'lr': 0.0009941342265289868,
+ 'weight_decay': 1.9245093860965183e-05,
+ 'hidden_dim': 64, <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< HERE
+ 'dropout': 0.2,
+ 'batch_size': 4,
+ 'epochs': 20,
+ 'gradient_clip': 1,
+ 'embed_target_embed': 256 <<<<<<<<<<<<<<<<<<<<< HERE
+}
+
+bilstm: Micro F1: 0.9294945323851036. Macro f1: 0.6882567212438675. Weighted F1: 0.9256327301903428
+bilstm: Best macro f1: 0.6917113134536724 at epoch 8
+
+
+# Trial 2. Dropout & batch size
+
+START:
+"embed_target_embed": tune.choice([128, 256, 512]), <<<<<<<<<< ROUGHLY fixed according to above
+config = {
+    "lr": tune.loguniform(1e-4, 1e-1),
+    "weight_decay": tune.loguniform(1e-8, 1e-3),
+    "hidden_dim": tune.choice([32, 64, 128]), <<<<<<<<<<<<<<<< ROUGHLY fixed according to above
+    "dropout": tune.grid_search([0, 0.1, 0.2, 0.3,. 0.4]), <<<< NEW SEARCH
+    "batch_size": tune.grid_search([1, 2, 4, 8, 16]), <<<<<<<< NEW SEARCH
+    "epochs": tune.choice([epochs]),
+    "gradient_clip": tune.choice([0.5, 1, 2, 4, float("inf")]),
+    **embed_config
+}
+
+BEST:
+{
+    'lr': 0.0009060066232700955,
+    'weight_decay': 1.4454898599879142e-08,
+    'hidden_dim': 128,
+    'dropout': 0.1,
+    'batch_size': 1,
+    'epochs': 20,
+    'gradient_clip': 2,
+    'embed_target_embed': 256
+}
+
+val loss: 0.346211961741023
+macro fs1 0.6713428538662095
+micro 0.930412174046035
+bilstm: Micro F1: 0.9291886518314598. Macro f1: 0.6946368772060952. Weighted F1: 0.927291098750197
+
+# Trial 3. Gradient clip
+
+START:
+"embed_target_embed": tune.choice([128, 256, 512]), <<<<<<<<<<<<<<<<<<<< ROUGHLY fixed according to above
+config = {
+    "lr": tune.loguniform(1e-4, 1e-1),
+    "weight_decay": tune.loguniform(1e-10, 1e-5), <<<<<<<<<<<<<<<<<<<<<< NEW SEARCH
+    "hidden_dim": tune.choice([64, 128, 256]), <<<<<<<<<<<<<<<<<<<<<<<<< ROUGHLY fixed according to above
+    "dropout": tune.choice([0, 0.1, 0.2]), <<<<<<<<<<<<<<<<<<<<<<<<<<<<< ROUGHLY fixed according to above
+    "batch_size": tune.grid_search([1, 2, 4]), <<<<<<<<<<<<<<<<<<<<<<<<< ROUGHLY fixed according to above
+    "epochs": tune.choice([epochs]),
+    "gradient_clip": tune.grid_search([0.5, 1, 2, 4, float("inf")]), <<< NEW SEARCH!
+    **embed_config
+}
+
+BEST:
+Best trial by f1_macro:
+{
+  'lr': 0.0002948382869797967,
+  'weight_decay': 5.893128031174263e-10,
+  'hidden_dim': 256,
+  'dropout': 0.2,
+  'batch_size': 1,
+  'epochs': 20,
+  'gradient_clip': 2,
+  'embed_target_embed': 128
+}
+
+val loss: 0.3434079932641232
+macro fs1 0.6831839265711034
+micro 0.9331650990288293
+bilstm: Micro F1: 0.9359944941500344. Macro f1: 0.7039521514008957. Weighted F1: 0.9337016765711276
+bilstm: Best macro f1: 0.7039521514008957 at epoch 12
+
+# Trial 4. LR
+
+{
+    "embed_target_embed": tune.grid_search([128, 256])
+    "lr": tune.loguniform(1e-5, 1e-3),
+    "weight_decay": tune.loguniform(1e-10, 1e-5),
+    "hidden_dim": tune.grid_search([128, 256, 512]),
+    "dropout": tune.grid_search([0.1, 0.2, 0.3]),
+    "batch_size": tune.choice([1]),
+    "epochs": tune.choice([epochs]),
+    "gradient_clip": tune.grid_search([1, 2, 4]),
+}
+
+
+Final model is this but with weight decay set to 0. So:
+
+{
+  'lr': 0.0002948382869797967,
+  'weight_decay': 0,
+  'hidden_dim': 256,
+  'dropout': 0.2,
+  'batch_size': 1,
+  'epochs': 20,
+  'gradient_clip': 2,
+  'embed_target_embed': 128
+}
+
+MORPHEME embeddings, SENTENCE context
+====================================
+
+# Trial 1.
+
+Based off of morpheme embeddings, word context trial 3.
+
+config = {
+    "embed_target_embed": tune.choice([64, 128, 256]), <<<<<<<<<< GRID SEARCH
+    "lr": tune.loguniform(1e-4, 1e-1),
+    "weight_decay": tune.loguniform(1e-10, 1e-5),
+    "hidden_dim": tune.grid_search([64, 128, 256]), <<<<<<<<<<<<< GRID SEARCH
+    "dropout": tune.choice([0, 0.1, 0.2]),
+    "batch_size": tune.choice([1, 2, 4]),
+    "epochs": tune.choice([epochs]),
+    "gradient_clip": tune.choice([0.5, 1, 2, 4, float("inf")]),
+    **embed_config
+}
+
+
+BEST:
+config: {
+    'lr': 0.00019401697177446437,
+    'weight_decay': 9.230833759168172e-07,
+    'hidden_dim': 128,
+    'dropout': 0.1,
+    'batch_size': 1,
+    'epochs': 20,
+    'gradient_clip': 1,
+    'embed_target_embed': 256
+}
+val loss: 0.19091548436668923
+macro fs1 0.7009415259788478
+micro 0.9358415538732126
+bilstm: Micro F1: 0.9346945017970483. Macro f1: 0.7017234251511643. Weighted F1: 0.9316873579817169
+
+Chose this as final ^
+
+CHARACTER SUM embeddings, WORD context
+==================================
+
+# Trial 1.
+
+Based off of morpheme embeddings, word context trial 3.
+
+cfg = {
+    "embed_target_embed": tune.grid_search([64, 128, 256, 512][::-1]), <<<< GRID SEARCH
+    "lr": tune.loguniform(1e-4, 1e-1),
+    "weight_decay": tune.loguniform(1e-10, 1e-5),
+    "hidden_dim": tune.grid_search([128, 256, 512]), <<<<<<<<<<<<<<<<<<<<<< GRID SEARCH
+    "dropout": tune.choice([0, 0.1, 0.2]),
+    "batch_size": tune.choice([1, 2, 4]),
+    "epochs": tune.choice([epochs]),
+    "gradient_clip": tune.choice([0.5, 1, 2, 4, float("inf")]),
+}
+
+best = {
+    'embed_target_embed': 256,
+    'lr': 0.00012620771127627717,
+    'weight_decay': 2.8931903058581684e-06,
+    'hidden_dim': 256,
+    'dropout': 0,
+    'batch_size': 1,
+    'epochs': 20,
+    'gradient_clip': 2,
+}
+
+
+CHARACTER BILSTM embeddings, WORD context
+=========================================
+
+Based off of morpheme embeddings, word context trial 3.
+
+config = {
+    "embed_hidden_embed": tune.grid_search([2 ** i for i in range(6, 10)][::-1]), <<<<< GRID SEARCH
+    "embed_hidden_dim": tune.grid_search([2 ** i for i in range(6, 10)][::-1]), <<<<<<< GRID SEARCH
+    "embed_target_embed": tune.grid_search([2 ** i for i in range(6, 10)][::-1]), <<<<< GRID SEARCH
+    "lr": tune.loguniform(1e-4, 1e-1),
+    "weight_decay": tune.loguniform(1e-10, 1e-5),
+    "hidden_dim": tune.choice([128, 256, 512]),
+    "dropout": tune.choice([0, 0.1, 0.2]),
+    "batch_size": tune.choice([1, 2, 4]),
+    "epochs": tune.choice([epochs]),
+    "gradient_clip": tune.choice([0.5, 1, 2s, 4, float("inf")]),
+}
+
+Best =
+{
+    'lr': 0.0015529852075975373,
+    'weight_decay': 2.592670696264555e-06,
+    'hidden_dim': 256,
+    'dropout': 0,
+    'batch_size': 1,
+    'epochs': 20,
+    'gradient_clip': inf,
+    'embed_hidden_embed': 128,
+    'embed_hidden_dim': 128,
+    'embed_target_embed': 256
+}
+
+bilstm: Micro F1: 0.8854757162555539. Macro f1: 0.5338679040508199. Weighted F1: 0.874271731347172
+
+HOWEVER, this was in _epoch 1_, suggesting that it basically didn't get to run. Retrying with dims capped to 256
+
+Best = {
+    'lr': 0.0002275657254171835,
+    'weight_decay': 2.5841274562531697e-10,
+    'hidden_dim': 256,
+    'dropout': 0.2,
+    'batch_size': 4,
+    'epochs': 20,
+    'gradient_clip': 4,
+    'embed_hidden_embed': 128,
+    'embed_hidden_dim': 64,
+    'embed_target_embed': 256
+}
+bilstm: Micro F1: 0.9345028343802666. Macro f1: 0.6698196570016464. Weighted F1: 0.9300343248069547
+bilstm: Best macro f1: 0.6813476365308406 at epoch 19
+
+## Trial 2 - hidden dim, dropout, batch size
+
+config = {
+    "embed_hidden_embed": tune.choice([128]),
+    "embed_hidden_dim": tune.choice([64]),
+    "embed_target_embed": tune.choice([256]),
+    "lr": tune.loguniform(1e-5, 1e-3), <<<<<<<<<<<<<<<<<< NEW
+    "weight_decay": 0,
+    "hidden_dim": tune.grid_search([128, 256, 512]), <<<< SEARCH
+    "dropout": tune.grid_search([0, 0.1, 0.2]), <<<<<<<<< SEARCH
+    "batch_size": tune.grid_search([1, 2, 4]), <<<<<<<<<< SEARCH
+    "epochs": tune.choice([epochs]),
+    "gradient_clip": tune.grid_search([0.5, 1, 2, 4, float("inf")]),
+}
+
+NOT YET RUN
+
+
+MORPHEME feature, SENTENCE EMBED context
+========================================
+
+With all 1 occurrence -> unk, 256 hidden dim
+Average across 4 seeds: 0.6615160841561649
+
+With non-grammar 1 occurrence -> unk, 256 hidden dim
+Average across 4 seeds: 0.656715177846556
+
+GRU 128:
+bilstm-ZU: Micro F1: 0.9276106997128608. Macro f1: 0.6698360427096979. Weighted F1: 0.9242904027928384
+bilstm-ZU: Micro F1: 0.927157322049267. Macro f1: 0.6612132241729299. Weighted F1: 0.9239150363016821

@@ -1,0 +1,85 @@
+
+naive combine = 65%
+
+must try naive combine but trunc e.g. NounStem + 11 to just NounStem
+
+{
+    'lr': 0.00019401697177446437,
+    'weight_decay': 9.230833759168172e-07,
+    'hidden_dim': 128,
+    'dropout': 0.1,
+    'batch_size': 1,
+    'epochs': 30,
+    'gradient_clip': 1,
+    'embed_target_embed': 256
+}
+
+best so far epoch 20. Train loss: 0.042. Valid loss: 0.328. Micro f1 0.928. Macro f1: 0.676
+Sentence level, morpheme embed, using full bilstm to combine with owm word embeds
+
+Sentence, morpheme, bilstm WITHOUT own word embeds not very good
+
+Sentence, morpheme, bilstm WITHOUT own word embeds, FROZEN feature extractors
+Epoch 22 done in 20.33s. Train loss: 0.104. Valid loss: 0.240. Micro F1: 0.930. Macro f1: 0.652
+
+# Class taggers
+BILSTM: 77% macro for class only bilstm tagger
+CRF tagger: Best Macro f1: 0.7625557346966356 in epoch 18 (micro here was 0.9563352229201777)
+Bilstm-trigram-with-start/end: Macro f1: 0.7584130851241656 in epoch 19 (micro here was 0.9550329400949901)
+CRF-trigram-with-start/end: Micro F1: 0.951. Macro f1: 0.753
+Bilst-trigram-no-start/end: only about 72 in epoch 12
+
+## BiLSTM, morpheme, sentence
+config: {
+    'lr': 0.0019882095474408738,
+    'weight_decay': 2.335011764384184e-10,
+    'hidden_dim': 256,
+    'dropout': 0.1,
+    'batch_size': 2,
+    'epochs': 20,
+    'gradient_clip': 0.5,
+    'embed_target_embed': 128
+}
+
+val loss: 0.2699049671679001
+macro f1 0.7072489261476088
+micro 0.9548031254787804
+bilstm-classes: Best macro f1: 0.7993596329809521 at epoch 2
+bilstm-classes: Micro F1: 0.9583269495939942. Macro f1: 0.8022461122603947. Weighted F1: 0.9573694505870204
+
+## Bilstm morpheme word
+
+Best trial by f1_macro:
+ config: {'lr': 0.000508652023215139, 'weight_decay': 5.380628146195844e-10, 'hidden_dim': 256, 'dropout': 0.1, 'batch_size': 4, 'epochs': 20, 'gradient_clip': 2, 'embed_target_embed': 256}
+ val loss: 0.3786719464213998
+ macro f1 0.7491391239308595
+ micro 0.9589397885705531
+ bilstm-classes: Micro F1: 0.9579439252336449. Macro f1: 0.8040983860213593. Weighted F1: 0.9571023799020097
+ bilstm-classes: Best macro f1: 0.8073541997239575 at epoch 3
+
+
+Seems like CRF LR is a bit too low...
+
+# Tag taggers
+CRF: Epoch 28 done in 68.43s. Train loss: 2.930. Valid loss: 10.758. Micro F1: 0.959. Macro f1: 0.814
+BiLSTM: Best Macro f1: 0.8191765566145958 in epoch 13 (micro here was 0.9566416424084572)
+Bilstm-trigram-with-start/end: macro f1: 0.7991510594687603 in epoch 24 (micro here was 0.9600122567795312)
+
+## BiLSTM morpheme sentence
+
+Best trial by f1_macro:
+config: {
+    'lr': 0.0007301058410653952,
+    'weight_decay': 1.5329333022359804e-07,
+    'hidden_dim': 64,
+    'dropout': 0.1,
+    'batch_size': 1,
+    'epochs': 20,
+    'gradient_clip': 1,
+    'embed_target_embed': 128
+}
+ val loss: 0.2100235328801528
+ macro f1 0.8001723836535584
+ micro 0.9564118277922475
+ bilstm-tags: Micro F1: 0.9587099739543435. Macro f1: 0.8265937151917967. Weighted F1: 0.9564024303830452
+ bilstm-tags: Best macro f1: 0.8265937151917967 at epoch 15

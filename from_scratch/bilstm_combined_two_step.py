@@ -1,20 +1,34 @@
-import torch
-import torch.nn as nn
-import torch.nn.functional as function
 from common import AnnotatedCorpusDataset, SEQ_PAD_IX
+import torch
+from torch import nn
+import torch.nn.functional as function
 
-
-class BiLSTMTagger(nn.Module):
-    def __init__(self, embed, config, trainset: AnnotatedCorpusDataset):
-        super(BiLSTMTagger, self).__init__()
+class BiLSTMCombinedTagger(nn.Module):
+    def __init__(self, embed, config, trainset: AnnotatedCorpusDataset, tag_tagger, class_tagger):
+        super(BiLSTMCombinedTagger, self).__init__()
         self.dev = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
         self.hidden_dim = config["hidden_dim"]
         self.submorpheme_embeddings = embed.to(self.dev)
 
+        self.tag_tagger = tag_tagger
+        self.class_tagger = class_tagger
+
+        for param in self.tag_tagger.parameters():
+            param.requires_grad = False
+
+        for param in self.class_tagger.parameters():
+            param.requires_grad = False
+
         # The LSTM takes morpheme embeddings as inputs, and outputs hidden states
         # with dimensionality hidden_dim.
-        self.lstm = nn.LSTM(embed.output_dim, self.hidden_dim, batch_first=True, bidirectional=True, device=self.dev)
+        self.lstm = nn.LSTM(
+            embed.output_dim + tag_tagger.hidden2tag.out_features + class_tagger.hidden2tag.out_features,
+            self.hidden_dim,
+            batch_first=True,
+            bidirectional=True,
+            device=self.dev
+        )
 
         # The linear layer that maps from hidden state space to tag space
         self.hidden2tag = nn.Linear(self.hidden_dim * 2, trainset.num_tags, device=self.dev)
@@ -33,7 +47,13 @@ class BiLSTMTagger(nn.Module):
         embeds = self.submorpheme_embeddings(morphemes)
         embeds = self.drop(embeds)
 
-        lstm_out, hidden = self.lstm(embeds)
+        tag_features = self.tag_tagger(morphemes)
+        class_features = self.class_tagger(morphemes)
+
+        # print(embeds.size(), tag_features.size(), class_features.size())
+        in_features = torch.cat((embeds, tag_features, class_features), 2)
+
+        lstm_out, hidden = self.lstm(in_features)
         lstm_out = self.drop(lstm_out)
 
         tag_space = self.hidden2tag(lstm_out)
