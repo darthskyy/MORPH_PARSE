@@ -124,31 +124,37 @@ def run_demo(args):
     exit_demo = False
     print("at any point you can enter 'exit' to close the application")
     while not exit_demo:
-        language = input("enter the language you want to use the parser for:\n('nr', 'ss', 'xh', 'zu')\n")
-        if language in ["exit"]:
-            break
-        parser = pipelines[language.upper()]
+        language = ""
+        while language not in ["nr", "ss", "xh", "zu"]:
+            language = input("enter the language you want to use the parser for:\n('nr', 'ss', 'xh', 'zu')\n")
+            if language in ["exit"]:
+                break
+            parser = pipelines[language.upper()]
 
         print("enter words with the morphemes space-separated (or 'q' to quit)")
 
         while True:
+            print("-"*18)
             word = input("enter the word:\n")
             if word in ["exit", "q"]:
                 exit_demo = word == "exit"
                 break
+            
+            try:
+                ner_results = parser(word)
+                morphs, tags = format_ner_results(ner_results)
+                print("predicted")
+                print(parse_result(morphs, tags))
+                if word in datasets[language.upper()]:
+                    print("gold")
+                    gold = datasets[language.upper()][(datasets[language.upper()].find(word))]
+                    print(gold["parsed"])
+            except Exception as e:
+                print(f"Error parsing {word}.")
 
-            ner_results = parser(word)
-            morphs, tags = format_ner_results(ner_results)
-            print("predicted")
-            print(parse_result(morphs, tags))
-            if word in datasets[language.upper()]:
-                print("gold")
-                gold = datasets[language.upper()][(datasets[language.upper()].find(word))]
-                print(gold["parsed"])
 
 
-
-
+    print("goodbye")
     # ner_results = pipelines["NR"](" ".join(datasets["NR"][0]["morpheme"]))
     # # for item in ner_results: print(item)
     # morphs, tags = format_ner_results(ner_results)

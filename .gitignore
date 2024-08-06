@@ -2,6 +2,7 @@ data/
 myenv/
 *.tgz
 plm/models/
+plm/demo
 .cache/
 .venv
 checking
