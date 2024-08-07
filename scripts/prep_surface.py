@@ -1,14 +1,7 @@
 import os
+import re
 
 from data_prep import read_lines, split_tags, write_lines
-
-
-def prepare_surface_seg(surface_seg: str) -> str:
-    surface_seg = surface_seg.strip()
-    if surface_seg == "-":
-        return "-"
-    else:
-        return surface_seg.replace("-", "_")
 
 def prepare_line(line: str, is_test=False) -> list[str]:
     split = line.split(" | ", maxsplit=4)
@@ -18,12 +11,13 @@ def prepare_line(line: str, is_test=False) -> list[str]:
         split = line.split()
         return [split[0], split[3], split[0], split[3]]
 
-    word, surface_seg, surface_with_tags, _ = split
+    word, _, surface_with_tags, _ = split
 
     # Sometimes, morphs are double-tagged (e.g yo[SC4|Fut])
     # We can't train for multiple tags, but we can test for them
     tags = []
-    for tag in split_tags(surface_with_tags)[1]:
+    seg, tags_orig = split_tags(surface_with_tags)
+    for tag in tags_orig:
         split = tag.split("|")
         if is_test:
             tags.extend(split)
@@ -31,7 +25,7 @@ def prepare_line(line: str, is_test=False) -> list[str]:
             tags.append(split[0])
 
     # TODO do not do this if the morpheme actually contains -
-    return [word, surface_with_tags, prepare_surface_seg(surface_seg), "_".join(tags)]
+    return [word, surface_with_tags, re.sub(r"\(.*\)", "", "_".join(seg)), "_".join(tags)]
 
 
 def prepare_train_lines(lines: list[str]) -> list[str]:
@@ -52,8 +46,12 @@ def prepare_test_lines(gold_lines: list[str], predicted_lines: list[str]) -> lis
             continue
 
         word, surface_with_tags, _, gold_tags = prepare_line(gold, is_test=True)
-        surface_seg = gold.split("|")[1]
-        out.append("\t".join([word, surface_with_tags, prepare_surface_seg(surface_seg), gold_tags]))
+        pred_seg = pred.split("|")[1].strip()
+        pred_seg = re.sub(r"\(.*\)", "", pred_seg).replace("-", "_")
+
+        pred_seg = pred_seg or "-"  # Due to a limitation of the segmenter, "-" => "", so just fix it here
+
+        out.append("\t".join([word, surface_with_tags, pred_seg, gold_tags]))
 
     return out
 

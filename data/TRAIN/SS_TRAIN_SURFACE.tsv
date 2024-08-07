@@ -12618,7 +12618,7 @@ inombolo	i[NPre9]nombolo[NStem]	i_nombolo	NPre9_NStem
 27699	27699[NUM]	27699	NUM
 ,	,[PUNC]	,	PUNC
 Inhlaba	i[NPrePre9]n[BPre9]hlaba[NStem]	i_n_hlaba	NPrePre9_BPre9_NStem
--2005	-2005[NUM]	_2005	NUM
+-2005	-2005[NUM]	-2005	NUM
 Tinkhombandlela	tin[NPre10]khombandlela[NStem]	tin_khombandlela	NPre10_NStem
 tichaza	ti[SC10]chaz[VRoot]a[VerbTerm]	ti_chaz_a	SC10_VRoot_VerbTerm
 kutsi	kutsi[Conj]	kutsi	Conj
@@ -17309,7 +17309,7 @@ luhlelo	lu[BPre11]hlelo[NStem]	lu_hlelo	BPre11_NStem
 lwekucecesha	lwe[PossConc11]ku[BPre15]cecesh[VRoot]a[VerbTerm]	lwe_ku_cecesh_a	PossConc11_BPre15_VRoot_VerbTerm
 lungatsatsa	lungatsatsa[NStem]	lungatsatsa	NStem
 tinsuku	ti[BPre8]nsuku[NStem]	ti_nsuku	BPre8_NStem
-letingu-15	letingu-15[CDEM04]	letingu_15	CDEM04
+letingu-15	letingu-15[CDEM04]	letingu-15	CDEM04
 .	.[PUNC]	.	PUNC
 Ngekwetibalo	Nge[AdvPre]kwe[PossConc15]tibalo[NStem]	Nge_kwe_tibalo	AdvPre_PossConc15_NStem
 letisuselwe	leti[RelConc8]susel[VRoot]w[PassExt]e[VerbTerm]	leti_susel_w_e	RelConc8_VRoot_PassExt_VerbTerm
@@ -23760,7 +23760,7 @@ tisebenti	ti[BPre8]sebenti[NStem]	ti_sebenti	BPre8_NStem
 (	([PUNC]	(	PUNC
 letineminyaka	leti[RelConc8]ne[AdvPre]mi[BPre4]nyaka[NStem]	leti_ne_mi_nyaka	RelConc8_AdvPre_BPre4_NStem
 yebudzala	ye[PossConc4]bu[BPre14]dzala[NStem]	ye_bu_dzala	PossConc4_BPre14_NStem
-leli-15	leli-15[CDEM04]	leli_15	CDEM04
+leli-15	leli-15[CDEM04]	leli-15	CDEM04
 kuya	ku[BPre15]y[VRoot]a[VerbTerm]	ku_y_a	BPre15_VRoot_VerbTerm
 ema64	e[LocPre]ma[BPre6]64[Num]	e_ma_64	LocPre_BPre6_Num
 )	)[PUNC]	)	PUNC
@@ -25941,7 +25941,7 @@ lahlanganyela	la[RelConc1]hlanganyel[VRoot]a[VerbTerm]	la_hlanganyel_a	RelConc1_
 noma	noma[Conj]	noma	Conj
 latsintsekako	la[RelConc1]tsints[VRoot]ek[NeutExt]a[VerbTerm]ko[RelSuf]	la_tsints_ek_a_ko	RelConc1_VRoot_NeutExt_VerbTerm_RelSuf
 kulelo	kulelo[CDEMLOC]	kulelo	CDEMLOC
-nalelo-cembu	nalelo-cembu[ADV]	nalelo_cembu	ADV
+nalelo-cembu	nalelo-cembu[ADV]	nalelo-cembu	ADV
 .	.[PUNC]	.	PUNC
 Tinkhomba	tin[BPre10]khomba[NStem]	tin_khomba	BPre10_NStem
 letibalekako	leti[RelConc10]balek[VRoot]a[VerbTerm]ko[RelSuf]	leti_balek_a_ko	RelConc10_VRoot_VerbTerm_RelSuf
@@ -28711,7 +28711,7 @@ uliphakelotimali	u[NPrePre1]li[BPre5]phakelotimali[NStem]	u_li_phakelotimali	NPr
 ungatfutfukiswa	u[SC3]nga[Pot]tfutfuk[VRoot]is[CausExt]w[PassExt]a[VerbTerm]	u_nga_tfutfuk_is_w_a	SC3_Pot_VRoot_CausExt_PassExt_VerbTerm
 njani	njani[Interrog]	njani	Interrog
 macondzana	macondzana[Conj]	macondzana	Conj
-naletikhwama-mali	naletikhwama-mali[ADV]	naletikhwama_mali	ADV
+naletikhwama-mali	naletikhwama-mali[ADV]	naletikhwama-mali	ADV
 teliwadi	te[PossConc8]li[BPre5]wadi[NStem]	te_li_wadi	PossConc8_BPre5_NStem
 .	.[PUNC]	.	PUNC
 Ikhansela	i[NPre9]khansela[NStem]	i_khansela	NPre9_NStem
@@ -30154,7 +30154,7 @@ yenteka	ye[PossConc9]nt[VRoot]ek[NPas]a[VerbTerm]	ye_nt_ek_a	PossConc9_VRoot_NPa
 kulommango	kulommango[NLOC]	kulommango	NLOC
 wakitsi	wakitsi[NStem]	wakitsi	NStem
 kuleminyaka	kuleminyaka[NLOC]	kuleminyaka	NLOC
-lengu-30-50	lengu-30-50[CDEM09]	lengu_30_50	CDEM09
+lengu-30-50	lengu-30-50[CDEM09]	lengu-30-50	CDEM09
 leyengcile	le[RelConc9]ye[Pres]ngc[VRoot]ile[Perf]	le_ye_ngc_ile	RelConc9_Pres_VRoot_Perf
 ?	?[PUNC]	?	PUNC
 Kulandzelelwa	ku[BPre17]landz[VRoot]elel[IntensExt]w[PassExt]a[VerbTerm]	ku_landz_elel_w_a	BPre17_VRoot_IntensExt_PassExt_VerbTerm
@@ -31459,7 +31459,7 @@ yenteka	ye[PossConc9]nt[VRoot]ek[NPas]a[VerbTerm]	ye_nt_ek_a	PossConc9_VRoot_NPa
 kulommango	kulommango[NLOC]	kulommango	NLOC
 wakitsi	wakitsi[NStem]	wakitsi	NStem
 kuleminyaka	kuleminyaka[NLOC]	kuleminyaka	NLOC
-lengu-30-50	lengu-30-50[CDEM09]	lengu_30_50	CDEM09
+lengu-30-50	lengu-30-50[CDEM09]	lengu-30-50	CDEM09
 leyengcile	le[RelConc9]ye[Pres]ngc[VRoot]ile[Perf]	le_ye_ngc_ile	RelConc9_Pres_VRoot_Perf
 ?	?[PUNC]	?	PUNC
 Imiphumela	i[NPrePre4]mi[BPre4]phumela[NStem]	i_mi_phumela	NPrePre4_BPre4_NStem
@@ -32911,7 +32911,7 @@ ucinisekise	u[SC2ps]cinis[VRoot]ek[NPas]is[CausExt]e[VerbTerm]	u_cinis_ek_is_e	S
 lemininingwane	le[PossConc5]mi[BPre4]niningwane[NStem]	le_mi_niningwane	PossConc5_BPre4_NStem
 lehlanganisiwe	le[PossConc5]hlangan[VRoot]is[CausExt]iw[PassExt]e[VerbTerm]	le_hlangan_is_iw_e	PossConc5_VRoot_CausExt_PassExt_VerbTerm
 .	.[PUNC]	.	PUNC
-Loku-ke	Loku-ke[CDEM15]	Loku_ke	CDEM15
+Loku-ke	Loku-ke[CDEM15]	Loku-ke	CDEM15
 kube	ku[SC15]be[AuxVStem]	ku_be	SC15_AuxVStem
 sekwetfulwa	se[PossConc7]kwe[OC15]tful[VRoot]w[PassExt]a[VerbTerm]	se_kwe_tful_w_a	PossConc7_OC15_VRoot_PassExt_VerbTerm
 ewadini	e[LocPre]wadi[NStem]ni[LocSuf]	e_wadi_ni	LocPre_NStem_LocSuf
@@ -39677,7 +39677,7 @@ batokwati	ba[SC2]to[Fut]kw[OC15]at[VRoot]i[VerbTerm]	ba_to_kw_at_i	SC2_Fut_OC15_
 kuphawula	ku[BPre15]phawul[VRoot]a[VerbTerm]	ku_phawul_a	BPre15_VRoot_VerbTerm
 bocalangaye	b[PossConc2a]o[LocPre]calangaye[NStem]	b_o_calangaye	PossConc2a_LocPre_NStem
 bonkhana	bo[QuantConc2a]nkhana[PronStem2]	bo_nkhana	QuantConc2a_PronStem2
-bale-IDP	bale-IDP[POSS02]	bale_IDP	POSS02
+bale-IDP	bale-IDP[POSS02]	bale-IDP	POSS02
 .	.[PUNC]	.	PUNC
 Uma	uma[Conj]	uma	Conj
 labangenele	laba[RelConc2]ngen[VRoot]el[ApplExt]e[VerbTerm]	laba_ngen_el_e	RelConc2_VRoot_ApplExt_VerbTerm
@@ -41249,7 +41249,7 @@ batokwati	ba[SC2]to[Fut]kw[OC15]at[VRoot]i[VerbTerm]	ba_to_kw_at_i	SC2_Fut_OC15_
 kuphawula	ku[BPre15]phawul[VRoot]a[VerbTerm]	ku_phawul_a	BPre15_VRoot_VerbTerm
 bocalangaye	b[PossConc2a]o[LocPre]calangaye[NStem]	b_o_calangaye	PossConc2a_LocPre_NStem
 bonkhana	bo[QuantConc2a]nkhana[PronStem2]	bo_nkhana	QuantConc2a_PronStem2
-bale-IDP	bale-IDP[POSS02]	bale_IDP	POSS02
+bale-IDP	bale-IDP[POSS02]	bale-IDP	POSS02
 .	.[PUNC]	.	PUNC
 Uma	uma[Conj]	uma	Conj
 labangenele	laba[RelConc2]ngen[VRoot]el[ApplExt]e[VerbTerm]	laba_ngen_el_e	RelConc2_VRoot_ApplExt_VerbTerm
