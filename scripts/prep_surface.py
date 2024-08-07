@@ -3,6 +3,13 @@ import os
 from data_prep import read_lines, split_tags, write_lines
 
 
+def prepare_surface_seg(surface_seg: str) -> str:
+    surface_seg = surface_seg.strip()
+    if surface_seg == "-":
+        return "-"
+    else:
+        return surface_seg.replace("-", "_")
+
 def prepare_line(line: str, is_test=False) -> list[str]:
     split = line.split(" | ", maxsplit=4)
 
@@ -23,7 +30,8 @@ def prepare_line(line: str, is_test=False) -> list[str]:
         else:
             tags.append(split[0])
 
-    return [word, surface_with_tags, surface_seg.replace("-", "_"), "_".join(tags)]
+    # TODO do not do this if the morpheme actually contains -
+    return [word, surface_with_tags, prepare_surface_seg(surface_seg), "_".join(tags)]
 
 
 def prepare_train_lines(lines: list[str]) -> list[str]:
@@ -45,7 +53,7 @@ def prepare_test_lines(gold_lines: list[str], predicted_lines: list[str]) -> lis
 
         word, surface_with_tags, _, gold_tags = prepare_line(gold, is_test=True)
         surface_seg = gold.split("|")[1]
-        out.append("\t".join([word, surface_with_tags, surface_seg.replace("-", "_"), gold_tags]))
+        out.append("\t".join([word, surface_with_tags, prepare_surface_seg(surface_seg), gold_tags]))
 
     return out
 
@@ -82,7 +90,7 @@ def main():
         # Test set
         gold_test = read_lines(f"data/Surface/gold/{lang}.test.morphparse.conll", skip_first=True)
         predicted_test = read_lines(f"data/Surface/predicted/{lang}.test.surface.predictions.conll", skip_first=True)
-        write_lines(f"data/TRAIN/{langs[lang]}_TEST_SURFACE.tsv", prepare_test_lines(gold_test, predicted_test))
+        write_lines(f"data/TEST/{langs[lang]}_TEST_SURFACE.tsv", prepare_test_lines(gold_test, predicted_test))
 
 
 if __name__ == "__main__":

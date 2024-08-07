@@ -386,7 +386,7 @@ amanqanam	a[NPrePre6]ma[BPre6]nqanam[NStem]	a_ma_nqanam	NPrePre6_BPre6_NStem
 amathathu	ama[AdjPref6]thathu[AdjStem]	ama_thathu	AdjPref6_AdjStem
 karhulumente	ka[PossKA]rhulumente[NStem]	ka_rhulumente	PossKA_NStem
 welizwe	we[PossConc1a]li[BPre5]zwe[NStem]	we_li_zwe	PossConc1a_BPre5_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 akazwelonke	a[RelConc6]ka[PossKA]zwelonke[NStem]	a_ka_zwelonke	RelConc6_PossKA_NStem
 ,	,[PUNC]	,	PUNC
 awamaphondo	a[RelConc6]wa[PossConc6]ma[BPre6]phondo[NStem]	a_wa_ma_phondo	RelConc6_PossConc6_BPre6_NStem
@@ -491,7 +491,7 @@ kunikezela	ku[SC15]nikezel[VRoot]a[VerbTerm]	ku_nikezel_a	SC15_VRoot_VerbTerm
 kumele	ku[SC15]mele[AuxVStem]	ku_mele	SC15_AuxVStem
 ukuba	ukuba[Conj]	ukuba	Conj
 ivukelwe	i[SC9]vuk[VRoot]el[ApplExt]w[PassExt]e[VerbTerm]	i_vuk_el_w_e	SC9_VRoot_ApplExt_PassExt_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ayinabunyani	a[NegPre]yi[CopPre]na[CopPre]bu[BPre14]nyani[NStem]	a_yi_na_bu_nyani	NegPre_CopPre_CopPre_BPre14_NStem
 kwaye	kwaye[Conj]	kwaye	Conj
 ayikho	a[NegPre]yi[CopPre]kho[Adv]	a_yi_kho	NegPre_CopPre_Adv
@@ -996,7 +996,7 @@ ukubandakanywa	u[NPrePre15]ku[BPre15]bandakany[VRoot]w[PassExt]a[VerbTerm]	u_ku_
 Ukumelwa	u[NPrePre15]ku[BPre15]m[VRoot]el[ApplExt]w[PassExt]a[VerbTerm]	u_ku_m_el_w_a	NPrePre15_BPre15_VRoot_ApplExt_PassExt_VerbTerm
 kwamaqela	kwa[PossConc15]ma[BPre6]qela[NStem]	kwa_ma_qela	PossConc15_BPre6_NStem
 anomdla	a[RelConc6]no[AdvPre]m[BPre3]dla[NStem]	a_no_m_dla	RelConc6_AdvPre_BPre3_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 Zeziphi	z[CopPre]e[RelConc10]zi[EnumConc10]phi[EnumStem]	z_e_zi_phi	CopPre_RelConc10_EnumConc10_EnumStem
 iinkqubo	i[NPrePre10](z)in[BPre10]kqubo[NStem]	i_in_kqubo	NPrePre10_BPre10_NStem
 ezikhoyo	ezi[RelConc8]kho[Adv]yo[RelSuf]	ezi_kho_yo	RelConc8_Adv_RelSuf
@@ -1569,7 +1569,7 @@ ekubhekiselelwe	e[RelConc9]ku[SC15]bhekisel[VRoot]el[ApplExt]w[PassExt]e[VerbTer
 kuwo	ku[LocPre]wo[PronStem6]	ku_wo	LocPre_PronStem6
 ?	?[PUNC]	?	PUNC
 Umphulaphuli	u[NPrePre1]m[BPre1]phulaphuli[NStem]	u_m_phulaphuli	NPrePre1_BPre1_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ukubhexesha	u[NPrePre15]ku[BPre15]bhexesh[VRoot]a[VerbTerm]	u_ku_bhexesh_a	NPrePre15_BPre15_VRoot_VerbTerm
 kufuna	ku[SC15]fun[VRoot]a[VerbTerm]	ku_fun_a	SC15_VRoot_VerbTerm
 izakhono	i[NPrePre8]za[BPre8]khono[NStem]	i_za_khono	NPrePre8_BPre8_NStem
@@ -1695,7 +1695,7 @@ lika2030	li[PossConc5]ka[PossKA]2030[Num]	li_ka_2030	PossConc5_PossKA_Num
 .	.[PUNC]	.	PUNC
 Ukungabikho	u[NPrePre15]ku[BPre15]nga[NegPre]bi[CopPre]kho[Adv]	u_ku_nga_bi_kho	NPrePre15_BPre15_NegPre_CopPre_Adv
 kwexesha	kwe[PossConc15]xesha[BPre5]	kwe_xesha	PossConc15_BPre5
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 Amalungu	a[NPrePre6]ma[BPre6]lungu[NStem]	a_ma_lungu	NPrePre6_BPre6_NStem
 asekuhlaleni	a[PossConc6]s[PreLocs]e[LocPre]ku[BPre15]hlale[VRoot]ni[VerbTerm]	a_s_e_ku_hlale_ni	PossConc6_PreLocs_LocPre_BPre15_VRoot_VerbTerm
 ixesha	i[NPrePre5](li)[BPre5]xesha[NStem]	i_xesha	NPrePre5_BPre5_NStem
@@ -2176,7 +2176,7 @@ alimeleyo	a[RelConc6]limel[VRoot]e[VerbTerm]yo[RelSuf]	a_limel_e_yo	RelConc6_VRo
 .	.[PUNC]	.	PUNC
 Ababhexeshi	a[NPrePre2]ba[BPre2]bhexeshi[NStem]	a_ba_bhexeshi	NPrePre2_BPre2_NStem
 bewadi	be[PossConc2]wadi[NStem]	be_wadi	PossConc2_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 abanokufunyanwa	abanokufunyanwa[REL]	abanokufunyanwa	REL
 kumalungu	ku[LocPre]ma[BPre6]lungu[NStem]	ku_ma_lungu	LocPre_BPre6_NStem
 anyuliweyo	a[RelConc6]nyul[VRoot]iw[PassExt]e[VerbTerm]yo[RelSuf]	a_nyul_iw_e_yo	RelConc6_VRoot_PassExt_VerbTerm_RelSuf
@@ -2401,7 +2401,7 @@ ukuyisebenzisa	u[NPrePre15]ku[BPre15]yi[OC4]sebenz[VRoot]is[CausExt]a[VerbTerm]	
 kwangaphambili	kwa[AdvPre]nga[AdvPre]phambili[Adv]	kwa_nga_phambili	AdvPre_AdvPre_Adv
 .	.[PUNC]	.	PUNC
 Isicwangciso	i[NPrePre7]si[BPre7]cwangciso[NStem]	i_si_cwangciso	NPrePre7_BPre7_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 IKomiti	i[NPrePre9]komiti[NStem]	i_komiti	NPrePre9_NStem
 yeWadi	yeW[PossConc9]adi[NPrePre9]	yeW_adi	PossConc9_NPrePre9
 isebenza	i[SC9]sebenz[VRoot]a[VerbTerm]	i_sebenz_a	SC9_VRoot_VerbTerm
@@ -3044,7 +3044,7 @@ kamasipala	ka[PossKA]masipala[NStem]	ka_masipala	PossKA_NStem
 .	.[PUNC]	.	PUNC
 Ulawulo	u[NPrePre11]lawulo[NStem]	u_lawulo	NPrePre11_NStem
 olulandeliswayo	olu[RelConc11]landel[VRoot]is[CausExt]w[PassExt]a[VerbTerm]yo[RelSuf]	olu_landel_is_w_a_yo	RelConc11_VRoot_CausExt_PassExt_VerbTerm_RelSuf
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 Ikomiti	i[NPrePre9]komiti[NStem]	i_komiti	NPrePre9_NStem
 yeWadi	yeW[PossConc9]adi[NPrePre9]	yeW_adi	PossConc9_NPrePre9
 inako	i[CopPre]na[CopPre]ko[PronStem15]	i_na_ko	CopPre_CopPre_PronStem15
@@ -3728,7 +3728,7 @@ iimpazamo	i[NPrePre10]im[BPre10]pazamo[NStem]	i_im_pazamo	NPrePre10_BPre10_NStem
 zasekuhlaleni	za[PossConc10]s[PreLocs]e[LocPre]ku[BPre15]hlale[VRoot]ni[VerbTerm]	za_s_e_ku_hlale_ni	PossConc10_PreLocs_LocPre_BPre15_VRoot_VerbTerm
 nezopolitiko	n[AdvPre]e[RelConc9]zo[PossConc8]politiko[BPre11]	n_e_zo_politiko	AdvPre_RelConc9_PossConc8_BPre11
 ezisisikhumbuzo	ezi[RelConc8]s[CopPre]i[NPrePre7]si[BPre7]khumbuzo[NStem]	ezi_s_i_si_khumbuzo	RelConc8_CopPre_NPrePre7_BPre7_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 nakanjalo	na[AdvPre]kanjalo[Adv]	na_kanjalo	AdvPre_Adv
 nobunakho	no[AdvPre]bu[BPre14]na[CopPre]kho[Adv]	no_bu_na_kho	AdvPre_BPre14_CopPre_Adv
 bokuzilungisa	bo[PossConc14]ku[BPre14]zi[OC8]lungis[VRoot]a[VerbTerm]	bo_ku_zi_lungis_a	PossConc14_BPre14_OC8_VRoot_VerbTerm
@@ -4488,7 +4488,7 @@ iimfuno	i[NPrePre10]im[BPre10]funo[NStem]	i_im_funo	NPrePre10_BPre10_NStem
 ezifunwayo	ezi[RelConc10]fun[VRoot]w[PassExt]a[VerbTerm]yo[RelSuf]	ezi_fun_w_a_yo	RelConc10_VRoot_PassExt_VerbTerm_RelSuf
 kumacandelo	ku[LocPre]ma[BPre6]candelo[NStem]	ku_ma_candelo	LocPre_BPre6_NStem
 ahlukeneyo	a[RelConc6]hluken[VRoot]e[VerbTerm]yo[RelSuf]	a_hluken_e_yo	RelConc6_VRoot_VerbTerm_RelSuf
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ezinjengempilo	ezi[RelConc10]njenge[AdvPre]m[BPre9]pilo[NStem]	ezi_njenge_m_pilo	RelConc10_AdvPre_BPre9_NStem
 ,	,[PUNC]	,	PUNC
 amanzi	a[NPrePre6]ma[BPre6]nzi[NStem]	a_ma_nzi	NPrePre6_BPre6_NStem
@@ -4499,7 +4499,7 @@ ukhuseleko	u[NPrePre11]khuseleko[NStem]	u_khuseleko	NPrePre11_NStem
 loluntu	lo[PossConc11]lu[BPre11]ntu[NStem]	lo_lu_ntu	PossConc11_BPre11_NStem
 ,	,[PUNC]	,	PUNC
 urhwebo	u[NPrePre11]rhwebo[NStem]	u_rhwebo	NPrePre11_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 nendlela	ne[AdvPre]n[BPre9]dlela[NStem]	ne_n_dlela	AdvPre_BPre9_NStem
 anokuphendula	a[SC1]no[CopPre]ku[BPre15]phendul[VRoot]a[VerbTerm]	a_no_ku_phendul_a	SC1_CopPre_BPre15_VRoot_VerbTerm
 ngayo	nga[AdvPre]yo[PronStem9]	nga_yo	AdvPre_PronStem9
@@ -4538,7 +4538,7 @@ oza	o[RelConc3]za[AuxVStem]	o_za	RelConc3_AuxVStem
 kuthetha	ku[SC15]theth[VRoot]a[VerbTerm]	ku_theth_a	SC15_VRoot_VerbTerm
 ngako	nga[AdvPre]ko[PronStem15]	nga_ko	AdvPre_PronStem15
 kwangaphambili	kwa[AdvPre]nga[AdvPre]phambili[Adv]	kwa_nga_phambili	AdvPre_AdvPre_Adv
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 usapho	u[NPrePre11]sapho[NStem]	u_sapho	NPrePre11_NStem
 lwakho	lwa[PossConc11]kho[PossPron]	lwa_kho	PossConc11_PossPron
 okanye	okanye[Conj]	okanye	Conj
@@ -5180,7 +5180,7 @@ kwiprojekthi	kw[LocPre]i[NPrePre9]projekthi[NStem]	kw_i_projekthi	LocPre_NPrePre
 .	.[PUNC]	.	PUNC
 Ukuqonda	u[NPrePre15]ku[BPre15]qond[VRoot]a[VerbTerm]	u_ku_qond_a	NPrePre15_BPre15_VRoot_VerbTerm
 noXilongo	noX[AdvPre]ilongo[NPrePre11]	noX_ilongo	AdvPre_NPrePre11
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 injongo	i[NPrePre9]n[BPre9]jongo[NStem]	i_n_jongo	NPrePre9_BPre9_NStem
 yalo	ya[PossConc9]lo[PronStem1]	ya_lo	PossConc9_PronStem1
 mgangatho	m[BPre3]gangatho[NStem]	m_gangatho	BPre3_NStem
@@ -5490,7 +5490,7 @@ kwezilandelayo	kw[LocPre]ezi[RelConc10]landel[VRoot]a[VerbTerm]yo[RelSuf]	kw_ezi
 umz.	umz.[Abbr]	umz.	Abbr
 ngengeniso	nge[AdvPre]ngeniso[NStem]	nge_ngeniso	AdvPre_NStem
 ephuculweyo	e[RelConc9]phucul[VRoot]w[PassExt]e[VerbTerm]yo[RelSuf]	e_phucul_w_e_yo	RelConc9_VRoot_PassExt_VerbTerm_RelSuf
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 kusenokuba	ku[CopPre]se[Pro]no[AdvPre]kuba[Conj]	ku_se_no_kuba	CopPre_Pro_AdvPre_Conj
 '	'[PUNC]	'	PUNC
 yingeniso	y[CopPre]i[NPrePre9]ngeniso[NStem]	y_i_ngeniso	CopPre_NPrePre9_NStem
@@ -6673,7 +6673,7 @@ ngokupheleleyo	ng[AdvPre]oku[RelConc15]phelel[VRoot]e[VerbTerm]yo[RelSuf]	ng_oku
 Ubuchule	u[NPrePre14]bu[BPre14]chule[NStem]	u_bu_chule	NPrePre14_BPre14_NStem
 obusekelwe	obu[RelConc14]sek[VRoot]el[ApplExt]w[PassExt]e[VerbTerm]	obu_sek_el_w_e	RelConc14_VRoot_ApplExt_PassExt_VerbTerm
 kumagunya	ku[LocPre]ma[BPre6]gunya[NStem]	ku_ma_gunya	LocPre_BPre6_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 oku	oku[CDEM15]	oku	CDEM15
 kuxa	ku[CopPre]xa[Conj]	ku_xa	CopPre_Conj
 iqela	i[NPrePre5](li)[BPre5]qela[NStem]	i_qela	NPrePre5_BPre5_NStem
@@ -8129,7 +8129,7 @@ leeNgxoxo	lee[PossConc5]N[NPrePre10]gxoxo[BPre10]	lee_N_gxoxo	PossConc5_NPrePre1
 zesiCwangciso	ze[PossConc8]si[BPre7]Cwangciso[NStem]	ze_si_Cwangciso	PossConc8_BPre7_NStem
 soPhuhliso	soP[PossConc7]huhliso[NPrePre11]	soP_huhliso	PossConc7_NPrePre11
 oluManyanisiweyo	olu[RelConc11]many[VRoot]an[RecipExt]is[CausExt]iw[PassExt]e[VerbTerm]yo[RelSuf]	olu_many_an_is_iw_e_yo	RelConc11_VRoot_RecipExt_CausExt_PassExt_VerbTerm_RelSuf
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ukukhuthaza	u[NPrePre15]ku[BPre15]khuthaz[VRoot]a[VerbTerm]	u_ku_khuthaz_a	NPrePre15_BPre15_VRoot_VerbTerm
 ukuthatha	u[NPrePre15]ku[BPre15]thath[VRoot]a[VerbTerm]	u_ku_thath_a	NPrePre15_BPre15_VRoot_VerbTerm
 inxaxheba	i[NPrePre9]n[BPre9]xaxheba[NStem]	i_n_xaxheba	NPrePre9_BPre9_NStem
@@ -8454,7 +8454,7 @@ samaxesha	sa[PossConc7]ma[BPre6]xesha[NStem]	sa_ma_xesha	PossConc7_BPre6_NStem
 onyaka	o[PossConc6]nyaka[BPre3]	o_nyaka	PossConc6_BPre3
 .	.[PUNC]	.	PUNC
 INKUTHALO	i[NPrePre9]n[BPre9]kuthalo[NStem]	i_n_kuthalo	NPrePre9_BPre9_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ithetha	i[SC9]theth[VRoot]a[VerbTerm]	i_theth_a	SC9_VRoot_VerbTerm
 ukuba	ukuba[Conj]	ukuba	Conj
 oovimba	oo[BPre2a]vimba[NStem]	oo_vimba	BPre2a_NStem
@@ -8940,7 +8940,7 @@ lwesicwangciso	lwe[PossConc11]si[BPre7]cwangciso[NStem]	lwe_si_cwangciso	PossCon
 Ubuchule	u[NPrePre14]bu[BPre14]chule[NStem]	u_bu_chule	NPrePre14_BPre14_NStem
 obusekelwe	obu[RelConc14]sek[VRoot]el[ApplExt]w[PassExt]e[VerbTerm]	obu_sek_el_w_e	RelConc14_VRoot_ApplExt_PassExt_VerbTerm
 kumalungelo	ku[LocPre]ma[BPre6]lungelo[NStem]	ku_ma_lungelo	LocPre_BPre6_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 oku	oku[CDEM15]	oku	CDEM15
 kuxa	ku[CopPre]xa[Conj]	ku_xa	CopPre_Conj
 iqela	i[NPrePre5](li)[BPre5]qela[NStem]	i_qela	NPrePre5_BPre5_NStem
@@ -9819,7 +9819,7 @@ kumacandelo	ku[LocPre]ma[BPre6]candelo[NStem]	ku_ma_candelo	LocPre_BPre6_NStem
 nemibutho	ne[AdvPre]mi[BPre4]butho[NStem]	ne_mi_butho	AdvPre_BPre4_NStem
 .	.[PUNC]	.	PUNC
 Isazisi	I[NPrePre7]s[BPre7]azisi[NStem]	I_s_azisi	NPrePre7_BPre7_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 Abahlali	a[NPrePre2]ba[BPre2]hlali[NStem]	a_ba_hlali	NPrePre2_BPre2_NStem
 bangangafani	ba[SC2]nga[Pot]nga[NegPre]fan[VRoot]i[VerbTerm]	ba_nga_nga_fan_i	SC2_Pot_NegPre_VRoot_VerbTerm
 ngokobuhlanga	ng[AdvPre]oko[AdvPre]bu[BPre14]hlanga[NStem]	ng_oko_bu_hlanga	AdvPre_AdvPre_BPre14_NStem
@@ -11603,7 +11603,7 @@ nezigqibo	ne[AdvPre]zi[BPre8]gqibo[NStem]	ne_zi_gqibo	AdvPre_BPre8_NStem
 zebhunga	ze[PossConc8]bhunga[NStem]	ze_bhunga	PossConc8_NStem
 .	.[PUNC]	.	PUNC
 Imbalelwano	i[NPrePre9]m[BPre9]balelwano[NStem]	i_m_balelwano	NPrePre9_BPre9_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ezi	ezi[CDEM10]	ezi	CDEM10
 ziileta	z[CopPre]i[NPrePre10](z)i[BPre10]leta[NStem]	z_i_i_leta	CopPre_NPrePre10_BPre10_NStem
 eziya	ezi[RelConc6]ya[AuxVStem]	ezi_ya	RelConc6_AuxVStem
@@ -11703,7 +11703,7 @@ njani	njani[Adv]	njani	Adv
 na	na[Interrog]	na	Interrog
 .	.[PUNC]	.	PUNC
 Phendula	phendul[VRoot]a[VerbTerm]	phendul_a	VRoot_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 uphendule	u[SC2ps]phendul[VRoot]e[VerbTerm]	u_phendul_e	SC2ps_VRoot_VerbTerm
 njani	njani[Adv]	njani	Adv
 kolu	kolu[CDEMLOC]	kolu	CDEMLOC
@@ -12018,7 +12018,7 @@ ngokwembali	ng[AdvPre]okwe[AdvPre]m[BPre9]bali[NStem]	ng_okwe_m_bali	AdvPre_AdvP
 .	.[PUNC]	.	PUNC
 Uthethwano	u[NPrePre11]thethwano[NStem]	u_thethwano	NPrePre11_NStem
 nengxelo	ne[AdvPre]n[BPre9]gxelo[NStem]	ne_n_gxelo	AdvPre_BPre9_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 iKomiti	i[NPrePre9]komiti[NStem]	i_komiti	NPrePre9_NStem
 yeWadi	yeW[PossConc9]adi[NPrePre9]	yeW_adi	PossConc9_NPrePre9
 yenza	y[SC9]enz[VRoot]a[VerbTerm]	y_enz_a	SC9_VRoot_VerbTerm
@@ -12186,7 +12186,7 @@ zokuqeqesha	zo[PossConc8]ku[BPre15]qeqesh[VRoot]a[VerbTerm]	zo_ku_qeqesh_a	PossC
 Ukuzimasa	u[NPrePre15]ku[BPre15]zimas[VRoot]a[VerbTerm]	u_ku_zimas_a	NPrePre15_BPre15_VRoot_VerbTerm
 iintlanganiso	i[NPrePre10](z)in[BPre10]tlanganiso[NStem]	i_in_tlanganiso	NPrePre10_BPre10_NStem
 zebhunga	ze[PossConc10]bhunga[NStem]	ze_bhunga	PossConc10_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 yenza	y[SC9]enz[VRoot]a[VerbTerm]	y_enz_a	SC9_VRoot_VerbTerm
 uluhlu	u[NPrePre11]lu[BPre11]hlu[NStem]	u_lu_hlu	NPrePre11_BPre11_NStem
 lwamalungu	lwa[PossConc11]ma[BPre6]lungu[NStem]	lwa_ma_lungu	PossConc11_BPre6_NStem
@@ -12327,7 +12327,7 @@ ozisa	o[RelConc3]z[VRoot]is[CausExt]a[VerbTerm]	o_z_is_a	RelConc3_VRoot_CausExt_
 umvuzo	u[NPrePre3]m[BPre3]vuzo[NStem]	u_m_vuzo	NPrePre3_BPre3_NStem
 .	.[PUNC]	.	PUNC
 Ukuxolisa	u[NPrePre15]ku[BPre15]xol[VRoot]is[CausExt]a[VerbTerm]	u_ku_xol_is_a	NPrePre15_BPre15_VRoot_CausExt_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 livela	li[SC5]vel[VRoot]a[VerbTerm]	li_vel_a	SC5_VRoot_VerbTerm
 kwigama	kw[LocPre]i[NPrePre5]gama[BPre5]	kw_i_gama	LocPre_NPrePre5_BPre5
 elithi	eli[RelConc5]th[VRoot]i[VerbTerm]	eli_th_i	RelConc5_VRoot_VerbTerm
@@ -12507,7 +12507,7 @@ elilandelayo	eli[RelConc5]landel[VRoot]a[VerbTerm]yo[RelSuf]	eli_landel_a_yo	Rel
 Imithombo	i[NPrePre4]mi[BPre4]thombo[NStem]	i_mi_thombo	NPrePre4_BPre4_NStem
 nezixhobo	ne[AdvPre]zi[BPre8]xhobo[NStem]	ne_zi_xhobo	AdvPre_BPre8_NStem
 ezisetyenziswayo	ezisetyenziswayo[REL]	ezisetyenziswayo	REL
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 kuluncedo	ku[CopPre]l[CopPre]u[NPrePre11](lu)[BPre11]ncedo[NStem]	ku_l_u_ncedo	CopPre_CopPre_NPrePre11_BPre11_NStem
 ukulungisa	u[NPrePre15]ku[BPre15]lungis[VRoot]a[VerbTerm]	u_ku_lungis_a	NPrePre15_BPre15_VRoot_VerbTerm
 uludwe	u[NPrePre11]lu[BPre11]dwe[NStem]	u_lu_dwe	NPrePre11_BPre11_NStem
@@ -12538,7 +12538,7 @@ needatha	nee[AdvPre]datha[BPre10]	nee_datha	AdvPre_BPre10
 projektha	projektha[NStem]	projektha	NStem
 .	.[PUNC]	.	PUNC
 Ulungelelaniso	u[NPrePre11]lu[BPre11]ngelelaniso[NStem]	u_lu_ngelelaniso	NPrePre11_BPre11_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ungquzulwano	u[NPrePre11]ngquzulwano[NStem]	u_ngquzulwano	NPrePre11_NStem
 lungavela	lu[SC11]nga[Pot]vel[VRoot]a[VerbTerm]	lu_nga_vel_a	SC11_Pot_VRoot_VerbTerm
 kwisicwangcisonkqubo	kw[LocPre]i[NPrePre7]si[BPre7]cwangciso[NStem]n[BPre9]kqubo[NStem]	kw_i_si_cwangciso_n_kqubo	LocPre_NPrePre7_BPre7_NStem_BPre9_NStem
@@ -13052,7 +13052,7 @@ enguNombolo	e[RelConc9]ng[CopPre]u[NPrePre1a]nombolo[NStem]	e_ng_u_nombolo	RelCo
 ,	,[PUNC]	,	PUNC
 Juni	Juni[ProperName]	Juni	ProperName
 2005	2005[NUM]	2005	NUM
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 iZikhokelo	i[NPrePre8]zi[BPre8]khokelo[NStem]	i_zi_khokelo	NPrePre8_BPre8_NStem
 zicacisa	zi[SC8]cac[VRoot]is[CausExt]a[VerbTerm]	zi_cac_is_a	SC8_VRoot_CausExt_VerbTerm
 ukuba	ukuba[Conj]	ukuba	Conj
@@ -13949,10 +13949,10 @@ uxanduva	u[NPrePre11]xanduva[NStem]	u_xanduva	NPrePre11_NStem
 lwazo	lwa[PossConc11]zo[PronStem10]	lwa_zo	PossConc11_PronStem10
 .	.[PUNC]	.	PUNC
 Ineajenda	I[BPre9]ne[CopPre]ajenda[NStem]	I_ne_ajenda	BPre9_CopPre_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 isicwangciso	i[NPrePre7]si[BPre7]cwangciso[NStem]	i_si_cwangciso	NPrePre7_BPre7_NStem
 sewadi	se[PossConc7]wadi[NStem]	se_wadi	PossConc7_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 isifezekiso	i[NPrePre7]si[BPre7]fezekiso[NStem]	i_si_fezekiso	NPrePre7_BPre7_NStem
 nokubekwa	no[AdvPre]ku[BPre15]bek[VRoot]w[PassExt]a[VerbTerm]	no_ku_bek_w_a	AdvPre_BPre15_VRoot_PassExt_VerbTerm
 kweliso	kwe[PossConc15]li[BPre5]so[NStem]	kwe_li_so	PossConc15_BPre5_NStem
@@ -14375,7 +14375,7 @@ imithetho	i[NPrePre4]mi[BPre4]thetho[NStem]	i_mi_thetho	NPrePre4_BPre4_NStem
 .	.[PUNC]	.	PUNC
 Ukuqhutywa	Ukuqhutywa[V]	Ukuqhutywa	V
 nokuvandlakanywa	no[AdvPre]ku[SC15]vandlakany[VRoot]w[PassExt]a[VerbTerm]	no_ku_vandlakany_w_a	AdvPre_SC15_VRoot_PassExt_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 esi	esi[CDEM07]	esi	CDEM07
 ke	ke[Conj]	ke	Conj
 sisigaba	s[CopPre]i[NPrePre7]si[BPre7]gaba[NStem]	s_i_si_gaba	CopPre_NPrePre7_BPre7_NStem
@@ -14600,7 +14600,7 @@ kwesicwangciso	kwe[PossConc15]si[BPre7]cwangciso[NStem]	kwe_si_cwangciso	PossCon
 Amaqela	a[NPrePre6]ma[BPre6]qela[NStem]	a_ma_qela	NPrePre6_BPre6_NStem
 abandakanye	a[SC2]bandakany[VRoot]e[VerbTerm]	a_bandakany_e	SC2_VRoot_VerbTerm
 abasebenzi	a[NPrePre2]ba[BPre2]sebenzi[NStem]	a_ba_sebenzi	NPrePre2_BPre2_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 bekhola	be[PossConc2]khola[NStem]	be_khola	PossConc2_NStem
 eblowu	e[PossConc6]blowu[RelStem]	e_blowu	PossConc6_RelStem
 nabekhola	na[AdvPre]be[PossConc2]khola[NStem]	na_be_khola	AdvPre_PossConc2_NStem
@@ -14700,7 +14700,7 @@ leyo	leyo[CDEM09]	leyo	CDEM09
 .	.[PUNC]	.	PUNC
 Iinkqubo	i[NPrePre10](z)in[BPre10]kqubo[NStem]	i_in_kqubo	NPrePre10_BPre10_NStem
 zolawulo	zo[PossConc10]lawulo[BPre11]	zo_lawulo	PossConc10_BPre11
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ezi	ezi[CDEM10]	ezi	CDEM10
 nkqubo	n[BPre9]kqubo[NStem]	n_kqubo	BPre9_NStem
 zibandakanya	zi[SC10]bandakany[VRoot]a[VerbTerm]	zi_bandakany_a	SC10_VRoot_VerbTerm
@@ -14976,7 +14976,7 @@ olude	olu[AdjPref11]de[AdjStem]	olu_de	AdjPref11_AdjStem
 kunolo	kunolo[ADV]	kunolo	ADV
 .	.[PUNC]	.	PUNC
 Iziphumo	i[NPrePre8]zi[BPre8]phumo[NStem]	i_zi_phumo	NPrePre8_BPre8_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 zeziphi	z[CopPre]e[RelConc8]zi[EnumConc8]phi[EnumStem]	z_e_zi_phi	CopPre_RelConc8_EnumConc8_EnumStem
 iziphumo	i[NPrePre8]zi[BPre8]phumo[NStem]	i_zi_phumo	NPrePre8_BPre8_NStem
 zendlela	ze[PossConc10]n[BPre9]dlela[NStem]	ze_n_dlela	PossConc10_BPre9_NStem
@@ -15048,7 +15048,7 @@ zophuhliso	zo[PossConc10]phuhliso[BPre11]	zo_phuhliso	PossConc10_BPre11
 ukususela	u[NPrePre15]ku[BPre15]sus[VRoot]el[ApplExt]a[VerbTerm]	u_ku_sus_el_a	NPrePre15_BPre15_VRoot_ApplExt_VerbTerm
 kunyaka	ku[LocPre]nyaka[NStem]	ku_nyaka	LocPre_NStem
 ka1992	ka[PossKA]1992[Num]	ka_1992	PossKA_Num
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 zonke	zo[QuantConc10]nke[QuantStem]	zo_nke	QuantConc10_QuantStem
 zinamaqondo	zi[CopPre]na[CopPre]ma[BPre6]qondo[NStem]	zi_na_ma_qondo	CopPre_CopPre_BPre6_NStem
 awahlukeneyo	a[RelConc6]wa[SC6]hluken[VRoot]e[VerbTerm]yo[RelSuf]	a_wa_hluken_e_yo	RelConc6_SC6_VRoot_VerbTerm_RelSuf
@@ -15352,7 +15352,7 @@ ezigcina	ezi[RelConc10]gcin[VRoot]a[VerbTerm]	ezi_gcin_a	RelConc10_VRoot_VerbTer
 izityalo	i[NPrePre8]zi[BPre8]tyalo[NStem]	i_zi_tyalo	NPrePre8_BPre8_NStem
 ezifuna	ezi[RelConc8]fun[VRoot]a[VerbTerm]	ezi_fun_a	RelConc8_VRoot_VerbTerm
 ukukhuselwa	u[NPrePre15]ku[BPre15]khusel[VRoot]w[PassExt]a[VerbTerm]	u_ku_khusel_w_a	NPrePre15_BPre15_VRoot_PassExt_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 usenokwenzakala	u[NPrePre3]se[Pro]no[AdvPre]kw[BPre15]enzakal[VRoot]a[VerbTerm]	u_se_no_kw_enzakal_a	NPrePre3_Pro_AdvPre_BPre15_VRoot_VerbTerm
 ngokukodwa	ng[AdvPre]oku[RelConc15]ko[QuantConc15]dwa[QuantStem]	ng_oku_ko_dwa	AdvPre_RelConc15_QuantConc15_QuantStem
 ziimpembelelo	z[CopPre]i[NPrePre10]im[BPre10]pembelelo[NStem]	z_i_im_pembelelo	CopPre_NPrePre10_BPre10_NStem
@@ -15453,7 +15453,7 @@ kubahlali	ku[LocPre]ba[BPre2]hlali[NStem]	ku_ba_hlali	LocPre_BPre2_NStem
 (	([PUNC]	(	PUNC
 communitybased	communitybased[Foreign]	communitybased	Foreign
 planning	planning[Foreign]	planning	Foreign
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 CBP	CBP[Abbr]	CBP	Abbr
 )	)[PUNC]	)	PUNC
 .	.[PUNC]	.	PUNC
@@ -16199,7 +16199,7 @@ urhulumente	u[NPrePre1a]rhulumente[NStem]	u_rhulumente	NPrePre1a_NStem
 Musa	musa[AuxVStem]	musa	AuxVStem
 ukuthatha	u[NPrePre15]ku[BPre15]thath[VRoot]a[VerbTerm]	u_ku_thath_a	NPrePre15_BPre15_VRoot_VerbTerm
 icala	i[NPrePre5](li)[BPre5]cala[NStem]	i_cala	NPrePre5_BPre5_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 linda	lind[VRoot]a[VerbTerm]	lind_a	VRoot_VerbTerm
 zonke	zo[QuantConc10]nke[QuantStem]	zo_nke	QuantConc10_QuantStem
 izimvo	i[NPrePre10]zim[BPre10]vo[NStem]	i_zim_vo	NPrePre10_BPre10_NStem
@@ -16822,7 +16822,7 @@ esweni	e[LocPre]sw[NStem]eni[LocSuf]	e_sw_eni	LocPre_NStem_LocSuf
 kwiingxelo	kw[LocPre]i[NPrePre10]in[BPre10]gxelo[NStem]	kw_i_in_gxelo	LocPre_NPrePre10_BPre10_NStem
 zonikezelo	zo[PossConc10]nikezelo[BPre11]	zo_nikezelo	PossConc10_BPre11
 lweenkonzo	lwee[PossConc11]n[NPrePre10]konzo[BPre10]	lwee_n_konzo	PossConc11_NPrePre10_BPre10
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 IMFMA	i[NPrePre9]MFMA[Abbr]	i_MFMA	NPrePre9_Abbr
 ifuna	i[SC9]fun[VRoot]a[VerbTerm]	i_fun_a	SC9_VRoot_VerbTerm
 ukuba	ukuba[Conj]	ukuba	Conj
@@ -17118,7 +17118,7 @@ okanye	okanye[Conj]	okanye	Conj
 ubuchule	u[NPrePre14]bu[BPre14]chule[NStem]	u_bu_chule	NPrePre14_BPre14_NStem
 obusekelwe	obu[RelConc14]sek[VRoot]el[ApplExt]w[PassExt]e[VerbTerm]	obu_sek_el_w_e	RelConc14_VRoot_ApplExt_PassExt_VerbTerm
 emdleni	e[LocPre]m[BPre3]dle[NStem]ni[LocSuf]	e_m_dle_ni	LocPre_BPre3_NStem_LocSuf
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 obu	obu[CDEM14]	obu	CDEM14
 buchule	bu[BPre14]chule[NStem]	bu_chule	BPre14_NStem
 bubona	bu[SC14]bon[VRoot]a[VerbTerm]	bu_bon_a	SC14_VRoot_VerbTerm
@@ -17268,7 +17268,7 @@ unekratshi	u[CopPre]ne[CopPre]kratshi[NStem]	u_ne_kratshi	CopPre_CopPre_NStem
 .	.[PUNC]	.	PUNC
 Iintlanganiso	i[NPrePre10](z)in[BPre10]tlanganiso[NStem]	i_in_tlanganiso	NPrePre10_BPre10_NStem
 zikawonkewonke	zi[PossConc10]ka[PossKA]wo[QuantConc1a]nke[QuantStem]wo[QuantConc1a]nke[QuantStem]	zi_ka_wo_nke_wo_nke	PossConc10_PossKA_QuantConc1a_QuantStem_QuantConc1a_QuantStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 langamaqonga	langamaqonga[CDEM05]	langamaqonga	CDEM05
 asebenzayo	a[RelConc6]sebenz[VRoot]a[VerbTerm]yo[RelSuf]	a_sebenz_a_yo	RelConc6_VRoot_VerbTerm_RelSuf
 ekwabelaneni	e[LocPre]kw[BPre15]ab[VRoot]el[ApplExt]ane[RecipExt]ni[VerbTerm]	e_kw_ab_el_ane_ni	LocPre_BPre15_VRoot_ApplExt_RecipExt_VerbTerm
@@ -17477,7 +17477,7 @@ awaneleyo	a[RelConc6]wa[OC6]nel[VRoot]e[VerbTerm]yo[RelSuf]	a_wa_nel_e_yo	RelCon
 Uluhlu	u[NPrePre11]lu[BPre11]hlu[NStem]	u_lu_hlu	NPrePre11_BPre11_NStem
 lwamajelo	lwa[PossConc11]ma[BPre6]jelo[NStem]	lwa_ma_jelo	PossConc11_BPre6_NStem
 eendaba	ee[PossConc6]n[NPrePre10]daba[BPre10]	ee_n_daba	PossConc6_NPrePre10_BPre10
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 izikhululo	i[NPrePre8]zi[BPre8]khululo[NStem]	i_zi_khululo	NPrePre8_BPre8_NStem
 zoonomathotholo	z[PossConc8]oo[NPre2a]nomathotholo[NStem]	z_oo_nomathotholo	PossConc8_NPre2a_NStem
 boluntu	bo[PossConc2]lu[BPre11]ntu[NStem]	bo_lu_ntu	PossConc2_BPre11_NStem
@@ -17537,7 +17537,7 @@ ukuvele	u[NPrePre15]ku[BPre15]vel[VRoot]e[VerbTerm]	u_ku_vel_e	NPrePre15_BPre15_
 asebenze	a[SC1a]sebenz[VRoot]e[VerbTerm]	a_sebenz_e	SC1a_VRoot_VerbTerm
 egameni	e[LocPre]game[BPre5]ni[NStem]	e_game_ni	LocPre_BPre5_NStem
 labantu	la[PossConc5]ba[BPre2]ntu[NStem]	la_ba_ntu	PossConc5_BPre2_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 kumele	ku[SC15]mele[AuxVStem]	ku_mele	SC15_AuxVStem
 asebenze	a[SC1a]sebenz[VRoot]e[VerbTerm]	a_sebenz_e	SC1a_VRoot_VerbTerm
 nabantu	na[AdvPre]ba[BPre2]ntu[NStem]	na_ba_ntu	AdvPre_BPre2_NStem
@@ -18396,10 +18396,10 @@ NOXANDUVA	NOX[AdvPre]ANDUVA[NPrePre11]	NOX_ANDUVA	AdvPre_NPrePre11
 LWAYO	lwa[PossConc11]yo[PronStem4]	lwa_yo	PossConc11_PronStem4
 .	.[PUNC]	.	PUNC
 BANEAJENDA	BA[CopPre]NEA[CopPre]JENDA[NPrePre9]	BA_NEA_JENDA	CopPre_CopPre_NPrePre9
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ISICWANGCISO	i[NPrePre7]si[BPre7]cwangciso[NStem]	i_si_cwangciso	NPrePre7_BPre7_NStem
 SEWADI	SEW[PossConc7]ADI[NPrePre9]	SEW_ADI	PossConc7_NPrePre9
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 KWAYE	kwaye[Conj]	kwaye	Conj
 UZALISEKISO	u[NPrePre11]zalisekiso[NStem]	u_zalisekiso	NPrePre11_NStem
 ,	,[PUNC]	,	PUNC
@@ -18940,7 +18940,7 @@ boMzantsi	bo[PossConc2]Mzantsi[ProperName]	bo_Mzantsi	PossConc2_ProperName
 Afrika	Afrika[ProperName]	Afrika	ProperName
 .	.[PUNC]	.	PUNC
 Ungquzulwano	u[NPrePre11]ngquzulwano[NStem]	u_ngquzulwano	NPrePre11_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 phawula	phawul[VRoot]a[VerbTerm]	phawul_a	VRoot_VerbTerm
 ungquzulwano	u[NPrePre11]ngquzulwano[NStem]	u_ngquzulwano	NPrePre11_NStem
 okhe	o[RelConc1]khe[PossPron]	o_khe	RelConc1_PossPron
@@ -19143,7 +19143,7 @@ oku	oku[CDEM15]	oku	CDEM15
 .	.[PUNC]	.	PUNC
 Ukunqongophala	u[NPrePre15]ku[BPre15]nqongophala[NStem]	u_ku_nqongophala	NPrePre15_BPre15_NStem
 koovimba	k[PossConc15]oo[NPrePre2a]vimba[NStem]	k_oo_vimba	PossConc15_NPrePre2a_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 umzekelo	u[NPrePre3]m[BPre3]zekelo[NStem]	u_m_zekelo	NPrePre3_BPre3_NStem
 ,	,[PUNC]	,	PUNC
 imeko	i[NPrePre9]meko[NStem]	i_meko	NPrePre9_NStem
@@ -20188,7 +20188,7 @@ Sahlula	S[SC1pp]ahlul[VRoot]a[VerbTerm]	S_ahlul_a	SC1pp_VRoot_VerbTerm
 uphicotho	u[NPrePre11]phicotho[NStem]	u_phicotho	NPrePre11_NStem
 lwamadoda	lwa[PossConc11]ma[BPre6]doda[NStem]	lwa_ma_doda	PossConc11_BPre6_NStem
 namakhosikazi	na[AdvPre]ma[BPre6]khosikazi[NStem]	na_ma_khosikazi	AdvPre_BPre6_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 iingxaki	i[NPrePre10](z)in[BPre10]gxaki[NStem]	i_in_gxaki	NPrePre10_BPre10_NStem
 zabo	za[PossConc10]bo[PronStem2]	za_bo	PossConc10_PronStem2
 ,	,[PUNC]	,	PUNC
@@ -20296,7 +20296,7 @@ yoluntu	yo[PossConc4]lu[BPre11]ntu[NStem]	yo_lu_ntu	PossConc4_BPre11_NStem
 Ukuzimasa	u[NPrePre15]ku[BPre15]zimas[VRoot]a[VerbTerm]	u_ku_zimas_a	NPrePre15_BPre15_VRoot_VerbTerm
 iintlanganiso	i[NPrePre10](z)in[BPre10]tlanganiso[NStem]	i_in_tlanganiso	NPrePre10_BPre10_NStem
 zebhunga	ze[PossConc10]bhunga[NStem]	ze_bhunga	PossConc10_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 inkqubo	i[NPrePre9]n[BPre9]kqubo[NStem]	i_n_kqubo	NPrePre9_BPre9_NStem
 yebhunga	ye[PossConc9]bhunga[NStem]	ye_bhunga	PossConc9_NStem
 yokwenziwa	yo[PossConc9]kw[BPre15]enz[VRoot]iw[PassExt]a[VerbTerm]	yo_kw_enz_iw_a	PossConc9_BPre15_VRoot_PassExt_VerbTerm
@@ -20405,7 +20405,7 @@ ZICWANGCISO	zi[BPre8]cwangciso[NStem]	zi_cwangciso	BPre8_NStem
 .	.[PUNC]	.	PUNC
 Ucwangciso	u[NPrePre11]cwangciso[NStem]	u_cwangciso	NPrePre11_NStem
 lokuqhutywa	lokuqhutywa[POSS11]	lokuqhutywa	POSS11
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 oku	oku[CDEM15]	oku	CDEM15
 kubandakanya	ku[SC15]bandakany[VRoot]a[VerbTerm]	ku_bandakany_a	SC15_VRoot_VerbTerm
 uqulunqo	u[NPrePre11]qulunqo[NStem]	u_qulunqo	NPrePre11_NStem
@@ -20789,7 +20789,7 @@ besebenzisana	be[SC2]sebenz[VRoot]is[CausExt]an[RecipExt]a[VerbTerm]	be_sebenz_i
 noluntu	no[AdvPre]lu[BPre11]ntu[NStem]	no_lu_ntu	AdvPre_BPre11_NStem
 .	.[PUNC]	.	PUNC
 Ixesha	i[NPrePre5](li)[BPre5]xesha[NStem]	i_xesha	NPrePre5_BPre5_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 maliqwalaselwe	ma[ImpPre]li[SC5]qwalasel[VRoot]w[PassExt]e[VerbTerm]	ma_li_qwalasel_w_e	ImpPre_SC5_VRoot_PassExt_VerbTerm
 xa	xa[Conj]	xa	Conj
 ubamba	u[SC1]bamb[VRoot]a[VerbTerm]	u_bamb_a	SC1_VRoot_VerbTerm
@@ -21436,7 +21436,7 @@ eza	e[RelConc9]za[AuxVStem]	e_za	RelConc9_AuxVStem
 kuqhutywa	kuqhutywa[V]	kuqhutywa	V
 ngayo	nga[AdvPre]yo[PronStem9]	nga_yo	AdvPre_PronStem9
 iprojekthi	i[NPrePre9]projekthi[NStem]	i_projekthi	NPrePre9_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 esi	esi[CDEM07]	esi	CDEM07
 ke	ke[Conj]	ke	Conj
 saziwa	s[SC7]az[VRoot]iw[PassExt]a[VerbTerm]	s_az_iw_a	SC7_VRoot_PassExt_VerbTerm
@@ -21626,7 +21626,7 @@ kuqina	ku[SC15]qin[VRoot]a[VerbTerm]	ku_qin_a	SC15_VRoot_VerbTerm
 .	.[PUNC]	.	PUNC
 Uxanduva	u[NPrePre11]xanduva[NStem]	u_xanduva	NPrePre11_NStem
 lokuphendula	lo[PossConc11]ku[BPre15]phendul[VRoot]a[VerbTerm]	lo_ku_phendul_a	PossConc11_BPre15_VRoot_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 inguqu	i[NPrePre9]n[BPre9]guqu[NStem]	i_n_guqu	NPrePre9_BPre9_NStem
 kurhulumente	ku[LocPre]rhulumente[NStem]	ku_rhulumente	LocPre_NStem
 wengingqi	we[PossConc1a]n[BPre9]gingqi[NStem]	we_n_gingqi	PossConc1a_BPre9_NStem
@@ -21965,7 +21965,7 @@ la	la[CDEM06]	la	CDEM06
 manyathelo	ma[BPre6]nyathelo[NStem]	ma_nyathelo	BPre6_NStem
 .	.[PUNC]	.	PUNC
 Ukungathembani	u[NPrePre15]ku[BPre15]nga[NegPre]themb[VRoot]an[RecipExt]i[VerbTerm]	u_ku_nga_themb_an_i	NPrePre15_BPre15_NegPre_VRoot_RecipExt_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 abahlali	a[NPrePre2]ba[BPre2]hlali[NStem]	a_ba_hlali	NPrePre2_BPre2_NStem
 basenokungazithembi	ba[SC2]se[Pro]no[AdvPre]ku[BPre15]nga[NegPre]zi[OC10]themb[VRoot]i[VerbTerm]	ba_se_no_ku_nga_zi_themb_i	SC2_Pro_AdvPre_BPre15_NegPre_OC10_VRoot_VerbTerm
 iinkokeli	i[NPrePre10](z)in[BPre10]kokeli[NStem]	i_in_kokeli	NPrePre10_BPre10_NStem
@@ -22633,7 +22633,7 @@ yamali	ya[PossConc9]mali[NStem]	ya_mali	PossConc9_NStem
 afana	a[SC6]fan[VRoot]a[VerbTerm]	a_fan_a	SC6_VRoot_VerbTerm
 nezikolo	ne[AdvPre]zi[BPre8]kolo[NStem]	ne_zi_kolo	AdvPre_BPre8_NStem
 nezibhedlele	ne[AdvPre]zi[BPre8]bhedlele[NStem]	ne_zi_bhedlele	AdvPre_BPre8_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 kumele	ku[SC15]mele[AuxVStem]	ku_mele	SC15_AuxVStem
 axhaswe	a[SC6]xhas[VRoot]w[PassExt]e[VerbTerm]	a_xhas_w_e	SC6_VRoot_PassExt_VerbTerm
 ngemali	nge[AdvPre]mali[NStem]	nge_mali	AdvPre_NStem
@@ -23696,7 +23696,7 @@ ongezantsi	o[RelConc3]ng[AdvPre]e[LocPre]zantsi[Adv]	o_ng_e_zantsi	RelConc3_AdvP
 Iziko	i[NPrePre5](li)[BPre5]ziko[NStem]	i_ziko	NPrePre5_BPre5_NStem
 lolwazi	lo[PossConc5]lw[BPre11]azi[NStem]	lo_lw_azi	PossConc5_BPre11_NStem
 kwingingqi	kw[LocPre]i[NPrePre9]n[BPre9]gingqi[NStem]	kw_i_n_gingqi	LocPre_NPrePre9_BPre9_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 iofisi	i[NPrePre9]ofisi[NStem]	i_ofisi	NPrePre9_NStem
 kamasipala	ka[PossKA]masipala[NStem]	ka_masipala	PossKA_NStem
 wengingqi	we[PossConc1a]n[BPre9]gingqi[NStem]	we_n_gingqi	PossConc1a_BPre9_NStem
@@ -24081,7 +24081,7 @@ labantu	la[PossConc5]ba[BPre2]ntu[NStem]	la_ba_ntu	PossConc5_BPre2_NStem
 abasingeleke	aba[RelConc2]singel[VRoot]ek[NeutExt]e[VerbTerm]	aba_singel_ek_e	RelConc2_VRoot_NeutExt_VerbTerm
 phantsi	phantsi[Adv]	phantsi	Adv
 kakhulu	ka[AdvPre]khulu[AdjStem]	ka_khulu	AdvPre_AdjStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 isini	i[NPrePre7]si[BPre7]ni[NStem]	i_si_ni	NPrePre7_BPre7_NStem
 esibhalisiweyo	esi[RelConc7]bhal[VRoot]is[CausExt]iw[PassExt]e[VerbTerm]yo[RelSuf]	esi_bhal_is_iw_e_yo	RelConc7_VRoot_CausExt_PassExt_VerbTerm_RelSuf
 nesihleliyo	n[AdvPre]esi[RelConc7]hlel[VRoot]i[VerbTerm]yo[RelSuf]	n_esi_hlel_i_yo	AdvPre_RelConc7_VRoot_VerbTerm_RelSuf
@@ -24391,7 +24391,7 @@ baqhube	ba[SC2]qhub[VRoot]e[VerbTerm]	ba_qhub_e	SC2_VRoot_VerbTerm
 inkqubo	i[NPrePre9]n[BPre9]kqubo[NStem]	i_n_kqubo	NPrePre9_BPre9_NStem
 .	.[PUNC]	.	PUNC
 Inkokheli	i[NPrePre9]n[BPre9]kokheli[NStem]	i_n_kokheli	NPrePre9_BPre9_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 umbhexeshi	u[NPrePre3]m[BPre3]bhexeshi[NStem]	u_m_bhexeshi	NPrePre3_BPre3_NStem
 ukhokela	u[SC1a]khokel[VRoot]a[VerbTerm]	u_khokel_a	SC1a_VRoot_VerbTerm
 ekwalawula	e[SC1a]kwa[AdvPre]lawul[VRoot]a[VerbTerm]	e_kwa_lawul_a	SC1a_AdvPre_VRoot_VerbTerm
@@ -24584,7 +24584,7 @@ engenye	e[RelConc9]ng[CopPre]e[AdjPref9]nye[AdjStem]	e_ng_e_nye	RelConc9_CopPre_
 .	.[PUNC]	.	PUNC
 Ukulawula	u[NPrePre15]ku[BPre15]lawul[VRoot]a[VerbTerm]	u_ku_lawul_a	NPrePre15_BPre15_VRoot_VerbTerm
 ngobuchule	ngo[AdvPre]bu[BPre14]chule[NStem]	ngo_bu_chule	AdvPre_BPre14_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 Ibhunga	i[NPrePre5](li)[BPre5]bhunga[NStem]	i_bhunga	NPrePre5_BPre5_NStem
 lasekhaya	la[PossConc5]s[PreLocs]e[LocPre]khaya[BPre5]	la_s_e_khaya	PossConc5_PreLocs_LocPre_BPre5
 okanye	okanye[Conj]	okanye	Conj
@@ -24756,7 +24756,7 @@ inkcazo	i[NPrePre9]n[BPre9]kcazo[NStem]	i_n_kcazo	NPrePre9_BPre9_NStem
 ?	?[PUNC]	?	PUNC
 Ukuphawula	u[NPrePre15]ku[BPre15]phawul[VRoot]a[VerbTerm]	u_ku_phawul_a	NPrePre15_BPre15_VRoot_VerbTerm
 iimfuno	i[NPrePre10]im[BPre10]funo[NStem]	i_im_funo	NPrePre10_BPre10_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ukwenza	u[NPrePre15]kw[BPre15]enz[VRoot]a[VerbTerm]	u_kw_enz_a	NPrePre15_BPre15_VRoot_VerbTerm
 uphando	u[NPrePre11]phando[NStem]	u_phando	NPrePre11_NStem
 okanye	okanye[Conj]	okanye	Conj
@@ -24780,7 +24780,7 @@ UKUFEZEKA	u[NPrePre15]ku[BPre15]fezek[VRoot]a[VerbTerm]	u_ku_fezek_a	NPrePre15_B
 (	([PUNC]	(	PUNC
 ACHIEVABLE	achievable[Foreign]	achievable	Foreign
 )	)[PUNC]	)	PUNC
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ingaba	i[SC9]ngaba[Interrog]	i_ngaba	SC9_Interrog
 umgangatho	u[NPrePre3]m[BPre3]gangatho[NStem]	u_m_gangatho	NPrePre3_BPre3_NStem
 uyafezekiseka	u[SC3]ya[Pres]fezek[VRoot]is[CausExt]ek[NeutExt]a[VerbTerm]	u_ya_fezek_is_ek_a	SC3_Pres_VRoot_CausExt_NeutExt_VerbTerm
@@ -24934,7 +24934,7 @@ eyeyona	e[RelConc4]y[CopPre]e[SC4]yo[PronStem4]na[PronSuf]	e_y_e_yo_na	RelConc4_
 ibeka	i[SC5]bek[VRoot]a[VerbTerm]	i_bek_a	SC5_VRoot_VerbTerm
 uxinezelelo	u[NPrePre11]xinezelelo[NStem]	u_xinezelelo	NPrePre11_NStem
 uyafuneka	u[SC1a]ya[Pres]funek[VRoot]a[VerbTerm]	u_ya_funek_a	SC1a_Pres_VRoot_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 lowo	lowo[CDEM03]	lowo	CDEM03
 uthatha	u[SC1]thath[VRoot]a[VerbTerm]	u_thath_a	SC1_VRoot_VerbTerm
 uluvo	u[NPrePre11]lu[BPre11]vo[NStem]	u_lu_vo	NPrePre11_BPre11_NStem
@@ -25650,7 +25650,7 @@ neenzuzo	nee[AdvPre]n[NPrePre10]zuzo[BPre10]	nee_n_zuzo	AdvPre_NPrePre10_BPre10
 kuye	ku[LocPre]ye[PronStem1]	ku_ye	LocPre_PronStem1
 wonke	wo[QuantConc1]nke[QuantStem]	wo_nke	QuantConc1_QuantStem
 ubani	u[NPrePre1a]bani[Interrog]	u_bani	NPrePre1a_Interrog
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 omnyama	o[RelConc1]mnyama[RelStem]	o_mnyama	RelConc1_RelStem
 nomhlophe	n[AdvPre]o[RelConc1]mhlophe[RelStem]	n_o_mhlophe	AdvPre_RelConc1_RelStem
 ,	,[PUNC]	,	PUNC
@@ -26224,13 +26224,13 @@ isigqibo	i[NPrePre7]si[BPre7]gqibo[NStem]	i_si_gqibo	NPrePre7_BPre7_NStem
 sokuba	so[PossConc7]kuba[Conj]	so_kuba	PossConc7_Conj
 ngabaphi	ng[CopPre]aba[RelConc2]phi[EnumStem]	ng_aba_phi	CopPre_RelConc2_EnumStem
 oovimba	oo[BPre2a]vimba[NStem]	oo_vimba	BPre2a_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 abemali	abe[RelConc2]mali[NStem]	abe_mali	RelConc2_NStem
 ,	,[PUNC]	,	PUNC
 izixhobo	i[NPrePre8]zi[BPre8]xhobo[NStem]	i_zi_xhobo	NPrePre8_BPre8_NStem
 kunye	kunye[Conj]	kunye	Conj
 nezakhono	ne[AdvPre]za[BPre8]khono[NStem]	ne_za_khono	AdvPre_BPre8_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 eya	e[RelConc9]ya[Fut]	e_ya	RelConc9_Fut
 kubafuna	ku[SC15]ba[OC2]fun[VRoot]a[VerbTerm]	ku_ba_fun_a	SC15_OC2_VRoot_VerbTerm
 ukufikelela	u[NPrePre15]ku[BPre15]fikelel[VRoot]a[VerbTerm]	u_ku_fikelel_a	NPrePre15_BPre15_VRoot_VerbTerm
@@ -26484,7 +26484,7 @@ Ukuzithemba	u[NPrePre15]ku[BPre15]zi[ReflPre]themb[VRoot]a[VerbTerm]	u_ku_zi_the
 okanye	okanye[Conj]	okanye	Conj
 ingqondo	i[NPrePre9]n[BPre9]gqondo[NStem]	i_n_gqondo	NPrePre9_BPre9_NStem
 evulekileyo	e[RelConc9]vul[VRoot]ek[NeutExt]il[Perf]e[VerbTerm]yo[RelSuf]	e_vul_ek_il_e_yo	RelConc9_VRoot_NeutExt_Perf_VerbTerm_RelSuf
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 lo	lo[CDEM01]	lo	CDEM01
 mntu	m[BPre1]ntu[NStem]	m_ntu	BPre1_NStem
 wamkela	w[SC1]amkel[VRoot]a[VerbTerm]	w_amkel_a	SC1_VRoot_VerbTerm
@@ -26806,7 +26806,7 @@ Ukumela	u[NPrePre15]ku[BPre15]mel[VRoot]a[VerbTerm]	u_ku_mel_a	NPrePre15_BPre15_
 uluntu	u[NPrePre11]lu[BPre11]ntu[NStem]	u_lu_ntu	NPrePre11_BPre11_NStem
 kumaqonga	ku[LocPre]ma[BPre6]qonga[NStem]	ku_ma_qonga	LocPre_BPre6_NStem
 othethwano	o[PossConc6]thethwano[BPre11]	o_thethwano	PossConc6_BPre11
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 iKomiti	i[NPrePre9]komiti[NStem]	i_komiti	NPrePre9_NStem
 yeWadi	yeW[PossConc9]adi[NPrePre9]	yeW_adi	PossConc9_NPrePre9
 kufuneka	ku[SC15]funek[VRoot]a[VerbTerm]	ku_funek_a	SC15_VRoot_VerbTerm
@@ -27212,7 +27212,7 @@ kumnathazwe	ku[LocPre]m[BPre3]nathazwe[NStem]	ku_m_nathazwe	LocPre_BPre3_NStem
 (	([PUNC]	(	PUNC
 iintanethi	i[NPrePre9]intanethi[NStem]	i_intanethi	NPrePre9_NStem
 )	)[PUNC]	)	PUNC
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 inani	i[NPrePre5](li)[BPre5]nani[NStem]	i_nani	NPrePre5_BPre5_NStem
 elinyuka	eli[RelConc5]nyuk[VRoot]a[VerbTerm]	eli_nyuk_a	RelConc5_VRoot_VerbTerm
 malunga	malunga[Adv]	malunga	Adv
@@ -27558,7 +27558,7 @@ abachaphazelekayo	aba[RelConc2]chaphazel[VRoot]ek[NeutExt]a[VerbTerm]yo[RelSuf]	
 ngoko	ngoko[ADV]	ngoko	ADV
 .	.[PUNC]	.	PUNC
 Ukufikeleleka	u[NPrePre15]ku[BPre15]fikelel[VRoot]ek[NeutExt]a[VerbTerm]	u_ku_fikelel_ek_a	NPrePre15_BPre15_VRoot_NeutExt_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ngokufanayo	ng[AdvPre]oku[RelConc15]fan[VRoot]a[VerbTerm]yo[RelSuf]	ng_oku_fan_a_yo	AdvPre_RelConc15_VRoot_VerbTerm_RelSuf
 amalungu	a[NPrePre6]ma[BPre6]lungu[NStem]	a_ma_lungu	NPrePre6_BPre6_NStem
 asekuhlaleni	a[PossConc6]s[PreLocs]e[LocPre]ku[BPre15]hlale[VRoot]ni[VerbTerm]	a_s_e_ku_hlale_ni	PossConc6_PreLocs_LocPre_BPre15_VRoot_VerbTerm
@@ -28386,7 +28386,7 @@ Iingcebiso	i[NPrePre10](z)in[BPre10]gcebiso[NStem]	i_in_gcebiso	NPrePre10_BPre10
 kunye	kunye[Conj]	kunye	Conj
 namaqela	na[AdvPre]ma[BPre6]qela[NStem]	na_ma_qela	AdvPre_BPre6_NStem
 kumacandelo	ku[LocPre]ma[BPre6]candelo[NStem]	ku_ma_candelo	LocPre_BPre6_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 umzekelo	u[NPrePre3]m[BPre3]zekelo[NStem]	u_m_zekelo	NPrePre3_BPre3_NStem
 ,	,[PUNC]	,	PUNC
 imibutho	i[NPrePre4]mi[BPre4]butho[NStem]	i_mi_butho	NPrePre4_BPre4_NStem
@@ -28584,7 +28584,7 @@ wasemsebenzini	wa[PossConc3]s[PreLocs]e[LocPre]m[BPre3]sebenz[NStem]ini[LocSuf]	
 .	.[PUNC]	.	PUNC
 Isicwangcisonkqubo	i[NPrePre7]si[BPre7]cwangciso[NStem]n[BPre9]kqubo[NStem]	i_si_cwangciso_n_kqubo	NPrePre7_BPre7_NStem_BPre9_NStem
 sonxibelelwano	so[PossConc7]nxibelelwano[BPre11]	so_nxibelelwano	PossConc7_BPre11
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 Oomasipala	oo[NPrePre2a]masipala[NStem]	oo_masipala	NPrePre2a_NStem
 baphuhlisa	ba[SC2]phuhl[VRoot]is[CausExt]a[VerbTerm]	ba_phuhl_is_a	SC2_VRoot_CausExt_VerbTerm
 izicwangcisonkqubo	i[NPrePre8]zi[BPre8]cwangciso[NStem]n[BPre9]kqubo[NStem]	i_zi_cwangciso_n_kqubo	NPrePre8_BPre8_NStem_BPre9_NStem
@@ -28872,7 +28872,7 @@ abo	a[PossConc6]bo[PronStem2]	a_bo	PossConc6_PronStem2
 Intsebenziswano	i[NPrePre9]n[BPre9]tsebenziswano[NStem]	i_n_tsebenziswano	NPrePre9_BPre9_NStem
 noceba	no[AdvPre]ceba[NStem]	no_ceba	AdvPre_NStem
 wewadi	we[PossConc1a]wadi[NStem]	we_wadi	PossConc1a_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 IiKomiti	i[NPrePre10](z)i[BPre10]komiti[NStem]	i_i_komiti	NPrePre10_BPre10_NStem
 zeWadi	zeW[PossConc10]adi[NPrePre9]	zeW_adi	PossConc10_NPrePre9
 kufuneka	ku[SC15]funek[VRoot]a[VerbTerm]	ku_funek_a	SC15_VRoot_VerbTerm
@@ -29102,7 +29102,7 @@ zidandalaziswe	zi[SC10]dandalaz[VRoot]is[CausExt]w[PassExt]e[VerbTerm]	zi_dandal
 elubala	e[LocPre]lubala[RelStem]	e_lubala	LocPre_RelStem
 .	.[PUNC]	.	PUNC
 Ukuthintela	u[NPrePre15]ku[BPre15]thintel[VRoot]a[VerbTerm]	u_ku_thintel_a	NPrePre15_BPre15_VRoot_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ukuthintela	u[NPrePre15]ku[BPre15]thintel[VRoot]a[VerbTerm]	u_ku_thintel_a	NPrePre15_BPre15_VRoot_VerbTerm
 ungquzulwano	u[NPrePre11]ngquzulwano[NStem]	u_ngquzulwano	NPrePre11_NStem
 yimpendulo	y[CopPre]i[NPrePre9]m[BPre9]pendulo[NStem]	y_i_m_pendulo	CopPre_NPrePre9_BPre9_NStem
@@ -29345,7 +29345,7 @@ indawo	i[NPrePre9]n[BPre9]dawo[NStem]	i_n_dawo	NPrePre9_BPre9_NStem
 elungele	e[RelConc9]lung[VRoot]el[ApplExt]e[VerbTerm]	e_lung_el_e	RelConc9_VRoot_ApplExt_VerbTerm
 ukunikezela	u[NPrePre15]ku[BPre15]nikezel[VRoot]a[VerbTerm]	u_ku_nikezel_a	NPrePre15_BPre15_VRoot_VerbTerm
 iinkonzo	i[NPrePre10](z)in[BPre10]konzo[NStem]	i_in_konzo	NPrePre10_BPre10_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ku1.2	ku[LocPre]1.2[Num]	ku_1.2	LocPre_Num
 sixoxe	si[SC1pp]xox[VRoot]e[VerbTerm]	si_xox_e	SC1pp_VRoot_VerbTerm
 ngezalathisi	nge[AdvPre]z[BPre8]alathisi[NStem]	nge_z_alathisi	AdvPre_BPre8_NStem
@@ -29828,7 +29828,7 @@ unxibelelwano	u[NPrePre11]nxibelelwano[NStem]	u_nxibelelwano	NPrePre11_NStem
 .	.[PUNC]	.	PUNC
 Ukusombulula	u[NPrePre15]ku[BPre15]sombulul[VRoot]a[VerbTerm]	u_ku_sombulul_a	NPrePre15_BPre15_VRoot_VerbTerm
 iingxaki	i[NPrePre10](z)in[BPre10]gxaki[NStem]	i_in_gxaki	NPrePre10_BPre10_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 le	le[CDEM09]	le	CDEM09
 yeyona	y[CopPre]e[SC9]yo[PronStem9]na[PronSuf]	y_e_yo_na	CopPre_SC9_PronStem9_PronSuf
 nkqubo	n[BPre9]kqubo[NStem]	n_kqubo	BPre9_NStem
@@ -30071,7 +30071,7 @@ uphuhliso	u[NPrePre11]phuhliso[NStem]	u_phuhliso	NPrePre11_NStem
 olucwangcisiweyo	olu[RelConc11]cwangcis[VRoot]iw[PassExt]e[VerbTerm]yo[RelSuf]	olu_cwangcis_iw_e_yo	RelConc11_VRoot_PassExt_VerbTerm_RelSuf
 .	.[PUNC]	.	PUNC
 Ukuhlasela	u[NPrePre15]ku[BPre15]hlasel[VRoot]a[VerbTerm]	u_ku_hlasel_a	NPrePre15_BPre15_VRoot_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 isithethi	i[NPrePre7]si[BPre7]thethi[NStem]	i_si_thethi	NPrePre7_BPre7_NStem
 esihlaselayo	esi[RelConc7]hlasel[VRoot]a[VerbTerm]yo[RelSuf]	esi_hlasel_a_yo	RelConc7_VRoot_VerbTerm_RelSuf
 sikholelwa	si[SC7]khol[VRoot]el[ApplExt]w[PassExt]a[VerbTerm]	si_khol_el_w_a	SC7_VRoot_ApplExt_PassExt_VerbTerm
@@ -30281,10 +30281,10 @@ kukhuselwa	ku[SC15]khusel[VRoot]w[PassExt]a[VerbTerm]	ku_khusel_w_a	SC15_VRoot_P
 abemi	a[NPrePre2]be[BPre2]mi[NStem]	a_be_mi	NPrePre2_BPre2_NStem
 boMzantsi	bo[PossConc2]Mzantsi[ProperName]	bo_Mzantsi	PossConc2_ProperName
 Afrika	Afrika[ProperName]	Afrika	ProperName
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ingakumbi	i[SC9]ngakumbi[Adv]	i_ngakumbi	SC9_Adv
 abahlelelekileyo	aba[RelConc2]hlelelek[VRoot]il[Perf]e[VerbTerm]yo[RelSuf]	aba_hlelelek_il_e_yo	RelConc2_VRoot_Perf_VerbTerm_RelSuf
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 kumngcipheko	ku[LocPre]m[BPre3]ngcipheko[NStem]	ku_m_ngcipheko	LocPre_BPre3_NStem
 owayanyaniswa	o[RelConc3]wa[SC3]ya[Pres]nyanis[VRoot]w[PassExt]a[VerbTerm]	o_wa_ya_nyanis_w_a	RelConc3_SC3_Pres_VRoot_PassExt_VerbTerm
 norhwebo	no[AdvPre]rhwebo[BPre11]	no_rhwebo	AdvPre_BPre11
@@ -30426,7 +30426,7 @@ ukuba	ukuba[Conj]	ukuba	Conj
 la	la[CDEM06]	la	CDEM06
 maxhala	ma[BPre6]xhala[NStem]	ma_xhala	BPre6_NStem
 ajongwe	a[SC6]jong[VRoot]w[PassExt]e[VerbTerm]	a_jong_w_e	SC6_VRoot_PassExt_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 kwinxenye	kw[LocPre]i[NPrePre9]n[BPre9]xenye[NStem]	kw_i_n_xenye	LocPre_NPrePre9_BPre9_NStem
 enkulu	en[AdjPref9]kulu[AdjStem]	en_kulu	AdjPref9_AdjStem
 ,	,[PUNC]	,	PUNC
@@ -30765,7 +30765,7 @@ nawo	na[AdvPre]wo[PronStem6]	na_wo	AdvPre_PronStem6
 anendima	a[RelConc6]ne[CopPre]n[BPre9]dima[NStem]	a_ne_n_dima	RelConc6_CopPre_BPre9_NStem
 ekufuneka	e[RelConc9]ku[SC15]funek[VRoot]a[VerbTerm]	e_ku_funek_a	RelConc9_SC15_VRoot_VerbTerm
 eyidlalile	e[RelConc9]yi[OC9]dlal[VRoot]ile[Perf]	e_yi_dlal_ile	RelConc9_OC9_VRoot_Perf
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ukuba	ukuba[Conj]	ukuba	Conj
 wonke	wo[QuantConc1]nke[QuantStem]	wo_nke	QuantConc1_QuantStem
 ubani	u[NPrePre1a]bani[Interrog]	u_bani	NPrePre1a_Interrog
@@ -30939,7 +30939,7 @@ amanye	ama[AdjPref6]nye[AdjStem]	ama_nye	AdjPref6_AdjStem
 amaqela	a[NPrePre6]ma[BPre6]qela[NStem]	a_ma_qela	NPrePre6_BPre6_NStem
 ?	?[PUNC]	?	PUNC
 Intsebenziswano	i[NPrePre9]n[BPre9]tsebenziswano[NStem]	i_n_tsebenziswano	NPrePre9_BPre9_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 abahlali	a[NPrePre2]ba[BPre2]hlali[NStem]	a_ba_hlali	NPrePre2_BPre2_NStem
 banikwa	ba[SC2]nik[VRoot]w[PassExt]a[VerbTerm]	ba_nik_w_a	SC2_VRoot_PassExt_VerbTerm
 ulwazi	u[NPrePre11]lw[BPre11]azi[NStem]	u_lw_azi	NPrePre11_BPre11_NStem
@@ -31316,7 +31316,7 @@ yangaphandle	ya[PossConc9]nga[AdvPre]phandle[Adv]	ya_nga_phandle	PossConc9_AdvPr
 Ukuthobela	u[NPrePre15]ku[BPre15]thob[VRoot]el[ApplExt]a[VerbTerm]	u_ku_thob_el_a	NPrePre15_BPre15_VRoot_ApplExt_VerbTerm
 yonke	yo[QuantConc9]nke[QuantStem]	yo_nke	QuantConc9_QuantStem
 into	i[NPrePre9]n[BPre9]to[NStem]	i_n_to	NPrePre9_BPre9_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 isithethi	i[NPrePre7]si[BPre7]thethi[NStem]	i_si_thethi	NPrePre7_BPre7_NStem
 esithobela	esi[RelConc7]thob[VRoot]el[ApplExt]a[VerbTerm]	esi_thob_el_a	RelConc7_VRoot_ApplExt_VerbTerm
 yonke	yo[QuantConc9]nke[QuantStem]	yo_nke	QuantConc9_QuantStem
@@ -31533,7 +31533,7 @@ kuluntu	ku[LocPre]lu[BPre11]ntu[NStem]	ku_lu_ntu	LocPre_BPre11_NStem
 lwenu	lwe[PossConc11]nu[PossPron]	lwe_nu	PossConc11_PossPron
 eninolwazi	e[RelConc5]ni[SC2pp]no[CopPre]lw[BPre11]az[VRoot]i[VerbTerm]	e_ni_no_lw_az_i	RelConc5_SC2pp_CopPre_BPre11_VRoot_VerbTerm
 ngalo	nga[AdvPre]lo[PronStem11]	nga_lo	AdvPre_PronStem11
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 umzekelo	u[NPrePre3]m[BPre3]zekelo[NStem]	u_m_zekelo	NPrePre3_BPre3_NStem
 ,	,[PUNC]	,	PUNC
 amafama	a[NPrePre6]ma[BPre6]fama[NStem]	a_ma_fama	NPrePre6_BPre6_NStem
@@ -31684,7 +31684,7 @@ abanaxanduva	a[NegPre]ba[CopPre]na[CopPre]xanduva[NStem]	a_ba_na_xanduva	NegPre_
 lusemthethweni	lu[RelConc11]s[PreLocs]e[LocPre]m[BPre3]thethw[NStem]eni[LocSuf]	lu_s_e_m_thethw_eni	RelConc11_PreLocs_LocPre_BPre3_NStem_LocSuf
 ngakwikomiti	nga[AdvPre]kw[LocPre]i[NPrePre9]komiti[NStem]	nga_kw_i_komiti	AdvPre_LocPre_NPrePre9_NStem
 yewadi	ye[PossConc9]wadi[NStem]	ye_wadi	PossConc9_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 banoxanduva	ba[CopPre]no[AdvPre]xanduva[BPre11]	ba_no_xanduva	CopPre_AdvPre_BPre11
 kwibhunga	kw[LocPre]i[NPrePre5]bhunga[BPre5]	kw_i_bhunga	LocPre_NPrePre5_BPre5
 ,	,[PUNC]	,	PUNC
@@ -31936,7 +31936,7 @@ Yamanyathelo	Y[PossConc9]a[NPrePre6]ma[BPre6]nyathelo[NStem]	Y_a_ma_nyathelo	Pos
 Programme	Programme[Foreign]	Programme	Foreign
 of	of[Foreign]	of	Foreign
 Action	action[Foreign]	action	Foreign
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 PoA	PoA[Abbr]	PoA	Abbr
 )	)[PUNC]	)	PUNC
 onyaka	o[PossConc6]nyaka[BPre11]	o_nyaka	PossConc6_BPre11
@@ -32256,7 +32256,7 @@ ULINGANISEKE	u[SC2ps]linganis[VRoot]ek[NeutExt]e[VerbTerm]	u_linganis_ek_e	SC2ps
 (	([PUNC]	(	PUNC
 MEASURABLE	measurable[Foreign]	measurable	Foreign
 )	)[PUNC]	)	PUNC
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ingaba	i[SC9]ngaba[Interrog]	i_ngaba	SC9_Interrog
 umgangatho	u[NPrePre3]m[BPre3]gangatho[NStem]	u_m_gangatho	NPrePre3_BPre3_NStem
 wenkonzo	we[PossConc3]n[BPre9]konzo[NStem]	we_n_konzo	PossConc3_BPre9_NStem
@@ -32269,7 +32269,7 @@ nenzame	ne[AdvPre]n[BPre9]zame[NStem]	ne_n_zame	AdvPre_BPre9_NStem
 ?	?[PUNC]	?	PUNC
 Abantu	a[NPrePre2]ba[BPre2]ntu[NStem]	a_ba_ntu	NPrePre2_BPre2_NStem
 abohlukeneyo	abo[RelConc2]hluken[VRoot]e[VerbTerm]yo[RelSuf]	abo_hluken_e_yo	RelConc2_VRoot_VerbTerm_RelSuf
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 abahlali	a[NPrePre2]ba[BPre2]hlali[NStem]	a_ba_hlali	NPrePre2_BPre2_NStem
 bahlukene	ba[SC2]hluken[VRoot]e[VerbTerm]	ba_hluken_e	SC2_VRoot_VerbTerm
 kwaye	kwaye[Conj]	kwaye	Conj
@@ -33407,7 +33407,7 @@ Ukubeka	u[NPrePre15]ku[BPre15]bek[VRoot]a[VerbTerm]	u_ku_bek_a	NPrePre15_BPre15_
 eswenikwiNkqubo	e[LocPre]sw[NStem]eni[LocSuf]kw[LocPre]i[NPrePre9]N[BPre9]kqubo[NStem]	e_sw_eni_kw_i_N_kqubo	LocPre_NStem_LocSuf_LocPre_NPrePre9_BPre9_NStem
 yoLawulo	yoL[PossConc9]awulo[NPrePre11]	yoL_awulo	PossConc9_NPrePre11
 loMsebenzi	loM[PossConc11]sebenzi[NStem]	loM_sebenzi	PossConc11_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 IPMS	i[NPrePre9]PMS[Abbr]	i_PMS	NPrePre9_Abbr
 kufuneka	ku[SC15]funek[VRoot]a[VerbTerm]	ku_funek_a	SC15_VRoot_VerbTerm
 isekwe	i[SC9]sek[VRoot]w[PassExt]e[VerbTerm]	i_sek_w_e	SC9_VRoot_PassExt_VerbTerm
@@ -34140,7 +34140,7 @@ badlale	ba[SC2]dlal[VRoot]e[VerbTerm]	ba_dlal_e	SC2_VRoot_VerbTerm
 indima	i[NPrePre9]n[BPre9]dima[NStem]	i_n_dima	NPrePre9_BPre9_NStem
 enkulu	en[AdjPref9]kulu[AdjStem]	en_kulu	AdjPref9_AdjStem
 kakhulu	ka[AdvPre]khulu[AdjStem]	ka_khulu	AdvPre_AdjStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 kaninzi	ka[AdvPre]ninzi[AdjStem]	ka_ninzi	AdvPre_AdjStem
 bekubakho	be[Past]ku[CopPre]ba[CopPre]kho[Adv]	be_ku_ba_kho	Past_CopPre_CopPre_Adv
 iziphumo	i[NPrePre8]zi[BPre8]phumo[NStem]	i_zi_phumo	NPrePre8_BPre8_NStem
@@ -34325,7 +34325,7 @@ YIMPENDULO	y[CopPre]i[NPrePre9]m[BPre9]pendulo[NStem]	y_i_m_pendulo	CopPre_NPreP
 (	([PUNC]	(	PUNC
 RESPONSIVE	responsive[Foreign]	responsive	Foreign
 )	)[PUNC]	)	PUNC
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ingaba	i[SC9]ngaba[Interrog]	i_ngaba	SC9_Interrog
 umgangatho	u[NPrePre3]m[BPre3]gangatho[NStem]	u_m_gangatho	NPrePre3_BPre3_NStem
 uyimpendulo	u[CopPre]y[CopPre]i[NPrePre9]m[BPre9]pendulo[NStem]	u_y_i_m_pendulo	CopPre_CopPre_NPrePre9_BPre9_NStem
@@ -34472,7 +34472,7 @@ lama35	la[PossConc5]ma[BPre6]35[Num]	la_ma_35	PossConc5_BPre6_Num
 .	.[PUNC]	.	PUNC
 Uluhlu	u[NPrePre11]lu[BPre11]hlu[NStem]	u_lu_hlu	NPrePre11_BPre11_NStem
 lwabahlali	lwa[PossConc11]ba[BPre2]hlali[NStem]	lwa_ba_hlali	PossConc11_BPre2_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 yenza	y[SC9]enz[VRoot]a[VerbTerm]	y_enz_a	SC9_VRoot_VerbTerm
 uluhlu	u[NPrePre11]lu[BPre11]hlu[NStem]	u_lu_hlu	NPrePre11_BPre11_NStem
 lwemibutho	lwe[PossConc11]mi[BPre4]butho[NStem]	lwe_mi_butho	PossConc11_BPre4_NStem
@@ -34769,7 +34769,7 @@ abalungileyo	aba[RelConc2]lung[VRoot]il[Perf]e[VerbTerm]yo[RelSuf]	aba_lung_il_e
 .	.[PUNC]	.	PUNC
 Iinkqubo	i[NPrePre10](z)in[BPre10]kqubo[NStem]	i_in_kqubo	NPrePre10_BPre10_NStem
 zokuvala	zo[PossConc10]ku[BPre15]val[VRoot]a[VerbTerm]	zo_ku_val_a	PossConc10_BPre15_VRoot_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ziqinisekisa	zi[SC10]qinisek[VRoot]is[CausExt]a[VerbTerm]	zi_qinisek_is_a	SC10_VRoot_CausExt_VerbTerm
 ukuba	ukuba[Conj]	ukuba	Conj
 izinto	i[NPrePre10]zin[BPre10]to[NStem]	i_zin_to	NPrePre10_BPre10_NStem
@@ -34846,7 +34846,7 @@ kukarhulumente	ku[PossConc15]ka[PossKA]rhulumente[NStem]	ku_ka_rhulumente	PossCo
 .	.[PUNC]	.	PUNC
 Khuthaza	khuthaz[VRoot]a[VerbTerm]	khuthaz_a	VRoot_VerbTerm
 ukungabinamfihlo	u[NPrePre15]ku[BPre15]nga[NegPre]bi[CopPre]nam[CopPre]fihlo[BPre9]	u_ku_nga_bi_nam_fihlo	NPrePre15_BPre15_NegPre_CopPre_CopPre_BPre9
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 musa	musa[AuxVStem]	musa	AuxVStem
 ukugweba	u[NPrePre15]ku[BPre15]gweb[VRoot]a[VerbTerm]	u_ku_gweb_a	NPrePre15_BPre15_VRoot_VerbTerm
 xa	xa[Conj]	xa	Conj
@@ -35307,7 +35307,7 @@ ophengululo	o[RelConc6]phengululo[NStem]	o_phengululo	RelConc6_NStem
 onyaka	o[PossConc6]nyaka[BPre3]	o_nyaka	PossConc6_BPre3
 ngomgangatho	ngo[AdvPre]m[BPre3]gangatho[NStem]	ngo_m_gangatho	AdvPre_BPre3_NStem
 wokusebenza	wo[PossConc3]ku[BPre15]sebenz[VRoot]a[VerbTerm]	wo_ku_sebenz_a	PossConc3_BPre15_VRoot_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ibhunga	i[NPrePre5]bhunga[NStem]	i_bhunga	NPrePre5_NStem
 malinike	ma[ImpPre]li[SC5]nik[VRoot]e[VerbTerm]	ma_li_nik_e	ImpPre_SC5_VRoot_VerbTerm
 ingxelo	i[NPrePre9]n[BPre9]gxelo[NStem]	i_n_gxelo	NPrePre9_BPre9_NStem
@@ -35326,7 +35326,7 @@ zokufuna	zo[PossConc10]ku[BPre15]fun[VRoot]a[VerbTerm]	zo_ku_fun_a	PossConc10_BP
 igunya	i[NPrePre5](li)[BPre5]gunya[NStem]	i_gunya	NPrePre5_BPre5_NStem
 lokusungula	lo[PossConc5]ku[BPre15]sungul[VRoot]a[VerbTerm]	lo_ku_sungul_a	PossConc5_BPre15_VRoot_VerbTerm
 iprojekthi	i[NPrePre9]projekthi[NStem]	i_projekthi	NPrePre9_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 zikhokela	zi[SC9]khokel[VRoot]a[VerbTerm]	zi_khokel_a	SC9_VRoot_VerbTerm
 ukugunyaziswa	u[NPrePre15]ku[BPre15]gunyaz[VRoot]is[CausExt]w[PassExt]a[VerbTerm]	u_ku_gunyaz_is_w_a	NPrePre15_BPre15_VRoot_CausExt_PassExt_VerbTerm
 kweprojekthi	kwe[PossConc15]projekthi[NStem]	kwe_projekthi	PossConc15_NStem
@@ -35854,7 +35854,7 @@ nezithuba	ne[AdvPre]zi[BPre8]thuba[NStem]	ne_zi_thuba	AdvPre_BPre8_NStem
 .	.[PUNC]	.	PUNC
 Kufundwa	ku[SC15]fund[VRoot]w[PassExt]a[VerbTerm]	ku_fund_w_a	SC15_VRoot_PassExt_VerbTerm
 imizuzu	i[NPrePre4]mi[BPre4]zuzu[NStem]	i_mi_zuzu	NPrePre4_BPre4_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 kuqinisekiswe	ku[SC15]qinisek[VRoot]is[CausExt]w[PassExt]e[VerbTerm]	ku_qinisek_is_w_e	SC15_VRoot_CausExt_PassExt_VerbTerm
 ukuba	ukuba[Conj]	ukuba	Conj
 iyingxelo	i[CopPre]y[CopPre]i[NPrePre9]n[BPre9]gxelo[NStem]	i_y_i_n_gxelo	CopPre_CopPre_NPrePre9_BPre9_NStem
@@ -36186,7 +36186,7 @@ ezahlukeneyo	ez[RelConc10]ahluken[VRoot]e[VerbTerm]yo[RelSuf]	ez_ahluken_e_yo	Re
 .	.[PUNC]	.	PUNC
 Iikomiti	i[NPrePre10](z)i[BPre10]komiti[NStem]	i_i_komiti	NPrePre10_BPre10_NStem
 zePotfoliyo	zeP[PossConc10]otfoliyo[NPrePre9]	zeP_otfoliyo	PossConc10_NPrePre9
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 yiba	yi[CopPre]ba[Cop]	yi_ba	CopPre_Cop
 noluhlu	no[AdvPre]lu[BPre11]hlu[NStem]	no_lu_hlu	AdvPre_BPre11_NStem
 olugcweleyo	olu[RelConc11]gcwel[VRoot]e[VerbTerm]yo[RelSuf]	olu_gcwel_e_yo	RelConc11_VRoot_VerbTerm_RelSuf
@@ -36220,7 +36220,7 @@ xa	xa[Conj]	xa	Conj
 uzifuna	u[SC2ps]zi[OC10]fun[VRoot]a[VerbTerm]	u_zi_fun_a	SC2ps_OC10_VRoot_VerbTerm
 .	.[PUNC]	.	PUNC
 Ukuvala	u[NPrePre15]ku[BPre15]val[VRoot]a[VerbTerm]	u_ku_val_a	NPrePre15_BPre15_VRoot_VerbTerm
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 lo	lo[CDEM03]	lo	CDEM03
 ngumgangatho	ng[CopPre]u[NPrePre3]m[BPre3]gangatho[NStem]	ng_u_m_gangatho	CopPre_NPrePre3_BPre3_NStem
 obaluleke	o[RelConc3]balulek[VRoot]e[VerbTerm]	o_balulek_e	RelConc3_VRoot_VerbTerm
@@ -36799,7 +36799,7 @@ oonokhaya	oo[BPre2a]nokhaya[NStem]	oo_nokhaya	BPre2a_NStem
 .	.[PUNC]	.	PUNC
 Inyathelo	i[NPrePre5](li)[BPre5]nyathelo[NStem]	i_nyathelo	NPrePre5_BPre5_NStem
 1	1[NUM]	1	NUM
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 Vumelana	vumel[VRoot]an[RecipExt]a[VerbTerm]	vumel_an_a	VRoot_RecipExt_VerbTerm
 ngexesha	nge[AdvPre]xesha[BPre5]	nge_xesha	AdvPre_BPre5
 ,	,[PUNC]	,	PUNC
@@ -37171,7 +37171,7 @@ nokungalingani	no[AdvPre]ku[BPre15]nga[NegPre]lingan[VRoot]i[VerbTerm]	no_ku_nga
 .	.[PUNC]	.	PUNC
 Ukwenziwa	U[NPrePre15]kw[BPre15]enz[VRoot]iw[PassExt]a[VerbTerm]	U_kw_enz_iw_a	NPrePre15_BPre15_VRoot_PassExt_VerbTerm
 kogqithiso	ko[PossConc15]gqithiso[NStem]	ko_gqithiso	PossConc15_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ugqithiso	u[NPrePre11]gqithiso[NStem]	u_gqithiso	NPrePre11_NStem
 lungenziwa	lu[SC11]nge[Pot]nz[VRoot]iw[PassExt]a[VerbTerm]	lu_nge_nz_iw_a	SC11_Pot_VRoot_PassExt_VerbTerm
 kwilungu	kw[LocPre]i[NPrePre5]lungu[BPre5]	kw_i_lungu	LocPre_NPrePre5_BPre5
@@ -37519,7 +37519,7 @@ lungiselelo	lungiselelo[NStem]	lungiselelo	NStem
 lungcono	lu[RelConc11]ngcono[RelStem]	lu_ngcono	RelConc11_RelStem
 kubantwana	ku[LocPre]ba[BPre2]ntw[NStem]ana[DimSuf]	ku_ba_ntw_ana	LocPre_BPre2_NStem_DimSuf
 abaselula	aba[RelConc2]se[Pro]lula[RelStem]	aba_se_lula	RelConc2_Pro_RelStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 kuquka	ku[SC15]quk[VRoot]a[VerbTerm]	ku_quk_a	SC15_VRoot_VerbTerm
 nengcebiso	ne[AdvPre]n[BPre9]gcebiso[NStem]	ne_n_gcebiso	AdvPre_BPre9_NStem
 yokuba	yo[PossConc9]kuba[Conj]	yo_kuba	PossConc9_Conj
@@ -37609,7 +37609,7 @@ uququmbela	u[SC1]ququmbel[VRoot]a[VerbTerm]	u_ququmbel_a	SC1_VRoot_VerbTerm
 inkqubo	i[NPrePre9]n[BPre9]kqubo[NStem]	i_n_kqubo	NPrePre9_BPre9_NStem
 .	.[PUNC]	.	PUNC
 Intshayelelo	i[NPrePre9]n[BPre9]tshayelelo[NStem]	i_n_tshayelelo	NPrePre9_BPre9_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 injongo	i[NPrePre9]n[BPre9]jongo[NStem]	i_n_jongo	NPrePre9_BPre9_NStem
 yalo	yalo[POSS09]	yalo	POSS09
 mgangatho	m[BPre3]gangatho[NStem]	m_gangatho	BPre3_NStem
@@ -37652,7 +37652,7 @@ ngaphandle	nga[AdvPre]phandle[Adv]	nga_phandle	AdvPre_Adv
 kokuphazamiseka	ko[PossConc15]ku[BPre15]phazamis[VRoot]ek[NeutExt]a[VerbTerm]	ko_ku_phazamis_ek_a	PossConc15_BPre15_VRoot_NeutExt_VerbTerm
 .	.[PUNC]	.	PUNC
 Umxolelanisi	u[NPrePre1]m[BPre1]xolelanisi[NStem]	u_m_xolelanisi	NPrePre1_BPre1_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 umbhexeshi	u[NPrePre1]m[BPre1]bhexeshi[NStem]	u_m_bhexeshi	NPrePre1_BPre1_NStem
 ngumncedi	ng[CopPre]u[NPrePre1]m[BPre1]ncedi[NStem]	ng_u_m_ncedi	CopPre_NPrePre1_BPre1_NStem
 kwaye	kwaye[Conj]	kwaye	Conj
@@ -37674,7 +37674,7 @@ Icandelo	i[NPrePre5](li)[BPre5]candelo[NStem]	i_candelo	NPrePre5_BPre5_NStem
 (	([PUNC]	(	PUNC
 e	e[Abbr]	e	e[Abbr]
 )	)[PUNC]	)	PUNC
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ngokwemigqaliselo	ng[AdvPre]okwe[AdvPre]mi[BPre4]gqaliselo[NStem]	ng_okwe_mi_gqaliselo	AdvPre_AdvPre_BPre4_NStem
 yeenqobo	yee[PossConc4]n[NPrePre10]qobo[BPre10]	yee_n_qobo	PossConc4_NPrePre10_BPre10
 ezisisiseko	ezi[RelConc10]s[CopPre]i[NPrePre7]si[BPre7]seko[NStem]	ezi_s_i_si_seko	RelConc10_CopPre_NPrePre7_BPre7_NStem
@@ -37683,7 +37683,7 @@ nemithethosiseko	ne[AdvPre]mi[BPre4]thetho[NStem]si[BPre7]seko[NStem]	ne_mi_thet
 kurhulumente	ku[LocPre]rhulumente[NStem]	ku_rhulumente	LocPre_NStem
 wolawulo	wo[PossConc1]lawulo[BPre11]	wo_lawulo	PossConc1_BPre11
 loluntu	lo[PossConc11]lu[BPre11]ntu[NStem]	lo_lu_ntu	PossConc11_BPre11_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 izidingo	i[NPrePre8]zi[BPre8]dingo[NStem]	i_zi_dingo	NPrePre8_BPre8_NStem
 zabantu	za[PossConc8]ba[BPre2]ntu[NStem]	za_ba_ntu	PossConc8_BPre2_NStem
 kufuneka	ku[SC15]funek[VRoot]a[VerbTerm]	ku_funek_a	SC15_VRoot_VerbTerm
@@ -37906,7 +37906,7 @@ ngokuzithandela	ngo[AdvPre]ku[BPre15]zi[ReflPre]thand[VRoot]el[ApplExt]a[VerbTer
 .	.[PUNC]	.	PUNC
 Ukuvandlakanya	u[NPrePre15]ku[BPre15]vandlakany[VRoot]a[VerbTerm]	u_ku_vandlakany_a	NPrePre15_BPre15_VRoot_VerbTerm
 iprojekthi	i[NPrePre9]projekthi[NStem]	i_projekthi	NPrePre9_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ukubeka	u[NPrePre15]ku[BPre15]bek[VRoot]a[VerbTerm]	u_ku_bek_a	NPrePre15_BPre15_VRoot_VerbTerm
 iliso	i[NPrePre5]li[BPre5]so[NStem]	i_li_so	NPrePre5_BPre5_NStem
 nokuvandlakanya	no[AdvPre]ku[BPre15]vandlakany[VRoot]a[VerbTerm]	no_ku_vandlakany_a	AdvPre_BPre15_VRoot_VerbTerm
@@ -37978,7 +37978,7 @@ enkundleni	e[LocPre]n[BPre9]kundle[NStem]ni[LocSuf]	e_n_kundle_ni	LocPre_BPre9_N
 Umntu	u[NPrePre1]m[BPre1]ntu[NStem]	u_m_ntu	NPrePre1_BPre1_NStem
 obhexesha	o[RelConc1]bhexesh[VRoot]a[VerbTerm]	o_bhexesh_a	RelConc1_VRoot_VerbTerm
 inguqulelo	i[NPrePre9]n[BPre9]guqulelo[NStem]	i_n_guqulelo	NPrePre9_BPre9_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 iKomiti	i[NPrePre9]komiti[NStem]	i_komiti	NPrePre9_NStem
 yeWadi	yeW[PossConc9]adi[NPrePre9]	yeW_adi	PossConc9_NPrePre9
 ibandakanya	i[SC9]bandakany[VRoot]a[VerbTerm]	i_bandakany_a	SC9_VRoot_VerbTerm
@@ -39467,7 +39467,7 @@ zakho	za[PossConc10]kho[PossPron]	za_kho	PossConc10_PossPron
 .	.[PUNC]	.	PUNC
 Indima	i[NPrePre9]n[BPre9]dima[NStem]	i_n_dima	NPrePre9_BPre9_NStem
 yeengcebiso	yee[PossConc9]n[NPrePre10]gcebiso[BPre10]	yee_n_gcebiso	PossConc9_NPrePre10_BPre10
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ukucebisa	u[NPrePre15]ku[BPre15]cebis[VRoot]a[VerbTerm]	u_ku_cebis_a	NPrePre15_BPre15_VRoot_VerbTerm
 nokuncedisa	no[AdvPre]ku[BPre15]nced[VRoot]is[CausExt]a[VerbTerm]	no_ku_nced_is_a	AdvPre_BPre15_VRoot_CausExt_VerbTerm
 ucebaukuze	u[NPrePre1a]ceba[NStem]ukuze[Conj]	u_ceba_ukuze	NPrePre1a_NStem_Conj
@@ -40059,7 +40059,7 @@ siqale	si[SC7]qal[VRoot]e[VerbTerm]	si_qal_e	SC7_VRoot_VerbTerm
 esilandelayo	esi[RelConc7]landel[VRoot]a[VerbTerm]yo[RelSuf]	esi_landel_a_yo	RelConc7_VRoot_VerbTerm_RelSuf
 Amandla	A[NPrePre6]m[BPre6]andla[NStem]	A_m_andla	NPrePre6_BPre6_NStem
 abemi	a[PossConc6]be[BPre2]mi[NStem]	a_be_mi	PossConc6_BPre2_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 abantu	a[NPrePre2]ba[BPre2]ntu[NStem]	a_ba_ntu	NPrePre2_BPre2_NStem
 bayazimela	ba[SC2]ya[Pres]zi[OC8]m[VRoot]el[ApplExt]a[VerbTerm]	ba_ya_zi_m_el_a	SC2_Pres_OC8_VRoot_ApplExt_VerbTerm
 izenzo	i[NPrePre8]z[BPre8]enzo[NStem]	i_z_enzo	NPrePre8_BPre8_NStem
@@ -40239,7 +40239,7 @@ ewadini	e[LocPre]wadi[NStem]ni[LocSuf]	e_wadi_ni	LocPre_NStem_LocSuf
 Iinkqubo	i[NPrePre10](z)in[BPre10]kqubo[NStem]	i_in_kqubo	NPrePre10_BPre10_NStem
 zogqithiso	zo[PossConc10]gqithiso[NStem]	zo_gqithiso	PossConc10_NStem
 lwengxelo	lwe[PossConc11]n[BPre9]gxelo[NStem]	lwe_n_gxelo	PossConc11_BPre9_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 Yeyiphi	y[CopPre]e[RelConc9]yi[EnumConc9]phi[EnumStem]	y_e_yi_phi	CopPre_RelConc9_EnumConc9_EnumStem
 inkqubo	i[NPrePre9]n[BPre9]kqubo[NStem]	i_n_kqubo	NPrePre9_BPre9_NStem
 ekhoyo	e[RelConc9]kho[Adv]yo[RelSuf]	e_kho_yo	RelConc9_Adv_RelSuf
@@ -40494,7 +40494,7 @@ odliwanondlebe	o[PossConc6]dliwano[NStem]n[BPre9]dlebe[NStem]	o_dliwano_n_dlebe	
 nabaniki	na[AdvPre]ba[BPre2]niki[NStem]	na_ba_niki	AdvPre_BPre2_NStem
 beenkonzo	bee[PossConc2]n[NPrePre10]konzo[BPre10]	bee_n_konzo	PossConc2_NPrePre10_BPre10
 abaphambili	aba[RelConc2]phambili[Adv]	aba_phambili	RelConc2_Adv
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 mawamiselwe	ma[ImpPre]wa[OC6]misel[VRoot]w[PassExt]e[VerbTerm]	ma_wa_misel_w_e	ImpPre_OC6_VRoot_PassExt_VerbTerm
 kuselithuba	ku[CopPre]se[Pro]li[BPre5]thuba[NStem]	ku_se_li_thuba	CopPre_Pro_BPre5_NStem
 ukuqinisekisa	u[NPrePre15]ku[BPre15]qinisek[VRoot]is[CausExt]a[VerbTerm]	u_ku_qinisek_is_a	NPrePre15_BPre15_VRoot_CausExt_VerbTerm
@@ -40759,7 +40759,7 @@ lomsebenzi	lo[PossConc11]m[BPre1]sebenzi[NStem]	lo_m_sebenzi	PossConc11_BPre1_NS
 .	.[PUNC]	.	PUNC
 Ababhexeshi	a[NPrePre2]ba[BPre2]bhexeshi[NStem]	a_ba_bhexeshi	NPrePre2_BPre2_NStem
 bakamasipala	ba[BPre2]ka[PossKA]masipala[NStem]	ba_ka_masipala	BPre2_PossKA_NStem
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 basenokuvela	ba[SC2]se[Pro]no[CopPre]ku[BPre15]vel[VRoot]a[VerbTerm]	ba_se_no_ku_vel_a	SC2_Pro_CopPre_BPre15_VRoot_VerbTerm
 kumacandelo	ku[LocPre]ma[BPre6]candelo[NStem]	ku_ma_candelo	LocPre_BPre6_NStem
 ahlukahlukeneyo	a[RelConc6]hluk[VRoot]a[VerbTerm]hluk[VRoot]en[RecipExt]e[VerbTerm]yo[RelSuf]	a_hluk_a_hluk_en_e_yo	RelConc6_VRoot_VerbTerm_VRoot_RecipExt_VerbTerm_RelSuf
@@ -41018,7 +41018,7 @@ inxaxheba	i[NPrePre9]n[BPre9]xaxheba[NStem]	i_n_xaxheba	NPrePre9_BPre9_NStem
 kwiikomiti	kw[LocPre]i[NPrePre10]i[BPre10]komiti[NStem]	kw_i_i_komiti	LocPre_NPrePre10_BPre10_NStem
 namaqonga	na[AdvPre]ma[BPre6]qonga[NStem]	na_ma_qonga	AdvPre_BPre6_NStem
 eengxoxo	ee[PossConc6]n[NPrePre10]gxoxo[BPre10]	ee_n_gxoxo	PossConc6_NPrePre10_BPre10
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 amabhunga	a[NPrePre6]ma[BPre6]bhunga[NStem]	a_ma_bhunga	NPrePre6_BPre6_NStem
 angaseka	a[SC6]nga[Pot]sek[VRoot]a[VerbTerm]	a_nga_sek_a	SC6_Pot_VRoot_VerbTerm
 iikomiti	i[NPrePre10](z)i[BPre10]komiti[NStem]	i_i_komiti	NPrePre10_BPre10_NStem
@@ -42065,7 +42065,7 @@ neIDP	ne[AdvPre]IDP[Abbr]	ne_IDP	AdvPre_Abbr
 .	.[PUNC]	.	PUNC
 Amandla	A[NPrePre6]m[BPre6]andla[NStem]	A_m_andla	NPrePre6_BPre6_NStem
 anikeziweyo	a[RelConc6]nikez[VRoot]iw[PassExt]e[VerbTerm]yo[RelSuf]	a_nikez_iw_e_yo	RelConc6_VRoot_PassExt_VerbTerm_RelSuf
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 Ibhunga	i[NPrePre5](li)[BPre5]bhunga[NStem]	i_bhunga	NPrePre5_BPre5_NStem
 lasekhaya	la[PossConc5]s[PreLocs]e[LocPre]khaya[BPre5]	la_s_e_khaya	PossConc5_PreLocs_LocPre_BPre5
 linoxanduva	li[CopPre]no[CopPre]xanduva[BPre11]	li_no_xanduva	CopPre_CopPre_BPre11
@@ -43111,7 +43111,7 @@ iya	i[SC9]ya[Fut]	i_ya	SC9_Fut
 kuza	ku[SC15]z[VRoot]a[VerbTerm]	ku_z_a	SC15_VRoot_VerbTerm
 nantoni	na[AdvPre]n[BPre9]to[NStem]ni[InterrogSuf]	na_n_to_ni	AdvPre_BPre9_NStem_InterrogSuf
 na	na[Interrog]	na	Interrog
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ngamanye	nga[AdvPre]ma[AdjPref6]nye[AdjStem]	nga_ma_nye	AdvPre_AdjPref6_AdjStem
 amaxesha	a[NPrePre6]ma[BPre6]xesha[NStem]	a_ma_xesha	NPrePre6_BPre6_NStem
 ke	ke[Conj]	ke	Conj
@@ -43796,7 +43796,7 @@ UNGQALISE	u[SC2ps]ngqal[VRoot]is[CausExt]e[VerbTerm]	u_ngqal_is_e	SC2ps_VRoot_Ca
 (	([PUNC]	(	PUNC
 SPECIFIC	specific[Foreign]	specific	Foreign
 )	)[PUNC]	)	PUNC
--	-[PUNC]	_	PUNC
+-	-[PUNC]	-	PUNC
 ingaba	i[SC9]ngaba[Interrog]	i_ngaba	SC9_Interrog
 umgangatho	u[NPrePre3]m[BPre3]gangatho[NStem]	u_m_gangatho	NPrePre3_BPre3_NStem
 wenkonzo	we[PossConc3]n[BPre9]konzo[NStem]	we_n_konzo	PossConc3_BPre9_NStem

@@ -33,7 +33,7 @@ def align_seqs(pred: list, actual: list, pad="<?UNK?>"):
             if pred_elt == actual_elt:
                 correct += 1
     
-        if correct > best_correct:
+        if correct >= best_correct:
             best_indices = indices
             best_correct = correct
 
