@@ -1771,7 +1771,7 @@ ngalinye	nga[AdvPre]li[AdjPref5]nye[AdjStem]	nga_li_nye	AdvPre_AdjPref5_AdjStem
 lemacembu	l[PossConc5]e[NPrePre6]ma[BPre6]cembu[NStem]	le_ma_cembu	PossConc5_NPrePre6_BPre6_NStem
 latimbandzakanyile	la[RelConc6]ti[OC8]mbandzakany[VRoot]ile[Perf]	la_timbandzakanyile	RelConc6_OC8_VRoot_Perf
 kutsi	kutsi[Conj]	ku_ts_i	Conj
-etfule	etful[SC6|VRoot]e[VerbTerm]	etful_e	SC6_VRoot_VerbTerm
+etfule	etful[SC6|VRoot]e[VerbTerm]	etful_e	VRoot_SC6_VerbTerm
 luhlangotsi	lu[BPre11]hlangotsi[NStem]	lu_hlangotsi	BPre11_NStem
 lwakabo	lwa[PossConc11]ka[PossConc15]bo[PronStem2]	lw_akabo	PossConc11_PossConc15_PronStem2
 lwendzaba	lwe[PossConc11]n[BPre9]dzaba[NStem]	lwe_n_dzaba	PossConc11_BPre9_NStem
@@ -2934,7 +2934,7 @@ mangaki	mangaki[Interrog]	manga_ki	Interrog
 emakhaya	e[LocPre]ma[BPre6]khaya[NStem]	e_ma_khaya	LocPre_BPre6_NStem
 lokumele	loku[RelConc15]mel[VRoot]e[VerbTerm]	loku_mel_e	RelConc15_VRoot_VerbTerm
 awaphakele	a[SC6]wa[OC6]phakel[VRoot]e[VerbTerm]	a_wa_phak_el_e	SC6_OC6_VRoot_VerbTerm
-emanti	e[PossConc6|NPrePre6]ma[BPre6]nti[NStem]	e_ma_nti	PossConc6_NPrePre6_BPre6_NStem
+emanti	e[PossConc6|NPrePre6]ma[BPre6]nti[NStem]	e_ma_nti	NPrePre6_PossConc6_BPre6_NStem
 nagezi	na[AdvPre]gezi[NStem]	na_gezi	AdvPre_NStem
 nekutsi	ne[AdvPre]kutsi[Conj]	ne_ku_ts_i	AdvPre_Conj
 ngutiphi	ngu[CopPre]ti[BPre8]phi[Interrog]	nguti_phi	CopPre_BPre8_Interrog

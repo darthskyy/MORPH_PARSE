@@ -4287,7 +4287,7 @@ abantu	a[NPrePre2]ba[BPre2]ntu[NStem]	aba_ntu	NPrePre2_BPre2_NStem
 bezozizwa	be[SC2a]zo[Fut]zi[ReflPre]zw[VRoot]a[VerbTerm]	be_zo_zi_zwa	SC2a_Fut_ReflPre_VRoot_VerbTerm
 beyingxenye	be[BPre2a]y[CopPre]i[NPrePre9]n[BPre9]gxenye[NStem]	be_yi_ngxenye	BPre2a_CopPre_NPrePre9_BPre9_NStem
 yaleli	yaleli[POSS09]	ya_l_el_i	POSS09
-zwe	zwe[BPre5|NStem]	zwe	BPre5_NStem
+zwe	zwe[BPre5|NStem]	zwe	NStem_BPre5
 nezinhlelo	ne[NPre10]zin[BPre10]hlelo[NStem]	ne_zin_hlelo	NPre10_BPre10_NStem
 zalo	za[PossConc10]lo[PronStem11]	zalo	PossConc10_PronStem11
 .	.[PUNC]	.	PUNC

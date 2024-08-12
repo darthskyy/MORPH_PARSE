@@ -1,6 +1,5 @@
-import os
 import re
-
+import random
 from data_prep import read_lines, split_tags, write_lines
 
 def prepare_line(line: str, is_test=False) -> list[str]:
@@ -13,12 +12,14 @@ def prepare_line(line: str, is_test=False) -> list[str]:
 
     word, _, surface_with_tags, _ = split
 
-    # Sometimes, morphs are double-tagged (e.g yo[SC4|Fut])
+    # Sometimes, morphs are double-tagged (e.g. yo[SC4|Fut])
     # We can't train for multiple tags, but we can test for them
     tags = []
     seg, tags_orig = split_tags(surface_with_tags)
     for tag in tags_orig:
         split = tag.split("|")
+        random.shuffle(split)  # Sample between all tags it is assigned to prevent biasing the models
+
         if is_test:
             tags.extend(split)
         else:
@@ -80,6 +81,8 @@ def main():
     }
 
     for lang in langs.keys():
+        random.seed(0)  # Ensure uniform sampling in each language - this is for double-tagged morphemes
+
         # Train set
         lines = read_lines(f"data/Surface/gold/{lang}.train.morphparse.conll", skip_first=True)
         prepped_lines = prepare_train_lines(lines)  # Prepare lines & skip empty
