@@ -22,7 +22,7 @@ def format_line(line: str) -> str:
     return '\t'.join(line)
 
 
-def split_tags(text: str) -> (str, list[str]):
+def split_tags(text: str) -> (list[str], list[str]):
     """Split a word into its canonical segmentation and morpheme tags."""
     split = [morpheme for morpheme in re.split(r'\[[a-zA-Z-_0-9|]*?]-?', text) if morpheme != ""]
     return (split, re.findall(r'\[([a-zA-Z-_0-9|]*?)]', text))
