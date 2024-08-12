@@ -265,3 +265,40 @@ Average across 4 seeds: 0.656715177846556
 GRU 128:
 bilstm-ZU: Micro F1: 0.9276106997128608. Macro f1: 0.6698360427096979. Weighted F1: 0.9242904027928384
 bilstm-ZU: Micro F1: 0.927157322049267. Macro f1: 0.6612132241729299. Weighted F1: 0.9239150363016821
+
+MORPHEME feature, SENTENCE context, SURFACE
+===========================================
+
+cfg = {
+    "embed_target_embed": tune.grid_search([128, 256, 512]),
+    "lr": tune.loguniform(1e-5, 1e-2),
+    "weight_decay": tune.loguniform(1e-10, 1e-5),
+    "hidden_dim": tune.grid_search([64, 128, 256]),
+    "dropout": tune.choice([0.0, 0.1, 0.2]),
+    "batch_size": tune.choice([1, 2, 4]),
+    "epochs": tune.choice([epochs]),
+    "gradient_clip": tune.choice([0.5, 1, 2])
+}
+
+Best trial by f1_macro:
+config: {'lr': 0.00015390073927494776, 'weight_decay': 6.331272501498783e-10, 'hidden_dim': 128, 'dropout': 0.0, 'batch_size': 1, 'epochs': 20, 'gradient_clip': 1, 'embed_target_embed': 512}
+bilstm: Micro F1: 0.915625. Macro f1: 0.6688063978037138. Weighted F1: 0.9120277843425946
+
+MORPHEME feature, WORD context, SURFACE
+=======================================
+
+{
+    "embed_target_embed": tune.grid_search([128, 256])
+    "lr": tune.loguniform(1e-5, 1e-3),
+    "weight_decay": tune.loguniform(1e-10, 1e-5),
+    "hidden_dim": tune.grid_search([128, 256, 512]),
+    "dropout": tune.grid_search([0.1, 0.2, 0.3]),
+    "batch_size": tune.choice([1]),
+    "epochs": tune.choice([epochs]),
+    "gradient_clip": tune.grid_search([1, 2, 4]),
+}
+
+config: {'lr': 4.1542031097269036e-05, 'weight_decay': 1.319327134349297e-06, 'hidden_dim': 256, 'dropout': 0.1, 'batch_size': 1, 'epochs': 20, 'gradient_clip': 4, 'embed_target_embed': 256}
+ bilstm: Micro F1: 0.915296052631579. Macro f1: 0.6651066700785224. Weighted F1: 0.9107901529475941
+
+this is still using the un-adjusted tagset

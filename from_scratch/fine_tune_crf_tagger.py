@@ -108,7 +108,6 @@ def final_train():
         print("Average across 4 seeds:", float(sum(macros)) / 4.0)
 
 
-torch.set_num_threads(11)
 final_train()
 print("Done at", datetime.datetime.now())
 ray.shutdown()

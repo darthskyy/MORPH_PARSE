@@ -19,6 +19,8 @@ from ray.tune.schedulers import ASHAScheduler
 from ray.tune.search import BasicVariantGenerator
 from ray.util.client import ray
 
+from aligned_f1 import align_seqs
+
 SEQ_PAD_TEXT = "<?pad?>"
 SEQ_PAD_IX = 0
 WORD_SEP_IX = 1
@@ -27,6 +29,7 @@ UNK_IDX = 2
 
 torch.manual_seed(0)
 random.seed(0)
+
 
 def split_words(sentence):
     """Split the corpus into words"""
@@ -41,7 +44,6 @@ def split_words(sentence):
             tags_acc.append(tag)
 
     yield (morphemes_acc, tags_acc)
-
 
 def split_sentences(sentence):
     """Split the corpus into sentences"""
@@ -148,7 +150,7 @@ def classes_only_no_tags(tag):
 
 
 class AnnotatedCorpusDataset(Dataset):
-    def __init__(self, seqs, num_submorphemes: int, num_tags: int, ix_to_tag, tag_to_ix, ix_to_morpheme, morpheme_to_ix, tag_weights):
+    def __init__(self, seqs, num_submorphemes: int, num_tags: int, ix_to_tag, tag_to_ix, ix_to_morpheme, morpheme_to_ix, tag_weights, is_surface):
         super().__init__()
         self.seqs = seqs
         self.num_submorphemes = num_submorphemes
@@ -158,9 +160,10 @@ class AnnotatedCorpusDataset(Dataset):
         self.ix_to_morpheme = ix_to_morpheme
         self.morpheme_to_ix = morpheme_to_ix
         self.tag_weights = tag_weights
+        self.is_surface = is_surface
 
     @staticmethod
-    def load_data(lang: str, use_testset=False, split=split_words, tokenize=tokenize_into_morphemes, map_tag=identity,
+    def load_data(lang: str, use_surface=False, use_testset=False, split=split_words, tokenize=tokenize_into_morphemes, map_tag=identity,
                   use_2024=False, supp_training_langs=None):
         if supp_training_langs is None:
             supp_training_langs = []
@@ -203,12 +206,14 @@ class AnnotatedCorpusDataset(Dataset):
                     morpheme_seq = cols[2].split("_")
                     tag_seq = cols[3].split("_")
 
-                    if len(morpheme_seq) != len(tag_seq):
-                        clean_double_labelled_morphemes(morpheme_seq, tag_seq)
+                    if not use_surface:
+                        # Clean the double-labelled morphemes (by taking the 1st one) if this isn't a surface
+                        # segmentation. The surface segmentation comes pre-cleaned (see scripts/prep_surface.py)
+                        if len(morpheme_seq) != len(tag_seq):
+                            clean_double_labelled_morphemes(morpheme_seq, tag_seq)
 
-                    if len(morpheme_seq) != len(tag_seq):
-                        print("Wrong len!", morpheme_seq, tag_seq)
-
+                        if len(morpheme_seq) != len(tag_seq):
+                            print("Wrong len!", morpheme_seq, tag_seq)
 
                     yield (morpheme_seq, tag_seq)
 
@@ -234,7 +239,8 @@ class AnnotatedCorpusDataset(Dataset):
                     yield (morpheme_seq, tag_seq)
 
         # First, we split by sentences in order to get a fair train/test split
-        raw = extract_morphemes_and_tags_from_file_2022(f"data/TRAIN/{lang}_TRAIN.tsv")
+        suffix = "_SURFACE" if use_surface else ""
+        raw = extract_morphemes_and_tags_from_file_2022(f"data/TRAIN/{lang}_TRAIN{suffix}.tsv")
         if use_2024:
             raw = itertools.chain(
                 raw,
@@ -253,13 +259,13 @@ class AnnotatedCorpusDataset(Dataset):
             print("Using testset")
             train_sentences = sentences
             test_sentences = list(
-                _split_sentences_raw(extract_morphemes_and_tags_from_file_2022(f"data/TEST/{lang}_TEST.tsv")))
+                _split_sentences_raw(extract_morphemes_and_tags_from_file_2022(f"data/TEST/{lang}_TEST{suffix}.tsv")))
 
         supp = []
         for supp_lang in supp_training_langs:
             raw_supp = itertools.chain(
                 extract_morphemes_and_tags_from_file_2024(f"data/NEW/{supp_lang}_NEW.txt"),
-                extract_morphemes_and_tags_from_file_2022(f"data/TRAIN/{supp_lang}_TRAIN.tsv")
+                extract_morphemes_and_tags_from_file_2022(f"data/TRAIN/{supp_lang}_TRAIN{suffix}.tsv")
             )
             supp = list(_split_sentences_raw(raw_supp))
 
@@ -360,18 +366,13 @@ class AnnotatedCorpusDataset(Dataset):
 
         tag_frequencies = [1.0 / float(freq + 1) for freq in tag_frequencies]
         tag_frequencies = torch.tensor(tag_frequencies)
-        print(len(tag_frequencies))
 
         return (
             AnnotatedCorpusDataset(training_data, len(submorpheme_to_ix), len(tag_to_ix), ix_to_tag, tag_to_ix,
-                                   ix_to_submorpheme, submorpheme_to_ix, tag_frequencies),
+                                   ix_to_submorpheme, submorpheme_to_ix, tag_frequencies, use_surface),
             AnnotatedCorpusDataset(testing_data, len(submorpheme_to_ix), len(tag_to_ix), ix_to_tag, tag_to_ix,
-                                   ix_to_submorpheme, submorpheme_to_ix, tag_frequencies),
+                                   ix_to_submorpheme, submorpheme_to_ix, tag_frequencies, use_surface),
         )
-
-    def get_labels(self):
-        print(len(list(self.tag_to_ix.values())))
-        return list(self.tag_to_ix.values())
 
     def to(self, device):
         self.seqs = [(a.to(device), b.to(device)) for a, b in self.seqs]
@@ -465,28 +466,25 @@ def analyse_model(model, config, valid: AnnotatedCorpusDataset):
             # This loop splits by batch
             for batch_elt_expected, batch_elt_pred in zip(torch.unbind(expected_tags), torch.unbind(predicted_tags)):
                 # This loop splits by morpheme
+
+                predicted_this_batch, expected_this_batch = [], []
                 for expected_tag, predicted_tag in zip(batch_elt_expected, batch_elt_pred):
                     # Skip <?word_sep?> and <?pad?> tags, if any
                     if expected_tag.item() == WORD_SEP_IX or expected_tag.item() == SEQ_PAD_IX:
                         continue
 
-                    predicted.append(valid.ix_to_tag[predicted_tag.item()])
-                    expected.append(valid.ix_to_tag[expected_tag.item()])
+                    predicted_this_batch.append(valid.ix_to_tag[predicted_tag.item()])
+                    expected_this_batch.append(valid.ix_to_tag[expected_tag.item()])
+
+                if valid.is_surface:
+                    predicted_this_batch, expected_this_batch = align_seqs(predicted_this_batch, expected_this_batch, pad="PADDED")
+
+                predicted.extend(predicted_this_batch)
+                expected.extend(expected_this_batch)
 
         f1_micro = f1_score(expected, predicted, average="micro")
         f1_macro = f1_score(expected, predicted, average="macro")
         f1_weighted = f1_score(expected, predicted, average="weighted")
-        f1_scores = f1_score(expected, predicted, average=None)
-
-        tag_freqs = Counter(expected)
-        tags_alphabetical = sorted(list(set(expected) | set(predicted)))
-        f1_scores = [(tags_alphabetical[ix], score) for ix, score in enumerate(f1_scores)]
-        print(sum([f1 for (tag, f1) in f1_scores if tag_freqs[tag] >= 5]) / sum(1 for (tag, f1) in f1_scores if tag_freqs[tag] >= 5))
-        print(f1_scores)
-
-        # Consider only those classes with examples
-        # TODO what is happening here??
-        # f1_macro = sum(score for (nclass, score) in f1_scores) / sum(1 for (nclass, score) in f1_scores if tag_freqs[nclass] > 0)
 
         return valid_loss, len(valid_loader), classification_report(expected, predicted,
                                                                     zero_division=0.0), f1_micro, f1_macro, f1_weighted
@@ -558,6 +556,8 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
             torch.nn.utils.clip_grad_norm_(model.parameters(), config["gradient_clip"])
             optimizer.step()
 
+        elapsed = time.time() - start
+        print(f"Eval (elapsed = {elapsed:.2f}s)")
         elapsed = time.time() - start
         valid_loss, valid_batches, _report, f1_micro, f1_macro, f1_weighted = analyse_model(model, config, valid)
         print(f"Epoch {epoch} done in {elapsed:.2f}s. "

@@ -23,8 +23,8 @@ model = (
     "bilstm",
     lambda train_set, embed, config: BiLSTMTagger(embed, config, train_set)
 )
-# splits = (split_sentences, "sentences", 20)
-splits = (split_sentences_embedded_sep, "sentences_embedded_sep", 20)
+splits = (split_sentences, "sentences", 20)
+# splits = (split_sentences_embedded_sep, "sentences_embedded_sep", 20)
 # splits = (split_words, "words", 20)
 # feature_level = (
 #     "trigram-sum",
@@ -63,7 +63,7 @@ def fine_tune():
         "gradient_clip": tune.choice([0.5, 1, 2])
     }
 
-    train, valid = AnnotatedCorpusDataset.load_data("ZU", split=split, tokenize=extract_features)
+    train, valid = AnnotatedCorpusDataset.load_data("ZU", split=split, tokenize=extract_features, use_surface=True)
     tune_model(model, cfg, feature_level, name, epochs, train, valid)
 
 
@@ -91,7 +91,7 @@ def final_train():
     # }
 
     for lang in ["ZU"]:
-        train, valid = AnnotatedCorpusDataset.load_data("ZU", split=split, tokenize=extract_features)
+        train, valid = AnnotatedCorpusDataset.load_data("ZU", split=split, tokenize=extract_features, use_testset=False, use_surface=True)
         macros = []
         for seed in [0, 12904, 1028485, 2795]:
             print(f"Training {split_name}-level, {feature_name}-feature {model_name} for {lang}")
@@ -104,7 +104,6 @@ def final_train():
         print("Average across 4 seeds:", float(sum(macros)) / 4.0)
 
 
-torch.set_num_threads(11)
-final_train()
+fine_tune()
 print("Done at", datetime.datetime.now())
 ray.shutdown()

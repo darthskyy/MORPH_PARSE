@@ -39,8 +39,8 @@ def fine_tune():
         "gradient_clip": tune.grid_search([1, 2, 4]),
     }
 
-    train, valid = AnnotatedCorpusDataset.load_data("ZU", split=split, tokenize=extract_features)
-    tune_model(model, cfg, feature_level, name, epochs, train, valid, cpus=8)
+    train, valid = AnnotatedCorpusDataset.load_data("ZU", split=split, tokenize=extract_features, use_surface=True)
+    tune_model(model, cfg, feature_level, name, epochs, train, valid)
 
 
 def final_train():
@@ -55,15 +55,15 @@ def final_train():
       'embed_target_embed': 128
     }
 
-    for lang in ["XH", "ZU", "SS", "NR"]:
+    for lang in ["ZU"]:
         print(f"Training {split_name}-level, {feature_name}-feature {model_name} for {lang}")
-        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features, use_testset=True)
+        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features, use_testset=False, use_surface=True)
         train_model(
             model_for_config(mk_model, embed_features, train, cfg), f"{model_name}-{lang}", cfg, train,
             valid, use_ray=False
         )
 
 
-final_train()
+fine_tune()
 print("Done at", datetime.datetime.now())
 ray.shutdown()
