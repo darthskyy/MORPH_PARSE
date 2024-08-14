@@ -9,12 +9,12 @@ from ray.tune.schedulers import ASHAScheduler
 from ray.tune.search import BasicVariantGenerator
 from ray.util.client import ray
 
+from dataset import split_sentences_embedded_sep, tags_only_no_classes
 from lstm import BiLSTMTagger
 from bilstm_crf import BiLstmCrfTagger
 from common import AnnotatedCorpusDataset, train_model, split_words, tokenize_into_morphemes, \
-    tokenize_into_chars, split_sentences, split_sentences_no_sep, EmbedBySumming, EmbedSingletonFeature, \
-    EmbedWithBiLSTM, analyse_model, split_sentences_embedded_sep, tune_model, model_for_config, tags_only_no_classes, \
-    classes_only_no_tags
+    tokenize_into_chars, split_sentences, EmbedBySumming, EmbedSingletonFeature, \
+    EmbedWithBiLSTM, analyse_model, tune_model, model_for_config
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 

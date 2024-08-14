@@ -1,66 +1,80 @@
-import torch
+from multiprocessing import Pool
 
-from common import AnnotatedCorpusDataset, split_words, split_sentences, tokenize_into_morphemes, \
-    tokenize_into_chars, analyse_model, split_sentences_embedded_sep, _split_sentences_raw, WORD_SEP_TEXT, UNK_IDX
+import torch
+from sklearn.metrics import f1_score, classification_report
+
+from dataset import split_sentences_raw, extract_morphemes_and_tags_from_file_2022, WORD_SEP_TEXT, \
+    tokenize_into_lower_morphemes
+from from_scratch.encapsulated_model import EncapsulatedModel
+from aligned_f1 import align_seqs
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
-splits = {
-    "word": split_words,
-    "sentence": split_sentences,
-    "sentence-embed": split_sentences_embedded_sep
-}
 
-tokenizations = {
-    "morpheme": tokenize_into_morphemes,
-    "char": tokenize_into_chars,
-}
+def split_words(seq):
+    word = []
+    for i in seq:
+        if i != WORD_SEP_TEXT:
+            word.append(i)
+        else:
+            yield word
+            word = []
+    return word
+
 
 while True:
-    # split = splits[input("Split [word / sentence / sentence-embed] > ")]
-    # tokenize = tokenizations[input("Tokenize [morpheme / char] > ")]
-    # lang = input("Language [XH / NR / ZU / SS] > ")
-    # model_path = input("Model [path from out_models] > ")
+    # path = input("Model > ")
+    path = "bilstm-word-ZU.pt"
+    model: EncapsulatedModel = torch.load("out_models/" + path, map_location=device)
 
-    split = splits["sentence-embed"]
-    tokenize = tokenizations["morpheme"]
-    lang = "ZU"
-    model_path = "bilstm-ZU-demo.pt"
+    # TODO
+    model.tokenize = tokenize_into_lower_morphemes
 
-    _, test = AnnotatedCorpusDataset.load_data(
-        lang,
-        split=split,
-        tokenize=tokenize,
-        use_testset=False,
-    )
+    suffix = "_SURFACE" if model.is_surface else ""
+    path = f"data/TEST/{model.lang}_TEST{suffix}.tsv"
+    sentences = split_sentences_raw(extract_morphemes_and_tags_from_file_2022(path, use_surface=model.is_surface))
 
-    model = torch.load("out_models/" + model_path, map_location=device)
-    _, _, report, f1_micro, f1_macro, _ = analyse_model(
-        model,
-        {"batch_size": 1},
-        test
-    )
+    print("Getting preds")
+    gold, pred = [], []
+    out = []
+    for morphemes, gold_tags in sentences:
+        if not morphemes:
+            continue
+
+        gold_tags_per_word = list(split_words(gold_tags))
+        morphemes_per_word = list(split_words(morphemes))
+
+        for pred_word, gold_word in zip(model.forward(morphemes_per_word), gold_tags_per_word):
+            pred_word, gold_word = align_seqs(pred_word, gold_word)
+
+            pred.extend(pred_word)
+            gold.extend(gold_word)
+
+    # print("thread pooling")
+    # pool = Pool()
+    # out = pool.map(process, out)
+    # pool.close()
+    #
+    # gold, pred = [], []
+    # for (gold_word, pred_word) in out:
+    #     gold.extend(gold_word)
+    #     pred.append(pred_word)
+
+    print(pred[:100])
+    print(gold[:100])
+
+    micro = f1_score(gold, pred, average="micro")
+    macro = f1_score(gold, pred, average="macro")
+    report = classification_report(gold, pred, zero_division=0.0)
+
     print(report)
-    print(f"Micro F1: {f1_micro}. Macro f1: {f1_macro}")
+    print(f"Micro F1: {micro:.4f}. Macro F1: {macro:.4f}")
 
     while True:
-        query = input("Morpological segmentation (separated by -) or Q to quit >")
+        query = input("Morpological segmentation (separated by _) or Q to quit >")
         # query = "nga-tulu kwa-loko , ku-b-a khona ku-niket-el-a"
         if query.lower().strip() == "q":
             break
 
-        words = query.replace(" ", "-" + WORD_SEP_TEXT + "-").split("-")
-        all_encoded = []
-
-        for morphemes, tags in split((words, ["???" for word in words])):
-            for morpheme in morphemes:
-                morpheme_encoded = []
-                for submorpheme in tokenize(morpheme):
-                    morpheme_encoded.append(test.morpheme_to_ix[submorpheme] if submorpheme in test.morpheme_to_ix else UNK_IDX)
-                all_encoded.append(torch.tensor(morpheme_encoded))
-
-            encoded = torch.stack([torch.stack(all_encoded, dim=0)], dim=0)
-
-            print(
-                [test.ix_to_tag[tag.item()] for tag in torch.flatten(model.forward_tags_only(encoded))]
-            )
+        words = [word.split("_") for word in query.split(" ")]
+        print(model.forward(words))

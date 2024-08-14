@@ -5,7 +5,8 @@ from ray.util.client import ray
 
 from bilstm_crf import BiLstmCrfTagger
 from common import AnnotatedCorpusDataset, split_words, tune_model, train_model, \
-    model_for_config, tokenize_into_morphemes, EmbedSingletonFeature, split_sentences, split_sentences_embedded_sep
+    model_for_config, tokenize_into_morphemes, EmbedSingletonFeature, split_sentences
+from dataset import split_sentences_embedded_sep
 
 model = (
     "bilstm-crf",
