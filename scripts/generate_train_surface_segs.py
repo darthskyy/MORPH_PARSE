@@ -161,16 +161,10 @@ class MorphWord:
 
 if __name__ == '__main__':
     base_path = 'data/'
-    tset = 'train'
 
     for lang_code in ['ZU', 'NR', 'XH', 'SS']:
-        if tset == 'train':
-            sadilar_train_fname = base_path + 'TRAIN/SADII.' + lang_code + '.Morph_Lemma_POS.1.0.0.TRAIN.CTexT.TG.2021-09-30.txt'
-            out_conllu_fname = base_path + 'TRAIN/' + lang_code + '_TRAIN_SURFACE.tsv'
-        elif tset == 'test':
-            sadilar_train_fname = base_path + 'TEST/SADII.' + lang_code + '.Morph_Lemma_POS.1.0.0.TEST.CTexT.TG.2021-09-30.txt'
-            out_conllu_fname = base_path + 'TEST/' + lang_code + '_TEST_SURFACE.tsv'
-
+        sadilar_train_fname = base_path + 'TRAIN/SADII.' + lang_code + '.Morph_Lemma_POS.1.0.0.TRAIN.CTexT.TG.2021-09-30.txt'
+        out_conllu_fname = base_path + 'TRAIN/' + lang_code + '_TRAIN_SURFACE.tsv'
         write_outfiles = True
 
         sentences = []
