@@ -281,8 +281,13 @@ cfg = {
 }
 
 Best trial by f1_macro:
-config: {'lr': 0.00015390073927494776, 'weight_decay': 6.331272501498783e-10, 'hidden_dim': 128, 'dropout': 0.0, 'batch_size': 1, 'epochs': 20, 'gradient_clip': 1, 'embed_target_embed': 512}
-bilstm: Micro F1: 0.915625. Macro f1: 0.6688063978037138. Weighted F1: 0.9120277843425946
+config: {'lr': 0.0001720335578531782, 'weight_decay': 3.729529604882455e-08, 'hidden_dim': 256, 'dropout': 0.1, 'batch_size': 1, 'epochs': 20, 'gradient_clip': 0.5, 'embed_target_embed': 512}
+ val loss: 0.30772729688846895
+ macro f1 0.6677008657631235
+ micro 0.9194695989650712
+ bilstm: Micro F1: 0.9223803363518758. Macro f1: 0.6768980123581534. Weighted F1: 0.9183824094974828
+ bilstm: Best macro f1: 0.6768980123581534 at epoch 15
+
 
 MORPHEME feature, WORD context, SURFACE
 =======================================
@@ -298,7 +303,7 @@ MORPHEME feature, WORD context, SURFACE
     "gradient_clip": tune.grid_search([1, 2, 4]),
 }
 
-config: {'lr': 4.1542031097269036e-05, 'weight_decay': 1.319327134349297e-06, 'hidden_dim': 256, 'dropout': 0.1, 'batch_size': 1, 'epochs': 20, 'gradient_clip': 4, 'embed_target_embed': 256}
- bilstm: Micro F1: 0.915296052631579. Macro f1: 0.6651066700785224. Weighted F1: 0.9107901529475941
-
-this is still using the un-adjusted tagset
+Best trial by f1_macro:
+config: {'lr': 0.0001130077887943867, 'weight_decay': 3.3798013367574537e-06, 'hidden_dim': 256, 'dropout': 0.1, 'batch_size': 1, 'epochs': 20, 'gradient_clip': 4, 'embed_target_embed': 128}
+ bilstm: Micro F1: 0.9182567917205692. Macro f1: 0.6638656524020644. Weighted F1: 0.9143414724545116
+ bilstm: Best macro f1: 0.6638656524020644 at epoch 15

@@ -1,5 +1,6 @@
 import datetime
 
+import torch
 from ray import tune
 from ray.util.client import ray
 
@@ -45,25 +46,34 @@ def fine_tune():
 
 def final_train():
     cfg = {
-      'lr': 0.0002948382869797967,
-      'weight_decay': 0,
-      'hidden_dim': 256,
-      'dropout': 0.2,
-      'batch_size': 1,
-      'epochs': 20,
-      'gradient_clip': 2,
-      'embed_target_embed': 128
+        'lr': 0.0001130077887943867,
+        'weight_decay': 3.3798013367574537e-06,
+        'hidden_dim': 256,
+        'dropout': 0.1,
+        'batch_size': 1,
+        'epochs': 20,
+        'gradient_clip': 4,
+        'embed_target_embed': 128
     }
 
-    for lang in ["ZU"]:
-        print(f"Training {split_name}-level, {feature_name}-feature {model_name} for {lang}")
-        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features, use_testset=False, use_surface=True)
-        train_model(
-            model_for_config(mk_model, embed_features, train, cfg), f"{model_name}-{lang}", cfg, train,
-            valid, use_ray=False
-        )
+    for lang in ["ZU", "XH", "SS", "NR"]:
+        train, valid = AnnotatedCorpusDataset.load_data("ZU", split=split, tokenize=extract_features, use_testset=False, use_surface=True)
+        macros = []
+        best_ever_macro_f1 = 0.0
+        for seed in [0, 12904, 1028485, 2795]:
+            print(f"Training {split_name}-level, {feature_name}-feature {model_name} for {lang}")
+            torch.manual_seed(seed)
+            _, macro, _ = train_model(
+                model_for_config(mk_model, embed_features, train, cfg), f"{model_name}-{split_name}-{lang}", cfg, train,
+                valid, best_ever_macro_f1=best_ever_macro_f1, use_ray=False
+            )
+            macros.append(macro)
+
+            if macro >= best_ever_macro_f1:
+                best_ever_macro_f1 = macro
+        print("Average across 4 seeds:", float(sum(macros)) / 4.0)
 
 
-fine_tune()
+final_train()
 print("Done at", datetime.datetime.now())
 ray.shutdown()

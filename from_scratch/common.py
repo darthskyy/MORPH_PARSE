@@ -505,7 +505,7 @@ def _collate_by_padding(batch):
 
 
 def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
-                valid: AnnotatedCorpusDataset, use_ray=True):
+                valid: AnnotatedCorpusDataset, best_ever_macro_f1: float = 0.0, use_ray=True):
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     train_set.to(device)
     valid.to(device)
@@ -565,13 +565,13 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
               f"Valid loss: {valid_loss / valid_batches:.3f}. "
               f"Micro F1: {f1_micro:.3f}. Macro f1: {f1_macro:.3f}")
 
-        if f1_macro > best_macro:
+        if f1_macro > best_macro :
             best_macro = f1_macro
             best_macro_epoch = epoch
             micro_at_best_macro = f1_micro
 
             out_dir = os.environ.get("MODEL_OUT_DIR")
-            if out_dir and not use_ray:
+            if out_dir and not use_ray and best_macro >= best_ever_macro_f1:
                 print("Saving model")
                 os.makedirs(out_dir, exist_ok=True)
                 with open(os.path.join(out_dir, name) + ".pt", "wb") as f:
