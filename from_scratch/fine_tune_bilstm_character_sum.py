@@ -5,7 +5,7 @@ from ray.util.client import ray
 
 from lstm import BiLSTMTagger
 from common import AnnotatedCorpusDataset, split_words, tokenize_into_chars, EmbedBySumming, tune_model, train_model, \
-    model_for_config
+    model_for_config, train_all
 
 model = (
     "bilstm",
@@ -56,13 +56,7 @@ def final_train():
         'gradient_clip': 2,
     }
 
-    for lang in ["XH", "ZU", "SS", "NR"]:
-        print(f"Training {split_name}-level, {feature_name}-feature {model_name} for {lang}")
-        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features, use_testset=True)
-        train_model(
-            model_for_config(mk_model, embed_features, train, cfg), f"{model_name}-{lang}", cfg, train,
-            valid, use_ray=False
-        )
+    train_all(model, splits, feature_level, cfg)
 
 
 final_train()

@@ -18,6 +18,9 @@ def split_words(sentence):
     """Split the corpus into words"""
     morphemes, tags = sentence[0], sentence[1]
     morphemes_acc, tags_acc = [], []
+
+    # TODO it's the ragged issue again...
+
     for morpheme, tag in zip(morphemes, tags):
         if morpheme == WORD_SEP_TEXT:
             yield (morphemes_acc, tags_acc)
@@ -25,6 +28,10 @@ def split_words(sentence):
         else:
             morphemes_acc.append(morpheme)
             tags_acc.append(tag)
+
+    if morphemes_acc == []:
+        print("right at end ????")
+        print(morphemes)
 
     yield (morphemes_acc, tags_acc)
 
@@ -169,6 +176,11 @@ def extract_morphemes_and_tags_from_file_2022(filename: str, use_surface):
                     print("Wrong len!", morpheme_seq, tag_seq)
 
             yield (morpheme_seq, tag_seq)
+
+
+def inspect(x):
+    print(x)
+    return x
 
 
 class AnnotatedCorpusDataset(Dataset):
@@ -319,6 +331,12 @@ class AnnotatedCorpusDataset(Dataset):
         unseen_morpheme = set()
         for sentence in test_sentences:
             for (morphemes, tags) in split(sentence):
+                if not morphemes:
+                    print(sentence)
+                    print(list(split(sentence)))
+
+                    # TODO why is it adding [], [] after the '.'? is it because it's punctuation? but why strip
+
                 # We skip inserting morphemes from the test set into the embedding indices, because it is realistic
                 # that there may be unseen morphemes
 

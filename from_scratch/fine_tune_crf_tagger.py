@@ -95,7 +95,7 @@ def final_train():
     }
 
     for lang in ["ZU", "XH", "NR", "SS"]:
-        train, valid = AnnotatedCorpusDataset.load_data("ZU", split=split, tokenize=extract_features)
+        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features)
         macros = []
         for seed in [0, 12904, 1028485, 2795]:
             print(f"Training {split_name}-level, {feature_name}-feature {model_name} for {lang}")

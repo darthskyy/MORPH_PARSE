@@ -67,21 +67,21 @@ def fine_tune():
 
 def final_train():
     cfg = {
-        'lr': 0.0001720335578531782,
-        'weight_decay': 3.729529604882455e-08,
-        'hidden_dim': 256,
+        'lr': 0.00019401697177446437,
+        'weight_decay': 9.230833759168172e-07,
+        'hidden_dim': 128,
         'dropout': 0.1,
         'batch_size': 1,
-        'epochs': 20,
-        'gradient_clip': 0.5,
-        'embed_target_embed': 512
+        'epochs': 40,
+        'gradient_clip': 1,
+        'embed_target_embed': 256
     }
 
     for lang in ["ZU", "XH", "SS", "NR"]:
-        train, valid = AnnotatedCorpusDataset.load_data("ZU", split=split, tokenize=extract_features, use_testset=False, use_surface=True)
+        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features, use_testset=True, use_surface=False)
         macros = []
         best_ever_macro_f1 = 0.0
-        for seed in [0, 12904, 1028485, 2795]:
+        for seed in [0, 1, 2, 3, 4]:
             print(f"Training {split_name}-level, {feature_name}-feature {model_name} for {lang}")
             torch.manual_seed(seed)
             _, macro, _ = train_model(
@@ -92,7 +92,7 @@ def final_train():
 
             if macro >= best_ever_macro_f1:
                 best_ever_macro_f1 = macro
-        print("Average across 4 seeds:", float(sum(macros)) / 4.0)
+        print("Average across 5 seeds:", float(sum(macros)) / 5.0)
 
 
 final_train()

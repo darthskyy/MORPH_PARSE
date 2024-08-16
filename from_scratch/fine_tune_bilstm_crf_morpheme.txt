@@ -200,7 +200,7 @@ config = {
     "hidden_dim": tune.grid_search([256, 512, 1024][::-1]), <<<<<<<<<<< GRID SEARCH
     "dropout": tune.choice([0.1, 0.2]),
     "batch_size": tune.choice([1, 2, 4, 8, 16]),
-    "epochs": tune.choice([epochs]),
+    "epochs": tune.choice([4]), <<<< just for speed
     "gradient_clip": tune.choice([0.5, 1, 2, 4, float("inf")])
 }
 

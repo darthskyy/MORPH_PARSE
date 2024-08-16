@@ -313,3 +313,27 @@ def model_for_config(mk_model, mk_embed, trainset, config):
     embed_module = mk_embed(config, trainset).to(device)
     model = mk_model(trainset, embed_module, config).to(device)
     return model
+
+
+def train_all(model, splits, feature_level, cfg):
+    split, split_name, epochs = splits
+    model_name, mk_model = model
+    (feature_name, _, extract_features, embed_features) = feature_level
+
+    for lang in ["ZU", "XH", "SS", "NR"]:
+        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features, use_testset=True,
+                                                        use_surface=False)
+        macros = []
+        best_ever_macro_f1 = 0.0
+        for seed in [0, 1, 2, 3, 4]:
+            print(f"Training {split_name}-level, {feature_name}-feature {model_name} for {lang}")
+            torch.manual_seed(seed)
+            _, macro, _ = train_model(
+                model_for_config(mk_model, embed_features, train, cfg), f"{model_name}-{split_name}-{lang}", cfg, train,
+                valid, best_ever_macro_f1=best_ever_macro_f1, use_ray=False
+            )
+            macros.append(macro)
+
+            if macro >= best_ever_macro_f1:
+                best_ever_macro_f1 = macro
+        print("Average across 5 seeds:", float(sum(macros)) / 5.0)

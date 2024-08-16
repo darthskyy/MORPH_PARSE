@@ -27,9 +27,6 @@ while True:
     path = "bilstm-word-ZU.pt"
     model: EncapsulatedModel = torch.load("out_models/" + path, map_location=device)
 
-    # TODO
-    model.tokenize = tokenize_into_lower_morphemes
-
     suffix = "_SURFACE" if model.is_surface else ""
     path = f"data/TEST/{model.lang}_TEST{suffix}.tsv"
     sentences = split_sentences_raw(extract_morphemes_and_tags_from_file_2022(path, use_surface=model.is_surface))
