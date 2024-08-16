@@ -162,75 +162,81 @@ class MorphWord:
 if __name__ == '__main__':
     base_path = 'data/'
 
-    for lang_code in ['ZU', 'NR', 'XH', 'SS']:
-        sadilar_train_fname = base_path + 'TRAIN/SADII.' + lang_code + '.Morph_Lemma_POS.1.0.0.TRAIN.CTexT.TG.2021-09-30.txt'
-        out_conllu_fname = base_path + 'TRAIN/' + lang_code + '_TRAIN_SURFACE.tsv'
-        write_outfiles = True
+    for tset in ["train", "test"]:
+        for lang_code in ['ZU', 'NR', 'XH', 'SS']:
+            if tset == "train":
+                sadilar_train_fname = base_path + 'TRAIN/SADII.' + lang_code + '.Morph_Lemma_POS.1.0.0.TRAIN.CTexT.TG.2021-09-30.txt'
+                out_conllu_fname = base_path + 'TRAIN/' + lang_code + '_TRAIN_SURFACE.tsv'
+            else:
+                sadilar_train_fname = base_path + 'TEST/SADII.' + lang_code + '.Morph_Lemma_POS.1.0.0.TEST.CTexT.TG.2021-09-30.txt'
+                out_conllu_fname = base_path + 'TEST/' + lang_code + '_TESTSET_GOLD_SURFACE.tsv'
 
-        sentences = []
-        paragraph_id = ''
-        sentence_surface = ''
-        current_tokens = []
-        sent_id = 1
-        sentence_end = False
+            write_outfiles = True
 
-        with open(sadilar_train_fname, 'r') as file:
-            for line in file:
-                if sentence_end:
+            sentences = []
+            paragraph_id = ''
+            sentence_surface = ''
+            current_tokens = []
+            sent_id = 1
+            sentence_end = False
+
+            with open(sadilar_train_fname, 'r') as file:
+                for line in file:
+                    if sentence_end:
+                        sentences.append({'paragraph_id': paragraph_id, 'sentence_id': sent_id, 'text': sentence_surface,
+                                          'tokens': current_tokens})
+                        current_tokens = []
+                        sentence_surface = ''
+                        sentence_end = False
+                        sent_id += 1
+                    if line.startswith('<LINE#'):
+                        paragraph_id = line.strip()[len('<LINE# '):-1]
+                    else:
+                        morphword = MorphWord(line)
+                        morphemes = [] if morphword.punct else morphword.morpheme_entry()
+                        if morphword.punct:
+                            ud_rep = [{'form': morphword.surface, 'lemma': morphword.surface, 'upos': 'PUNCT', 'xpos': 'Punc',
+                                       'feats': '', 'misc': f'{morphword.surface}[Punc]'}]
+                            if morphword.surface in ('.', '!', '?'):
+                                sentence_end = True
+                            if morphword.surface in ('.', '!', '?', ':', ';', ','):  # no space before
+                                sentence_surface += morphword.surface
+                            elif morphword.surface in ('"', "'", '(', ')', '[', ']', '/', '-'):  # don't normalise for now
+                                sentence_surface += ' ' + morphword.surface
+                            else:
+                                print(morphword.surface)
+                                sentence_surface += ' ' + morphword.surface
+                        else:
+                            ud_rep = morphword.new_tokens_ud_representation()
+                            if sentence_surface:
+                                sentence_surface += ' ' + morphword.surface
+                            else:
+                                sentence_surface = morphword.surface
+
+                        current_tokens.append({
+                            'form': morphword.surface,
+                            'pos': morphword.pos,
+                            'punct': morphword.punct,
+                            'morphemes': morphemes,
+                            'ud': ud_rep
+                        })
+
+                if sentence_end or current_tokens:
                     sentences.append({'paragraph_id': paragraph_id, 'sentence_id': sent_id, 'text': sentence_surface,
                                       'tokens': current_tokens})
                     current_tokens = []
-                    sentence_surface = ''
                     sentence_end = False
-                    sent_id += 1
-                if line.startswith('<LINE#'):
-                    paragraph_id = line.strip()[len('<LINE# '):-1]
-                else:
-                    morphword = MorphWord(line)
-                    morphemes = [] if morphword.punct else morphword.morpheme_entry()
-                    if morphword.punct:
-                        ud_rep = [{'form': morphword.surface, 'lemma': morphword.surface, 'upos': 'PUNCT', 'xpos': 'Punc',
-                                   'feats': '', 'misc': f'{morphword.surface}[Punc]'}]
-                        if morphword.surface in ('.', '!', '?'):
-                            sentence_end = True
-                        if morphword.surface in ('.', '!', '?', ':', ';', ','):  # no space before
-                            sentence_surface += morphword.surface
-                        elif morphword.surface in ('"', "'", '(', ')', '[', ']', '/', '-'):  # don't normalise for now
-                            sentence_surface += ' ' + morphword.surface
-                        else:
-                            print(morphword.surface)
-                            sentence_surface += ' ' + morphword.surface
-                    else:
-                        ud_rep = morphword.new_tokens_ud_representation()
-                        if sentence_surface:
-                            sentence_surface += ' ' + morphword.surface
-                        else:
-                            sentence_surface = morphword.surface
 
-                    current_tokens.append({
-                        'form': morphword.surface,
-                        'pos': morphword.pos,
-                        'punct': morphword.punct,
-                        'morphemes': morphemes,
-                        'ud': ud_rep
-                    })
+            if write_outfiles:
+                with open(out_conllu_fname, 'w') as outfile:
+                    for sent in sentences:
+                        for token in sent['tokens']:
+                            # Target output format: word {tab} surface_analysis {tab} surface_morphs_split {tag} surface_tags_split
+                            word = token['form']
 
-            if sentence_end or current_tokens:
-                sentences.append({'paragraph_id': paragraph_id, 'sentence_id': sent_id, 'text': sentence_surface,
-                                  'tokens': current_tokens})
-                current_tokens = []
-                sentence_end = False
+                            tags = [rep['xpos'] for rep in token['ud']]
+                            morphs = [rep['form'] for rep in token['ud']]
+                            analysis = "-".join([f"{morph}[{tag}]" for tag, morph in zip(tags, morphs)])
 
-        if write_outfiles:
-            with open(out_conllu_fname, 'w') as outfile:
-                for sent in sentences:
-                    for token in sent['tokens']:
-                        # Target output format: word {tab} surface_analysis {tab} surface_morphs_split {tag} surface_tags_split
-                        word = token['form']
-
-                        tags = [rep['xpos'] for rep in token['ud']]
-                        morphs = [rep['form'] for rep in token['ud']]
-                        analysis = "-".join([f"{morph}[{tag}]" for tag, morph in zip(tags, morphs)])
-
-                        outfile.write('\t'.join([word, analysis, "_".join(morphs), "_".join(tags)]) + '\n')
+                            outfile.write('\t'.join([word, analysis, "_".join(morphs), "_".join(tags)]) + '\n')
 
