@@ -14,7 +14,7 @@ from lstm import BiLSTMTagger
 from bilstm_crf import BiLstmCrfTagger
 from common import AnnotatedCorpusDataset, train_model, split_words, tokenize_into_morphemes, \
     tokenize_into_chars, split_sentences, EmbedBySumming, EmbedSingletonFeature, \
-    EmbedWithBiLSTM, analyse_model, tune_model, model_for_config
+    EmbedWithBiLSTM, analyse_model, tune_model, model_for_config, train_all
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
@@ -67,13 +67,7 @@ def final_train():
         'embed_target_embed': 256
     }
 
-    for lang in ["XH", "ZU", "SS", "NR"]:
-        print(f"Training {split_name}-level, {feature_name}-feature {model_name} for {lang}")
-        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features)
-        train_model(
-            model_for_config(mk_model, embed_features, train, cfg), f"{model_name}-{lang}", cfg, train,
-            valid, use_ray=False
-        )
+    train_all(model, splits, feature_level, cfg)
 
 
 fine_tune()

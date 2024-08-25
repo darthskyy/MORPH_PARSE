@@ -1,7 +1,8 @@
 import torch
 from torch import nn
+from torch.nn.utils.rnn import pad_sequence
 
-from dataset import AnnotatedCorpusDataset, WORD_SEP_TEXT, UNK_IDX
+from dataset import AnnotatedCorpusDataset, WORD_SEP_TEXT, UNK_IDX, SEQ_PAD_IX, WORD_SEP_IX
 
 
 class EncapsulatedModel(nn.Module):
@@ -39,7 +40,6 @@ class EncapsulatedModel(nn.Module):
         sentence = sentence[:-1]  # Discard the last separator
 
         tags = []
-
         for morphemes, _tags in self.split((sentence, [None for _ in range(0, len(sentence))])):
             all_encoded = []
             for morpheme in morphemes:
@@ -48,8 +48,17 @@ class EncapsulatedModel(nn.Module):
                     morpheme_encoded.append(self.submorpheme_to_ix[submorpheme] if submorpheme in self.submorpheme_to_ix else UNK_IDX)
                 all_encoded.append(torch.tensor(morpheme_encoded))
 
-            encoded = torch.stack([torch.stack(all_encoded, dim=0)], dim=0)
+            encoded = torch.stack([pad_sequence(all_encoded, padding_value=SEQ_PAD_IX, batch_first=True)], dim=0)
 
-            tags.append([self.ix_to_tag[tag.item()] for tag in torch.flatten(self.model.forward_tags_only(encoded))])
+            word_tags = []
+            for tag_ix in torch.flatten(self.model.forward_tags_only(encoded)).tolist():
+                if tag_ix == WORD_SEP_IX:
+                    tags.append(word_tags)
+                    word_tags = []
+                    continue
+                word_tags.append(self.ix_to_tag[tag_ix])
 
-        return tags[:-1]  # Discard the last separator
+            if word_tags:
+                tags.append(word_tags)
+
+        return tags

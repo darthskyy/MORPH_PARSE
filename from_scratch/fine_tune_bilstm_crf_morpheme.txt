@@ -204,6 +204,15 @@ config = {
     "gradient_clip": tune.choice([0.5, 1, 2, 4, float("inf")])
 }
 
+best = {
+'lr': 0.0001723733700380886, 'weight_decay': 2.6412896449908767e-07, 'hidden_dim': 1024, 'dropout': 0.2, 'batch_size': 4, 'epochs': 20, 'gradient_clip': 4, 'embed_target_embed': 512}
+}
+
+bilstm-crf: Micro F1: 0.9310110321898141. Macro f1: 0.7026353929623511. Weighted F1: 0.9275824728491052
+bilstm-crf: Best macro f1: 0.7026353929623511 at epoch 15
+
+Going to try above with batch=1
+
 # CHARACTER SUM feature, SENTENCE context
 
 # Trial 1
@@ -236,15 +245,30 @@ bilstm-crf: Best macro f1: 0.6630017517368049 at epoch 18
 # Trial 2
 
 New config = {
-    "embed_target_embed": tune.choice([128, 256, 512]),
-    "lr": tune.loguniform(1e-6, 1e-3), <<<<<<<<<<<<<<<< changed
-    "weight_decay": tune.loguniform(1e-11, 1e-7), <<<<< changed
-    "hidden_dim": tune.choice([56, 512, 1024]),
-    "dropout": tune.grid_search([0.0, 0.1, 0.2, 0.3]),  <<<<<<<<< changed
-    "batch_size": tune.grid_search([1, 2, 4, 8]), <<<<<<<<<<<<< changed
+    "embed_target_embed": tune.choice([64),
+    "lr": tune.loguniform(1e-5, 1e-2)
+    "weight_decay": tune.loguniform(1e-10, 1e-5),
+    "hidden_dim": tune.choice([512]),
+    "dropout": tune.grid_search([0.0, 0.1, 0.2]),
+    "batch_size": tune.choice([4]),
     "epochs": tune.choice([epochs]),
-    "gradient_clip": tune.choice([0.5, 1, 2]), <<<<<<<< changed
+    "gradient_clip": tune.grid_search([0.5, 1, 2, 4, float("inf")])),
 }
+
+best = {
+    'lr': 0.0019555976712546845,
+    'weight_decay': 8.020111943266981e-06,
+    'hidden_dim': 512,
+    'dropout': 0.2,
+    'batch_size': 8,
+    'epochs': 20,
+    'gradient_clip': inf,
+    'embed_target_embed': 64
+}
+bilstm: Best macro f1: 0.6784501460275301 at epoch 15
+
+{'lr': 0.0008092413814804241, 'weight_decay': 4.124661137006256e-10, 'hidden_dim': 1024, 'dropout': 0.3, 'batch_size': 4, 'epochs': 20, 'gradient_clip': 0.5, 'embed_target_embed': 128}
+
 
 # CHARACTER BILSTM feature, SENTENCE EMBEDDED context
 

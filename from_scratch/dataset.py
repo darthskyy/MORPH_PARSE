@@ -30,8 +30,8 @@ def split_words(sentence):
             tags_acc.append(tag)
 
     if morphemes_acc == []:
+        print(sentence)
         print("right at end ????")
-        print(morphemes)
 
     yield (morphemes_acc, tags_acc)
 
@@ -84,7 +84,7 @@ def split_sentences_raw(words):
         morphemes_acc.extend(morphemes)
         tags_acc.extend(tags)
 
-        if morphemes in [["."], ["!"], ["?"]]:
+        if morphemes in [["."], ["!"], ["?"]] or [morphemes] in [["."], ["!"], ["?"]]:
             yield (morphemes_acc, tags_acc)
             morphemes_acc, tags_acc = [], []
 
@@ -159,7 +159,7 @@ def _clean_double_labelled_morphemes(morpheme_seq: list, tag_seq: list):
         _clean_double_labelled_morphemes(morpheme_seq, tag_seq)
 
 
-def extract_morphemes_and_tags_from_file_2022(filename: str, use_surface):
+def extract_morphemes_and_tags_from_file_2022(filename: str, use_surface, is_demo=False):
     with open(filename) as f:
         for line in f.readlines():
             cols = line.strip().split("\t")
@@ -169,10 +169,10 @@ def extract_morphemes_and_tags_from_file_2022(filename: str, use_surface):
             if not use_surface:
                 # Clean the double-labelled morphemes (by taking the 1st one) if this isn't a surface
                 # segmentation. The surface segmentation comes pre-cleaned (see scripts/prep_surface.py)
-                if len(morpheme_seq) != len(tag_seq):
+                if not is_demo and len(morpheme_seq) != len(tag_seq):
                     _clean_double_labelled_morphemes(morpheme_seq, tag_seq)
 
-                if len(morpheme_seq) != len(tag_seq):
+                if not is_demo and len(morpheme_seq) != len(tag_seq):
                     print("Wrong len!", morpheme_seq, tag_seq)
 
             yield (morpheme_seq, tag_seq)

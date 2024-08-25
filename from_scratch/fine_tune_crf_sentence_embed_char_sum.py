@@ -5,7 +5,8 @@ from ray.util.client import ray
 
 from bilstm_crf import BiLstmCrfTagger
 from common import AnnotatedCorpusDataset, split_words, tune_model, train_model, \
-    model_for_config, tokenize_into_morphemes, EmbedSingletonFeature, split_sentences, tokenize_into_chars, EmbedBySumming
+    model_for_config, tokenize_into_morphemes, EmbedSingletonFeature, split_sentences, tokenize_into_chars, \
+    EmbedBySumming, train_all
 from dataset import split_sentences_embedded_sep
 
 model = (
@@ -46,27 +47,21 @@ def fine_tune():
 
 
 def final_train():
-    for lang in ["XH", "ZU", "SS", "NR"]:
-        cfg = {
-            "lr": 0.0002070522419581859,
-            "weight_decay": 0,
-            "hidden_dim": 512,
-            "dropout": 0.2,
-            "batch_size": 2,
-            "epochs": 20,
-            "gradient_clip": 1,
-            "embed_target_embed": 512
-        }
+    cfg = {
+        "lr": 0.0002070522419581859,
+        "weight_decay": 0,
+        "hidden_dim": 512,
+        "dropout": 0.2,
+        "batch_size": 2,
+        "epochs": 20,
+        "gradient_clip": 1,
+        "embed_target_embed": 512
+    }
 
-        print(f"Training {split_name}-level, {feature_name}-feature {model_name} for {lang}")
-        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features, use_testset=True)
-        train_model(
-            model_for_config(mk_model, embed_features, train, cfg), f"{model_name}-{lang}", cfg, train,
-            valid, use_ray=False
-        )
+    train_all(model, splits, feature_level, cfg)
 
 
-fine_tune()
+final_train()
 
 print("Done at", datetime.datetime.now())
 ray.shutdown()

@@ -13,7 +13,7 @@ from lstm import BiLSTMTagger
 from bilstm_crf import BiLstmCrfTagger
 from common import AnnotatedCorpusDataset, train_model, split_words, tokenize_into_morphemes, \
     tokenize_into_chars, split_sentences, EmbedBySumming, EmbedSingletonFeature, \
-    EmbedWithBiLSTM, analyse_model, tune_model, model_for_config
+    EmbedWithBiLSTM, analyse_model, tune_model, model_for_config, train_all
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
@@ -22,16 +22,6 @@ model = (
     lambda train_set, embed, config: BiLSTMTagger(embed, config, train_set)
 )
 splits = (split_sentences, "sentences", 20)
-# splits = (split_sentences_embedded_sep, "sentences_embedded_sep", 20)
-# splits = (split_words, "words", 20)
-# feature_level = (
-#     "trigram-sum",
-#     {
-#         "embed_target_embed": tune.grid_search([128, 256, 512]),
-#     },
-#     tokenize_into_trigrams_no_sentinels,
-#     lambda config, dset: EmbedBySumming(dset, config["embed_target_embed"])
-# )
 
 feature_level = (
     "morpheme",
@@ -61,7 +51,7 @@ def fine_tune():
         "gradient_clip": tune.choice([0.5, 1, 2])
     }
 
-    train, valid = AnnotatedCorpusDataset.load_data("ZU", split=split, tokenize=extract_features, use_surface=True)
+    train, valid = AnnotatedCorpusDataset.load_data("ZU", split=split, tokenize=extract_features)
     tune_model(model, cfg, feature_level, name, epochs, train, valid)
 
 
@@ -77,22 +67,7 @@ def final_train():
         'embed_target_embed': 256
     }
 
-    for lang in ["ZU", "XH", "SS", "NR"]:
-        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features, use_testset=True, use_surface=False)
-        macros = []
-        best_ever_macro_f1 = 0.0
-        for seed in [0, 1, 2, 3, 4]:
-            print(f"Training {split_name}-level, {feature_name}-feature {model_name} for {lang}")
-            torch.manual_seed(seed)
-            _, macro, _ = train_model(
-                model_for_config(mk_model, embed_features, train, cfg), f"{model_name}-{split_name}-{lang}", cfg, train,
-                valid, best_ever_macro_f1=best_ever_macro_f1, use_ray=False
-            )
-            macros.append(macro)
-
-            if macro >= best_ever_macro_f1:
-                best_ever_macro_f1 = macro
-        print("Average across 5 seeds:", float(sum(macros)) / 5.0)
+    train_all(model, splits, feature_level, cfg)
 
 
 final_train()

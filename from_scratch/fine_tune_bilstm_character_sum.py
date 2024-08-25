@@ -5,7 +5,7 @@ from ray.util.client import ray
 
 from lstm import BiLSTMTagger
 from common import AnnotatedCorpusDataset, split_words, tokenize_into_chars, EmbedBySumming, tune_model, train_model, \
-    model_for_config, train_all
+    model_for_config, train_all, split_sentences
 
 model = (
     "bilstm",
@@ -56,7 +56,7 @@ def final_train():
         'gradient_clip': 2,
     }
 
-    train_all(model, splits, feature_level, cfg)
+    train_all(model, splits, feature_level, cfg, langs=["ZU", "XH"])
 
 
 final_train()

@@ -45,11 +45,21 @@ def fine_tune():
 
 
 def final_train():
-    cfg = {}  # TODO
-    train_all(model, splits, feature_level, cfg)
+    cfg = {
+        'lr': 0.0001723733700380886,
+        'weight_decay': 2.6412896449908767e-07,
+        'hidden_dim': 1024,
+        'dropout': 0.2,
+        'batch_size': 1,
+        'epochs': 40,
+        'gradient_clip': 4,
+        'embed_target_embed': 512
+    }
+
+    train_all(model, splits, feature_level, cfg, langs=["SS", "NR"])
 
 
-fine_tune()
+final_train()
 
 print("Done at", datetime.datetime.now())
 ray.shutdown()

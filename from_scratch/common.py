@@ -18,7 +18,7 @@ from ray.util.client import ray
 
 from aligned_f1 import align_seqs
 from encapsulated_model import EncapsulatedModel
-from dataset import AnnotatedCorpusDataset, WORD_SEP_IX, SEQ_PAD_IX
+from dataset import AnnotatedCorpusDataset, WORD_SEP_IX, SEQ_PAD_IX, WORD_SEP_TEXT, SEQ_PAD_TEXT
 import dataset
 
 torch.manual_seed(0)
@@ -50,6 +50,17 @@ class EmbedSingletonFeature(nn.Module):
     def forward(self, morphemes):
         assert morphemes.size(dim=2) == 1
         return torch.squeeze(self.embed(morphemes), dim=2)
+
+
+class EmbedRawChars(nn.Module):
+    def __init__(self, trainset: AnnotatedCorpusDataset, target_embedding_dim):
+        super(EmbedRawChars, self).__init__()
+        self.dev = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+        self.embed = nn.Embedding(trainset.num_submorphemes, target_embedding_dim, device=self.dev)
+        self.output_dim = target_embedding_dim
+
+    def forward(self, morphemes):
+        return self.embed(morphemes)  # SEQ_PAD_IX is 0, so this checks which words have non-padding submorpheme IXs
 
 
 class EmbedWithBiLSTM(nn.Module):
@@ -98,12 +109,13 @@ def analyse_model(model, config, valid: AnnotatedCorpusDataset):
         valid_loss = 0.0
 
         for morphemes, expected_tags in valid_loader:
-            loss = model.loss(morphemes, expected_tags)
-            valid_loss += loss.item() * morphemes.size(dim=0)
+            if not valid.is_surface:
+                loss = model.loss(morphemes, expected_tags)
+                valid_loss += loss.item() * morphemes.size(dim=0)
 
             predicted_tags = model.forward_tags_only(morphemes)
 
-            # print("Sequence", list(valid.ix_to_morpheme[morph.item()] for morph in torch.flatten(morphemes)))
+            # print("Sequence", list(valid.ix_to_morpheme[morph.item()] for morph in torch.flatten(morphemes) if morph.item() != SEQ_PAD_IX))
             # print("Expected", list(valid.ix_to_tag[tag.item()] for tag in torch.flatten(expected_tags)))
             # print("Predicted", list(valid.ix_to_tag[tag.item()] for tag in torch.flatten(predicted_tags)))
             # print()
@@ -111,19 +123,26 @@ def analyse_model(model, config, valid: AnnotatedCorpusDataset):
             # This loop splits by batch
             for batch_elt_expected, batch_elt_pred in zip(torch.unbind(expected_tags), torch.unbind(predicted_tags)):
                 # This loop splits by morpheme
+                batch_elt_expected = [valid.ix_to_tag[tag.item()] for tag in batch_elt_expected]
+                batch_elt_pred = [valid.ix_to_tag[tag.item()] for tag in batch_elt_pred]
+
+                # TODO: Need to split by _input_'s word seps
+                if valid.is_surface:
+                    batch_elt_pred, batch_elt_expected = align_seqs(batch_elt_pred, batch_elt_expected, pad="PADDED")
 
                 predicted_this_batch, expected_this_batch = [], []
                 for expected_tag, predicted_tag in zip(batch_elt_expected, batch_elt_pred):
                     # Skip <?word_sep?> and <?pad?> tags, if any
-                    if expected_tag.item() == WORD_SEP_IX or expected_tag.item() == SEQ_PAD_IX:
+                    if expected_tag == WORD_SEP_TEXT or expected_tag == SEQ_PAD_TEXT:
                         continue
 
-                    predicted_this_batch.append(valid.ix_to_tag[predicted_tag.item()])
-                    expected_this_batch.append(valid.ix_to_tag[expected_tag.item()])
+                    predicted_this_batch.append(predicted_tag)
+                    expected_this_batch.append(expected_tag)
 
-                if valid.is_surface:
-                    predicted_this_batch, expected_this_batch = align_seqs(predicted_this_batch, expected_this_batch,
-                                                                           pad="PADDED")
+                    # if predicted_this_batch != expected_this_batch:
+                    #     print(predicted_this_batch)
+                    #     print(expected_this_batch)
+                    #     print()
 
                 predicted.extend(predicted_this_batch)
                 expected.extend(expected_this_batch)
@@ -151,7 +170,7 @@ def _collate_by_padding(batch):
 
 
 def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
-                valid: AnnotatedCorpusDataset, best_ever_macro_f1: float = 0.0, use_ray=True):
+                valid: AnnotatedCorpusDataset, best_ever_macro_f1: float = 0.0, use_ray=True, anneal=False):
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     train_set.to(device)
     valid.to(device)
@@ -191,10 +210,6 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
             # Clear gradients
             model.zero_grad()
 
-            # print(list(train_set.ix_to_tag[tag.item()] for tag in torch.flatten(expected_tags)))
-            # print(list(train_set.ix_to_morpheme[morph.item()] for morph in torch.flatten(morphemes)))
-            # print()
-
             # Calculate loss and backprop
             loss = model.loss(morphemes, expected_tags)
             train_loss += loss.item() * morphemes.size(dim=0)
@@ -218,7 +233,7 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
 
             out_dir = os.environ.get("MODEL_OUT_DIR")
             if out_dir and not use_ray and best_macro >= best_ever_macro_f1:
-                print("Saving model")
+                print(f"Saving model because best macro {best_macro} >= best ever {best_ever_macro_f1}")
                 os.makedirs(out_dir, exist_ok=True)
                 with open(os.path.join(out_dir, name) + ".pt", "wb") as f:
                     torch.save(EncapsulatedModel(name, model, train_set), f)
@@ -243,12 +258,9 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
                     checkpoint=checkpoint,
                 )
 
-    _valid_loss, _valid_batches, report, f1_micro, f1_macro, f1_weighted = analyse_model(model, config, valid)
-    print(f"{name}: Micro F1: {f1_micro}. Macro f1: {f1_macro}. Weighted F1: {f1_weighted}")
     print(f"Best Macro f1: {best_macro} in epoch {best_macro_epoch} (micro here was {micro_at_best_macro})")
-    print(report)
 
-    return f1_micro, f1_macro, f1_weighted
+    return micro_at_best_macro, best_macro
 
 
 def tune_model(model, main_config, feature_level, name: str, epochs, trainset: AnnotatedCorpusDataset,
@@ -315,25 +327,36 @@ def model_for_config(mk_model, mk_embed, trainset, config):
     return model
 
 
-def train_all(model, splits, feature_level, cfg):
+def train_all(model, splits, feature_level, cfg, langs=None, map_tag=dataset.identity, use_testset=True, use_surface=False, n_models=5):
+    if langs is None:
+        langs = ["ZU", "XH", "SS", "NR"]
+
     split, split_name, epochs = splits
     model_name, mk_model = model
     (feature_name, _, extract_features, embed_features) = feature_level
 
-    for lang in ["ZU", "XH", "SS", "NR"]:
-        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features, use_testset=True,
-                                                        use_surface=False)
+    print(f"Config: {cfg}")
+
+    for lang in langs:
+        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features, use_testset=use_testset,
+                                                        use_surface=use_surface, map_tag=map_tag)
         macros = []
+        micros = []
         best_ever_macro_f1 = 0.0
-        for seed in [0, 1, 2, 3, 4]:
+        for seed in [0, 1, 2, 3, 4][:n_models]:
             print(f"Training {split_name}-level, {feature_name}-feature {model_name} for {lang}")
+            random.seed(seed)
             torch.manual_seed(seed)
-            _, macro, _ = train_model(
-                model_for_config(mk_model, embed_features, train, cfg), f"{model_name}-{split_name}-{lang}", cfg, train,
+            micro_in_best_macro, best_macro = train_model(
+                model_for_config(mk_model, embed_features, train, cfg), f"{model_name}-{split_name}-{feature_name}-{lang}", cfg, train,
                 valid, best_ever_macro_f1=best_ever_macro_f1, use_ray=False
             )
-            macros.append(macro)
+            macros.append(best_macro)
+            micros.append(micro_in_best_macro)
 
-            if macro >= best_ever_macro_f1:
-                best_ever_macro_f1 = macro
-        print("Average across 5 seeds:", float(sum(macros)) / 5.0)
+            if best_macro >= best_ever_macro_f1:
+                best_ever_macro_f1 = best_macro
+        print(f"{lang} mean macro across {n_models} seeds:", float(sum(macros)) / n_models)
+        print(f"{lang} best macro across {n_models} seeds:", max(macros))
+        print(f"{lang} mean micro across {n_models} seeds:", float(sum(micros)) / n_models)
+

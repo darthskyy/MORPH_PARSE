@@ -51,29 +51,58 @@ def normalize_zm_tag(zm_tag: str, idx: int, context_morphemes: list[str]) -> lis
     else:
         return [zm_tag]
 
+def classification_scores():
+    all_gold = []
+    all_zm = []
 
-all_gold = []
-all_zm = []
+    for (zulmorph_line, gold_line) in zip(zulmorph_lines, gold_lines):
+        zm_raw, zm_analysis = zulmorph_line
+        gold_raw, _, _, gold_tags = gold_line
+        gold_tags = gold_tags.split("_")
+        assert zm_raw == gold_raw
 
-for (zulmorph_line, gold_line) in zip(zulmorph_lines, gold_lines):
-    zm_raw, zm_analysis = zulmorph_line
-    gold_raw, _, _, gold_tags = gold_line
-    gold_tags = gold_tags.split("_")
-    assert zm_raw == gold_raw
+        # Concatenate adjacent noun class tags, e.g [BPre][10] -> [BPre10]
+        zm_analysis = re.sub(r"]\[(?=[0-9])", "", zm_analysis)
+        zm_seg, zm_tags = split_tags(zm_analysis)  # Things with \t+? (that ZulMorph can't segment) get zm_tags = []
+        zm_tags = [final_tag for i, t in enumerate(zm_tags) for final_tag in normalize_zm_tag(t, i, zm_seg)]
 
-    # Concatenate adjacent noun class tags, e.g [BPre][10] -> [BPre10]
-    zm_analysis = re.sub(r"]\[(?=[0-9])", "", zm_analysis)
-    zm_seg, zm_tags = split_tags(zm_analysis)  # Things with \t+? (that ZulMorph can't segment) get zm_tags = []
-    zm_tags = [final_tag for i, t in enumerate(zm_tags) for final_tag in normalize_zm_tag(t, i, zm_seg)]
+        zm_tags, gold_tags = align_seqs(zm_tags, gold_tags)
+        all_gold.extend(gold_tags)
+        all_zm.extend(zm_tags)
 
-    zm_tags, gold_tags = align_seqs(zm_tags, gold_tags)
-    all_gold.extend(gold_tags)
-    all_zm.extend(zm_tags)
+    f1_micro = f1_score(all_gold, all_zm, average="micro")
+    f1_macro = f1_score(all_gold, all_zm, average="macro")
+    print(classification_report(all_gold, all_zm, zero_division=0.0))
+    print(f"Classification micro F1: {f1_micro:.4f}, macro f1: {f1_macro:.4f}")
 
-f1_micro = f1_score(all_gold, all_zm, average="micro")
-f1_macro = f1_score(all_gold, all_zm, average="macro")
-print(classification_report(all_gold, all_zm, zero_division=0.0))
-print(f"Micro F1: {f1_micro:.4f}. Macro f1: {f1_macro:.4f}")
+
+def segmentation_scores():
+    all_gold = []
+    all_zm = []
+
+    for (zulmorph_line, gold_line) in zip(zulmorph_lines, gold_lines):
+        zm_raw, zm_analysis = zulmorph_line
+        gold_raw, _, gold_seg, _ = gold_line
+        gold_seg = gold_seg.split("_")
+        assert zm_raw == gold_raw
+
+        zm_seg, zm_tags = split_tags(zm_analysis)
+        zm_seg = [zm_seg[0].replace("\t+?", "")] if len(zm_seg) == 1 else zm_seg
+
+        if len(zm_tags) > 0 and (zm_tags[0] in ("Punct", "Num", "Item")):
+            zm_seg = [zm_raw]
+
+        zm_seg, gold_seg = align_seqs(zm_seg, gold_seg)
+        all_gold.extend(gold_seg)
+        all_zm.extend(zm_seg)
+
+    f1_micro = f1_score(all_gold, all_zm, average="micro")
+    f1_macro = f1_score(all_gold, all_zm, average="macro")
+    print(f"Segmentation micro F1: {f1_micro:.4f}, macro f1: {f1_macro:.4f}")
+
+
+classification_scores()
+segmentation_scores()
 
 known_incorrect = {
     "AdjPref14", "EnumConc1", "EnumConc11", "ImpPre", "ImpSuf", "HortPre", "OC1pp", "OC1ps", "OC2pp", "OC2ps", "Pos3a",

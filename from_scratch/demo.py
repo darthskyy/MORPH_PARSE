@@ -1,14 +1,24 @@
-from multiprocessing import Pool
+import re
 
+import numpy as np
 import torch
 from sklearn.metrics import f1_score, classification_report
 
-from dataset import split_sentences_raw, extract_morphemes_and_tags_from_file_2022, WORD_SEP_TEXT, \
-    tokenize_into_lower_morphemes
+from from_scratch.dataset import (split_sentences_raw, extract_morphemes_and_tags_from_file_2022, WORD_SEP_TEXT,
+                                  SEQ_PAD_TEXT, identity, tags_only_no_classes)
 from from_scratch.encapsulated_model import EncapsulatedModel
 from aligned_f1 import align_seqs
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+
+tag_pattern = re.compile(r'\[[a-zA-Z-_0-9|]*?]-?')
+
+
+def segment_query(q):
+    if tag_pattern.search(q):
+        return [[morpheme for morpheme in tag_pattern.split(word) if morpheme != ""] for word in q.split(" ")]
+    else:
+        return [word.split("-") for word in q.split(" ")]
 
 
 def split_words(seq):
@@ -19,22 +29,14 @@ def split_words(seq):
         else:
             yield word
             word = []
-    return word
+    if word:
+        yield word
 
 
-while True:
-    # path = input("Model > ")
-    path = "bilstm-word-ZU.pt"
-    model: EncapsulatedModel = torch.load("out_models/" + path, map_location=device)
-
-    suffix = "_SURFACE" if model.is_surface else ""
-    path = f"data/TEST/{model.lang}_TEST{suffix}.tsv"
-    sentences = split_sentences_raw(extract_morphemes_and_tags_from_file_2022(path, use_surface=model.is_surface))
-
-    print("Getting preds")
+def eval_model(model, test_set, map_tag=identity):
     gold, pred = [], []
     out = []
-    for morphemes, gold_tags in sentences:
+    for morphemes, gold_tags in test_set:
         if not morphemes:
             continue
 
@@ -44,34 +46,54 @@ while True:
         for pred_word, gold_word in zip(model.forward(morphemes_per_word), gold_tags_per_word):
             pred_word, gold_word = align_seqs(pred_word, gold_word)
 
-            pred.extend(pred_word)
-            gold.extend(gold_word)
-
-    # print("thread pooling")
-    # pool = Pool()
-    # out = pool.map(process, out)
-    # pool.close()
-    #
-    # gold, pred = [], []
-    # for (gold_word, pred_word) in out:
-    #     gold.extend(gold_word)
-    #     pred.append(pred_word)
-
-    print(pred[:100])
-    print(gold[:100])
+            for (expected_tag, predicted_tag) in zip(gold_word, pred_word):
+                if expected_tag == WORD_SEP_TEXT or expected_tag == SEQ_PAD_TEXT:
+                    continue
+                pred.append(map_tag(predicted_tag))
+                gold.append(map_tag(expected_tag))
 
     micro = f1_score(gold, pred, average="micro")
     macro = f1_score(gold, pred, average="macro")
     report = classification_report(gold, pred, zero_division=0.0)
+    return micro, macro, report
 
-    print(report)
-    print(f"Micro F1: {micro:.4f}. Macro F1: {macro:.4f}")
 
+def demo():
     while True:
-        query = input("Morpological segmentation (separated by _) or Q to quit >")
-        # query = "nga-tulu kwa-loko , ku-b-a khona ku-niket-el-a"
-        if query.lower().strip() == "q":
-            break
+        # path = input("Model > ")
+        path = "../bilstm-sentences-character-summing-XH.pt"
+        model: EncapsulatedModel = torch.load("out_models/" + path, map_location=device)
+        model.eval()
 
-        words = [word.split("_") for word in query.split(" ")]
-        print(model.forward(words))
+        with torch.no_grad():
+            model_parameters = filter(lambda p: p.requires_grad, model.parameters())
+            params = sum([np.prod(p.size()) for p in model_parameters])
+            print(params)
+
+            # suffix = "_SURFACE" if model.is_surface else ""
+            suffix = "_CANONICAL_PRED"
+            path = f"data/TEST/{model.lang}_TEST{suffix}.tsv"
+            sentences = list(split_sentences_raw(extract_morphemes_and_tags_from_file_2022(path, use_surface=model.is_surface, is_demo=True)))
+
+            print("====== Full tagset (syntactic & noun class) ======")
+            micro, macro, report = eval_model(model, sentences)
+            print(report)
+            print(f"Micro F1: {micro:.10f} ({micro:.4f}). Macro F1: {macro:.10f} ({macro:.4f})")
+
+            # print("====== Syntactic tagset only ======")
+            # micro, macro, report = eval_model(model, sentences, map_tag=tags_only_no_classes)
+            # print(report)
+            # print(f"Syntactic Micro F1: {micro:.10f} ({micro:.4f}). Macro F1: {macro:.10f} ({macro:.4f})")
+
+            while True:
+                query = input("Morphological segmentation (separated by -) or Q to quit > ")
+                if query.lower().strip() == "q":
+                    break
+                words = segment_query(query)
+
+                annotated_words = [list(zip(word, tags)) for word, tags in zip(words, model.forward(words))]
+                print(" ".join("-".join(f"{morpheme}[{tag}]" for morpheme, tag in word) for word in annotated_words))
+
+
+if __name__ == "__main__":
+    demo()

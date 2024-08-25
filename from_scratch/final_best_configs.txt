@@ -1,0 +1,79 @@
+# Bi-LSTM, word, morpheme, canonical
+cfg = {
+  'lr': 0.0002948382869797967,
+  'weight_decay': 0,
+  'hidden_dim': 256,
+  'dropout': 0.2,
+  'batch_size': 1,
+  'epochs': 30,
+  'gradient_clip': 2,
+  'embed_target_embed': 128
+}
+
+# Bi-LSTM, word, character-sum, canonical
+cfg = {
+    'lr': 0.00012620771127627717,
+    'embed_target_embed': 256,
+    'weight_decay': 2.8931903058581684e-06,
+    'hidden_dim': 256,
+    'dropout': 0,
+    'batch_size': 1,
+    'epochs': 30,
+    'gradient_clip': 2,
+}
+
+
+# Bi-LSTM, sentence, morpheme, canonical
+cfg = {
+    'lr': 0.00019401697177446437,
+    'weight_decay': 9.230833759168172e-07,
+    'hidden_dim': 128,
+    'dropout': 0.1,
+    'batch_size': 1,
+    'epochs': 40,
+    'gradient_clip': 1,
+    'embed_target_embed': 256
+}
+
+# Bi-LSTM, sentence, character-sum, canonical
+{
+    'lr': 0.0019555976712546845,
+    'weight_decay': 8.020111943266981e-06,
+    'hidden_dim': 512,
+    'dropout': 0.2,
+    'batch_size': 1,
+    'epochs': 40,
+    'gradient_clip': float('inf'),
+    'embed_target_embed': 64
+}
+
+
+
+# CRF, sentence, morpheme, canonical
+{
+    'lr': 0.0001723733700380886,
+    'weight_decay': 2.6412896449908767e-07,
+    'hidden_dim': 1024,
+    'dropout': 0.2,
+    'batch_size': 1,
+    'epochs': 40,
+    'gradient_clip': 4,
+    'embed_target_embed': 512
+}
+
+# CRF, sentence embed, morpheme, canonical
+{
+    'lr': 0.0011038220125168187,
+    'weight_decay': 0,
+    'hidden_dim': 256,
+    'dropout': 0.2,
+    'batch_size': 1,
+    'epochs': 40,
+    'gradient_clip': 0.5,
+    'embed_target_embed': 256
+}
+
+# CRF, sentence, character sum, canonical
+{
+    'lr':
+}

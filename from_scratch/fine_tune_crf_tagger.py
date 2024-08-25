@@ -15,7 +15,7 @@ from lstm import BiLSTMTagger
 from bilstm_crf import BiLstmCrfTagger
 from common import AnnotatedCorpusDataset, train_model, split_words, tokenize_into_morphemes, \
     tokenize_into_chars, split_sentences, EmbedBySumming, EmbedSingletonFeature, \
-    EmbedWithBiLSTM, analyse_model, tune_model, model_for_config
+    EmbedWithBiLSTM, analyse_model, tune_model, model_for_config, train_all
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
@@ -94,18 +94,7 @@ def final_train():
         'gradient_clip': 1,
     }
 
-    for lang in ["ZU", "XH", "NR", "SS"]:
-        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features)
-        macros = []
-        for seed in [0, 12904, 1028485, 2795]:
-            print(f"Training {split_name}-level, {feature_name}-feature {model_name} for {lang}")
-            torch.manual_seed(seed)
-            _, macro, _ = train_model(
-                model_for_config(mk_model, embed_features, train, cfg), f"{model_name}-{lang}", cfg, train,
-                valid, use_ray=False
-            )
-            macros.append(macro)
-        print("Average across 4 seeds:", float(sum(macros)) / 4.0)
+    train_all(model, splits, feature_level, cfg)
 
 
 final_train()
