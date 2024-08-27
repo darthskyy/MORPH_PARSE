@@ -16,7 +16,7 @@ from transformers import Trainer, TrainingArguments
 
 
 class MorphParseDataset():
-    def __init__(self, language: str, path: str="data", validation_split: float=0.1, seed: int=42, tokenizer=None) -> None:
+    def __init__(self, language: str, path: str="data", validation_split: float=0.1, seed: int=42, tokenizer=None, file_suffix: str="") -> None:
         self.language = language
         self.path = path
         self.tokenizer = XLMRobertaTokenizerFast.from_pretrained("xlm-roberta-large", cache_dir=".cache") \
@@ -24,6 +24,7 @@ class MorphParseDataset():
         self.train = None
         self.valid = None
         self.test = None
+        self.file_suffix = file_suffix
 
         self.validation_split = validation_split
         self.seed = seed
@@ -64,9 +65,9 @@ class MorphParseDataset():
         if not os.path.exists(self.path):
             raise FileNotFoundError(f"Directory {self.path} not found. Please check the path and try again.")
 
-        train_path = os.path.join(self.path, "TRAIN", f"{self.language}_TRAIN.tsv")
-        test_path = os.path.join(self.path, "TEST", f"{self.language}_TEST.tsv")
-        # valid_path = os.path.join(path, "VALID", f"{self.language}_VALID.tsv")
+        train_path = os.path.join(self.path, "TRAIN", f"{self.language}_TRAIN{self.file_suffix}.tsv")
+        test_path = os.path.join(self.path, "TEST", f"{self.language}_TEST{self.file_suffix}.tsv")
+        # valid_path = os.path.join(path, "VALID", f"{self.language}_VALID{self.file_suffix}.tsv")
 
         train_data = pd.read_csv(train_path, delimiter="\t", names=self.column_names, quoting=csv.QUOTE_NONE)
         test_data = pd.read_csv(test_path, delimiter="\t", names=self.column_names, quoting=csv.QUOTE_NONE)
@@ -158,7 +159,7 @@ class MorphParseDataset():
         
         self.train = self.train.map(lambda example: self.tokenize_and_align_item(example, label_all_tokens), batched=True)
         self.valid = self.valid.map(lambda example: self.tokenize_and_align_item(example, label_all_tokens), batched=True)
-        self.test = self.test.map(lambda example: self.tokenize_and_align_item(example, label_all_tokens), batched=True)
+        # self.test = self.test.map(lambda example: self.tokenize_and_align_item(example, label_all_tokens), batched=True)
 
         self.tokenized = True
 
@@ -266,6 +267,8 @@ class MorphParseModel():
         """
         self.load_trainer()
         self.trainer.train()
+        self.model.config.id2label = self.dataset.id2label
+        self.model.config.label2id = self.dataset.label2id
 
     def _compute_metrics(self, eval_preds):
         """
@@ -503,6 +506,87 @@ class MorphParseArgs():
     
     def __setitem__(self, key, value):
         vars(self.args)[key] = value
+
+class GenUtils():
+    def align_seqs(pred: list, actual: list, pad="<?UNK?>"):
+        """
+        Align two sequences (`pred` and `actual`) by inserting `pad`ding elements into the shorter sequence such that we
+        maximise the number of matches between the two lists. Elements are never swapped in order or transmuted.
+
+        Examples
+        ========
+
+        A shorter predicted sequence will have a padding element inserted:
+        >>> print(align_seqs(["Hey", "there", "neighbour!"], ["Hey", "there", "my", "neighbour!"]))
+            (['Hey', 'there', '<?UNK?>', 'neighbour!'], ['Hey', 'there', 'my', 'neighbour!'])
+
+        A shorter actual sequence will have a padding element inserted:
+        >>> print(align_seqs(["Hey", "there", "neighbour!"], ["Hey", "there"]))
+            (['Hey', 'there', 'neighbour!'], ['Hey', 'there', '<?UNK?>'])
+
+        Sequences of equal length do not change:
+        >>> print(align_seqs(["Hey", "hello", "there", "neighbour!"], ["Hey", "there", "my", "neighbour!"]))
+            (['Hey', 'hello', 'there', 'neighbour!'], ['Hey', 'there', 'my', 'neighbour!'])
+        """
+        longer, shorter = (pred, actual) if len(pred) > len(actual) else (actual, pred)
+
+        best_correct = 0
+        best_indices = []
+
+        for indices in GenUtils._gen_indices(len(longer) - len(shorter), len(longer) - 1):
+            # Just copy the shorter one as it's what we will insert into
+            pred_copy, actual_copy = (pred, GenUtils._copy_and_insert(actual, indices, pad)) if len(pred) > len(actual) else (
+                GenUtils._copy_and_insert(pred, indices, pad), actual)
+
+            correct = 0
+            for (pred_elt, actual_elt) in zip(pred_copy, actual_copy):
+                if pred_elt == actual_elt:
+                    correct += 1
+        
+            if correct >= best_correct:
+                best_indices = indices
+                best_correct = correct
+
+            if best_correct == len(shorter):
+                break
+
+        shorter = GenUtils._copy_and_insert(shorter, best_indices, pad)
+
+        return (longer, shorter) if len(pred) > len(actual) else (shorter, longer)
+
+    def _copy_and_insert(seq: list, indices, pad):
+        """Copy the given `seq` and insert the `pad` element at the specified `indices`, returning the post-insert list"""
+        copied = seq.copy()
+
+        for index in indices:
+            copied.insert(index, pad)
+
+        return copied
+
+
+    def _gen_indices(length_diff: int, max_idx: int) -> list:
+        """
+        Generate all possible sets of indices that we can insert elements into the smaller list in order for it to
+        become as long as the longest list. In this function, we are not concerned with which are the _optimal_ indices -
+        we just generate all of them and filter later.
+        """
+
+        # Let's say we have shortest_len = 7 and longest = 10
+        # We need to find (x, y, z) s.t. x <= y <= z
+        # So, first pick x in the range 10..=0
+        # Then we pick y in the range x..=0
+        # Then z in the range y..=0
+        # etc
+
+        if length_diff == 0:
+            return []
+
+        for first_coord in range(max_idx, -1, -1):
+            if length_diff == 1:
+                yield (first_coord,)
+            else:
+                for indices in GenUtils._gen_indices(length_diff - 1, first_coord):
+                    yield first_coord, *indices
 
 def main():
     # disable the warnings
