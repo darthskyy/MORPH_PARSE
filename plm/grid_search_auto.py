@@ -9,6 +9,7 @@ import random
 import sys
 
 def main():
+    filename = 'results/config_surface.json'
     START_TIME = time.time()
     END_TIME = START_TIME + 11.5 * 60 * 60
 
@@ -22,7 +23,7 @@ def main():
     tokenizer = XLMRobertaTokenizerFast.from_pretrained(args["model_dir"], cache_dir=args["cache_dir"])
     
     dataset = MorphParseDataset(
-        language=args["language"], tokenizer=tokenizer, path=args["data_dir"], seed=args["seed"])
+        language=args["language"], tokenizer=tokenizer, path=args["data_dir"], seed=args["seed"], file_suffix="_SURFACE")
     dataset.load()
     dataset.tokenize()
     
@@ -31,9 +32,9 @@ def main():
     model.load()
 
     # creating the config file if doesn't exist
-    if not os.path.exists('results/config.json'):
+    if not os.path.exists(filename):
         configs = {}
-        for model in ["Davlan/afro-xlmr-large-76L", "xlm-roberta-large"]:
+        for model in ["Davlan/afro-xlmr-large-76L", "xlm-roberta-large", "francois-meyer/nguni-xlmr-large"]:
             for language in ["NR", "SS", "XH", "ZU"]:
                 for learning_rate in [1e-5, 3e-5, 5e-5]:
                     for batch_size in [16, 32]:
@@ -57,7 +58,7 @@ def main():
                                 "timestamp": 0.0
                             }
                             configs[config["id"]] = config
-        with open('results/config.json', 'w') as f:
+        with open(filename, 'w') as f:
             json.dump(configs, f, indent=4)
 
     lang = args["language"]
@@ -67,7 +68,7 @@ def main():
     while True:
 
         # checking for incomplete configurations
-        config = json.load(open('results/config.json'))
+        config = json.load(open(filename))
         incomplete_configs = [id_ for id_ in config if not config[id_]["completed"] and config[id_]["language"] == lang and config[id_]["model"] == model_name]
 
         # checks if all the configurations for the Language x Model have been exhausted 
@@ -91,7 +92,7 @@ def main():
         print(f"Selected: {curr_config}")
         config[curr_config]["completed"] = "running"
         # writes to the file that it's running to avoid doubly running configurations
-        with open('results/config.json', 'w') as f:
+        with open(filename, 'w') as f:
             json.dump(config, f, indent=4)
         
         # extracts the hyperparameters
@@ -103,7 +104,7 @@ def main():
         # checking for time constraints
         if (epoch == 15 and batch_size == 8 and END_TIME - time.time() < 3.5*60*60) or (epoch == 15 and END_TIME - time.time() < 2*60*60):
             config[curr_config]["completed"] = False
-            with open('results/config.json', 'w') as f:
+            with open(filename, 'w') as f:
                 json.dump(config, f, indent=4)
 
             rejected_configs.append(curr_config)
@@ -111,7 +112,7 @@ def main():
 
         if END_TIME - time.time() < 0.3*60*60:
             config[curr_config]["completed"] = False
-            with open('results/config.json', 'w') as f:
+            with open(filename, 'w') as f:
                 json.dump(config, f, indent=4)
             break
 
@@ -140,7 +141,7 @@ def main():
         config[curr_config]["runtime"] = runtime
         config[curr_config]["timestamp"] = time.time()
 
-        with open('results/config.json', 'w') as f:
+        with open(filename, 'w') as f:
             json.dump(config, f, indent=4)
     print("Script done")
 if __name__ == "__main__":

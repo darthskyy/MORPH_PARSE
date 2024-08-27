@@ -161,6 +161,56 @@ def run_demo(args):
 
     # print(morphs)
     # print(tags)
+
+def make_predictions(args):
+    print("method entered")
+    languages = ["NR"]
+
+    # loading the pipelines
+    if torch.cuda.is_available():
+        pipelines = { language: pipeline("ner", model=os.path.join(args.demo_dir, language), tokenizer=XLMRobertaTokenizerFast.from_pretrained(os.path.join(args.demo_dir, language)), device=0, batch_size=16) for language in languages}
+    else:
+        pipelines = { language: pipeline("ner", model=os.path.join(args.demo_dir, language), tokenizer=XLMRobertaTokenizerFast.from_pretrained(os.path.join(args.demo_dir, language))) for language in languages}
+
+    print("pipelines loaded")
+    # loading test datasets
+    datasets = { language: MorphParseDataset(language=language, tokenizer=XLMRobertaTokenizerFast.from_pretrained(os.path.join(args.demo_dir, language)), path=args.data_dir, validation_split=0) for language in languages }
+
+    for language in datasets.keys():
+        datasets[language].load()
+
+    out_dir = "results"
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+
+    for language in languages:
+        nlp = pipelines[language]
+        predictions = []
+        test_df = datasets[language].test
+        for i, item in test_df.iterrows():
+            example = item["morphs"].replace("_", " ")
+            expected_tags = item["tags"].split("_")
+            ner_results = nlp(example)
+            morphs, tags = format_ner_results(ner_results)
+            expected_tags = [t for t in expected_tags if "Dem" not in t]
+            expected_tags = ["_-" + t for t in expected_tags]
+            tags = ["_-" + t for t in tags]
+
+            # if the number of tags is not the same, skip the example
+            if len(expected_tags) != len(tags):
+                continue
+
+            print(expected_tags, tags)
+            references.append(expected_tags)
+            predictions.append(tags)
+            print(f"{i + 1:>4}", end="\r")
+    
+
+
+
+
+    
+    
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--results_file", default="results/config.json")
@@ -169,9 +219,9 @@ def main():
     parser.add_argument("--cache_dir", default=".cache")
     parser.add_argument("--train", action="store_true")
     args = parser.parse_args()
-    print(args)
     # pretrain_models_for_demo(args)
-    run_demo(args)
+    # run_demo(args)
+    make_predictions(args)
 
 if __name__=="__main__":
     main()
