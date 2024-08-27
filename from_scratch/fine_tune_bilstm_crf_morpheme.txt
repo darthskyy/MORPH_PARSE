@@ -267,7 +267,21 @@ best = {
 }
 bilstm: Best macro f1: 0.6784501460275301 at epoch 15
 
-{'lr': 0.0008092413814804241, 'weight_decay': 4.124661137006256e-10, 'hidden_dim': 1024, 'dropout': 0.3, 'batch_size': 4, 'epochs': 20, 'gradient_clip': 0.5, 'embed_target_embed': 128}
+{
+    'lr': 0.0008092413814804241,
+    'weight_decay': 4.124661137006256e-10,
+    'hidden_dim': 1024,
+    'dropout': 0.3,
+    'batch_size': 4,
+    'epochs': 20,
+    'gradient_clip': 0.5,
+    'embed_target_embed': 128
+}
+
+Best
+{'lr': 0.000954635878440661, 'weight_decay': 6.0833284971598955e-09, 'hidden_dim': 1024, 'dropout': 0.3, 'batch_size': 8, 'epochs': 20, 'gradient_clip': 1, 'embed_target_embed': 128}
+ bilstm-crf: Micro F1: 0.9305576545262203. Macro f1: 0.6729501635949141. Weighted F1: 0.9264162016673354
+ bilstm-crf: Best macro f1: 0.6753788071084575 at epoch 19
 
 
 # CHARACTER BILSTM feature, SENTENCE EMBEDDED context

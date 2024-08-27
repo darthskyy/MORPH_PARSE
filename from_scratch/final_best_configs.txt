@@ -48,7 +48,6 @@ cfg = {
 }
 
 
-
 # CRF, sentence, morpheme, canonical
 {
     'lr': 0.0001723733700380886,
