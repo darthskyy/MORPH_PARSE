@@ -7,7 +7,6 @@ def process_file(path):
         return [line.split("\t")[2].lower().split("_") for line in f.read().splitlines(keepends=False)]
 
 
-# for lang_id in ["XH"]:
 for lang_id in ["ZU", "NR", "SS", "XH"]:
     # Because we _evaluate_ on the segmenter output, the _test_ set file actually has the _predicted_ output (for segmenting)
     # Bit odd at first, but if you think about it, it makes sense.
@@ -18,20 +17,11 @@ for lang_id in ["ZU", "NR", "SS", "XH"]:
 
     pred_aligned, gold_aligned = [], []
 
-    mismatches = 0
-    total = 0
     for pred_word, gold_word in zip(pred_raw, gold_raw):
         pred_word, gold_word = align_seqs(pred_word, gold_word)
-
-        if pred_word != gold_word:
-            # print(pred_word, gold_word)
-            mismatches += 1
-        total += 1
-
         pred_aligned.extend(pred_word)
         gold_aligned.extend(gold_word)
 
-    print(f"{mismatches} mismatches out of {total} total")
     micro = f1_score(gold_aligned, pred_aligned, average="micro")
     macro = f1_score(gold_aligned, pred_aligned, average="macro")
 

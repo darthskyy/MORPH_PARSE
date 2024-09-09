@@ -308,6 +308,21 @@ bilstm-ZU: Micro F1: 0.927157322049267. Macro f1: 0.6612132241729299. Weighted F
 CHARACTER SUM feature, SENTENCE context, SURFACE
 ================================================
 
+{
+    "lr": tune.loguniform(1e-5, 1e-2),
+    "weight_decay": tune.loguniform(1e-10, 1e-5),
+    "embed_target_embed": tune.grid_search([64, 128]),
+    "hidden_dim": tune.grid_search([256, 512, 1024]),
+    "dropout": tune.grid_search([0, 0.1, 0.2]),
+    "batch_size": tune.choice([8]),
+    "epochs": tune.choice([epochs]),
+    "gradient_clip": tune.choice([0.5, 1, 2, 4, float("inf")]),
+}
+
+config: {'lr': 0.0026403282274115964, 'weight_decay': 3.903592794342427e-10, 'hidden_dim': 1024, 'dropout': 0.2, 'batch_size': 8, 'epochs': 20, 'gradient_clip': 2, 'embed_target_embed': 128}
+bilstm: Best macro f1: 0.6634012877740889 at epoch 19
+
+
 
 MORPHEME feature, SENTENCE context, SURFACE
 ===========================================
@@ -330,6 +345,31 @@ config: {'lr': 0.0001720335578531782, 'weight_decay': 3.729529604882455e-08, 'hi
  micro 0.9194695989650712
  bilstm: Micro F1: 0.9223803363518758. Macro f1: 0.6768980123581534. Weighted F1: 0.9183824094974828
  bilstm: Best macro f1: 0.6768980123581534 at epoch 15
+
+new = {
+    "lr": tune.loguniform(1e-5, 1e-2),
+    "weight_decay": tune.loguniform(1e-10, 1e-5),
+    "hidden_dim": tune.choice([128, 256, 512]),
+    "dropout": tune.grid_search([0, 0.1]),
+    "batch_size": tune.choice([8]),
+    "epochs": tune.choice([epochs]),
+    "gradient_clip": tune.grid_search([0.5, 1, 2, 4, float("inf")]),
+    "embed_target_embed": tune.choice([256, 512])
+}
+
+Best trial by f1_macro:
+{
+    'lr': 0.0005979875754024589,
+    'weight_decay': 3.477922586045928e-08,
+    'hidden_dim': 512,
+    'dropout': 0,
+    'batch_size': 8,
+    'epochs': 20,
+    'gradient_clip': 0.5,
+    'embed_target_embed': 512
+}
+bilstm: Micro F1: 0.9210058214747736. Macro f1: 0.6810081788469268. Weighted F1: 0.9170819470281724
+
 
 
 MORPHEME feature, WORD context, SURFACE

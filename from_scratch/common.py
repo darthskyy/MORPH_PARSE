@@ -334,6 +334,7 @@ def train_all(model, splits, feature_level, cfg, langs=None, map_tag=dataset.ide
     split, split_name, epochs = splits
     model_name, mk_model = model
     (feature_name, _, extract_features, embed_features) = feature_level
+    model_name = model_name + "-no-testset" if not use_testset else model_name
 
     print(f"Config: {cfg}")
 

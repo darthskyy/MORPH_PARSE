@@ -58,7 +58,7 @@ def final_train():
         'embed_target_embed': 128
     }
 
-    train_all(model, splits, feature_level, cfg, langs=["SS", "NR"])
+    train_all(model, splits, feature_level, cfg, langs=["SS", "NR"], use_testset=False)
 
 
 final_train()

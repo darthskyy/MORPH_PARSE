@@ -1,0 +1,1719 @@
+Config: {'lr': 0.0019555976712546845, 'weight_decay': 8.020111943266981e-06, 'hidden_dim': 512, 'dropout': 0.2, 'batch_size': 1, 'epochs': 40, 'gradient_clip': inf, 'embed_target_embed': 64}
+Tag OC1a not found in trainset!
+Tag OC2ps not found in trainset!
+3.896103896103896% submorphemes not found in train!
+train, test len: 2556 284
+Training sentences-level, character-summing-feature bilstm-no-testset for ZU
+Eval (elapsed = 20.70s)
+Epoch 0 done in 20.70s. Train loss: 0.553. Valid loss: 0.296. Micro F1: 0.894. Macro f1: 0.530
+Saving model because best macro 0.529779007855622 >= best ever 0.0
+Eval (elapsed = 18.27s)
+Epoch 1 done in 18.27s. Train loss: 0.282. Valid loss: 0.252. Micro F1: 0.911. Macro f1: 0.616
+Saving model because best macro 0.6160092139000347 >= best ever 0.0
+Eval (elapsed = 18.24s)
+Epoch 2 done in 18.24s. Train loss: 0.244. Valid loss: 0.254. Micro F1: 0.911. Macro f1: 0.596
+Eval (elapsed = 18.23s)
+Epoch 3 done in 18.23s. Train loss: 0.221. Valid loss: 0.242. Micro F1: 0.913. Macro f1: 0.607
+Eval (elapsed = 18.23s)
+Epoch 4 done in 18.23s. Train loss: 0.201. Valid loss: 0.247. Micro F1: 0.915. Macro f1: 0.606
+Eval (elapsed = 18.21s)
+Epoch 5 done in 18.21s. Train loss: 0.187. Valid loss: 0.249. Micro F1: 0.916. Macro f1: 0.623
+Saving model because best macro 0.6227320153510766 >= best ever 0.0
+Eval (elapsed = 18.22s)
+Epoch 6 done in 18.22s. Train loss: 0.174. Valid loss: 0.254. Micro F1: 0.917. Macro f1: 0.632
+Saving model because best macro 0.6318846466893766 >= best ever 0.0
+Eval (elapsed = 18.21s)
+Epoch 7 done in 18.21s. Train loss: 0.166. Valid loss: 0.249. Micro F1: 0.921. Macro f1: 0.633
+Saving model because best macro 0.6330890165442108 >= best ever 0.0
+Eval (elapsed = 18.23s)
+Epoch 8 done in 18.23s. Train loss: 0.156. Valid loss: 0.256. Micro F1: 0.924. Macro f1: 0.640
+Saving model because best macro 0.6402535391538986 >= best ever 0.0
+Eval (elapsed = 18.21s)
+Epoch 9 done in 18.21s. Train loss: 0.148. Valid loss: 0.264. Micro F1: 0.921. Macro f1: 0.630
+Eval (elapsed = 18.20s)
+Epoch 10 done in 18.20s. Train loss: 0.140. Valid loss: 0.269. Micro F1: 0.923. Macro f1: 0.647
+Saving model because best macro 0.6472632315311425 >= best ever 0.0
+Eval (elapsed = 18.19s)
+Epoch 11 done in 18.19s. Train loss: 0.135. Valid loss: 0.267. Micro F1: 0.925. Macro f1: 0.654
+Saving model because best macro 0.653724330539986 >= best ever 0.0
+Eval (elapsed = 18.18s)
+Epoch 12 done in 18.18s. Train loss: 0.130. Valid loss: 0.274. Micro F1: 0.926. Macro f1: 0.637
+Eval (elapsed = 18.15s)
+Epoch 13 done in 18.15s. Train loss: 0.127. Valid loss: 0.282. Micro F1: 0.921. Macro f1: 0.632
+Eval (elapsed = 18.19s)
+Epoch 14 done in 18.19s. Train loss: 0.121. Valid loss: 0.293. Micro F1: 0.924. Macro f1: 0.666
+Saving model because best macro 0.6658607400979687 >= best ever 0.0
+Eval (elapsed = 18.25s)
+Epoch 15 done in 18.25s. Train loss: 0.116. Valid loss: 0.293. Micro F1: 0.924. Macro f1: 0.634
+Eval (elapsed = 18.28s)
+Epoch 16 done in 18.28s. Train loss: 0.114. Valid loss: 0.292. Micro F1: 0.922. Macro f1: 0.656
+Eval (elapsed = 18.26s)
+Epoch 17 done in 18.26s. Train loss: 0.114. Valid loss: 0.291. Micro F1: 0.926. Macro f1: 0.649
+Eval (elapsed = 18.21s)
+Epoch 18 done in 18.21s. Train loss: 0.110. Valid loss: 0.295. Micro F1: 0.924. Macro f1: 0.650
+Eval (elapsed = 18.17s)
+Epoch 19 done in 18.17s. Train loss: 0.109. Valid loss: 0.301. Micro F1: 0.924. Macro f1: 0.656
+Eval (elapsed = 18.19s)
+Epoch 20 done in 18.19s. Train loss: 0.109. Valid loss: 0.305. Micro F1: 0.922. Macro f1: 0.653
+Eval (elapsed = 18.18s)
+Epoch 21 done in 18.18s. Train loss: 0.111. Valid loss: 0.319. Micro F1: 0.923. Macro f1: 0.638
+Eval (elapsed = 18.13s)
+Epoch 22 done in 18.13s. Train loss: 0.105. Valid loss: 0.309. Micro F1: 0.922. Macro f1: 0.653
+Eval (elapsed = 18.20s)
+Epoch 23 done in 18.20s. Train loss: 0.103. Valid loss: 0.321. Micro F1: 0.922. Macro f1: 0.651
+Eval (elapsed = 18.18s)
+Epoch 24 done in 18.18s. Train loss: 0.104. Valid loss: 0.336. Micro F1: 0.921. Macro f1: 0.637
+Eval (elapsed = 18.18s)
+Epoch 25 done in 18.18s. Train loss: 0.102. Valid loss: 0.319. Micro F1: 0.925. Macro f1: 0.655
+Eval (elapsed = 18.21s)
+Epoch 26 done in 18.21s. Train loss: 0.101. Valid loss: 0.333. Micro F1: 0.923. Macro f1: 0.649
+Eval (elapsed = 18.19s)
+Epoch 27 done in 18.19s. Train loss: 0.098. Valid loss: 0.337. Micro F1: 0.923. Macro f1: 0.641
+Eval (elapsed = 18.08s)
+Epoch 28 done in 18.08s. Train loss: 0.101. Valid loss: 0.336. Micro F1: 0.922. Macro f1: 0.648
+Eval (elapsed = 18.26s)
+Epoch 29 done in 18.26s. Train loss: 0.101. Valid loss: 0.340. Micro F1: 0.921. Macro f1: 0.629
+Eval (elapsed = 18.35s)
+Epoch 30 done in 18.35s. Train loss: 0.102. Valid loss: 0.333. Micro F1: 0.920. Macro f1: 0.629
+Eval (elapsed = 18.36s)
+Epoch 31 done in 18.36s. Train loss: 0.100. Valid loss: 0.350. Micro F1: 0.920. Macro f1: 0.641
+Eval (elapsed = 18.35s)
+Epoch 32 done in 18.35s. Train loss: 0.100. Valid loss: 0.352. Micro F1: 0.921. Macro f1: 0.626
+Eval (elapsed = 18.32s)
+Epoch 33 done in 18.32s. Train loss: 0.100. Valid loss: 0.348. Micro F1: 0.924. Macro f1: 0.644
+Eval (elapsed = 18.32s)
+Epoch 34 done in 18.32s. Train loss: 0.098. Valid loss: 0.343. Micro F1: 0.921. Macro f1: 0.652
+Eval (elapsed = 18.42s)
+Epoch 35 done in 18.42s. Train loss: 0.097. Valid loss: 0.363. Micro F1: 0.926. Macro f1: 0.648
+Eval (elapsed = 18.62s)
+Epoch 36 done in 18.62s. Train loss: 0.098. Valid loss: 0.353. Micro F1: 0.925. Macro f1: 0.652
+Eval (elapsed = 18.66s)
+Epoch 37 done in 18.66s. Train loss: 0.099. Valid loss: 0.358. Micro F1: 0.924. Macro f1: 0.646
+Eval (elapsed = 18.45s)
+Epoch 38 done in 18.45s. Train loss: 0.099. Valid loss: 0.364. Micro F1: 0.921. Macro f1: 0.644
+Eval (elapsed = 18.51s)
+Epoch 39 done in 18.51s. Train loss: 0.100. Valid loss: 0.368. Micro F1: 0.922. Macro f1: 0.644
+Best Macro f1: 0.6658607400979687 in epoch 14 (micro here was 0.9236814266283815)
+Training sentences-level, character-summing-feature bilstm-no-testset for ZU
+Eval (elapsed = 18.63s)
+Epoch 0 done in 18.63s. Train loss: 0.581. Valid loss: 0.325. Micro F1: 0.884. Macro f1: 0.535
+Eval (elapsed = 18.66s)
+Epoch 1 done in 18.66s. Train loss: 0.292. Valid loss: 0.263. Micro F1: 0.907. Macro f1: 0.599
+Eval (elapsed = 18.68s)
+Epoch 2 done in 18.68s. Train loss: 0.253. Valid loss: 0.250. Micro F1: 0.912. Macro f1: 0.582
+Eval (elapsed = 18.64s)
+Epoch 3 done in 18.64s. Train loss: 0.228. Valid loss: 0.250. Micro F1: 0.915. Macro f1: 0.595
+Eval (elapsed = 18.64s)
+Epoch 4 done in 18.64s. Train loss: 0.210. Valid loss: 0.250. Micro F1: 0.916. Macro f1: 0.599
+Eval (elapsed = 18.62s)
+Epoch 5 done in 18.62s. Train loss: 0.195. Valid loss: 0.247. Micro F1: 0.918. Macro f1: 0.618
+Eval (elapsed = 18.59s)
+Epoch 6 done in 18.59s. Train loss: 0.182. Valid loss: 0.245. Micro F1: 0.919. Macro f1: 0.624
+Eval (elapsed = 17.93s)
+Epoch 7 done in 17.93s. Train loss: 0.172. Valid loss: 0.264. Micro F1: 0.917. Macro f1: 0.622
+Eval (elapsed = 17.91s)
+Epoch 8 done in 17.91s. Train loss: 0.165. Valid loss: 0.257. Micro F1: 0.919. Macro f1: 0.638
+Eval (elapsed = 17.89s)
+Epoch 9 done in 17.89s. Train loss: 0.154. Valid loss: 0.258. Micro F1: 0.924. Macro f1: 0.640
+Eval (elapsed = 17.88s)
+Epoch 10 done in 17.88s. Train loss: 0.146. Valid loss: 0.268. Micro F1: 0.922. Macro f1: 0.631
+Eval (elapsed = 17.88s)
+Epoch 11 done in 17.88s. Train loss: 0.143. Valid loss: 0.268. Micro F1: 0.924. Macro f1: 0.628
+Eval (elapsed = 17.85s)
+Epoch 12 done in 17.85s. Train loss: 0.134. Valid loss: 0.272. Micro F1: 0.923. Macro f1: 0.637
+Eval (elapsed = 17.89s)
+Epoch 13 done in 17.89s. Train loss: 0.131. Valid loss: 0.286. Micro F1: 0.925. Macro f1: 0.637
+Eval (elapsed = 18.17s)
+Epoch 14 done in 18.17s. Train loss: 0.125. Valid loss: 0.278. Micro F1: 0.922. Macro f1: 0.626
+Eval (elapsed = 17.89s)
+Epoch 15 done in 17.89s. Train loss: 0.123. Valid loss: 0.285. Micro F1: 0.924. Macro f1: 0.637
+Eval (elapsed = 17.86s)
+Epoch 16 done in 17.86s. Train loss: 0.119. Valid loss: 0.289. Micro F1: 0.922. Macro f1: 0.655
+Eval (elapsed = 17.82s)
+Epoch 17 done in 17.82s. Train loss: 0.115. Valid loss: 0.301. Micro F1: 0.923. Macro f1: 0.626
+Eval (elapsed = 17.78s)
+Epoch 18 done in 17.78s. Train loss: 0.112. Valid loss: 0.296. Micro F1: 0.922. Macro f1: 0.628
+Eval (elapsed = 17.78s)
+Epoch 19 done in 17.78s. Train loss: 0.107. Valid loss: 0.304. Micro F1: 0.922. Macro f1: 0.634
+Eval (elapsed = 17.81s)
+Epoch 20 done in 17.81s. Train loss: 0.108. Valid loss: 0.309. Micro F1: 0.925. Macro f1: 0.634
+Eval (elapsed = 17.86s)
+Epoch 21 done in 17.86s. Train loss: 0.106. Valid loss: 0.319. Micro F1: 0.922. Macro f1: 0.645
+Eval (elapsed = 17.86s)
+Epoch 22 done in 17.86s. Train loss: 0.103. Valid loss: 0.319. Micro F1: 0.923. Macro f1: 0.644
+Eval (elapsed = 17.86s)
+Epoch 23 done in 17.86s. Train loss: 0.100. Valid loss: 0.324. Micro F1: 0.921. Macro f1: 0.636
+Eval (elapsed = 17.85s)
+Epoch 24 done in 17.85s. Train loss: 0.100. Valid loss: 0.329. Micro F1: 0.925. Macro f1: 0.646
+Eval (elapsed = 17.89s)
+Epoch 25 done in 17.89s. Train loss: 0.101. Valid loss: 0.333. Micro F1: 0.925. Macro f1: 0.666
+Eval (elapsed = 17.87s)
+Epoch 26 done in 17.87s. Train loss: 0.099. Valid loss: 0.332. Micro F1: 0.925. Macro f1: 0.636
+Eval (elapsed = 17.86s)
+Epoch 27 done in 17.86s. Train loss: 0.095. Valid loss: 0.330. Micro F1: 0.924. Macro f1: 0.636
+Eval (elapsed = 17.92s)
+Epoch 28 done in 17.92s. Train loss: 0.094. Valid loss: 0.333. Micro F1: 0.925. Macro f1: 0.655
+Eval (elapsed = 17.93s)
+Epoch 29 done in 17.93s. Train loss: 0.096. Valid loss: 0.350. Micro F1: 0.924. Macro f1: 0.623
+Eval (elapsed = 17.91s)
+Epoch 30 done in 17.91s. Train loss: 0.093. Valid loss: 0.340. Micro F1: 0.926. Macro f1: 0.645
+Eval (elapsed = 17.80s)
+Epoch 31 done in 17.80s. Train loss: 0.094. Valid loss: 0.348. Micro F1: 0.924. Macro f1: 0.646
+Eval (elapsed = 17.82s)
+Epoch 32 done in 17.82s. Train loss: 0.094. Valid loss: 0.343. Micro F1: 0.924. Macro f1: 0.654
+Eval (elapsed = 17.79s)
+Epoch 33 done in 17.79s. Train loss: 0.093. Valid loss: 0.352. Micro F1: 0.925. Macro f1: 0.654
+Eval (elapsed = 17.81s)
+Epoch 34 done in 17.81s. Train loss: 0.092. Valid loss: 0.354. Micro F1: 0.925. Macro f1: 0.639
+Eval (elapsed = 17.82s)
+Epoch 35 done in 17.82s. Train loss: 0.094. Valid loss: 0.374. Micro F1: 0.923. Macro f1: 0.638
+Eval (elapsed = 17.88s)
+Epoch 36 done in 17.88s. Train loss: 0.092. Valid loss: 0.359. Micro F1: 0.922. Macro f1: 0.628
+Eval (elapsed = 17.81s)
+Epoch 37 done in 17.81s. Train loss: 0.092. Valid loss: 0.362. Micro F1: 0.923. Macro f1: 0.634
+Eval (elapsed = 17.79s)
+Epoch 38 done in 17.79s. Train loss: 0.094. Valid loss: 0.357. Micro F1: 0.922. Macro f1: 0.628
+Eval (elapsed = 17.80s)
+Epoch 39 done in 17.80s. Train loss: 0.093. Valid loss: 0.359. Micro F1: 0.924. Macro f1: 0.646
+Best Macro f1: 0.6657281780758674 in epoch 25 (micro here was 0.9251926855070274)
+Training sentences-level, character-summing-feature bilstm-no-testset for ZU
+Eval (elapsed = 17.80s)
+Epoch 0 done in 17.80s. Train loss: 0.553. Valid loss: 0.289. Micro F1: 0.896. Macro f1: 0.563
+Eval (elapsed = 17.82s)
+Epoch 1 done in 17.82s. Train loss: 0.284. Valid loss: 0.264. Micro F1: 0.905. Macro f1: 0.584
+Eval (elapsed = 17.82s)
+Epoch 2 done in 17.82s. Train loss: 0.248. Valid loss: 0.243. Micro F1: 0.915. Macro f1: 0.614
+Eval (elapsed = 17.91s)
+Epoch 3 done in 17.91s. Train loss: 0.223. Valid loss: 0.258. Micro F1: 0.916. Macro f1: 0.605
+Eval (elapsed = 17.85s)
+Epoch 4 done in 17.85s. Train loss: 0.208. Valid loss: 0.248. Micro F1: 0.918. Macro f1: 0.573
+Eval (elapsed = 17.84s)
+Epoch 5 done in 17.84s. Train loss: 0.192. Valid loss: 0.251. Micro F1: 0.916. Macro f1: 0.617
+Eval (elapsed = 17.84s)
+Epoch 6 done in 17.84s. Train loss: 0.177. Valid loss: 0.239. Micro F1: 0.921. Macro f1: 0.628
+Eval (elapsed = 17.87s)
+Epoch 7 done in 17.87s. Train loss: 0.165. Valid loss: 0.246. Micro F1: 0.922. Macro f1: 0.636
+Eval (elapsed = 17.87s)
+Epoch 8 done in 17.87s. Train loss: 0.160. Valid loss: 0.257. Micro F1: 0.924. Macro f1: 0.628
+Eval (elapsed = 17.86s)
+Epoch 9 done in 17.86s. Train loss: 0.149. Valid loss: 0.263. Micro F1: 0.924. Macro f1: 0.635
+Eval (elapsed = 17.84s)
+Epoch 10 done in 17.84s. Train loss: 0.145. Valid loss: 0.267. Micro F1: 0.922. Macro f1: 0.634
+Eval (elapsed = 17.84s)
+Epoch 11 done in 17.84s. Train loss: 0.138. Valid loss: 0.265. Micro F1: 0.924. Macro f1: 0.642
+Eval (elapsed = 17.86s)
+Epoch 12 done in 17.86s. Train loss: 0.131. Valid loss: 0.280. Micro F1: 0.924. Macro f1: 0.644
+Eval (elapsed = 17.87s)
+Epoch 13 done in 17.87s. Train loss: 0.128. Valid loss: 0.283. Micro F1: 0.924. Macro f1: 0.640
+Eval (elapsed = 17.89s)
+Epoch 14 done in 17.89s. Train loss: 0.125. Valid loss: 0.280. Micro F1: 0.925. Macro f1: 0.647
+Eval (elapsed = 17.84s)
+Epoch 15 done in 17.84s. Train loss: 0.120. Valid loss: 0.292. Micro F1: 0.923. Macro f1: 0.637
+Eval (elapsed = 17.83s)
+Epoch 16 done in 17.83s. Train loss: 0.119. Valid loss: 0.290. Micro F1: 0.925. Macro f1: 0.623
+Eval (elapsed = 17.83s)
+Epoch 17 done in 17.83s. Train loss: 0.115. Valid loss: 0.313. Micro F1: 0.918. Macro f1: 0.610
+Eval (elapsed = 17.83s)
+Epoch 18 done in 17.83s. Train loss: 0.114. Valid loss: 0.307. Micro F1: 0.921. Macro f1: 0.628
+Eval (elapsed = 17.81s)
+Epoch 19 done in 17.81s. Train loss: 0.113. Valid loss: 0.303. Micro F1: 0.923. Macro f1: 0.621
+Eval (elapsed = 17.80s)
+Epoch 20 done in 17.80s. Train loss: 0.111. Valid loss: 0.315. Micro F1: 0.920. Macro f1: 0.634
+Eval (elapsed = 17.78s)
+Epoch 21 done in 17.78s. Train loss: 0.108. Valid loss: 0.317. Micro F1: 0.922. Macro f1: 0.624
+Eval (elapsed = 17.77s)
+Epoch 22 done in 17.77s. Train loss: 0.108. Valid loss: 0.326. Micro F1: 0.923. Macro f1: 0.629
+Eval (elapsed = 17.77s)
+Epoch 23 done in 17.77s. Train loss: 0.107. Valid loss: 0.316. Micro F1: 0.923. Macro f1: 0.627
+Eval (elapsed = 17.76s)
+Epoch 24 done in 17.76s. Train loss: 0.107. Valid loss: 0.329. Micro F1: 0.922. Macro f1: 0.622
+Eval (elapsed = 17.78s)
+Epoch 25 done in 17.78s. Train loss: 0.106. Valid loss: 0.332. Micro F1: 0.923. Macro f1: 0.634
+Eval (elapsed = 17.78s)
+Epoch 26 done in 17.78s. Train loss: 0.104. Valid loss: 0.329. Micro F1: 0.922. Macro f1: 0.651
+Eval (elapsed = 17.76s)
+Epoch 27 done in 17.76s. Train loss: 0.103. Valid loss: 0.333. Micro F1: 0.918. Macro f1: 0.634
+Eval (elapsed = 17.76s)
+Epoch 28 done in 17.76s. Train loss: 0.105. Valid loss: 0.329. Micro F1: 0.925. Macro f1: 0.646
+Eval (elapsed = 17.76s)
+Epoch 29 done in 17.76s. Train loss: 0.103. Valid loss: 0.346. Micro F1: 0.923. Macro f1: 0.629
+Eval (elapsed = 17.76s)
+Epoch 30 done in 17.76s. Train loss: 0.103. Valid loss: 0.346. Micro F1: 0.924. Macro f1: 0.655
+Eval (elapsed = 17.78s)
+Epoch 31 done in 17.78s. Train loss: 0.104. Valid loss: 0.341. Micro F1: 0.924. Macro f1: 0.637
+Eval (elapsed = 17.83s)
+Epoch 32 done in 17.83s. Train loss: 0.104. Valid loss: 0.353. Micro F1: 0.925. Macro f1: 0.634
+Eval (elapsed = 17.77s)
+Epoch 33 done in 17.77s. Train loss: 0.102. Valid loss: 0.353. Micro F1: 0.923. Macro f1: 0.646
+Eval (elapsed = 17.78s)
+Epoch 34 done in 17.78s. Train loss: 0.104. Valid loss: 0.366. Micro F1: 0.921. Macro f1: 0.622
+Eval (elapsed = 17.75s)
+Epoch 35 done in 17.75s. Train loss: 0.105. Valid loss: 0.360. Micro F1: 0.923. Macro f1: 0.647
+Eval (elapsed = 17.75s)
+Epoch 36 done in 17.75s. Train loss: 0.106. Valid loss: 0.357. Micro F1: 0.921. Macro f1: 0.631
+Eval (elapsed = 17.76s)
+Epoch 37 done in 17.76s. Train loss: 0.105. Valid loss: 0.354. Micro F1: 0.923. Macro f1: 0.648
+Eval (elapsed = 17.77s)
+Epoch 38 done in 17.77s. Train loss: 0.108. Valid loss: 0.363. Micro F1: 0.921. Macro f1: 0.643
+Eval (elapsed = 17.75s)
+Epoch 39 done in 17.75s. Train loss: 0.109. Valid loss: 0.363. Micro F1: 0.924. Macro f1: 0.636
+Best Macro f1: 0.6552923935440194 in epoch 30 (micro here was 0.9242103672359075)
+Training sentences-level, character-summing-feature bilstm-no-testset for ZU
+Eval (elapsed = 17.75s)
+Epoch 0 done in 17.75s. Train loss: 0.527. Valid loss: 0.292. Micro F1: 0.891. Macro f1: 0.561
+Eval (elapsed = 17.79s)
+Epoch 1 done in 17.79s. Train loss: 0.282. Valid loss: 0.263. Micro F1: 0.909. Macro f1: 0.585
+Eval (elapsed = 17.79s)
+Epoch 2 done in 17.79s. Train loss: 0.250. Valid loss: 0.249. Micro F1: 0.911. Macro f1: 0.596
+Eval (elapsed = 17.80s)
+Epoch 3 done in 17.80s. Train loss: 0.223. Valid loss: 0.235. Micro F1: 0.919. Macro f1: 0.620
+Eval (elapsed = 17.83s)
+Epoch 4 done in 17.83s. Train loss: 0.206. Valid loss: 0.247. Micro F1: 0.915. Macro f1: 0.620
+Eval (elapsed = 17.80s)
+Epoch 5 done in 17.80s. Train loss: 0.190. Valid loss: 0.250. Micro F1: 0.920. Macro f1: 0.627
+Eval (elapsed = 17.78s)
+Epoch 6 done in 17.78s. Train loss: 0.180. Valid loss: 0.255. Micro F1: 0.923. Macro f1: 0.637
+Eval (elapsed = 17.80s)
+Epoch 7 done in 17.80s. Train loss: 0.169. Valid loss: 0.246. Micro F1: 0.924. Macro f1: 0.642
+Eval (elapsed = 17.80s)
+Epoch 8 done in 17.80s. Train loss: 0.159. Valid loss: 0.264. Micro F1: 0.917. Macro f1: 0.621
+Eval (elapsed = 17.84s)
+Epoch 9 done in 17.84s. Train loss: 0.151. Valid loss: 0.265. Micro F1: 0.921. Macro f1: 0.626
+Eval (elapsed = 17.82s)
+Epoch 10 done in 17.82s. Train loss: 0.147. Valid loss: 0.264. Micro F1: 0.920. Macro f1: 0.620
+Eval (elapsed = 17.82s)
+Epoch 11 done in 17.82s. Train loss: 0.138. Valid loss: 0.269. Micro F1: 0.920. Macro f1: 0.630
+Eval (elapsed = 17.81s)
+Epoch 12 done in 17.81s. Train loss: 0.134. Valid loss: 0.270. Micro F1: 0.925. Macro f1: 0.635
+Eval (elapsed = 17.80s)
+Epoch 13 done in 17.80s. Train loss: 0.131. Valid loss: 0.277. Micro F1: 0.925. Macro f1: 0.642
+Eval (elapsed = 17.81s)
+Epoch 14 done in 17.81s. Train loss: 0.126. Valid loss: 0.284. Micro F1: 0.921. Macro f1: 0.642
+Eval (elapsed = 17.81s)
+Epoch 15 done in 17.81s. Train loss: 0.123. Valid loss: 0.286. Micro F1: 0.921. Macro f1: 0.634
+Eval (elapsed = 17.86s)
+Epoch 16 done in 17.86s. Train loss: 0.120. Valid loss: 0.290. Micro F1: 0.922. Macro f1: 0.634
+Eval (elapsed = 17.89s)
+Epoch 17 done in 17.89s. Train loss: 0.119. Valid loss: 0.283. Micro F1: 0.927. Macro f1: 0.643
+Eval (elapsed = 17.90s)
+Epoch 18 done in 17.90s. Train loss: 0.117. Valid loss: 0.285. Micro F1: 0.924. Macro f1: 0.649
+Eval (elapsed = 49.41s)
+Epoch 19 done in 49.41s. Train loss: 0.115. Valid loss: 0.285. Micro F1: 0.924. Macro f1: 0.651
+Eval (elapsed = 17.85s)
+Epoch 20 done in 17.85s. Train loss: 0.110. Valid loss: 0.296. Micro F1: 0.925. Macro f1: 0.636
+Eval (elapsed = 18.07s)
+Epoch 21 done in 18.07s. Train loss: 0.114. Valid loss: 0.292. Micro F1: 0.923. Macro f1: 0.640
+Eval (elapsed = 18.07s)
+Epoch 22 done in 18.07s. Train loss: 0.115. Valid loss: 0.298. Micro F1: 0.924. Macro f1: 0.626
+Eval (elapsed = 18.07s)
+Epoch 23 done in 18.07s. Train loss: 0.110. Valid loss: 0.318. Micro F1: 0.924. Macro f1: 0.624
+Eval (elapsed = 18.05s)
+Epoch 24 done in 18.05s. Train loss: 0.106. Valid loss: 0.312. Micro F1: 0.921. Macro f1: 0.630
+Eval (elapsed = 18.05s)
+Epoch 25 done in 18.05s. Train loss: 0.108. Valid loss: 0.311. Micro F1: 0.925. Macro f1: 0.642
+Eval (elapsed = 18.13s)
+Epoch 26 done in 18.13s. Train loss: 0.106. Valid loss: 0.317. Micro F1: 0.924. Macro f1: 0.631
+Eval (elapsed = 18.17s)
+Epoch 27 done in 18.17s. Train loss: 0.106. Valid loss: 0.327. Micro F1: 0.924. Macro f1: 0.644
+Eval (elapsed = 18.18s)
+Epoch 28 done in 18.18s. Train loss: 0.106. Valid loss: 0.335. Micro F1: 0.922. Macro f1: 0.629
+Eval (elapsed = 18.12s)
+Epoch 29 done in 18.12s. Train loss: 0.108. Valid loss: 0.342. Micro F1: 0.923. Macro f1: 0.628
+Eval (elapsed = 18.09s)
+Epoch 30 done in 18.09s. Train loss: 0.110. Valid loss: 0.331. Micro F1: 0.925. Macro f1: 0.640
+Eval (elapsed = 18.09s)
+Epoch 31 done in 18.09s. Train loss: 0.105. Valid loss: 0.339. Micro F1: 0.924. Macro f1: 0.640
+Eval (elapsed = 18.08s)
+Epoch 32 done in 18.08s. Train loss: 0.107. Valid loss: 0.339. Micro F1: 0.925. Macro f1: 0.635
+Eval (elapsed = 18.11s)
+Epoch 33 done in 18.11s. Train loss: 0.109. Valid loss: 0.331. Micro F1: 0.923. Macro f1: 0.631
+Eval (elapsed = 18.17s)
+Epoch 34 done in 18.17s. Train loss: 0.111. Valid loss: 0.336. Micro F1: 0.923. Macro f1: 0.623
+Eval (elapsed = 18.11s)
+Epoch 35 done in 18.11s. Train loss: 0.111. Valid loss: 0.346. Micro F1: 0.922. Macro f1: 0.635
+Eval (elapsed = 18.09s)
+Epoch 36 done in 18.09s. Train loss: 0.110. Valid loss: 0.333. Micro F1: 0.923. Macro f1: 0.631
+Eval (elapsed = 18.10s)
+Epoch 37 done in 18.10s. Train loss: 0.108. Valid loss: 0.337. Micro F1: 0.921. Macro f1: 0.627
+Eval (elapsed = 18.10s)
+Epoch 38 done in 18.10s. Train loss: 0.112. Valid loss: 0.325. Micro F1: 0.925. Macro f1: 0.636
+Eval (elapsed = 18.11s)
+Epoch 39 done in 18.11s. Train loss: 0.111. Valid loss: 0.340. Micro F1: 0.922. Macro f1: 0.625
+Best Macro f1: 0.6511944125203759 in epoch 19 (micro here was 0.924059241348043)
+Training sentences-level, character-summing-feature bilstm-no-testset for ZU
+Eval (elapsed = 18.81s)
+Epoch 0 done in 18.81s. Train loss: 0.614. Valid loss: 0.294. Micro F1: 0.897. Macro f1: 0.551
+Eval (elapsed = 18.09s)
+Epoch 1 done in 18.09s. Train loss: 0.291. Valid loss: 0.266. Micro F1: 0.907. Macro f1: 0.593
+Eval (elapsed = 18.07s)
+Epoch 2 done in 18.07s. Train loss: 0.253. Valid loss: 0.244. Micro F1: 0.914. Macro f1: 0.608
+Eval (elapsed = 18.12s)
+Epoch 3 done in 18.12s. Train loss: 0.226. Valid loss: 0.231. Micro F1: 0.918. Macro f1: 0.613
+Eval (elapsed = 18.17s)
+Epoch 4 done in 18.17s. Train loss: 0.211. Valid loss: 0.243. Micro F1: 0.920. Macro f1: 0.619
+Eval (elapsed = 18.12s)
+Epoch 5 done in 18.12s. Train loss: 0.195. Valid loss: 0.247. Micro F1: 0.916. Macro f1: 0.630
+Eval (elapsed = 18.09s)
+Epoch 6 done in 18.09s. Train loss: 0.184. Valid loss: 0.239. Micro F1: 0.922. Macro f1: 0.617
+Eval (elapsed = 18.08s)
+Epoch 7 done in 18.08s. Train loss: 0.174. Valid loss: 0.246. Micro F1: 0.921. Macro f1: 0.626
+Eval (elapsed = 18.07s)
+Epoch 8 done in 18.07s. Train loss: 0.164. Valid loss: 0.252. Micro F1: 0.923. Macro f1: 0.632
+Eval (elapsed = 18.06s)
+Epoch 9 done in 18.06s. Train loss: 0.157. Valid loss: 0.263. Micro F1: 0.919. Macro f1: 0.635
+Eval (elapsed = 18.07s)
+Epoch 10 done in 18.07s. Train loss: 0.149. Valid loss: 0.254. Micro F1: 0.922. Macro f1: 0.629
+Eval (elapsed = 18.07s)
+Epoch 11 done in 18.07s. Train loss: 0.140. Valid loss: 0.255. Micro F1: 0.922. Macro f1: 0.641
+Eval (elapsed = 18.27s)
+Epoch 12 done in 18.27s. Train loss: 0.135. Valid loss: 0.263. Micro F1: 0.923. Macro f1: 0.657
+Eval (elapsed = 18.35s)
+Epoch 13 done in 18.35s. Train loss: 0.130. Valid loss: 0.259. Micro F1: 0.924. Macro f1: 0.636
+Eval (elapsed = 18.15s)
+Epoch 14 done in 18.15s. Train loss: 0.124. Valid loss: 0.281. Micro F1: 0.921. Macro f1: 0.638
+Eval (elapsed = 17.83s)
+Epoch 15 done in 17.83s. Train loss: 0.120. Valid loss: 0.278. Micro F1: 0.925. Macro f1: 0.642
+Eval (elapsed = 17.83s)
+Epoch 16 done in 17.83s. Train loss: 0.116. Valid loss: 0.283. Micro F1: 0.927. Macro f1: 0.648
+Eval (elapsed = 17.83s)
+Epoch 17 done in 17.83s. Train loss: 0.112. Valid loss: 0.290. Micro F1: 0.926. Macro f1: 0.640
+Eval (elapsed = 17.80s)
+Epoch 18 done in 17.80s. Train loss: 0.109. Valid loss: 0.291. Micro F1: 0.925. Macro f1: 0.648
+Eval (elapsed = 17.81s)
+Epoch 19 done in 17.81s. Train loss: 0.106. Valid loss: 0.301. Micro F1: 0.918. Macro f1: 0.629
+Eval (elapsed = 17.78s)
+Epoch 20 done in 17.78s. Train loss: 0.104. Valid loss: 0.306. Micro F1: 0.922. Macro f1: 0.641
+Eval (elapsed = 17.79s)
+Epoch 21 done in 17.79s. Train loss: 0.104. Valid loss: 0.302. Micro F1: 0.921. Macro f1: 0.626
+Eval (elapsed = 17.78s)
+Epoch 22 done in 17.78s. Train loss: 0.100. Valid loss: 0.307. Micro F1: 0.921. Macro f1: 0.629
+Eval (elapsed = 17.73s)
+Epoch 23 done in 17.73s. Train loss: 0.098. Valid loss: 0.313. Micro F1: 0.923. Macro f1: 0.637
+Eval (elapsed = 17.72s)
+Epoch 24 done in 17.72s. Train loss: 0.095. Valid loss: 0.318. Micro F1: 0.924. Macro f1: 0.638
+Eval (elapsed = 17.71s)
+Epoch 25 done in 17.71s. Train loss: 0.097. Valid loss: 0.316. Micro F1: 0.923. Macro f1: 0.654
+Eval (elapsed = 17.70s)
+Epoch 26 done in 17.70s. Train loss: 0.095. Valid loss: 0.317. Micro F1: 0.923. Macro f1: 0.638
+Eval (elapsed = 17.71s)
+Epoch 27 done in 17.71s. Train loss: 0.094. Valid loss: 0.332. Micro F1: 0.922. Macro f1: 0.617
+Eval (elapsed = 17.72s)
+Epoch 28 done in 17.72s. Train loss: 0.091. Valid loss: 0.345. Micro F1: 0.924. Macro f1: 0.622
+Eval (elapsed = 17.89s)
+Epoch 29 done in 17.89s. Train loss: 0.092. Valid loss: 0.339. Micro F1: 0.922. Macro f1: 0.636
+Eval (elapsed = 17.82s)
+Epoch 30 done in 17.82s. Train loss: 0.092. Valid loss: 0.339. Micro F1: 0.923. Macro f1: 0.640
+Eval (elapsed = 17.78s)
+Epoch 31 done in 17.78s. Train loss: 0.091. Valid loss: 0.350. Micro F1: 0.924. Macro f1: 0.640
+Eval (elapsed = 17.82s)
+Epoch 32 done in 17.82s. Train loss: 0.089. Valid loss: 0.352. Micro F1: 0.925. Macro f1: 0.654
+Eval (elapsed = 17.79s)
+Epoch 33 done in 17.79s. Train loss: 0.091. Valid loss: 0.349. Micro F1: 0.923. Macro f1: 0.626
+Eval (elapsed = 17.77s)
+Epoch 34 done in 17.77s. Train loss: 0.091. Valid loss: 0.355. Micro F1: 0.922. Macro f1: 0.641
+Eval (elapsed = 17.80s)
+Epoch 35 done in 17.80s. Train loss: 0.089. Valid loss: 0.363. Micro F1: 0.924. Macro f1: 0.640
+Eval (elapsed = 17.79s)
+Epoch 36 done in 17.79s. Train loss: 0.088. Valid loss: 0.366. Micro F1: 0.923. Macro f1: 0.652
+Eval (elapsed = 17.76s)
+Epoch 37 done in 17.76s. Train loss: 0.090. Valid loss: 0.365. Micro F1: 0.923. Macro f1: 0.623
+Eval (elapsed = 17.75s)
+Epoch 38 done in 17.75s. Train loss: 0.088. Valid loss: 0.356. Micro F1: 0.925. Macro f1: 0.643
+Eval (elapsed = 17.73s)
+Epoch 39 done in 17.73s. Train loss: 0.090. Valid loss: 0.360. Micro F1: 0.923. Macro f1: 0.624
+Best Macro f1: 0.6572407042243963 in epoch 12 (micro here was 0.922774671301194)
+ZU mean macro across 5 seeds: 0.6590632856925256
+ZU best macro across 5 seeds: 0.6658607400979687
+ZU mean micro across 5 seeds: 0.9239836784041107
+Tag EnumConc15 not found in trainset!
+1.2658227848101267% submorphemes not found in train!
+train, test len: 2562 284
+Training sentences-level, character-summing-feature bilstm-no-testset for XH
+Eval (elapsed = 18.39s)
+Epoch 0 done in 18.39s. Train loss: 0.437. Valid loss: 0.180. Micro F1: 0.944. Macro f1: 0.649
+Saving model because best macro 0.6490208013607385 >= best ever 0.0
+Eval (elapsed = 18.14s)
+Epoch 1 done in 18.14s. Train loss: 0.174. Valid loss: 0.172. Micro F1: 0.942. Macro f1: 0.670
+Saving model because best macro 0.6695980567259051 >= best ever 0.0
+Eval (elapsed = 18.14s)
+Epoch 2 done in 18.14s. Train loss: 0.145. Valid loss: 0.154. Micro F1: 0.956. Macro f1: 0.710
+Saving model because best macro 0.7097523848806035 >= best ever 0.0
+Eval (elapsed = 18.14s)
+Epoch 3 done in 18.14s. Train loss: 0.125. Valid loss: 0.155. Micro F1: 0.952. Macro f1: 0.690
+Eval (elapsed = 18.17s)
+Epoch 4 done in 18.17s. Train loss: 0.115. Valid loss: 0.153. Micro F1: 0.956. Macro f1: 0.731
+Saving model because best macro 0.7314099341152616 >= best ever 0.0
+Eval (elapsed = 18.12s)
+Epoch 5 done in 18.12s. Train loss: 0.106. Valid loss: 0.148. Micro F1: 0.956. Macro f1: 0.738
+Saving model because best macro 0.7375166440794476 >= best ever 0.0
+Eval (elapsed = 18.12s)
+Epoch 6 done in 18.12s. Train loss: 0.099. Valid loss: 0.151. Micro F1: 0.956. Macro f1: 0.721
+Eval (elapsed = 18.14s)
+Epoch 7 done in 18.14s. Train loss: 0.092. Valid loss: 0.151. Micro F1: 0.958. Macro f1: 0.715
+Eval (elapsed = 18.15s)
+Epoch 8 done in 18.15s. Train loss: 0.090. Valid loss: 0.157. Micro F1: 0.957. Macro f1: 0.719
+Eval (elapsed = 18.14s)
+Epoch 9 done in 18.14s. Train loss: 0.085. Valid loss: 0.161. Micro F1: 0.956. Macro f1: 0.731
+Eval (elapsed = 18.14s)
+Epoch 10 done in 18.14s. Train loss: 0.082. Valid loss: 0.157. Micro F1: 0.958. Macro f1: 0.746
+Saving model because best macro 0.7464294535698384 >= best ever 0.0
+Eval (elapsed = 18.18s)
+Epoch 11 done in 18.18s. Train loss: 0.083. Valid loss: 0.168. Micro F1: 0.954. Macro f1: 0.729
+Eval (elapsed = 18.17s)
+Epoch 12 done in 18.17s. Train loss: 0.077. Valid loss: 0.170. Micro F1: 0.958. Macro f1: 0.723
+Eval (elapsed = 18.20s)
+Epoch 13 done in 18.20s. Train loss: 0.073. Valid loss: 0.176. Micro F1: 0.960. Macro f1: 0.720
+Eval (elapsed = 18.21s)
+Epoch 14 done in 18.21s. Train loss: 0.075. Valid loss: 0.178. Micro F1: 0.959. Macro f1: 0.745
+Eval (elapsed = 18.18s)
+Epoch 15 done in 18.18s. Train loss: 0.071. Valid loss: 0.182. Micro F1: 0.958. Macro f1: 0.737
+Eval (elapsed = 18.15s)
+Epoch 16 done in 18.15s. Train loss: 0.071. Valid loss: 0.183. Micro F1: 0.957. Macro f1: 0.736
+Eval (elapsed = 18.14s)
+Epoch 17 done in 18.14s. Train loss: 0.068. Valid loss: 0.181. Micro F1: 0.958. Macro f1: 0.725
+Eval (elapsed = 18.14s)
+Epoch 18 done in 18.14s. Train loss: 0.070. Valid loss: 0.196. Micro F1: 0.956. Macro f1: 0.730
+Eval (elapsed = 18.21s)
+Epoch 19 done in 18.21s. Train loss: 0.067. Valid loss: 0.200. Micro F1: 0.957. Macro f1: 0.731
+Eval (elapsed = 18.13s)
+Epoch 20 done in 18.13s. Train loss: 0.071. Valid loss: 0.187. Micro F1: 0.959. Macro f1: 0.748
+Saving model because best macro 0.7480071160129483 >= best ever 0.0
+Eval (elapsed = 18.14s)
+Epoch 21 done in 18.14s. Train loss: 0.067. Valid loss: 0.187. Micro F1: 0.957. Macro f1: 0.736
+Eval (elapsed = 18.13s)
+Epoch 22 done in 18.13s. Train loss: 0.069. Valid loss: 0.196. Micro F1: 0.957. Macro f1: 0.738
+Eval (elapsed = 18.12s)
+Epoch 23 done in 18.12s. Train loss: 0.067. Valid loss: 0.184. Micro F1: 0.957. Macro f1: 0.761
+Saving model because best macro 0.7609952196100284 >= best ever 0.0
+Eval (elapsed = 18.13s)
+Epoch 24 done in 18.13s. Train loss: 0.070. Valid loss: 0.191. Micro F1: 0.958. Macro f1: 0.742
+Eval (elapsed = 18.13s)
+Epoch 25 done in 18.13s. Train loss: 0.067. Valid loss: 0.193. Micro F1: 0.957. Macro f1: 0.735
+Eval (elapsed = 18.14s)
+Epoch 26 done in 18.14s. Train loss: 0.066. Valid loss: 0.197. Micro F1: 0.960. Macro f1: 0.751
+Eval (elapsed = 18.13s)
+Epoch 27 done in 18.13s. Train loss: 0.068. Valid loss: 0.211. Micro F1: 0.958. Macro f1: 0.736
+Eval (elapsed = 18.14s)
+Epoch 28 done in 18.14s. Train loss: 0.067. Valid loss: 0.219. Micro F1: 0.958. Macro f1: 0.738
+Eval (elapsed = 18.13s)
+Epoch 29 done in 18.13s. Train loss: 0.068. Valid loss: 0.216. Micro F1: 0.958. Macro f1: 0.740
+Eval (elapsed = 18.14s)
+Epoch 30 done in 18.14s. Train loss: 0.070. Valid loss: 0.212. Micro F1: 0.958. Macro f1: 0.742
+Eval (elapsed = 18.15s)
+Epoch 31 done in 18.15s. Train loss: 0.070. Valid loss: 0.216. Micro F1: 0.957. Macro f1: 0.732
+Eval (elapsed = 18.22s)
+Epoch 32 done in 18.22s. Train loss: 0.071. Valid loss: 0.226. Micro F1: 0.958. Macro f1: 0.746
+Eval (elapsed = 18.25s)
+Epoch 33 done in 18.25s. Train loss: 0.073. Valid loss: 0.214. Micro F1: 0.958. Macro f1: 0.738
+Eval (elapsed = 18.20s)
+Epoch 34 done in 18.20s. Train loss: 0.070. Valid loss: 0.219. Micro F1: 0.958. Macro f1: 0.731
+Eval (elapsed = 18.15s)
+Epoch 35 done in 18.15s. Train loss: 0.072. Valid loss: 0.216. Micro F1: 0.955. Macro f1: 0.748
+Eval (elapsed = 18.15s)
+Epoch 36 done in 18.15s. Train loss: 0.072. Valid loss: 0.217. Micro F1: 0.958. Macro f1: 0.731
+Eval (elapsed = 18.16s)
+Epoch 37 done in 18.16s. Train loss: 0.073. Valid loss: 0.217. Micro F1: 0.958. Macro f1: 0.747
+Eval (elapsed = 18.16s)
+Epoch 38 done in 18.16s. Train loss: 0.071. Valid loss: 0.226. Micro F1: 0.959. Macro f1: 0.760
+Eval (elapsed = 18.16s)
+Epoch 39 done in 18.16s. Train loss: 0.073. Valid loss: 0.232. Micro F1: 0.957. Macro f1: 0.744
+Best Macro f1: 0.7609952196100284 in epoch 23 (micro here was 0.95741885625966)
+Training sentences-level, character-summing-feature bilstm-no-testset for XH
+Eval (elapsed = 18.15s)
+Epoch 0 done in 18.15s. Train loss: 0.482. Valid loss: 0.207. Micro F1: 0.937. Macro f1: 0.661
+Eval (elapsed = 18.15s)
+Epoch 1 done in 18.15s. Train loss: 0.183. Valid loss: 0.178. Micro F1: 0.943. Macro f1: 0.670
+Eval (elapsed = 18.17s)
+Epoch 2 done in 18.17s. Train loss: 0.151. Valid loss: 0.151. Micro F1: 0.952. Macro f1: 0.704
+Eval (elapsed = 18.16s)
+Epoch 3 done in 18.16s. Train loss: 0.134. Valid loss: 0.150. Micro F1: 0.954. Macro f1: 0.721
+Eval (elapsed = 18.55s)
+Epoch 4 done in 18.55s. Train loss: 0.120. Valid loss: 0.152. Micro F1: 0.954. Macro f1: 0.709
+Eval (elapsed = 19.06s)
+Epoch 5 done in 19.06s. Train loss: 0.109. Valid loss: 0.158. Micro F1: 0.957. Macro f1: 0.747
+Eval (elapsed = 19.06s)
+Epoch 6 done in 19.06s. Train loss: 0.105. Valid loss: 0.148. Micro F1: 0.956. Macro f1: 0.717
+Eval (elapsed = 19.08s)
+Epoch 7 done in 19.08s. Train loss: 0.094. Valid loss: 0.165. Micro F1: 0.957. Macro f1: 0.740
+Eval (elapsed = 18.20s)
+Epoch 8 done in 18.20s. Train loss: 0.093. Valid loss: 0.156. Micro F1: 0.957. Macro f1: 0.724
+Eval (elapsed = 18.20s)
+Epoch 9 done in 18.20s. Train loss: 0.089. Valid loss: 0.162. Micro F1: 0.957. Macro f1: 0.728
+Eval (elapsed = 18.14s)
+Epoch 10 done in 18.14s. Train loss: 0.083. Valid loss: 0.155. Micro F1: 0.959. Macro f1: 0.724
+Eval (elapsed = 18.13s)
+Epoch 11 done in 18.13s. Train loss: 0.080. Valid loss: 0.168. Micro F1: 0.957. Macro f1: 0.748
+Eval (elapsed = 18.12s)
+Epoch 12 done in 18.12s. Train loss: 0.077. Valid loss: 0.166. Micro F1: 0.957. Macro f1: 0.734
+Eval (elapsed = 18.12s)
+Epoch 13 done in 18.12s. Train loss: 0.075. Valid loss: 0.172. Micro F1: 0.958. Macro f1: 0.745
+Eval (elapsed = 18.13s)
+Epoch 14 done in 18.13s. Train loss: 0.073. Valid loss: 0.181. Micro F1: 0.956. Macro f1: 0.739
+Eval (elapsed = 18.09s)
+Epoch 15 done in 18.09s. Train loss: 0.070. Valid loss: 0.183. Micro F1: 0.959. Macro f1: 0.734
+Eval (elapsed = 18.11s)
+Epoch 16 done in 18.11s. Train loss: 0.067. Valid loss: 0.175. Micro F1: 0.961. Macro f1: 0.764
+Saving model because best macro 0.7643178142075899 >= best ever 0.7609952196100284
+Eval (elapsed = 18.09s)
+Epoch 17 done in 18.09s. Train loss: 0.067. Valid loss: 0.183. Micro F1: 0.960. Macro f1: 0.749
+Eval (elapsed = 18.11s)
+Epoch 18 done in 18.11s. Train loss: 0.067. Valid loss: 0.182. Micro F1: 0.958. Macro f1: 0.760
+Eval (elapsed = 18.21s)
+Epoch 19 done in 18.21s. Train loss: 0.063. Valid loss: 0.171. Micro F1: 0.959. Macro f1: 0.745
+Eval (elapsed = 18.23s)
+Epoch 20 done in 18.23s. Train loss: 0.064. Valid loss: 0.184. Micro F1: 0.959. Macro f1: 0.750
+Eval (elapsed = 18.21s)
+Epoch 21 done in 18.21s. Train loss: 0.065. Valid loss: 0.181. Micro F1: 0.960. Macro f1: 0.745
+Eval (elapsed = 18.16s)
+Epoch 22 done in 18.16s. Train loss: 0.062. Valid loss: 0.188. Micro F1: 0.958. Macro f1: 0.731
+Eval (elapsed = 18.11s)
+Epoch 23 done in 18.11s. Train loss: 0.061. Valid loss: 0.200. Micro F1: 0.959. Macro f1: 0.750
+Eval (elapsed = 18.13s)
+Epoch 24 done in 18.13s. Train loss: 0.061. Valid loss: 0.198. Micro F1: 0.958. Macro f1: 0.759
+Eval (elapsed = 18.07s)
+Epoch 25 done in 18.07s. Train loss: 0.061. Valid loss: 0.199. Micro F1: 0.958. Macro f1: 0.741
+Eval (elapsed = 18.07s)
+Epoch 26 done in 18.07s. Train loss: 0.060. Valid loss: 0.195. Micro F1: 0.960. Macro f1: 0.746
+Eval (elapsed = 18.08s)
+Epoch 27 done in 18.08s. Train loss: 0.061. Valid loss: 0.212. Micro F1: 0.957. Macro f1: 0.745
+Eval (elapsed = 18.10s)
+Epoch 28 done in 18.10s. Train loss: 0.059. Valid loss: 0.212. Micro F1: 0.959. Macro f1: 0.744
+Eval (elapsed = 18.11s)
+Epoch 29 done in 18.11s. Train loss: 0.060. Valid loss: 0.206. Micro F1: 0.959. Macro f1: 0.745
+Eval (elapsed = 18.19s)
+Epoch 30 done in 18.19s. Train loss: 0.057. Valid loss: 0.206. Micro F1: 0.959. Macro f1: 0.754
+Eval (elapsed = 18.22s)
+Epoch 31 done in 18.22s. Train loss: 0.060. Valid loss: 0.214. Micro F1: 0.959. Macro f1: 0.736
+Eval (elapsed = 18.17s)
+Epoch 32 done in 18.17s. Train loss: 0.060. Valid loss: 0.207. Micro F1: 0.958. Macro f1: 0.742
+Eval (elapsed = 18.16s)
+Epoch 33 done in 18.16s. Train loss: 0.058. Valid loss: 0.211. Micro F1: 0.957. Macro f1: 0.746
+Eval (elapsed = 18.16s)
+Epoch 34 done in 18.16s. Train loss: 0.057. Valid loss: 0.217. Micro F1: 0.957. Macro f1: 0.748
+Eval (elapsed = 18.12s)
+Epoch 35 done in 18.12s. Train loss: 0.057. Valid loss: 0.228. Micro F1: 0.958. Macro f1: 0.745
+Eval (elapsed = 18.11s)
+Epoch 36 done in 18.11s. Train loss: 0.059. Valid loss: 0.217. Micro F1: 0.960. Macro f1: 0.756
+Eval (elapsed = 18.11s)
+Epoch 37 done in 18.11s. Train loss: 0.058. Valid loss: 0.229. Micro F1: 0.958. Macro f1: 0.736
+Eval (elapsed = 18.10s)
+Epoch 38 done in 18.10s. Train loss: 0.061. Valid loss: 0.225. Micro F1: 0.957. Macro f1: 0.731
+Eval (elapsed = 18.19s)
+Epoch 39 done in 18.19s. Train loss: 0.059. Valid loss: 0.238. Micro F1: 0.957. Macro f1: 0.736
+Best Macro f1: 0.7643178142075899 in epoch 16 (micro here was 0.9605873261205564)
+Training sentences-level, character-summing-feature bilstm-no-testset for XH
+Eval (elapsed = 18.14s)
+Epoch 0 done in 18.14s. Train loss: 0.437. Valid loss: 0.188. Micro F1: 0.942. Macro f1: 0.675
+Eval (elapsed = 18.17s)
+Epoch 1 done in 18.17s. Train loss: 0.173. Valid loss: 0.163. Micro F1: 0.950. Macro f1: 0.686
+Eval (elapsed = 18.16s)
+Epoch 2 done in 18.16s. Train loss: 0.144. Valid loss: 0.159. Micro F1: 0.944. Macro f1: 0.697
+Eval (elapsed = 18.19s)
+Epoch 3 done in 18.19s. Train loss: 0.125. Valid loss: 0.142. Micro F1: 0.956. Macro f1: 0.706
+Eval (elapsed = 18.18s)
+Epoch 4 done in 18.18s. Train loss: 0.114. Valid loss: 0.155. Micro F1: 0.956. Macro f1: 0.733
+Eval (elapsed = 18.18s)
+Epoch 5 done in 18.18s. Train loss: 0.103. Valid loss: 0.163. Micro F1: 0.958. Macro f1: 0.729
+Eval (elapsed = 18.15s)
+Epoch 6 done in 18.15s. Train loss: 0.100. Valid loss: 0.155. Micro F1: 0.956. Macro f1: 0.735
+Eval (elapsed = 18.08s)
+Epoch 7 done in 18.08s. Train loss: 0.093. Valid loss: 0.159. Micro F1: 0.956. Macro f1: 0.727
+Eval (elapsed = 18.17s)
+Epoch 8 done in 18.17s. Train loss: 0.088. Valid loss: 0.164. Micro F1: 0.956. Macro f1: 0.706
+Eval (elapsed = 18.13s)
+Epoch 9 done in 18.13s. Train loss: 0.084. Valid loss: 0.168. Micro F1: 0.957. Macro f1: 0.740
+Eval (elapsed = 18.12s)
+Epoch 10 done in 18.12s. Train loss: 0.082. Valid loss: 0.165. Micro F1: 0.958. Macro f1: 0.731
+Eval (elapsed = 18.12s)
+Epoch 11 done in 18.12s. Train loss: 0.078. Valid loss: 0.169. Micro F1: 0.957. Macro f1: 0.749
+Eval (elapsed = 18.14s)
+Epoch 12 done in 18.14s. Train loss: 0.075. Valid loss: 0.171. Micro F1: 0.957. Macro f1: 0.739
+Eval (elapsed = 18.13s)
+Epoch 13 done in 18.13s. Train loss: 0.075. Valid loss: 0.177. Micro F1: 0.957. Macro f1: 0.728
+Eval (elapsed = 18.15s)
+Epoch 14 done in 18.15s. Train loss: 0.072. Valid loss: 0.186. Micro F1: 0.957. Macro f1: 0.730
+Eval (elapsed = 18.14s)
+Epoch 15 done in 18.14s. Train loss: 0.071. Valid loss: 0.188. Micro F1: 0.957. Macro f1: 0.733
+Eval (elapsed = 18.13s)
+Epoch 16 done in 18.13s. Train loss: 0.070. Valid loss: 0.186. Micro F1: 0.958. Macro f1: 0.746
+Eval (elapsed = 18.13s)
+Epoch 17 done in 18.13s. Train loss: 0.067. Valid loss: 0.191. Micro F1: 0.958. Macro f1: 0.757
+Eval (elapsed = 18.15s)
+Epoch 18 done in 18.15s. Train loss: 0.068. Valid loss: 0.195. Micro F1: 0.958. Macro f1: 0.740
+Eval (elapsed = 18.15s)
+Epoch 19 done in 18.15s. Train loss: 0.067. Valid loss: 0.192. Micro F1: 0.959. Macro f1: 0.743
+Eval (elapsed = 18.14s)
+Epoch 20 done in 18.14s. Train loss: 0.068. Valid loss: 0.201. Micro F1: 0.957. Macro f1: 0.749
+Eval (elapsed = 18.12s)
+Epoch 21 done in 18.12s. Train loss: 0.066. Valid loss: 0.198. Micro F1: 0.958. Macro f1: 0.730
+Eval (elapsed = 18.12s)
+Epoch 22 done in 18.12s. Train loss: 0.065. Valid loss: 0.202. Micro F1: 0.957. Macro f1: 0.726
+Eval (elapsed = 18.12s)
+Epoch 23 done in 18.12s. Train loss: 0.064. Valid loss: 0.198. Micro F1: 0.958. Macro f1: 0.745
+Eval (elapsed = 18.14s)
+Epoch 24 done in 18.14s. Train loss: 0.065. Valid loss: 0.207. Micro F1: 0.957. Macro f1: 0.736
+Eval (elapsed = 18.14s)
+Epoch 25 done in 18.14s. Train loss: 0.066. Valid loss: 0.212. Micro F1: 0.957. Macro f1: 0.755
+Eval (elapsed = 18.13s)
+Epoch 26 done in 18.13s. Train loss: 0.065. Valid loss: 0.209. Micro F1: 0.957. Macro f1: 0.752
+Eval (elapsed = 18.13s)
+Epoch 27 done in 18.13s. Train loss: 0.068. Valid loss: 0.199. Micro F1: 0.958. Macro f1: 0.761
+Eval (elapsed = 18.12s)
+Epoch 28 done in 18.12s. Train loss: 0.065. Valid loss: 0.209. Micro F1: 0.959. Macro f1: 0.760
+Eval (elapsed = 18.12s)
+Epoch 29 done in 18.12s. Train loss: 0.065. Valid loss: 0.209. Micro F1: 0.958. Macro f1: 0.736
+Eval (elapsed = 18.24s)
+Epoch 30 done in 18.24s. Train loss: 0.065. Valid loss: 0.207. Micro F1: 0.959. Macro f1: 0.743
+Eval (elapsed = 18.20s)
+Epoch 31 done in 18.20s. Train loss: 0.063. Valid loss: 0.209. Micro F1: 0.958. Macro f1: 0.750
+Eval (elapsed = 18.16s)
+Epoch 32 done in 18.16s. Train loss: 0.064. Valid loss: 0.223. Micro F1: 0.958. Macro f1: 0.740
+Eval (elapsed = 18.12s)
+Epoch 33 done in 18.12s. Train loss: 0.067. Valid loss: 0.224. Micro F1: 0.957. Macro f1: 0.733
+Eval (elapsed = 18.07s)
+Epoch 34 done in 18.07s. Train loss: 0.064. Valid loss: 0.219. Micro F1: 0.959. Macro f1: 0.745
+Eval (elapsed = 18.07s)
+Epoch 35 done in 18.07s. Train loss: 0.067. Valid loss: 0.224. Micro F1: 0.961. Macro f1: 0.760
+Eval (elapsed = 18.17s)
+Epoch 36 done in 18.17s. Train loss: 0.066. Valid loss: 0.214. Micro F1: 0.959. Macro f1: 0.744
+Eval (elapsed = 18.20s)
+Epoch 37 done in 18.20s. Train loss: 0.068. Valid loss: 0.223. Micro F1: 0.959. Macro f1: 0.753
+Eval (elapsed = 18.14s)
+Epoch 38 done in 18.14s. Train loss: 0.069. Valid loss: 0.222. Micro F1: 0.958. Macro f1: 0.753
+Eval (elapsed = 18.11s)
+Epoch 39 done in 18.11s. Train loss: 0.067. Valid loss: 0.230. Micro F1: 0.956. Macro f1: 0.751
+Best Macro f1: 0.7612953099675774 in epoch 27 (micro here was 0.9580370942812984)
+Training sentences-level, character-summing-feature bilstm-no-testset for XH
+Eval (elapsed = 18.10s)
+Epoch 0 done in 18.10s. Train loss: 0.419. Valid loss: 0.187. Micro F1: 0.936. Macro f1: 0.659
+Eval (elapsed = 18.10s)
+Epoch 1 done in 18.10s. Train loss: 0.176. Valid loss: 0.167. Micro F1: 0.949. Macro f1: 0.691
+Eval (elapsed = 18.14s)
+Epoch 2 done in 18.14s. Train loss: 0.144. Valid loss: 0.154. Micro F1: 0.955. Macro f1: 0.720
+Eval (elapsed = 18.17s)
+Epoch 3 done in 18.17s. Train loss: 0.128. Valid loss: 0.158. Micro F1: 0.951. Macro f1: 0.697
+Eval (elapsed = 18.17s)
+Epoch 4 done in 18.17s. Train loss: 0.116. Valid loss: 0.163. Micro F1: 0.951. Macro f1: 0.718
+Eval (elapsed = 18.20s)
+Epoch 5 done in 18.20s. Train loss: 0.106. Valid loss: 0.154. Micro F1: 0.957. Macro f1: 0.728
+Eval (elapsed = 18.16s)
+Epoch 6 done in 18.16s. Train loss: 0.100. Valid loss: 0.155. Micro F1: 0.958. Macro f1: 0.721
+Eval (elapsed = 18.16s)
+Epoch 7 done in 18.16s. Train loss: 0.094. Valid loss: 0.162. Micro F1: 0.956. Macro f1: 0.752
+Eval (elapsed = 18.18s)
+Epoch 8 done in 18.18s. Train loss: 0.092. Valid loss: 0.161. Micro F1: 0.956. Macro f1: 0.741
+Eval (elapsed = 18.18s)
+Epoch 9 done in 18.18s. Train loss: 0.087. Valid loss: 0.161. Micro F1: 0.957. Macro f1: 0.732
+Eval (elapsed = 18.19s)
+Epoch 10 done in 18.19s. Train loss: 0.084. Valid loss: 0.161. Micro F1: 0.959. Macro f1: 0.748
+Eval (elapsed = 18.16s)
+Epoch 11 done in 18.16s. Train loss: 0.079. Valid loss: 0.176. Micro F1: 0.957. Macro f1: 0.739
+Eval (elapsed = 18.16s)
+Epoch 12 done in 18.16s. Train loss: 0.079. Valid loss: 0.175. Micro F1: 0.956. Macro f1: 0.731
+Eval (elapsed = 18.16s)
+Epoch 13 done in 18.16s. Train loss: 0.078. Valid loss: 0.188. Micro F1: 0.957. Macro f1: 0.740
+Eval (elapsed = 18.18s)
+Epoch 14 done in 18.18s. Train loss: 0.076. Valid loss: 0.191. Micro F1: 0.957. Macro f1: 0.732
+Eval (elapsed = 18.13s)
+Epoch 15 done in 18.13s. Train loss: 0.075. Valid loss: 0.169. Micro F1: 0.958. Macro f1: 0.741
+Eval (elapsed = 18.09s)
+Epoch 16 done in 18.09s. Train loss: 0.072. Valid loss: 0.186. Micro F1: 0.957. Macro f1: 0.740
+Eval (elapsed = 18.10s)
+Epoch 17 done in 18.10s. Train loss: 0.070. Valid loss: 0.190. Micro F1: 0.958. Macro f1: 0.739
+Eval (elapsed = 18.08s)
+Epoch 18 done in 18.08s. Train loss: 0.072. Valid loss: 0.198. Micro F1: 0.957. Macro f1: 0.732
+Eval (elapsed = 18.07s)
+Epoch 19 done in 18.07s. Train loss: 0.071. Valid loss: 0.201. Micro F1: 0.957. Macro f1: 0.736
+Eval (elapsed = 18.17s)
+Epoch 20 done in 18.17s. Train loss: 0.070. Valid loss: 0.182. Micro F1: 0.959. Macro f1: 0.747
+Eval (elapsed = 18.17s)
+Epoch 21 done in 18.17s. Train loss: 0.070. Valid loss: 0.201. Micro F1: 0.957. Macro f1: 0.740
+Eval (elapsed = 18.18s)
+Epoch 22 done in 18.18s. Train loss: 0.069. Valid loss: 0.192. Micro F1: 0.959. Macro f1: 0.758
+Eval (elapsed = 18.17s)
+Epoch 23 done in 18.17s. Train loss: 0.068. Valid loss: 0.194. Micro F1: 0.956. Macro f1: 0.740
+Eval (elapsed = 18.18s)
+Epoch 24 done in 18.18s. Train loss: 0.070. Valid loss: 0.191. Micro F1: 0.958. Macro f1: 0.756
+Eval (elapsed = 18.19s)
+Epoch 25 done in 18.19s. Train loss: 0.069. Valid loss: 0.212. Micro F1: 0.959. Macro f1: 0.741
+Eval (elapsed = 18.18s)
+Epoch 26 done in 18.18s. Train loss: 0.069. Valid loss: 0.200. Micro F1: 0.958. Macro f1: 0.754
+Eval (elapsed = 18.18s)
+Epoch 27 done in 18.18s. Train loss: 0.069. Valid loss: 0.206. Micro F1: 0.958. Macro f1: 0.742
+Eval (elapsed = 18.17s)
+Epoch 28 done in 18.17s. Train loss: 0.072. Valid loss: 0.211. Micro F1: 0.960. Macro f1: 0.740
+Eval (elapsed = 18.16s)
+Epoch 29 done in 18.16s. Train loss: 0.069. Valid loss: 0.204. Micro F1: 0.960. Macro f1: 0.759
+Eval (elapsed = 18.17s)
+Epoch 30 done in 18.17s. Train loss: 0.071. Valid loss: 0.203. Micro F1: 0.957. Macro f1: 0.734
+Eval (elapsed = 18.16s)
+Epoch 31 done in 18.16s. Train loss: 0.072. Valid loss: 0.215. Micro F1: 0.955. Macro f1: 0.739
+Eval (elapsed = 18.18s)
+Epoch 32 done in 18.18s. Train loss: 0.072. Valid loss: 0.211. Micro F1: 0.959. Macro f1: 0.752
+Eval (elapsed = 18.18s)
+Epoch 33 done in 18.18s. Train loss: 0.072. Valid loss: 0.202. Micro F1: 0.959. Macro f1: 0.746
+Eval (elapsed = 18.18s)
+Epoch 34 done in 18.18s. Train loss: 0.072. Valid loss: 0.214. Micro F1: 0.960. Macro f1: 0.763
+Eval (elapsed = 18.19s)
+Epoch 35 done in 18.19s. Train loss: 0.071. Valid loss: 0.211. Micro F1: 0.957. Macro f1: 0.744
+Eval (elapsed = 18.22s)
+Epoch 36 done in 18.22s. Train loss: 0.074. Valid loss: 0.224. Micro F1: 0.956. Macro f1: 0.724
+Eval (elapsed = 18.13s)
+Epoch 37 done in 18.13s. Train loss: 0.076. Valid loss: 0.213. Micro F1: 0.957. Macro f1: 0.751
+Eval (elapsed = 18.08s)
+Epoch 38 done in 18.08s. Train loss: 0.076. Valid loss: 0.212. Micro F1: 0.957. Macro f1: 0.738
+Eval (elapsed = 18.14s)
+Epoch 39 done in 18.14s. Train loss: 0.077. Valid loss: 0.210. Micro F1: 0.960. Macro f1: 0.750
+Best Macro f1: 0.7628591361410028 in epoch 34 (micro here was 0.9600463678516229)
+Training sentences-level, character-summing-feature bilstm-no-testset for XH
+Eval (elapsed = 18.13s)
+Epoch 0 done in 18.13s. Train loss: 0.507. Valid loss: 0.208. Micro F1: 0.936. Macro f1: 0.623
+Eval (elapsed = 18.14s)
+Epoch 1 done in 18.14s. Train loss: 0.183. Valid loss: 0.162. Micro F1: 0.949. Macro f1: 0.695
+Eval (elapsed = 18.13s)
+Epoch 2 done in 18.13s. Train loss: 0.149. Valid loss: 0.157. Micro F1: 0.953. Macro f1: 0.712
+Eval (elapsed = 18.14s)
+Epoch 3 done in 18.14s. Train loss: 0.130. Valid loss: 0.153. Micro F1: 0.952. Macro f1: 0.710
+Eval (elapsed = 18.17s)
+Epoch 4 done in 18.17s. Train loss: 0.119. Valid loss: 0.147. Micro F1: 0.959. Macro f1: 0.725
+Eval (elapsed = 18.16s)
+Epoch 5 done in 18.16s. Train loss: 0.109. Valid loss: 0.144. Micro F1: 0.957. Macro f1: 0.732
+Eval (elapsed = 18.14s)
+Epoch 6 done in 18.14s. Train loss: 0.102. Valid loss: 0.145. Micro F1: 0.958. Macro f1: 0.747
+Eval (elapsed = 18.14s)
+Epoch 7 done in 18.14s. Train loss: 0.095. Valid loss: 0.153. Micro F1: 0.958. Macro f1: 0.741
+Eval (elapsed = 18.13s)
+Epoch 8 done in 18.13s. Train loss: 0.091. Valid loss: 0.159. Micro F1: 0.955. Macro f1: 0.729
+Eval (elapsed = 18.15s)
+Epoch 9 done in 18.15s. Train loss: 0.089. Valid loss: 0.153. Micro F1: 0.959. Macro f1: 0.725
+Eval (elapsed = 18.23s)
+Epoch 10 done in 18.23s. Train loss: 0.082. Valid loss: 0.164. Micro F1: 0.959. Macro f1: 0.745
+Eval (elapsed = 18.22s)
+Epoch 11 done in 18.22s. Train loss: 0.078. Valid loss: 0.168. Micro F1: 0.955. Macro f1: 0.725
+Eval (elapsed = 18.22s)
+Epoch 12 done in 18.22s. Train loss: 0.075. Valid loss: 0.174. Micro F1: 0.960. Macro f1: 0.738
+Eval (elapsed = 18.24s)
+Epoch 13 done in 18.24s. Train loss: 0.073. Valid loss: 0.174. Micro F1: 0.956. Macro f1: 0.734
+Eval (elapsed = 18.20s)
+Epoch 14 done in 18.20s. Train loss: 0.071. Valid loss: 0.167. Micro F1: 0.960. Macro f1: 0.749
+Eval (elapsed = 18.20s)
+Epoch 15 done in 18.20s. Train loss: 0.070. Valid loss: 0.173. Micro F1: 0.958. Macro f1: 0.755
+Eval (elapsed = 18.21s)
+Epoch 16 done in 18.21s. Train loss: 0.067. Valid loss: 0.180. Micro F1: 0.957. Macro f1: 0.733
+Eval (elapsed = 18.13s)
+Epoch 17 done in 18.13s. Train loss: 0.066. Valid loss: 0.187. Micro F1: 0.956. Macro f1: 0.752
+Eval (elapsed = 18.14s)
+Epoch 18 done in 18.14s. Train loss: 0.065. Valid loss: 0.191. Micro F1: 0.957. Macro f1: 0.748
+Eval (elapsed = 18.12s)
+Epoch 19 done in 18.12s. Train loss: 0.065. Valid loss: 0.183. Micro F1: 0.958. Macro f1: 0.743
+Eval (elapsed = 18.12s)
+Epoch 20 done in 18.12s. Train loss: 0.062. Valid loss: 0.190. Micro F1: 0.960. Macro f1: 0.749
+Eval (elapsed = 18.12s)
+Epoch 21 done in 18.12s. Train loss: 0.062. Valid loss: 0.199. Micro F1: 0.959. Macro f1: 0.753
+Eval (elapsed = 18.15s)
+Epoch 22 done in 18.15s. Train loss: 0.058. Valid loss: 0.202. Micro F1: 0.958. Macro f1: 0.748
+Eval (elapsed = 18.14s)
+Epoch 23 done in 18.14s. Train loss: 0.062. Valid loss: 0.203. Micro F1: 0.959. Macro f1: 0.758
+Eval (elapsed = 18.14s)
+Epoch 24 done in 18.14s. Train loss: 0.058. Valid loss: 0.195. Micro F1: 0.957. Macro f1: 0.766
+Saving model because best macro 0.7660967796876434 >= best ever 0.7643178142075899
+Eval (elapsed = 18.17s)
+Epoch 25 done in 18.17s. Train loss: 0.060. Valid loss: 0.204. Micro F1: 0.960. Macro f1: 0.759
+Eval (elapsed = 18.13s)
+Epoch 26 done in 18.13s. Train loss: 0.060. Valid loss: 0.192. Micro F1: 0.960. Macro f1: 0.756
+Eval (elapsed = 18.14s)
+Epoch 27 done in 18.14s. Train loss: 0.058. Valid loss: 0.214. Micro F1: 0.956. Macro f1: 0.738
+Eval (elapsed = 18.13s)
+Epoch 28 done in 18.13s. Train loss: 0.061. Valid loss: 0.202. Micro F1: 0.959. Macro f1: 0.749
+Eval (elapsed = 18.16s)
+Epoch 29 done in 18.16s. Train loss: 0.058. Valid loss: 0.212. Micro F1: 0.958. Macro f1: 0.759
+Eval (elapsed = 18.15s)
+Epoch 30 done in 18.15s. Train loss: 0.058. Valid loss: 0.203. Micro F1: 0.960. Macro f1: 0.761
+Eval (elapsed = 18.12s)
+Epoch 31 done in 18.12s. Train loss: 0.060. Valid loss: 0.215. Micro F1: 0.957. Macro f1: 0.762
+Eval (elapsed = 18.12s)
+Epoch 32 done in 18.12s. Train loss: 0.059. Valid loss: 0.221. Micro F1: 0.957. Macro f1: 0.755
+Eval (elapsed = 18.13s)
+Epoch 33 done in 18.13s. Train loss: 0.061. Valid loss: 0.227. Micro F1: 0.958. Macro f1: 0.752
+Eval (elapsed = 18.13s)
+Epoch 34 done in 18.13s. Train loss: 0.062. Valid loss: 0.219. Micro F1: 0.960. Macro f1: 0.745
+Eval (elapsed = 18.16s)
+Epoch 35 done in 18.16s. Train loss: 0.059. Valid loss: 0.224. Micro F1: 0.957. Macro f1: 0.724
+Eval (elapsed = 18.22s)
+Epoch 36 done in 18.22s. Train loss: 0.057. Valid loss: 0.224. Micro F1: 0.957. Macro f1: 0.751
+Eval (elapsed = 18.12s)
+Epoch 37 done in 18.12s. Train loss: 0.059. Valid loss: 0.230. Micro F1: 0.958. Macro f1: 0.741
+Eval (elapsed = 18.13s)
+Epoch 38 done in 18.13s. Train loss: 0.059. Valid loss: 0.225. Micro F1: 0.958. Macro f1: 0.748
+Eval (elapsed = 18.21s)
+Epoch 39 done in 18.21s. Train loss: 0.061. Valid loss: 0.228. Micro F1: 0.959. Macro f1: 0.737
+Best Macro f1: 0.7660967796876434 in epoch 24 (micro here was 0.9571097372488409)
+XH mean macro across 5 seeds: 0.7631128519227683
+XH best macro across 5 seeds: 0.7660967796876434
+XH mean micro across 5 seeds: 0.9586398763523956
+Tag PossConc17 not found in trainset!
+Tag NPrePre10 not found in trainset!
+Tag QuantConc2a not found in trainset!
+0.0% submorphemes not found in train!
+train, test len: 2505 278
+Training sentences-level, character-summing-feature bilstm-no-testset for SS
+Eval (elapsed = 16.67s)
+Epoch 0 done in 16.67s. Train loss: 0.590. Valid loss: 0.313. Micro F1: 0.882. Macro f1: 0.540
+Saving model because best macro 0.5403337088107357 >= best ever 0.0
+Eval (elapsed = 16.63s)
+Epoch 1 done in 16.63s. Train loss: 0.317. Valid loss: 0.275. Micro F1: 0.891. Macro f1: 0.564
+Saving model because best macro 0.5639511826682413 >= best ever 0.0
+Eval (elapsed = 16.65s)
+Epoch 2 done in 16.65s. Train loss: 0.272. Valid loss: 0.274. Micro F1: 0.901. Macro f1: 0.577
+Saving model because best macro 0.576744622910346 >= best ever 0.0
+Eval (elapsed = 16.61s)
+Epoch 3 done in 16.61s. Train loss: 0.246. Valid loss: 0.259. Micro F1: 0.901. Macro f1: 0.619
+Saving model because best macro 0.6192904761924987 >= best ever 0.0
+Eval (elapsed = 16.67s)
+Epoch 4 done in 16.67s. Train loss: 0.225. Valid loss: 0.257. Micro F1: 0.909. Macro f1: 0.615
+Eval (elapsed = 16.68s)
+Epoch 5 done in 16.68s. Train loss: 0.209. Valid loss: 0.252. Micro F1: 0.906. Macro f1: 0.620
+Saving model because best macro 0.6203980258165465 >= best ever 0.0
+Eval (elapsed = 16.69s)
+Epoch 6 done in 16.69s. Train loss: 0.198. Valid loss: 0.248. Micro F1: 0.910. Macro f1: 0.641
+Saving model because best macro 0.6413708300740523 >= best ever 0.0
+Eval (elapsed = 16.69s)
+Epoch 7 done in 16.69s. Train loss: 0.184. Valid loss: 0.260. Micro F1: 0.909. Macro f1: 0.627
+Eval (elapsed = 16.70s)
+Epoch 8 done in 16.70s. Train loss: 0.175. Valid loss: 0.248. Micro F1: 0.912. Macro f1: 0.652
+Saving model because best macro 0.652281699952047 >= best ever 0.0
+Eval (elapsed = 16.73s)
+Epoch 9 done in 16.73s. Train loss: 0.165. Valid loss: 0.253. Micro F1: 0.916. Macro f1: 0.647
+Eval (elapsed = 16.68s)
+Epoch 10 done in 16.68s. Train loss: 0.157. Valid loss: 0.263. Micro F1: 0.913. Macro f1: 0.638
+Eval (elapsed = 16.68s)
+Epoch 11 done in 16.68s. Train loss: 0.150. Valid loss: 0.275. Micro F1: 0.912. Macro f1: 0.650
+Eval (elapsed = 16.68s)
+Epoch 12 done in 16.68s. Train loss: 0.142. Valid loss: 0.272. Micro F1: 0.914. Macro f1: 0.651
+Eval (elapsed = 16.69s)
+Epoch 13 done in 16.69s. Train loss: 0.137. Valid loss: 0.281. Micro F1: 0.916. Macro f1: 0.669
+Saving model because best macro 0.6693127621549682 >= best ever 0.0
+Eval (elapsed = 16.71s)
+Epoch 14 done in 16.71s. Train loss: 0.136. Valid loss: 0.281. Micro F1: 0.917. Macro f1: 0.664
+Eval (elapsed = 16.70s)
+Epoch 15 done in 16.70s. Train loss: 0.125. Valid loss: 0.285. Micro F1: 0.916. Macro f1: 0.644
+Eval (elapsed = 16.69s)
+Epoch 16 done in 16.69s. Train loss: 0.125. Valid loss: 0.280. Micro F1: 0.917. Macro f1: 0.664
+Eval (elapsed = 16.66s)
+Epoch 17 done in 16.66s. Train loss: 0.127. Valid loss: 0.294. Micro F1: 0.917. Macro f1: 0.655
+Eval (elapsed = 16.58s)
+Epoch 18 done in 16.58s. Train loss: 0.118. Valid loss: 0.287. Micro F1: 0.917. Macro f1: 0.661
+Eval (elapsed = 16.57s)
+Epoch 19 done in 16.57s. Train loss: 0.117. Valid loss: 0.292. Micro F1: 0.916. Macro f1: 0.672
+Saving model because best macro 0.6720070312580729 >= best ever 0.0
+Eval (elapsed = 16.58s)
+Epoch 20 done in 16.58s. Train loss: 0.114. Valid loss: 0.318. Micro F1: 0.919. Macro f1: 0.665
+Eval (elapsed = 16.59s)
+Epoch 21 done in 16.59s. Train loss: 0.114. Valid loss: 0.311. Micro F1: 0.917. Macro f1: 0.668
+Eval (elapsed = 16.58s)
+Epoch 22 done in 16.58s. Train loss: 0.112. Valid loss: 0.311. Micro F1: 0.920. Macro f1: 0.664
+Eval (elapsed = 16.60s)
+Epoch 23 done in 16.60s. Train loss: 0.110. Valid loss: 0.323. Micro F1: 0.917. Macro f1: 0.653
+Eval (elapsed = 16.62s)
+Epoch 24 done in 16.62s. Train loss: 0.108. Valid loss: 0.322. Micro F1: 0.917. Macro f1: 0.667
+Eval (elapsed = 16.63s)
+Epoch 25 done in 16.63s. Train loss: 0.107. Valid loss: 0.315. Micro F1: 0.921. Macro f1: 0.674
+Saving model because best macro 0.6735574967792437 >= best ever 0.0
+Eval (elapsed = 16.62s)
+Epoch 26 done in 16.62s. Train loss: 0.107. Valid loss: 0.335. Micro F1: 0.919. Macro f1: 0.688
+Saving model because best macro 0.6879345647878872 >= best ever 0.0
+Eval (elapsed = 16.64s)
+Epoch 27 done in 16.64s. Train loss: 0.106. Valid loss: 0.331. Micro F1: 0.918. Macro f1: 0.680
+Eval (elapsed = 16.64s)
+Epoch 28 done in 16.64s. Train loss: 0.107. Valid loss: 0.328. Micro F1: 0.919. Macro f1: 0.675
+Eval (elapsed = 16.66s)
+Epoch 29 done in 16.66s. Train loss: 0.106. Valid loss: 0.335. Micro F1: 0.914. Macro f1: 0.668
+Eval (elapsed = 16.63s)
+Epoch 30 done in 16.63s. Train loss: 0.109. Valid loss: 0.337. Micro F1: 0.919. Macro f1: 0.679
+Eval (elapsed = 16.64s)
+Epoch 31 done in 16.64s. Train loss: 0.109. Valid loss: 0.355. Micro F1: 0.917. Macro f1: 0.650
+Eval (elapsed = 16.62s)
+Epoch 32 done in 16.62s. Train loss: 0.108. Valid loss: 0.345. Micro F1: 0.918. Macro f1: 0.662
+Eval (elapsed = 16.61s)
+Epoch 33 done in 16.61s. Train loss: 0.105. Valid loss: 0.353. Micro F1: 0.919. Macro f1: 0.675
+Eval (elapsed = 16.66s)
+Epoch 34 done in 16.66s. Train loss: 0.103. Valid loss: 0.366. Micro F1: 0.915. Macro f1: 0.665
+Eval (elapsed = 16.63s)
+Epoch 35 done in 16.63s. Train loss: 0.105. Valid loss: 0.364. Micro F1: 0.916. Macro f1: 0.679
+Eval (elapsed = 16.63s)
+Epoch 36 done in 16.63s. Train loss: 0.106. Valid loss: 0.359. Micro F1: 0.916. Macro f1: 0.671
+Eval (elapsed = 16.61s)
+Epoch 37 done in 16.61s. Train loss: 0.107. Valid loss: 0.362. Micro F1: 0.920. Macro f1: 0.675
+Eval (elapsed = 16.59s)
+Epoch 38 done in 16.59s. Train loss: 0.106. Valid loss: 0.365. Micro F1: 0.917. Macro f1: 0.663
+Eval (elapsed = 16.59s)
+Epoch 39 done in 16.59s. Train loss: 0.106. Valid loss: 0.361. Micro F1: 0.915. Macro f1: 0.656
+Best Macro f1: 0.6879345647878872 in epoch 26 (micro here was 0.9191046880507578)
+Training sentences-level, character-summing-feature bilstm-no-testset for SS
+Eval (elapsed = 16.59s)
+Epoch 0 done in 16.59s. Train loss: 0.611. Valid loss: 0.332. Micro F1: 0.872. Macro f1: 0.520
+Eval (elapsed = 16.61s)
+Epoch 1 done in 16.61s. Train loss: 0.328. Valid loss: 0.288. Micro F1: 0.890. Macro f1: 0.585
+Eval (elapsed = 16.62s)
+Epoch 2 done in 16.62s. Train loss: 0.280. Valid loss: 0.265. Micro F1: 0.898. Macro f1: 0.594
+Eval (elapsed = 16.70s)
+Epoch 3 done in 16.70s. Train loss: 0.253. Valid loss: 0.272. Micro F1: 0.898. Macro f1: 0.613
+Eval (elapsed = 16.60s)
+Epoch 4 done in 16.60s. Train loss: 0.233. Valid loss: 0.252. Micro F1: 0.905. Macro f1: 0.616
+Eval (elapsed = 16.60s)
+Epoch 5 done in 16.60s. Train loss: 0.218. Valid loss: 0.251. Micro F1: 0.908. Macro f1: 0.631
+Eval (elapsed = 16.59s)
+Epoch 6 done in 16.59s. Train loss: 0.201. Valid loss: 0.249. Micro F1: 0.911. Macro f1: 0.628
+Eval (elapsed = 16.61s)
+Epoch 7 done in 16.61s. Train loss: 0.190. Valid loss: 0.251. Micro F1: 0.907. Macro f1: 0.655
+Eval (elapsed = 16.62s)
+Epoch 8 done in 16.62s. Train loss: 0.180. Valid loss: 0.251. Micro F1: 0.914. Macro f1: 0.659
+Eval (elapsed = 16.64s)
+Epoch 9 done in 16.64s. Train loss: 0.170. Valid loss: 0.255. Micro F1: 0.912. Macro f1: 0.660
+Eval (elapsed = 16.64s)
+Epoch 10 done in 16.64s. Train loss: 0.161. Valid loss: 0.256. Micro F1: 0.914. Macro f1: 0.642
+Eval (elapsed = 16.59s)
+Epoch 11 done in 16.59s. Train loss: 0.154. Valid loss: 0.270. Micro F1: 0.914. Macro f1: 0.647
+Eval (elapsed = 16.59s)
+Epoch 12 done in 16.59s. Train loss: 0.147. Valid loss: 0.275. Micro F1: 0.916. Macro f1: 0.662
+Eval (elapsed = 16.59s)
+Epoch 13 done in 16.59s. Train loss: 0.141. Valid loss: 0.271. Micro F1: 0.918. Macro f1: 0.660
+Eval (elapsed = 16.61s)
+Epoch 14 done in 16.61s. Train loss: 0.138. Valid loss: 0.277. Micro F1: 0.914. Macro f1: 0.648
+Eval (elapsed = 16.61s)
+Epoch 15 done in 16.61s. Train loss: 0.132. Valid loss: 0.278. Micro F1: 0.915. Macro f1: 0.661
+Eval (elapsed = 16.60s)
+Epoch 16 done in 16.60s. Train loss: 0.130. Valid loss: 0.271. Micro F1: 0.915. Macro f1: 0.648
+Eval (elapsed = 16.60s)
+Epoch 17 done in 16.60s. Train loss: 0.120. Valid loss: 0.290. Micro F1: 0.916. Macro f1: 0.645
+Eval (elapsed = 16.59s)
+Epoch 18 done in 16.59s. Train loss: 0.122. Valid loss: 0.281. Micro F1: 0.919. Macro f1: 0.664
+Eval (elapsed = 16.59s)
+Epoch 19 done in 16.59s. Train loss: 0.115. Valid loss: 0.287. Micro F1: 0.918. Macro f1: 0.675
+Eval (elapsed = 16.61s)
+Epoch 20 done in 16.61s. Train loss: 0.114. Valid loss: 0.299. Micro F1: 0.917. Macro f1: 0.668
+Eval (elapsed = 16.62s)
+Epoch 21 done in 16.62s. Train loss: 0.111. Valid loss: 0.304. Micro F1: 0.918. Macro f1: 0.650
+Eval (elapsed = 16.61s)
+Epoch 22 done in 16.61s. Train loss: 0.109. Valid loss: 0.314. Micro F1: 0.917. Macro f1: 0.675
+Eval (elapsed = 16.60s)
+Epoch 23 done in 16.60s. Train loss: 0.109. Valid loss: 0.310. Micro F1: 0.919. Macro f1: 0.660
+Eval (elapsed = 16.60s)
+Epoch 24 done in 16.60s. Train loss: 0.106. Valid loss: 0.309. Micro F1: 0.917. Macro f1: 0.672
+Eval (elapsed = 16.61s)
+Epoch 25 done in 16.61s. Train loss: 0.107. Valid loss: 0.310. Micro F1: 0.914. Macro f1: 0.652
+Eval (elapsed = 16.60s)
+Epoch 26 done in 16.60s. Train loss: 0.106. Valid loss: 0.332. Micro F1: 0.916. Macro f1: 0.661
+Eval (elapsed = 16.76s)
+Epoch 27 done in 16.76s. Train loss: 0.107. Valid loss: 0.316. Micro F1: 0.916. Macro f1: 0.666
+Eval (elapsed = 16.63s)
+Epoch 28 done in 16.63s. Train loss: 0.106. Valid loss: 0.323. Micro F1: 0.918. Macro f1: 0.668
+Eval (elapsed = 16.65s)
+Epoch 29 done in 16.65s. Train loss: 0.100. Valid loss: 0.333. Micro F1: 0.918. Macro f1: 0.662
+Eval (elapsed = 16.60s)
+Epoch 30 done in 16.60s. Train loss: 0.101. Valid loss: 0.330. Micro F1: 0.918. Macro f1: 0.661
+Eval (elapsed = 16.60s)
+Epoch 31 done in 16.60s. Train loss: 0.101. Valid loss: 0.347. Micro F1: 0.918. Macro f1: 0.675
+Eval (elapsed = 16.60s)
+Epoch 32 done in 16.60s. Train loss: 0.102. Valid loss: 0.339. Micro F1: 0.920. Macro f1: 0.670
+Eval (elapsed = 16.62s)
+Epoch 33 done in 16.62s. Train loss: 0.100. Valid loss: 0.330. Micro F1: 0.920. Macro f1: 0.672
+Eval (elapsed = 16.65s)
+Epoch 34 done in 16.65s. Train loss: 0.102. Valid loss: 0.332. Micro F1: 0.916. Macro f1: 0.659
+Eval (elapsed = 16.64s)
+Epoch 35 done in 16.64s. Train loss: 0.104. Valid loss: 0.330. Micro F1: 0.918. Macro f1: 0.664
+Eval (elapsed = 16.63s)
+Epoch 36 done in 16.63s. Train loss: 0.103. Valid loss: 0.355. Micro F1: 0.917. Macro f1: 0.672
+Eval (elapsed = 16.62s)
+Epoch 37 done in 16.62s. Train loss: 0.105. Valid loss: 0.350. Micro F1: 0.920. Macro f1: 0.669
+Eval (elapsed = 16.62s)
+Epoch 38 done in 16.62s. Train loss: 0.101. Valid loss: 0.360. Micro F1: 0.920. Macro f1: 0.685
+Eval (elapsed = 16.64s)
+Epoch 39 done in 16.64s. Train loss: 0.102. Valid loss: 0.355. Micro F1: 0.917. Macro f1: 0.664
+Best Macro f1: 0.6848251455135158 in epoch 38 (micro here was 0.9202502643637646)
+Training sentences-level, character-summing-feature bilstm-no-testset for SS
+Eval (elapsed = 16.64s)
+Epoch 0 done in 16.64s. Train loss: 0.575. Valid loss: 0.341. Micro F1: 0.875. Macro f1: 0.513
+Eval (elapsed = 16.65s)
+Epoch 1 done in 16.65s. Train loss: 0.315. Valid loss: 0.299. Micro F1: 0.889. Macro f1: 0.553
+Eval (elapsed = 16.64s)
+Epoch 2 done in 16.64s. Train loss: 0.272. Valid loss: 0.273. Micro F1: 0.895. Macro f1: 0.597
+Eval (elapsed = 16.67s)
+Epoch 3 done in 16.67s. Train loss: 0.244. Valid loss: 0.265. Micro F1: 0.899. Macro f1: 0.610
+Eval (elapsed = 16.65s)
+Epoch 4 done in 16.65s. Train loss: 0.224. Valid loss: 0.255. Micro F1: 0.904. Macro f1: 0.619
+Eval (elapsed = 16.65s)
+Epoch 5 done in 16.65s. Train loss: 0.208. Valid loss: 0.259. Micro F1: 0.911. Macro f1: 0.638
+Eval (elapsed = 16.66s)
+Epoch 6 done in 16.66s. Train loss: 0.194. Valid loss: 0.259. Micro F1: 0.914. Macro f1: 0.657
+Eval (elapsed = 16.67s)
+Epoch 7 done in 16.67s. Train loss: 0.183. Valid loss: 0.260. Micro F1: 0.912. Macro f1: 0.640
+Eval (elapsed = 16.67s)
+Epoch 8 done in 16.67s. Train loss: 0.173. Valid loss: 0.268. Micro F1: 0.914. Macro f1: 0.645
+Eval (elapsed = 16.68s)
+Epoch 9 done in 16.68s. Train loss: 0.164. Valid loss: 0.263. Micro F1: 0.913. Macro f1: 0.663
+Eval (elapsed = 16.67s)
+Epoch 10 done in 16.67s. Train loss: 0.157. Valid loss: 0.269. Micro F1: 0.912. Macro f1: 0.657
+Eval (elapsed = 16.68s)
+Epoch 11 done in 16.68s. Train loss: 0.149. Valid loss: 0.284. Micro F1: 0.915. Macro f1: 0.646
+Eval (elapsed = 16.68s)
+Epoch 12 done in 16.68s. Train loss: 0.144. Valid loss: 0.266. Micro F1: 0.918. Macro f1: 0.670
+Eval (elapsed = 16.69s)
+Epoch 13 done in 16.69s. Train loss: 0.135. Valid loss: 0.274. Micro F1: 0.917. Macro f1: 0.668
+Eval (elapsed = 16.68s)
+Epoch 14 done in 16.68s. Train loss: 0.133. Valid loss: 0.282. Micro F1: 0.919. Macro f1: 0.686
+Eval (elapsed = 16.67s)
+Epoch 15 done in 16.67s. Train loss: 0.130. Valid loss: 0.282. Micro F1: 0.916. Macro f1: 0.664
+Eval (elapsed = 16.68s)
+Epoch 16 done in 16.68s. Train loss: 0.126. Valid loss: 0.289. Micro F1: 0.918. Macro f1: 0.644
+Eval (elapsed = 16.67s)
+Epoch 17 done in 16.67s. Train loss: 0.122. Valid loss: 0.294. Micro F1: 0.917. Macro f1: 0.661
+Eval (elapsed = 16.67s)
+Epoch 18 done in 16.67s. Train loss: 0.121. Valid loss: 0.301. Micro F1: 0.915. Macro f1: 0.654
+Eval (elapsed = 16.68s)
+Epoch 19 done in 16.68s. Train loss: 0.119. Valid loss: 0.299. Micro F1: 0.917. Macro f1: 0.658
+Eval (elapsed = 16.66s)
+Epoch 20 done in 16.66s. Train loss: 0.118. Valid loss: 0.297. Micro F1: 0.917. Macro f1: 0.649
+Eval (elapsed = 16.59s)
+Epoch 21 done in 16.59s. Train loss: 0.114. Valid loss: 0.319. Micro F1: 0.915. Macro f1: 0.670
+Eval (elapsed = 16.59s)
+Epoch 22 done in 16.59s. Train loss: 0.114. Valid loss: 0.307. Micro F1: 0.917. Macro f1: 0.659
+Eval (elapsed = 16.59s)
+Epoch 23 done in 16.59s. Train loss: 0.112. Valid loss: 0.311. Micro F1: 0.917. Macro f1: 0.672
+Eval (elapsed = 16.58s)
+Epoch 24 done in 16.58s. Train loss: 0.111. Valid loss: 0.315. Micro F1: 0.919. Macro f1: 0.670
+Eval (elapsed = 16.58s)
+Epoch 25 done in 16.58s. Train loss: 0.113. Valid loss: 0.317. Micro F1: 0.918. Macro f1: 0.657
+Eval (elapsed = 16.60s)
+Epoch 26 done in 16.60s. Train loss: 0.110. Valid loss: 0.321. Micro F1: 0.915. Macro f1: 0.656
+Eval (elapsed = 16.61s)
+Epoch 27 done in 16.61s. Train loss: 0.112. Valid loss: 0.324. Micro F1: 0.918. Macro f1: 0.650
+Eval (elapsed = 16.61s)
+Epoch 28 done in 16.61s. Train loss: 0.110. Valid loss: 0.333. Micro F1: 0.915. Macro f1: 0.661
+Eval (elapsed = 16.60s)
+Epoch 29 done in 16.60s. Train loss: 0.108. Valid loss: 0.344. Micro F1: 0.916. Macro f1: 0.653
+Eval (elapsed = 16.59s)
+Epoch 30 done in 16.59s. Train loss: 0.111. Valid loss: 0.338. Micro F1: 0.918. Macro f1: 0.675
+Eval (elapsed = 16.58s)
+Epoch 31 done in 16.58s. Train loss: 0.112. Valid loss: 0.344. Micro F1: 0.919. Macro f1: 0.655
+Eval (elapsed = 16.59s)
+Epoch 32 done in 16.59s. Train loss: 0.109. Valid loss: 0.330. Micro F1: 0.918. Macro f1: 0.659
+Eval (elapsed = 16.60s)
+Epoch 33 done in 16.60s. Train loss: 0.112. Valid loss: 0.336. Micro F1: 0.917. Macro f1: 0.660
+Eval (elapsed = 16.61s)
+Epoch 34 done in 16.61s. Train loss: 0.112. Valid loss: 0.337. Micro F1: 0.914. Macro f1: 0.673
+Eval (elapsed = 16.60s)
+Epoch 35 done in 16.60s. Train loss: 0.113. Valid loss: 0.341. Micro F1: 0.918. Macro f1: 0.668
+Eval (elapsed = 16.62s)
+Epoch 36 done in 16.62s. Train loss: 0.110. Valid loss: 0.347. Micro F1: 0.919. Macro f1: 0.669
+Eval (elapsed = 16.59s)
+Epoch 37 done in 16.59s. Train loss: 0.110. Valid loss: 0.346. Micro F1: 0.920. Macro f1: 0.676
+Eval (elapsed = 16.59s)
+Epoch 38 done in 16.59s. Train loss: 0.112. Valid loss: 0.352. Micro F1: 0.917. Macro f1: 0.665
+Eval (elapsed = 16.59s)
+Epoch 39 done in 16.59s. Train loss: 0.112. Valid loss: 0.356. Micro F1: 0.919. Macro f1: 0.654
+Best Macro f1: 0.6856410804992641 in epoch 14 (micro here was 0.9188403242862179)
+Training sentences-level, character-summing-feature bilstm-no-testset for SS
+Eval (elapsed = 16.61s)
+Epoch 0 done in 16.61s. Train loss: 0.565. Valid loss: 0.319. Micro F1: 0.874. Macro f1: 0.530
+Eval (elapsed = 16.62s)
+Epoch 1 done in 16.62s. Train loss: 0.312. Valid loss: 0.270. Micro F1: 0.896. Macro f1: 0.587
+Eval (elapsed = 16.60s)
+Epoch 2 done in 16.60s. Train loss: 0.269. Valid loss: 0.267. Micro F1: 0.899. Macro f1: 0.614
+Eval (elapsed = 16.60s)
+Epoch 3 done in 16.60s. Train loss: 0.246. Valid loss: 0.262. Micro F1: 0.903. Macro f1: 0.608
+Eval (elapsed = 16.59s)
+Epoch 4 done in 16.59s. Train loss: 0.223. Valid loss: 0.251. Micro F1: 0.907. Macro f1: 0.629
+Eval (elapsed = 16.59s)
+Epoch 5 done in 16.59s. Train loss: 0.209. Valid loss: 0.253. Micro F1: 0.906. Macro f1: 0.624
+Eval (elapsed = 16.58s)
+Epoch 6 done in 16.58s. Train loss: 0.193. Valid loss: 0.257. Micro F1: 0.905. Macro f1: 0.633
+Eval (elapsed = 16.62s)
+Epoch 7 done in 16.62s. Train loss: 0.182. Valid loss: 0.263. Micro F1: 0.912. Macro f1: 0.646
+Eval (elapsed = 16.61s)
+Epoch 8 done in 16.61s. Train loss: 0.174. Valid loss: 0.267. Micro F1: 0.911. Macro f1: 0.634
+Eval (elapsed = 16.59s)
+Epoch 9 done in 16.59s. Train loss: 0.163. Valid loss: 0.259. Micro F1: 0.910. Macro f1: 0.646
+Eval (elapsed = 16.59s)
+Epoch 10 done in 16.59s. Train loss: 0.158. Valid loss: 0.261. Micro F1: 0.912. Macro f1: 0.666
+Eval (elapsed = 16.54s)
+Epoch 11 done in 16.54s. Train loss: 0.150. Valid loss: 0.273. Micro F1: 0.914. Macro f1: 0.652
+Eval (elapsed = 16.60s)
+Epoch 12 done in 16.60s. Train loss: 0.144. Valid loss: 0.264. Micro F1: 0.915. Macro f1: 0.678
+Eval (elapsed = 16.66s)
+Epoch 13 done in 16.66s. Train loss: 0.140. Valid loss: 0.282. Micro F1: 0.915. Macro f1: 0.670
+Eval (elapsed = 16.63s)
+Epoch 14 done in 16.63s. Train loss: 0.134. Valid loss: 0.279. Micro F1: 0.917. Macro f1: 0.661
+Eval (elapsed = 16.62s)
+Epoch 15 done in 16.62s. Train loss: 0.130. Valid loss: 0.276. Micro F1: 0.917. Macro f1: 0.653
+Eval (elapsed = 16.64s)
+Epoch 16 done in 16.64s. Train loss: 0.130. Valid loss: 0.288. Micro F1: 0.917. Macro f1: 0.661
+Eval (elapsed = 16.61s)
+Epoch 17 done in 16.61s. Train loss: 0.126. Valid loss: 0.275. Micro F1: 0.918. Macro f1: 0.671
+Eval (elapsed = 16.60s)
+Epoch 18 done in 16.60s. Train loss: 0.126. Valid loss: 0.294. Micro F1: 0.916. Macro f1: 0.666
+Eval (elapsed = 16.61s)
+Epoch 19 done in 16.61s. Train loss: 0.122. Valid loss: 0.300. Micro F1: 0.919. Macro f1: 0.679
+Eval (elapsed = 16.65s)
+Epoch 20 done in 16.65s. Train loss: 0.121. Valid loss: 0.300. Micro F1: 0.916. Macro f1: 0.674
+Eval (elapsed = 16.63s)
+Epoch 21 done in 16.63s. Train loss: 0.117. Valid loss: 0.310. Micro F1: 0.916. Macro f1: 0.678
+Eval (elapsed = 16.63s)
+Epoch 22 done in 16.63s. Train loss: 0.120. Valid loss: 0.307. Micro F1: 0.920. Macro f1: 0.670
+Eval (elapsed = 16.60s)
+Epoch 23 done in 16.60s. Train loss: 0.117. Valid loss: 0.306. Micro F1: 0.918. Macro f1: 0.677
+Eval (elapsed = 16.60s)
+Epoch 24 done in 16.60s. Train loss: 0.118. Valid loss: 0.306. Micro F1: 0.917. Macro f1: 0.664
+Eval (elapsed = 16.60s)
+Epoch 25 done in 16.60s. Train loss: 0.116. Valid loss: 0.320. Micro F1: 0.917. Macro f1: 0.666
+Eval (elapsed = 16.62s)
+Epoch 26 done in 16.62s. Train loss: 0.115. Valid loss: 0.317. Micro F1: 0.915. Macro f1: 0.664
+Eval (elapsed = 16.63s)
+Epoch 27 done in 16.63s. Train loss: 0.113. Valid loss: 0.314. Micro F1: 0.919. Macro f1: 0.672
+Eval (elapsed = 16.62s)
+Epoch 28 done in 16.62s. Train loss: 0.113. Valid loss: 0.318. Micro F1: 0.920. Macro f1: 0.676
+Eval (elapsed = 16.61s)
+Epoch 29 done in 16.61s. Train loss: 0.116. Valid loss: 0.338. Micro F1: 0.914. Macro f1: 0.667
+Eval (elapsed = 16.68s)
+Epoch 30 done in 16.68s. Train loss: 0.114. Valid loss: 0.328. Micro F1: 0.920. Macro f1: 0.673
+Eval (elapsed = 16.66s)
+Epoch 31 done in 16.66s. Train loss: 0.113. Valid loss: 0.338. Micro F1: 0.918. Macro f1: 0.660
+Eval (elapsed = 16.68s)
+Epoch 32 done in 16.68s. Train loss: 0.114. Valid loss: 0.344. Micro F1: 0.918. Macro f1: 0.661
+Eval (elapsed = 16.63s)
+Epoch 33 done in 16.63s. Train loss: 0.114. Valid loss: 0.344. Micro F1: 0.918. Macro f1: 0.657
+Eval (elapsed = 16.65s)
+Epoch 34 done in 16.65s. Train loss: 0.116. Valid loss: 0.340. Micro F1: 0.918. Macro f1: 0.666
+Eval (elapsed = 16.60s)
+Epoch 35 done in 16.60s. Train loss: 0.118. Valid loss: 0.342. Micro F1: 0.916. Macro f1: 0.670
+Eval (elapsed = 16.56s)
+Epoch 36 done in 16.56s. Train loss: 0.117. Valid loss: 0.336. Micro F1: 0.919. Macro f1: 0.669
+Eval (elapsed = 16.57s)
+Epoch 37 done in 16.57s. Train loss: 0.116. Valid loss: 0.343. Micro F1: 0.917. Macro f1: 0.659
+Eval (elapsed = 16.58s)
+Epoch 38 done in 16.58s. Train loss: 0.120. Valid loss: 0.358. Micro F1: 0.917. Macro f1: 0.653
+Eval (elapsed = 16.57s)
+Epoch 39 done in 16.57s. Train loss: 0.118. Valid loss: 0.352. Micro F1: 0.918. Macro f1: 0.676
+Best Macro f1: 0.6788125374484613 in epoch 19 (micro here was 0.9191928093056045)
+Training sentences-level, character-summing-feature bilstm-no-testset for SS
+Eval (elapsed = 16.55s)
+Epoch 0 done in 16.55s. Train loss: 0.642. Valid loss: 0.351. Micro F1: 0.864. Macro f1: 0.509
+Eval (elapsed = 16.60s)
+Epoch 1 done in 16.60s. Train loss: 0.327. Valid loss: 0.282. Micro F1: 0.888. Macro f1: 0.549
+Eval (elapsed = 16.59s)
+Epoch 2 done in 16.59s. Train loss: 0.286. Valid loss: 0.268. Micro F1: 0.896. Macro f1: 0.600
+Eval (elapsed = 16.60s)
+Epoch 3 done in 16.60s. Train loss: 0.259. Valid loss: 0.259. Micro F1: 0.898. Macro f1: 0.610
+Eval (elapsed = 16.59s)
+Epoch 4 done in 16.59s. Train loss: 0.238. Valid loss: 0.257. Micro F1: 0.902. Macro f1: 0.626
+Eval (elapsed = 16.59s)
+Epoch 5 done in 16.59s. Train loss: 0.224. Valid loss: 0.264. Micro F1: 0.906. Macro f1: 0.621
+Eval (elapsed = 16.62s)
+Epoch 6 done in 16.62s. Train loss: 0.209. Valid loss: 0.268. Micro F1: 0.909. Macro f1: 0.620
+Eval (elapsed = 16.57s)
+Epoch 7 done in 16.57s. Train loss: 0.198. Valid loss: 0.262. Micro F1: 0.910. Macro f1: 0.639
+Eval (elapsed = 16.56s)
+Epoch 8 done in 16.56s. Train loss: 0.188. Valid loss: 0.284. Micro F1: 0.905. Macro f1: 0.638
+Eval (elapsed = 16.57s)
+Epoch 9 done in 16.57s. Train loss: 0.176. Valid loss: 0.278. Micro F1: 0.915. Macro f1: 0.666
+Eval (elapsed = 16.57s)
+Epoch 10 done in 16.57s. Train loss: 0.168. Valid loss: 0.276. Micro F1: 0.914. Macro f1: 0.657
+Eval (elapsed = 16.64s)
+Epoch 11 done in 16.64s. Train loss: 0.160. Valid loss: 0.278. Micro F1: 0.915. Macro f1: 0.666
+Eval (elapsed = 16.65s)
+Epoch 12 done in 16.65s. Train loss: 0.153. Valid loss: 0.278. Micro F1: 0.915. Macro f1: 0.654
+Eval (elapsed = 16.69s)
+Epoch 13 done in 16.69s. Train loss: 0.147. Valid loss: 0.288. Micro F1: 0.910. Macro f1: 0.633
+Eval (elapsed = 16.68s)
+Epoch 14 done in 16.68s. Train loss: 0.141. Valid loss: 0.316. Micro F1: 0.915. Macro f1: 0.644
+Eval (elapsed = 16.73s)
+Epoch 15 done in 16.73s. Train loss: 0.137. Valid loss: 0.309. Micro F1: 0.914. Macro f1: 0.643
+Eval (elapsed = 16.65s)
+Epoch 16 done in 16.65s. Train loss: 0.134. Valid loss: 0.308. Micro F1: 0.914. Macro f1: 0.646
+Eval (elapsed = 16.63s)
+Epoch 17 done in 16.63s. Train loss: 0.126. Valid loss: 0.309. Micro F1: 0.915. Macro f1: 0.657
+Eval (elapsed = 16.63s)
+Epoch 18 done in 16.63s. Train loss: 0.122. Valid loss: 0.329. Micro F1: 0.916. Macro f1: 0.648
+Eval (elapsed = 16.64s)
+Epoch 19 done in 16.64s. Train loss: 0.124. Valid loss: 0.320. Micro F1: 0.919. Macro f1: 0.661
+Eval (elapsed = 16.63s)
+Epoch 20 done in 16.63s. Train loss: 0.119. Valid loss: 0.335. Micro F1: 0.917. Macro f1: 0.661
+Eval (elapsed = 16.62s)
+Epoch 21 done in 16.62s. Train loss: 0.117. Valid loss: 0.292. Micro F1: 0.917. Macro f1: 0.639
+Eval (elapsed = 16.63s)
+Epoch 22 done in 16.63s. Train loss: 0.113. Valid loss: 0.303. Micro F1: 0.918. Macro f1: 0.659
+Eval (elapsed = 16.62s)
+Epoch 23 done in 16.62s. Train loss: 0.112. Valid loss: 0.307. Micro F1: 0.916. Macro f1: 0.651
+Eval (elapsed = 16.57s)
+Epoch 24 done in 16.57s. Train loss: 0.107. Valid loss: 0.330. Micro F1: 0.917. Macro f1: 0.659
+Eval (elapsed = 16.58s)
+Epoch 25 done in 16.58s. Train loss: 0.110. Valid loss: 0.341. Micro F1: 0.920. Macro f1: 0.658
+Eval (elapsed = 16.64s)
+Epoch 26 done in 16.64s. Train loss: 0.107. Valid loss: 0.335. Micro F1: 0.917. Macro f1: 0.665
+Eval (elapsed = 16.65s)
+Epoch 27 done in 16.65s. Train loss: 0.106. Valid loss: 0.347. Micro F1: 0.918. Macro f1: 0.650
+Eval (elapsed = 16.64s)
+Epoch 28 done in 16.64s. Train loss: 0.106. Valid loss: 0.367. Micro F1: 0.915. Macro f1: 0.665
+Eval (elapsed = 16.64s)
+Epoch 29 done in 16.64s. Train loss: 0.103. Valid loss: 0.367. Micro F1: 0.916. Macro f1: 0.651
+Eval (elapsed = 16.58s)
+Epoch 30 done in 16.58s. Train loss: 0.103. Valid loss: 0.330. Micro F1: 0.918. Macro f1: 0.668
+Eval (elapsed = 16.57s)
+Epoch 31 done in 16.57s. Train loss: 0.105. Valid loss: 0.333. Micro F1: 0.918. Macro f1: 0.662
+Eval (elapsed = 16.57s)
+Epoch 32 done in 16.57s. Train loss: 0.102. Valid loss: 0.335. Micro F1: 0.918. Macro f1: 0.661
+Eval (elapsed = 16.60s)
+Epoch 33 done in 16.60s. Train loss: 0.102. Valid loss: 0.343. Micro F1: 0.917. Macro f1: 0.655
+Eval (elapsed = 16.60s)
+Epoch 34 done in 16.60s. Train loss: 0.098. Valid loss: 0.343. Micro F1: 0.920. Macro f1: 0.659
+Eval (elapsed = 16.60s)
+Epoch 35 done in 16.60s. Train loss: 0.100. Valid loss: 0.339. Micro F1: 0.920. Macro f1: 0.683
+Eval (elapsed = 16.58s)
+Epoch 36 done in 16.58s. Train loss: 0.098. Valid loss: 0.352. Micro F1: 0.922. Macro f1: 0.670
+Eval (elapsed = 16.57s)
+Epoch 37 done in 16.57s. Train loss: 0.103. Valid loss: 0.381. Micro F1: 0.916. Macro f1: 0.659
+Eval (elapsed = 16.58s)
+Epoch 38 done in 16.58s. Train loss: 0.099. Valid loss: 0.353. Micro F1: 0.921. Macro f1: 0.669
+Eval (elapsed = 16.65s)
+Epoch 39 done in 16.65s. Train loss: 0.098. Valid loss: 0.374. Micro F1: 0.917. Macro f1: 0.659
+Best Macro f1: 0.6827552544026236 in epoch 35 (micro here was 0.9204265068734578)
+SS mean macro across 5 seeds: 0.6839937165303503
+SS best macro across 5 seeds: 0.6879345647878872
+SS mean micro across 5 seeds: 0.9195629185759605
+Tag EnumConc2 not found in trainset!
+1.2987012987012987% submorphemes not found in train!
+train, test len: 2589 287
+Training sentences-level, character-summing-feature bilstm-no-testset for NR
+Eval (elapsed = 17.59s)
+Epoch 0 done in 17.59s. Train loss: 0.613. Valid loss: 0.336. Micro F1: 0.878. Macro f1: 0.534
+Saving model because best macro 0.5343887117993317 >= best ever 0.0
+Eval (elapsed = 17.53s)
+Epoch 1 done in 17.53s. Train loss: 0.326. Valid loss: 0.295. Micro F1: 0.893. Macro f1: 0.601
+Saving model because best macro 0.6010963056549943 >= best ever 0.0
+Eval (elapsed = 17.56s)
+Epoch 2 done in 17.56s. Train loss: 0.280. Valid loss: 0.290. Micro F1: 0.892. Macro f1: 0.611
+Saving model because best macro 0.6110625538134598 >= best ever 0.0
+Eval (elapsed = 17.61s)
+Epoch 3 done in 17.61s. Train loss: 0.251. Valid loss: 0.278. Micro F1: 0.898. Macro f1: 0.625
+Saving model because best macro 0.6253919954638997 >= best ever 0.0
+Eval (elapsed = 17.62s)
+Epoch 4 done in 17.62s. Train loss: 0.232. Valid loss: 0.266. Micro F1: 0.905. Macro f1: 0.634
+Saving model because best macro 0.6343149232988723 >= best ever 0.0
+Eval (elapsed = 17.63s)
+Epoch 5 done in 17.63s. Train loss: 0.213. Valid loss: 0.266. Micro F1: 0.909. Macro f1: 0.641
+Saving model because best macro 0.6408664363119307 >= best ever 0.0
+Eval (elapsed = 17.61s)
+Epoch 6 done in 17.62s. Train loss: 0.203. Valid loss: 0.270. Micro F1: 0.908. Macro f1: 0.652
+Saving model because best macro 0.652310957128141 >= best ever 0.0
+Eval (elapsed = 17.61s)
+Epoch 7 done in 17.61s. Train loss: 0.187. Valid loss: 0.271. Micro F1: 0.910. Macro f1: 0.653
+Saving model because best macro 0.6532088230649777 >= best ever 0.0
+Eval (elapsed = 17.59s)
+Epoch 8 done in 17.59s. Train loss: 0.179. Valid loss: 0.277. Micro F1: 0.910. Macro f1: 0.657
+Saving model because best macro 0.6570640675826308 >= best ever 0.0
+Eval (elapsed = 17.59s)
+Epoch 9 done in 17.59s. Train loss: 0.172. Valid loss: 0.278. Micro F1: 0.914. Macro f1: 0.661
+Saving model because best macro 0.6612729329229965 >= best ever 0.0
+Eval (elapsed = 17.50s)
+Epoch 10 done in 17.50s. Train loss: 0.161. Valid loss: 0.288. Micro F1: 0.913. Macro f1: 0.666
+Saving model because best macro 0.6660296826597568 >= best ever 0.0
+Eval (elapsed = 17.50s)
+Epoch 11 done in 17.50s. Train loss: 0.155. Valid loss: 0.280. Micro F1: 0.916. Macro f1: 0.672
+Saving model because best macro 0.67249166936192 >= best ever 0.0
+Eval (elapsed = 17.59s)
+Epoch 12 done in 17.59s. Train loss: 0.148. Valid loss: 0.280. Micro F1: 0.913. Macro f1: 0.663
+Eval (elapsed = 17.59s)
+Epoch 13 done in 17.59s. Train loss: 0.143. Valid loss: 0.289. Micro F1: 0.915. Macro f1: 0.679
+Saving model because best macro 0.6792323117439428 >= best ever 0.0
+Eval (elapsed = 17.59s)
+Epoch 14 done in 17.59s. Train loss: 0.139. Valid loss: 0.294. Micro F1: 0.913. Macro f1: 0.682
+Saving model because best macro 0.6822904903395266 >= best ever 0.0
+Eval (elapsed = 17.60s)
+Epoch 15 done in 17.60s. Train loss: 0.137. Valid loss: 0.304. Micro F1: 0.915. Macro f1: 0.693
+Saving model because best macro 0.6931727594199617 >= best ever 0.0
+Eval (elapsed = 17.58s)
+Epoch 16 done in 17.58s. Train loss: 0.131. Valid loss: 0.300. Micro F1: 0.914. Macro f1: 0.684
+Eval (elapsed = 17.58s)
+Epoch 17 done in 17.58s. Train loss: 0.124. Valid loss: 0.301. Micro F1: 0.917. Macro f1: 0.665
+Eval (elapsed = 17.57s)
+Epoch 18 done in 17.57s. Train loss: 0.124. Valid loss: 0.316. Micro F1: 0.918. Macro f1: 0.681
+Eval (elapsed = 17.57s)
+Epoch 19 done in 17.57s. Train loss: 0.121. Valid loss: 0.332. Micro F1: 0.915. Macro f1: 0.687
+Eval (elapsed = 17.56s)
+Epoch 20 done in 17.56s. Train loss: 0.118. Valid loss: 0.330. Micro F1: 0.917. Macro f1: 0.698
+Saving model because best macro 0.6980081804315369 >= best ever 0.0
+Eval (elapsed = 17.53s)
+Epoch 21 done in 17.53s. Train loss: 0.116. Valid loss: 0.340. Micro F1: 0.915. Macro f1: 0.671
+Eval (elapsed = 17.51s)
+Epoch 22 done in 17.51s. Train loss: 0.118. Valid loss: 0.338. Micro F1: 0.917. Macro f1: 0.668
+Eval (elapsed = 17.52s)
+Epoch 23 done in 17.52s. Train loss: 0.113. Valid loss: 0.361. Micro F1: 0.913. Macro f1: 0.673
+Eval (elapsed = 17.54s)
+Epoch 24 done in 17.54s. Train loss: 0.112. Valid loss: 0.339. Micro F1: 0.916. Macro f1: 0.695
+Eval (elapsed = 17.56s)
+Epoch 25 done in 17.56s. Train loss: 0.112. Valid loss: 0.354. Micro F1: 0.917. Macro f1: 0.687
+Eval (elapsed = 17.58s)
+Epoch 26 done in 17.58s. Train loss: 0.113. Valid loss: 0.366. Micro F1: 0.916. Macro f1: 0.682
+Eval (elapsed = 17.56s)
+Epoch 27 done in 17.56s. Train loss: 0.112. Valid loss: 0.357. Micro F1: 0.916. Macro f1: 0.679
+Eval (elapsed = 17.55s)
+Epoch 28 done in 17.55s. Train loss: 0.108. Valid loss: 0.365. Micro F1: 0.914. Macro f1: 0.690
+Eval (elapsed = 17.54s)
+Epoch 29 done in 17.54s. Train loss: 0.110. Valid loss: 0.363. Micro F1: 0.914. Macro f1: 0.679
+Eval (elapsed = 17.57s)
+Epoch 30 done in 17.57s. Train loss: 0.107. Valid loss: 0.363. Micro F1: 0.917. Macro f1: 0.687
+Eval (elapsed = 17.58s)
+Epoch 31 done in 17.58s. Train loss: 0.109. Valid loss: 0.376. Micro F1: 0.918. Macro f1: 0.681
+Eval (elapsed = 17.56s)
+Epoch 32 done in 17.56s. Train loss: 0.111. Valid loss: 0.373. Micro F1: 0.916. Macro f1: 0.683
+Eval (elapsed = 17.54s)
+Epoch 33 done in 17.54s. Train loss: 0.107. Valid loss: 0.372. Micro F1: 0.916. Macro f1: 0.692
+Eval (elapsed = 17.55s)
+Epoch 34 done in 17.55s. Train loss: 0.107. Valid loss: 0.387. Micro F1: 0.916. Macro f1: 0.685
+Eval (elapsed = 17.54s)
+Epoch 35 done in 17.54s. Train loss: 0.107. Valid loss: 0.368. Micro F1: 0.916. Macro f1: 0.687
+Eval (elapsed = 17.53s)
+Epoch 36 done in 17.53s. Train loss: 0.107. Valid loss: 0.388. Micro F1: 0.914. Macro f1: 0.695
+Eval (elapsed = 17.57s)
+Epoch 37 done in 17.57s. Train loss: 0.108. Valid loss: 0.395. Micro F1: 0.913. Macro f1: 0.671
+Eval (elapsed = 17.57s)
+Epoch 38 done in 17.57s. Train loss: 0.107. Valid loss: 0.396. Micro F1: 0.912. Macro f1: 0.661
+Eval (elapsed = 17.56s)
+Epoch 39 done in 17.56s. Train loss: 0.109. Valid loss: 0.401. Micro F1: 0.913. Macro f1: 0.668
+Best Macro f1: 0.6980081804315369 in epoch 20 (micro here was 0.9168954329922635)
+Training sentences-level, character-summing-feature bilstm-no-testset for NR
+Eval (elapsed = 17.54s)
+Epoch 0 done in 17.54s. Train loss: 0.659. Valid loss: 0.347. Micro F1: 0.875. Macro f1: 0.526
+Eval (elapsed = 17.53s)
+Epoch 1 done in 17.53s. Train loss: 0.335. Valid loss: 0.317. Micro F1: 0.887. Macro f1: 0.594
+Eval (elapsed = 17.54s)
+Epoch 2 done in 17.54s. Train loss: 0.287. Valid loss: 0.275. Micro F1: 0.902. Macro f1: 0.613
+Eval (elapsed = 17.57s)
+Epoch 3 done in 17.57s. Train loss: 0.257. Valid loss: 0.272. Micro F1: 0.903. Macro f1: 0.637
+Eval (elapsed = 17.57s)
+Epoch 4 done in 17.57s. Train loss: 0.240. Valid loss: 0.276. Micro F1: 0.905. Macro f1: 0.637
+Eval (elapsed = 17.56s)
+Epoch 5 done in 17.56s. Train loss: 0.221. Valid loss: 0.269. Micro F1: 0.906. Macro f1: 0.653
+Eval (elapsed = 17.59s)
+Epoch 6 done in 17.59s. Train loss: 0.207. Valid loss: 0.266. Micro F1: 0.911. Macro f1: 0.655
+Eval (elapsed = 17.55s)
+Epoch 7 done in 17.55s. Train loss: 0.193. Valid loss: 0.270. Micro F1: 0.909. Macro f1: 0.649
+Eval (elapsed = 17.61s)
+Epoch 8 done in 17.61s. Train loss: 0.185. Valid loss: 0.268. Micro F1: 0.911. Macro f1: 0.679
+Eval (elapsed = 17.60s)
+Epoch 9 done in 17.60s. Train loss: 0.174. Valid loss: 0.284. Micro F1: 0.910. Macro f1: 0.665
+Eval (elapsed = 17.60s)
+Epoch 10 done in 17.60s. Train loss: 0.167. Valid loss: 0.276. Micro F1: 0.917. Macro f1: 0.699
+Saving model because best macro 0.6993932189367537 >= best ever 0.6980081804315369
+Eval (elapsed = 17.56s)
+Epoch 11 done in 17.56s. Train loss: 0.160. Valid loss: 0.289. Micro F1: 0.912. Macro f1: 0.662
+Eval (elapsed = 17.63s)
+Epoch 12 done in 17.63s. Train loss: 0.151. Valid loss: 0.285. Micro F1: 0.913. Macro f1: 0.673
+Eval (elapsed = 17.60s)
+Epoch 13 done in 17.60s. Train loss: 0.147. Valid loss: 0.290. Micro F1: 0.915. Macro f1: 0.673
+Eval (elapsed = 17.59s)
+Epoch 14 done in 17.59s. Train loss: 0.142. Valid loss: 0.295. Micro F1: 0.914. Macro f1: 0.681
+Eval (elapsed = 17.60s)
+Epoch 15 done in 17.60s. Train loss: 0.135. Valid loss: 0.301. Micro F1: 0.913. Macro f1: 0.707
+Saving model because best macro 0.7072188716627875 >= best ever 0.6980081804315369
+Eval (elapsed = 17.63s)
+Epoch 16 done in 17.63s. Train loss: 0.130. Valid loss: 0.301. Micro F1: 0.915. Macro f1: 0.695
+Eval (elapsed = 17.64s)
+Epoch 17 done in 17.64s. Train loss: 0.127. Valid loss: 0.305. Micro F1: 0.915. Macro f1: 0.684
+Eval (elapsed = 17.60s)
+Epoch 18 done in 17.60s. Train loss: 0.124. Valid loss: 0.308. Micro F1: 0.916. Macro f1: 0.688
+Eval (elapsed = 17.60s)
+Epoch 19 done in 17.60s. Train loss: 0.120. Valid loss: 0.326. Micro F1: 0.916. Macro f1: 0.690
+Eval (elapsed = 17.60s)
+Epoch 20 done in 17.60s. Train loss: 0.116. Valid loss: 0.334. Micro F1: 0.913. Macro f1: 0.676
+Eval (elapsed = 17.60s)
+Epoch 21 done in 17.60s. Train loss: 0.116. Valid loss: 0.338. Micro F1: 0.913. Macro f1: 0.683
+Eval (elapsed = 17.62s)
+Epoch 22 done in 17.62s. Train loss: 0.115. Valid loss: 0.334. Micro F1: 0.916. Macro f1: 0.690
+Eval (elapsed = 17.57s)
+Epoch 23 done in 17.57s. Train loss: 0.110. Valid loss: 0.337. Micro F1: 0.915. Macro f1: 0.701
+Eval (elapsed = 17.61s)
+Epoch 24 done in 17.61s. Train loss: 0.110. Valid loss: 0.346. Micro F1: 0.915. Macro f1: 0.689
+Eval (elapsed = 17.61s)
+Epoch 25 done in 17.61s. Train loss: 0.108. Valid loss: 0.369. Micro F1: 0.915. Macro f1: 0.691
+Eval (elapsed = 17.55s)
+Epoch 26 done in 17.55s. Train loss: 0.106. Valid loss: 0.357. Micro F1: 0.917. Macro f1: 0.689
+Eval (elapsed = 17.55s)
+Epoch 27 done in 17.55s. Train loss: 0.103. Valid loss: 0.370. Micro F1: 0.916. Macro f1: 0.672
+Eval (elapsed = 17.56s)
+Epoch 28 done in 17.56s. Train loss: 0.105. Valid loss: 0.358. Micro F1: 0.915. Macro f1: 0.693
+Eval (elapsed = 17.58s)
+Epoch 29 done in 17.58s. Train loss: 0.101. Valid loss: 0.377. Micro F1: 0.918. Macro f1: 0.709
+Saving model because best macro 0.7088440991697345 >= best ever 0.6980081804315369
+Eval (elapsed = 17.57s)
+Epoch 30 done in 17.57s. Train loss: 0.101. Valid loss: 0.358. Micro F1: 0.917. Macro f1: 0.682
+Eval (elapsed = 17.56s)
+Epoch 31 done in 17.56s. Train loss: 0.098. Valid loss: 0.382. Micro F1: 0.916. Macro f1: 0.682
+Eval (elapsed = 17.56s)
+Epoch 32 done in 17.56s. Train loss: 0.099. Valid loss: 0.397. Micro F1: 0.914. Macro f1: 0.684
+Eval (elapsed = 17.54s)
+Epoch 33 done in 17.54s. Train loss: 0.097. Valid loss: 0.382. Micro F1: 0.918. Macro f1: 0.710
+Saving model because best macro 0.7103873653956243 >= best ever 0.6980081804315369
+Eval (elapsed = 17.58s)
+Epoch 34 done in 17.58s. Train loss: 0.099. Valid loss: 0.393. Micro F1: 0.917. Macro f1: 0.685
+Eval (elapsed = 17.65s)
+Epoch 35 done in 17.65s. Train loss: 0.099. Valid loss: 0.384. Micro F1: 0.916. Macro f1: 0.684
+Eval (elapsed = 17.62s)
+Epoch 36 done in 17.62s. Train loss: 0.097. Valid loss: 0.386. Micro F1: 0.915. Macro f1: 0.693
+Eval (elapsed = 17.63s)
+Epoch 37 done in 17.63s. Train loss: 0.096. Valid loss: 0.391. Micro F1: 0.914. Macro f1: 0.691
+Eval (elapsed = 17.58s)
+Epoch 38 done in 17.58s. Train loss: 0.099. Valid loss: 0.403. Micro F1: 0.916. Macro f1: 0.699
+Eval (elapsed = 17.53s)
+Epoch 39 done in 17.53s. Train loss: 0.095. Valid loss: 0.410. Micro F1: 0.915. Macro f1: 0.691
+Best Macro f1: 0.7103873653956243 in epoch 33 (micro here was 0.9175609350303635)
+Training sentences-level, character-summing-feature bilstm-no-testset for NR
+Eval (elapsed = 17.52s)
+Epoch 0 done in 17.52s. Train loss: 0.615. Valid loss: 0.346. Micro F1: 0.875. Macro f1: 0.541
+Eval (elapsed = 17.56s)
+Epoch 1 done in 17.56s. Train loss: 0.322. Valid loss: 0.296. Micro F1: 0.892. Macro f1: 0.603
+Eval (elapsed = 17.64s)
+Epoch 2 done in 17.64s. Train loss: 0.276. Valid loss: 0.282. Micro F1: 0.897. Macro f1: 0.620
+Eval (elapsed = 17.59s)
+Epoch 3 done in 17.59s. Train loss: 0.251. Valid loss: 0.279. Micro F1: 0.900. Macro f1: 0.628
+Eval (elapsed = 17.61s)
+Epoch 4 done in 17.61s. Train loss: 0.228. Valid loss: 0.272. Micro F1: 0.904. Macro f1: 0.638
+Eval (elapsed = 17.62s)
+Epoch 5 done in 17.62s. Train loss: 0.211. Valid loss: 0.271. Micro F1: 0.907. Macro f1: 0.628
+Eval (elapsed = 17.60s)
+Epoch 6 done in 17.60s. Train loss: 0.200. Valid loss: 0.276. Micro F1: 0.910. Macro f1: 0.654
+Eval (elapsed = 17.55s)
+Epoch 7 done in 17.55s. Train loss: 0.189. Valid loss: 0.276. Micro F1: 0.911. Macro f1: 0.662
+Eval (elapsed = 17.61s)
+Epoch 8 done in 17.61s. Train loss: 0.181. Valid loss: 0.279. Micro F1: 0.912. Macro f1: 0.671
+Eval (elapsed = 17.61s)
+Epoch 9 done in 17.61s. Train loss: 0.169. Valid loss: 0.276. Micro F1: 0.914. Macro f1: 0.672
+Eval (elapsed = 17.59s)
+Epoch 10 done in 17.59s. Train loss: 0.161. Valid loss: 0.277. Micro F1: 0.915. Macro f1: 0.680
+Eval (elapsed = 17.59s)
+Epoch 11 done in 17.59s. Train loss: 0.155. Valid loss: 0.275. Micro F1: 0.917. Macro f1: 0.690
+Eval (elapsed = 17.60s)
+Epoch 12 done in 17.60s. Train loss: 0.148. Valid loss: 0.284. Micro F1: 0.913. Macro f1: 0.688
+Eval (elapsed = 17.65s)
+Epoch 13 done in 17.65s. Train loss: 0.144. Valid loss: 0.292. Micro F1: 0.916. Macro f1: 0.707
+Eval (elapsed = 17.61s)
+Epoch 14 done in 17.61s. Train loss: 0.140. Valid loss: 0.297. Micro F1: 0.916. Macro f1: 0.688
+Eval (elapsed = 17.61s)
+Epoch 15 done in 17.61s. Train loss: 0.133. Valid loss: 0.310. Micro F1: 0.914. Macro f1: 0.679
+Eval (elapsed = 17.61s)
+Epoch 16 done in 17.61s. Train loss: 0.130. Valid loss: 0.314. Micro F1: 0.914. Macro f1: 0.682
+Eval (elapsed = 17.57s)
+Epoch 17 done in 17.57s. Train loss: 0.127. Valid loss: 0.317. Micro F1: 0.913. Macro f1: 0.691
+Eval (elapsed = 17.55s)
+Epoch 18 done in 17.55s. Train loss: 0.127. Valid loss: 0.322. Micro F1: 0.915. Macro f1: 0.694
+Eval (elapsed = 17.55s)
+Epoch 19 done in 17.55s. Train loss: 0.124. Valid loss: 0.337. Micro F1: 0.914. Macro f1: 0.660
+Eval (elapsed = 17.60s)
+Epoch 20 done in 17.60s. Train loss: 0.120. Valid loss: 0.329. Micro F1: 0.916. Macro f1: 0.693
+Eval (elapsed = 17.58s)
+Epoch 21 done in 17.58s. Train loss: 0.121. Valid loss: 0.339. Micro F1: 0.912. Macro f1: 0.677
+Eval (elapsed = 17.53s)
+Epoch 22 done in 17.53s. Train loss: 0.117. Valid loss: 0.342. Micro F1: 0.912. Macro f1: 0.673
+Eval (elapsed = 17.55s)
+Epoch 23 done in 17.55s. Train loss: 0.114. Valid loss: 0.335. Micro F1: 0.914. Macro f1: 0.677
+Eval (elapsed = 17.54s)
+Epoch 24 done in 17.54s. Train loss: 0.117. Valid loss: 0.342. Micro F1: 0.913. Macro f1: 0.685
+Eval (elapsed = 17.54s)
+Epoch 25 done in 17.54s. Train loss: 0.114. Valid loss: 0.349. Micro F1: 0.914. Macro f1: 0.675
+Eval (elapsed = 17.58s)
+Epoch 26 done in 17.58s. Train loss: 0.111. Valid loss: 0.349. Micro F1: 0.913. Macro f1: 0.688
+Eval (elapsed = 17.57s)
+Epoch 27 done in 17.57s. Train loss: 0.113. Valid loss: 0.355. Micro F1: 0.914. Macro f1: 0.697
+Eval (elapsed = 17.54s)
+Epoch 28 done in 17.54s. Train loss: 0.110. Valid loss: 0.361. Micro F1: 0.914. Macro f1: 0.681
+Eval (elapsed = 17.57s)
+Epoch 29 done in 17.57s. Train loss: 0.110. Valid loss: 0.373. Micro F1: 0.910. Macro f1: 0.686
+Eval (elapsed = 17.54s)
+Epoch 30 done in 17.54s. Train loss: 0.110. Valid loss: 0.367. Micro F1: 0.915. Macro f1: 0.694
+Eval (elapsed = 17.54s)
+Epoch 31 done in 17.54s. Train loss: 0.106. Valid loss: 0.387. Micro F1: 0.913. Macro f1: 0.674
+Eval (elapsed = 17.57s)
+Epoch 32 done in 17.57s. Train loss: 0.110. Valid loss: 0.373. Micro F1: 0.915. Macro f1: 0.697
+Eval (elapsed = 17.58s)
+Epoch 33 done in 17.58s. Train loss: 0.108. Valid loss: 0.381. Micro F1: 0.912. Macro f1: 0.680
+Eval (elapsed = 17.56s)
+Epoch 34 done in 17.56s. Train loss: 0.106. Valid loss: 0.388. Micro F1: 0.912. Macro f1: 0.677
+Eval (elapsed = 17.55s)
+Epoch 35 done in 17.55s. Train loss: 0.109. Valid loss: 0.383. Micro F1: 0.913. Macro f1: 0.681
+Eval (elapsed = 17.52s)
+Epoch 36 done in 17.52s. Train loss: 0.109. Valid loss: 0.380. Micro F1: 0.916. Macro f1: 0.692
+Eval (elapsed = 17.50s)
+Epoch 37 done in 17.50s. Train loss: 0.110. Valid loss: 0.399. Micro F1: 0.913. Macro f1: 0.685
+Eval (elapsed = 17.54s)
+Epoch 38 done in 17.54s. Train loss: 0.112. Valid loss: 0.386. Micro F1: 0.914. Macro f1: 0.696
+Eval (elapsed = 17.56s)
+Epoch 39 done in 17.56s. Train loss: 0.110. Valid loss: 0.395. Micro F1: 0.913. Macro f1: 0.688
+Best Macro f1: 0.7069286614504924 in epoch 13 (micro here was 0.9163131187089261)
+Training sentences-level, character-summing-feature bilstm-no-testset for NR
+Eval (elapsed = 17.56s)
+Epoch 0 done in 17.56s. Train loss: 0.603. Valid loss: 0.345. Micro F1: 0.875. Macro f1: 0.524
+Eval (elapsed = 17.57s)
+Epoch 1 done in 17.57s. Train loss: 0.321. Valid loss: 0.299. Micro F1: 0.892. Macro f1: 0.595
+Eval (elapsed = 17.53s)
+Epoch 2 done in 17.53s. Train loss: 0.279. Valid loss: 0.279. Micro F1: 0.901. Macro f1: 0.610
+Eval (elapsed = 17.54s)
+Epoch 3 done in 17.54s. Train loss: 0.251. Valid loss: 0.263. Micro F1: 0.906. Macro f1: 0.632
+Eval (elapsed = 17.59s)
+Epoch 4 done in 17.59s. Train loss: 0.231. Valid loss: 0.266. Micro F1: 0.906. Macro f1: 0.644
+Eval (elapsed = 17.64s)
+Epoch 5 done in 17.64s. Train loss: 0.216. Valid loss: 0.267. Micro F1: 0.909. Macro f1: 0.639
+Eval (elapsed = 17.64s)
+Epoch 6 done in 17.64s. Train loss: 0.203. Valid loss: 0.264. Micro F1: 0.911. Macro f1: 0.667
+Eval (elapsed = 17.60s)
+Epoch 7 done in 17.60s. Train loss: 0.190. Valid loss: 0.268. Micro F1: 0.912. Macro f1: 0.660
+Eval (elapsed = 17.59s)
+Epoch 8 done in 17.59s. Train loss: 0.179. Valid loss: 0.274. Micro F1: 0.912. Macro f1: 0.666
+Eval (elapsed = 17.58s)
+Epoch 9 done in 17.58s. Train loss: 0.174. Valid loss: 0.290. Micro F1: 0.908. Macro f1: 0.646
+Eval (elapsed = 17.58s)
+Epoch 10 done in 17.58s. Train loss: 0.169. Valid loss: 0.282. Micro F1: 0.912. Macro f1: 0.658
+Eval (elapsed = 17.60s)
+Epoch 11 done in 17.60s. Train loss: 0.158. Valid loss: 0.274. Micro F1: 0.918. Macro f1: 0.694
+Eval (elapsed = 17.61s)
+Epoch 12 done in 17.61s. Train loss: 0.152. Valid loss: 0.283. Micro F1: 0.913. Macro f1: 0.674
+Eval (elapsed = 17.60s)
+Epoch 13 done in 17.60s. Train loss: 0.150. Valid loss: 0.298. Micro F1: 0.912. Macro f1: 0.684
+Eval (elapsed = 17.58s)
+Epoch 14 done in 17.58s. Train loss: 0.146. Valid loss: 0.303. Micro F1: 0.914. Macro f1: 0.662
+Eval (elapsed = 17.57s)
+Epoch 15 done in 17.57s. Train loss: 0.139. Valid loss: 0.313. Micro F1: 0.913. Macro f1: 0.676
+Eval (elapsed = 17.58s)
+Epoch 16 done in 17.58s. Train loss: 0.134. Valid loss: 0.314. Micro F1: 0.911. Macro f1: 0.663
+Eval (elapsed = 17.60s)
+Epoch 17 done in 17.60s. Train loss: 0.131. Valid loss: 0.317. Micro F1: 0.915. Macro f1: 0.677
+Eval (elapsed = 17.61s)
+Epoch 18 done in 17.61s. Train loss: 0.130. Valid loss: 0.304. Micro F1: 0.916. Macro f1: 0.674
+Eval (elapsed = 17.61s)
+Epoch 19 done in 17.61s. Train loss: 0.127. Valid loss: 0.320. Micro F1: 0.912. Macro f1: 0.662
+Eval (elapsed = 17.63s)
+Epoch 20 done in 17.63s. Train loss: 0.123. Valid loss: 0.316. Micro F1: 0.915. Macro f1: 0.668
+Eval (elapsed = 17.62s)
+Epoch 21 done in 17.62s. Train loss: 0.122. Valid loss: 0.332. Micro F1: 0.914. Macro f1: 0.668
+Eval (elapsed = 17.62s)
+Epoch 22 done in 17.62s. Train loss: 0.122. Valid loss: 0.334. Micro F1: 0.914. Macro f1: 0.666
+Eval (elapsed = 17.62s)
+Epoch 23 done in 17.62s. Train loss: 0.121. Valid loss: 0.335. Micro F1: 0.914. Macro f1: 0.684
+Eval (elapsed = 17.65s)
+Epoch 24 done in 17.65s. Train loss: 0.119. Valid loss: 0.331. Micro F1: 0.914. Macro f1: 0.676
+Eval (elapsed = 17.66s)
+Epoch 25 done in 17.66s. Train loss: 0.117. Valid loss: 0.339. Micro F1: 0.918. Macro f1: 0.681
+Eval (elapsed = 17.63s)
+Epoch 26 done in 17.63s. Train loss: 0.119. Valid loss: 0.349. Micro F1: 0.914. Macro f1: 0.672
+Eval (elapsed = 17.62s)
+Epoch 27 done in 17.62s. Train loss: 0.116. Valid loss: 0.338. Micro F1: 0.916. Macro f1: 0.670
+Eval (elapsed = 17.61s)
+Epoch 28 done in 17.61s. Train loss: 0.116. Valid loss: 0.359. Micro F1: 0.913. Macro f1: 0.669
+Eval (elapsed = 17.57s)
+Epoch 29 done in 17.57s. Train loss: 0.117. Valid loss: 0.356. Micro F1: 0.915. Macro f1: 0.679
+Eval (elapsed = 17.56s)
+Epoch 30 done in 17.56s. Train loss: 0.116. Valid loss: 0.344. Micro F1: 0.914. Macro f1: 0.677
+Eval (elapsed = 17.55s)
+Epoch 31 done in 17.55s. Train loss: 0.116. Valid loss: 0.360. Micro F1: 0.913. Macro f1: 0.654
+Eval (elapsed = 17.53s)
+Epoch 32 done in 17.53s. Train loss: 0.115. Valid loss: 0.357. Micro F1: 0.915. Macro f1: 0.673
+Eval (elapsed = 17.54s)
+Epoch 33 done in 17.54s. Train loss: 0.114. Valid loss: 0.347. Micro F1: 0.916. Macro f1: 0.678
+Eval (elapsed = 17.55s)
+Epoch 34 done in 17.55s. Train loss: 0.113. Valid loss: 0.362. Micro F1: 0.913. Macro f1: 0.677
+Eval (elapsed = 17.51s)
+Epoch 35 done in 17.51s. Train loss: 0.115. Valid loss: 0.360. Micro F1: 0.914. Macro f1: 0.681
+Eval (elapsed = 17.58s)
+Epoch 36 done in 17.58s. Train loss: 0.117. Valid loss: 0.367. Micro F1: 0.916. Macro f1: 0.687
+Eval (elapsed = 17.54s)
+Epoch 37 done in 17.54s. Train loss: 0.117. Valid loss: 0.367. Micro F1: 0.915. Macro f1: 0.673
+Eval (elapsed = 17.54s)
+Epoch 38 done in 17.54s. Train loss: 0.116. Valid loss: 0.388. Micro F1: 0.910. Macro f1: 0.668
+Eval (elapsed = 17.51s)
+Epoch 39 done in 17.51s. Train loss: 0.117. Valid loss: 0.374. Micro F1: 0.914. Macro f1: 0.670
+Best Macro f1: 0.6937732193338769 in epoch 11 (micro here was 0.9176441227851261)
+Training sentences-level, character-summing-feature bilstm-no-testset for NR
+Eval (elapsed = 17.51s)
+Epoch 0 done in 17.51s. Train loss: 0.691. Valid loss: 0.362. Micro F1: 0.867. Macro f1: 0.529
+Eval (elapsed = 17.52s)
+Epoch 1 done in 17.52s. Train loss: 0.339. Valid loss: 0.306. Micro F1: 0.887. Macro f1: 0.581
+Eval (elapsed = 17.54s)
+Epoch 2 done in 17.54s. Train loss: 0.291. Valid loss: 0.285. Micro F1: 0.896. Macro f1: 0.598
+Eval (elapsed = 17.55s)
+Epoch 3 done in 17.55s. Train loss: 0.262. Valid loss: 0.265. Micro F1: 0.906. Macro f1: 0.648
+Eval (elapsed = 17.60s)
+Epoch 4 done in 17.60s. Train loss: 0.239. Valid loss: 0.266. Micro F1: 0.906. Macro f1: 0.642
+Eval (elapsed = 17.53s)
+Epoch 5 done in 17.53s. Train loss: 0.224. Valid loss: 0.259. Micro F1: 0.910. Macro f1: 0.656
+Eval (elapsed = 17.59s)
+Epoch 6 done in 17.59s. Train loss: 0.212. Valid loss: 0.267. Micro F1: 0.909. Macro f1: 0.651
+Eval (elapsed = 17.59s)
+Epoch 7 done in 17.59s. Train loss: 0.197. Valid loss: 0.280. Micro F1: 0.911. Macro f1: 0.657
+Eval (elapsed = 17.59s)
+Epoch 8 done in 17.59s. Train loss: 0.188. Valid loss: 0.274. Micro F1: 0.912. Macro f1: 0.652
+Eval (elapsed = 17.61s)
+Epoch 9 done in 17.61s. Train loss: 0.180. Valid loss: 0.272. Micro F1: 0.912. Macro f1: 0.675
+Eval (elapsed = 17.62s)
+Epoch 10 done in 17.62s. Train loss: 0.171. Valid loss: 0.274. Micro F1: 0.913. Macro f1: 0.644
+Eval (elapsed = 17.60s)
+Epoch 11 done in 17.60s. Train loss: 0.165. Valid loss: 0.279. Micro F1: 0.914. Macro f1: 0.666
+Eval (elapsed = 17.59s)
+Epoch 12 done in 17.59s. Train loss: 0.159. Valid loss: 0.287. Micro F1: 0.915. Macro f1: 0.675
+Eval (elapsed = 17.59s)
+Epoch 13 done in 17.59s. Train loss: 0.154. Valid loss: 0.283. Micro F1: 0.916. Macro f1: 0.681
+Eval (elapsed = 17.58s)
+Epoch 14 done in 17.58s. Train loss: 0.146. Valid loss: 0.299. Micro F1: 0.915. Macro f1: 0.678
+Eval (elapsed = 17.63s)
+Epoch 15 done in 17.63s. Train loss: 0.146. Valid loss: 0.290. Micro F1: 0.917. Macro f1: 0.680
+Eval (elapsed = 17.62s)
+Epoch 16 done in 17.62s. Train loss: 0.139. Valid loss: 0.300. Micro F1: 0.919. Macro f1: 0.698
+Eval (elapsed = 17.59s)
+Epoch 17 done in 17.59s. Train loss: 0.131. Valid loss: 0.316. Micro F1: 0.915. Macro f1: 0.692
+Eval (elapsed = 17.59s)
+Epoch 18 done in 17.59s. Train loss: 0.132. Valid loss: 0.304. Micro F1: 0.919. Macro f1: 0.675
+Eval (elapsed = 17.58s)
+Epoch 19 done in 17.58s. Train loss: 0.126. Valid loss: 0.320. Micro F1: 0.916. Macro f1: 0.685
+Eval (elapsed = 17.58s)
+Epoch 20 done in 17.58s. Train loss: 0.122. Valid loss: 0.331. Micro F1: 0.916. Macro f1: 0.686
+Eval (elapsed = 17.60s)
+Epoch 21 done in 17.60s. Train loss: 0.120. Valid loss: 0.322. Micro F1: 0.917. Macro f1: 0.702
+Eval (elapsed = 17.60s)
+Epoch 22 done in 17.60s. Train loss: 0.117. Valid loss: 0.336. Micro F1: 0.918. Macro f1: 0.683
+Eval (elapsed = 17.59s)
+Epoch 23 done in 17.59s. Train loss: 0.115. Valid loss: 0.332. Micro F1: 0.914. Macro f1: 0.685
+Eval (elapsed = 17.59s)
+Epoch 24 done in 17.59s. Train loss: 0.113. Valid loss: 0.353. Micro F1: 0.913. Macro f1: 0.675
+Eval (elapsed = 17.52s)
+Epoch 25 done in 17.52s. Train loss: 0.113. Valid loss: 0.351. Micro F1: 0.915. Macro f1: 0.681
+Eval (elapsed = 18.32s)
+Epoch 26 done in 18.32s. Train loss: 0.109. Valid loss: 0.356. Micro F1: 0.916. Macro f1: 0.680
+Eval (elapsed = 18.74s)
+Epoch 27 done in 18.74s. Train loss: 0.109. Valid loss: 0.359. Micro F1: 0.916. Macro f1: 0.670
+Eval (elapsed = 18.73s)
+Epoch 28 done in 18.73s. Train loss: 0.107. Valid loss: 0.362. Micro F1: 0.913. Macro f1: 0.678
+Eval (elapsed = 18.75s)
+Epoch 29 done in 18.75s. Train loss: 0.106. Valid loss: 0.365. Micro F1: 0.917. Macro f1: 0.699
+Eval (elapsed = 18.74s)
+Epoch 30 done in 18.74s. Train loss: 0.103. Valid loss: 0.370. Micro F1: 0.916. Macro f1: 0.683
+Eval (elapsed = 18.75s)
+Epoch 31 done in 18.75s. Train loss: 0.105. Valid loss: 0.363. Micro F1: 0.916. Macro f1: 0.692
+Eval (elapsed = 18.75s)
+Epoch 32 done in 18.75s. Train loss: 0.103. Valid loss: 0.376. Micro F1: 0.915. Macro f1: 0.696
+Eval (elapsed = 18.76s)
+Epoch 33 done in 18.76s. Train loss: 0.101. Valid loss: 0.386. Micro F1: 0.916. Macro f1: 0.680
+Eval (elapsed = 18.74s)
+Epoch 34 done in 18.74s. Train loss: 0.100. Valid loss: 0.387. Micro F1: 0.914. Macro f1: 0.681
+Eval (elapsed = 18.78s)
+Epoch 35 done in 18.78s. Train loss: 0.102. Valid loss: 0.396. Micro F1: 0.915. Macro f1: 0.672
+Eval (elapsed = 18.47s)
+Epoch 36 done in 18.47s. Train loss: 0.100. Valid loss: 0.390. Micro F1: 0.918. Macro f1: 0.682
+Eval (elapsed = 18.11s)
+Epoch 37 done in 18.11s. Train loss: 0.101. Valid loss: 0.402. Micro F1: 0.917. Macro f1: 0.692
+Eval (elapsed = 18.84s)
+Epoch 38 done in 18.84s. Train loss: 0.104. Valid loss: 0.400. Micro F1: 0.913. Macro f1: 0.685
+Eval (elapsed = 18.81s)
+Epoch 39 done in 18.81s. Train loss: 0.097. Valid loss: 0.405. Micro F1: 0.911. Macro f1: 0.685
+Best Macro f1: 0.7017762263946288 in epoch 21 (micro here was 0.9165626819732136)
+NR mean macro across 5 seeds: 0.7021747306012319
+NR best macro across 5 seeds: 0.7103873653956243
+NR mean micro across 5 seeds: 0.9169952582979786
+Done at 2024-09-06 18:04:13.862312

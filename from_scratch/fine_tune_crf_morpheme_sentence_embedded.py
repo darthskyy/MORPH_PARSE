@@ -58,9 +58,10 @@ def final_train():
         'embed_target_embed': 256
     }
 
-    train_all(model, splits, feature_level, cfg, langs=["NR", "SS"])
+    train_all(model, splits, feature_level, cfg, langs=["XH", "ZU"], use_testset=False)
 
 final_train()
 
 print("Done at", datetime.datetime.now())
 ray.shutdown()
+

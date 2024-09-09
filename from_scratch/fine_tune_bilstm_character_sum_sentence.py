@@ -3,7 +3,7 @@ import datetime
 from ray import tune
 from ray.util.client import ray
 
-from from_scratch.dataset import classes_only_no_tags, tags_only_no_classes
+from dataset import classes_only_no_tags, tags_only_no_classes
 from lstm import BiLSTMTagger
 from common import AnnotatedCorpusDataset, split_words, tokenize_into_chars, EmbedBySumming, tune_model, train_model, \
     model_for_config, train_all, split_sentences
@@ -57,7 +57,7 @@ def final_train():
         'embed_target_embed': 64
     }
 
-    train_all(model, splits, feature_level, cfg)
+    train_all(model, splits, feature_level, cfg, use_testset=False)
 
 
 final_train()

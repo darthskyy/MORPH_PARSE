@@ -56,7 +56,7 @@ def final_train():
         'gradient_clip': 2,
     }
 
-    train_all(model, splits, feature_level, cfg, langs=["ZU", "XH"])
+    train_all(model, splits, feature_level, cfg, langs=["SS", "NR"], use_testset=False)
 
 
 final_train()

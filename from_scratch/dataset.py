@@ -251,6 +251,8 @@ class AnnotatedCorpusDataset(Dataset):
 
         # First, we split by sentences in order to get a fair train/test split
         suffix = "_SURFACE" if use_surface else ""
+        test_suffix = "SET_GOLD_SURFACE" if use_surface else ""
+
         raw = extract_morphemes_and_tags_from_file_2022(f"data/TRAIN/{lang}_TRAIN{suffix}.tsv", use_surface)
         if use_2024:
             raw = itertools.chain(
@@ -270,7 +272,7 @@ class AnnotatedCorpusDataset(Dataset):
             print("Using testset")
             train_sentences = sentences
             test_sentences = list(
-                split_sentences_raw(extract_morphemes_and_tags_from_file_2022(f"data/TEST/{lang}_TEST{suffix}.tsv", use_surface)))
+                split_sentences_raw(extract_morphemes_and_tags_from_file_2022(f"data/TEST/{lang}_TEST{test_suffix}.tsv", use_surface)))
 
         supp = []
         for supp_lang in supp_training_langs:
