@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N auto_ZU_n
+#PBS -N auto_ZU_x
 #PBS -q gpu_1
 #PBS -l select=1:ncpus=1:ngpus=1
 #PBS -P CSCI1674
@@ -19,13 +19,15 @@ echo "Installing requirements"
 pip3 install torch==1.10.1+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html -q
 pip3 install -r requirements.txt -q
 
+cp results/* results_backup
 language=ZU
 output_dir=plm/models/grid/${language}_$(date +%Y%m%d%H%M%S)
 data_dir=data
-model_dir=xlm-roberta-large
+model_dir=francois-meyer/nguni-xlmr-large
 python3 plm/grid_search_auto.py --language $language --output_dir $output_dir \
     --disable_tqdm --data_dir $data_dir --model_dir $model_dir \
     --eval_strategy epoch --save_strategy no --logging_steps 2000 \
     --log_file results/${language}_final.csv --overwrite_output_dir
 
 rm $output_dir -rf
+cp results/* results_backup
