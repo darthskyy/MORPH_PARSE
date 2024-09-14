@@ -18,7 +18,7 @@ from ray.util.client import ray
 
 from aligned_f1 import align_seqs
 from encapsulated_model import EncapsulatedModel
-from dataset import AnnotatedCorpusDataset, WORD_SEP_IX, SEQ_PAD_IX, WORD_SEP_TEXT, SEQ_PAD_TEXT
+from dataset import AnnotatedCorpusDataset, SEQ_PAD_IX, WORD_SEP_TEXT, SEQ_PAD_TEXT
 import dataset
 
 torch.manual_seed(0)
@@ -115,6 +115,7 @@ def analyse_model(model, config, valid: AnnotatedCorpusDataset):
 
             predicted_tags = model.forward_tags_only(morphemes)
 
+            # vvvv Uncomment this for debugging, if desired vvvvv
             # print("Sequence", list(valid.ix_to_morpheme[morph.item()] for morph in torch.flatten(morphemes) if morph.item() != SEQ_PAD_IX))
             # print("Expected", list(valid.ix_to_tag[tag.item()] for tag in torch.flatten(expected_tags)))
             # print("Predicted", list(valid.ix_to_tag[tag.item()] for tag in torch.flatten(predicted_tags)))
@@ -126,7 +127,6 @@ def analyse_model(model, config, valid: AnnotatedCorpusDataset):
                 batch_elt_expected = [valid.ix_to_tag[tag.item()] for tag in batch_elt_expected]
                 batch_elt_pred = [valid.ix_to_tag[tag.item()] for tag in batch_elt_pred]
 
-                # TODO: Need to split by _input_'s word seps
                 if valid.is_surface:
                     batch_elt_pred, batch_elt_expected = align_seqs(batch_elt_pred, batch_elt_expected, pad="PADDED")
 
@@ -138,11 +138,6 @@ def analyse_model(model, config, valid: AnnotatedCorpusDataset):
 
                     predicted_this_batch.append(predicted_tag)
                     expected_this_batch.append(expected_tag)
-
-                    # if predicted_this_batch != expected_this_batch:
-                    #     print(predicted_this_batch)
-                    #     print(expected_this_batch)
-                    #     print()
 
                 predicted.extend(predicted_this_batch)
                 expected.extend(expected_this_batch)

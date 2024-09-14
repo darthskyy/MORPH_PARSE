@@ -333,12 +333,6 @@ class AnnotatedCorpusDataset(Dataset):
         unseen_morpheme = set()
         for sentence in test_sentences:
             for (morphemes, tags) in split(sentence):
-                if not morphemes:
-                    print(sentence)
-                    print(list(split(sentence)))
-
-                    # TODO why is it adding [], [] after the '.'? is it because it's punctuation? but why strip
-
                 # We skip inserting morphemes from the test set into the embedding indices, because it is realistic
                 # that there may be unseen morphemes
 
