@@ -4,9 +4,9 @@ import numpy as np
 import torch
 from sklearn.metrics import f1_score, classification_report
 
-from from_scratch.dataset import (split_sentences_raw, extract_morphemes_and_tags_from_file_2022, WORD_SEP_TEXT,
+from dataset import (split_sentences_raw, extract_morphemes_and_tags_from_file_2022, WORD_SEP_TEXT,
                                   SEQ_PAD_TEXT, identity, tags_only_no_classes, classes_only_no_tags)
-from from_scratch.encapsulated_model import EncapsulatedModel
+from encapsulated_model import EncapsulatedModel
 from aligned_f1 import align_seqs
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
@@ -60,44 +60,34 @@ def eval_model(model, test_set, map_tag=identity):
 
 def demo():
     while True:
-        # path = input("Model > ")
-        # for lang in ("ZU",):
-        for lang in ("ZU", "NR", "XH", "SS"):
-            path = f"crf_sentence-embed_morpheme_canon/bilstm-crf-sentences_embedded_sep-morpheme-{lang}.pt"
-            model: EncapsulatedModel = torch.load("out_models/" + path, map_location=device)
-            model.eval()
+        path = input("Model > ")
+        model: EncapsulatedModel = torch.load("out_models/" + path, map_location=device)
+        model.eval()
 
-            with torch.no_grad():
-                model_parameters = filter(lambda p: p.requires_grad, model.parameters())
-                params = sum([np.prod(p.size()) for p in model_parameters])
-                print(f"Model has {params / 1_000_000:.2f}M parameters")  # TODO
+        with torch.no_grad():
+            model_parameters = filter(lambda p: p.requires_grad, model.parameters())
+            params = sum([np.prod(p.size()) for p in model_parameters])
+            print(f"Model has {params / 1_000_000:.2f}M parameters")  # TODO
 
-                # suffix = "_SURFACE" if model.is_surface else ""
-                suffix = "_CANONICAL_PRED"
-                path = f"data/TEST/{model.lang}_TEST{suffix}.tsv"
-                sentences = list(split_sentences_raw(extract_morphemes_and_tags_from_file_2022(path, use_surface=model.is_surface, is_demo=True)))
+            suffix = "_SURFACE" if model.is_surface else ""
+            # suffix = "_CANONICAL_PRED"  # <-- uncomment this and comment the above if you want to use predicted canonical segmentations
+            path = f"data/TEST/{model.lang}_TEST{suffix}.tsv"
+            sentences = list(split_sentences_raw(extract_morphemes_and_tags_from_file_2022(path, use_surface=model.is_surface, is_demo=True)))
 
-                print("====== Full tagset (syntactic & noun class) ======")  # TODO
-                micro, macro, report = eval_model(model, sentences)
-                print(report)  # TODO
-                print(f"{lang} Micro F1: {micro:.10f} ({micro:.4f}). Macro F1: {macro:.10f} ({macro:.4f})")
+            micro, macro, report = eval_model(model, sentences)
+            print(report)
+            print(f"{model.lang} Micro F1: {micro:.10f} ({micro:.4f}). Macro F1: {macro:.10f} ({macro:.4f})")
 
-                # print("====== Syntactic tagset only ======")
-                # micro, macro, report = eval_model(model, sentences, map_tag=tags_only_no_classes)
-                # print(report)
-                # print(f"Syntactic Micro F1: {micro:.10f} ({micro:.4f}). Macro F1: {macro:.10f} ({macro:.4f})")
+            while True:
+                query = input("Morphological segmentation (separated by -) or Q to quit > ")
+                if query.lower().strip() == "q":
+                    break
+                words = segment_query(query)
 
-                continue  # TODO
-
-                while True:
-                    query = input("Morphological segmentation (separated by -) or Q to quit > ")
-                    if query.lower().strip() == "q":
-                        break
-                    words = segment_query(query)
-
-                    annotated_words = [list(zip(word, tags)) for word, tags in zip(words, model.forward(words))]
-                    print(" ".join("-".join(f"{morpheme}[{tag}]" for morpheme, tag in word) for word in annotated_words))
+                annotated_words = [list(zip(word, tags)) for word, tags in zip(words, model.forward(words))]
+                print(" ".join("-".join(f"{morpheme}[{tag}]" for morpheme, tag in word) for word in annotated_words))
         break
+
 
 if __name__ == "__main__":
     demo()

@@ -1,19 +1,11 @@
-import os
-import pickle
-from pathlib import Path
-
 import torch
 import datetime
 from ray import tune
-from ray.tune.schedulers import ASHAScheduler
-from ray.tune.search import BasicVariantGenerator
 from ray.util.client import ray
 
 from lstm import BiLSTMTagger
-from bilstm_crf import BiLstmCrfTagger
-from common import AnnotatedCorpusDataset, train_model, split_words, tokenize_into_morphemes, \
-    tokenize_into_chars, split_sentences, EmbedBySumming, EmbedSingletonFeature, \
-    EmbedWithBiLSTM, analyse_model, tune_model, model_for_config, train_all
+from common import (AnnotatedCorpusDataset, tokenize_into_morphemes, split_sentences, EmbedSingletonFeature,
+                    tune_model, train_all)
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
@@ -67,7 +59,7 @@ def final_train():
         'embed_target_embed': 256
     }
 
-    train_all(model, splits, feature_level, cfg, use_testset=False)
+    train_all(model, splits, feature_level, cfg)
 
 
 final_train()

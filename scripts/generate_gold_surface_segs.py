@@ -1,4 +1,4 @@
-# Adapted from Jan Buys' script for the MorphParse project. Presumably licensed as something GPLv2 compatible, since
+# Adapted from Jan Buys's script for the MorphParse project. Presumably licensed as something GPLv2 compatible, since
 # the Levenshtein package has that license. We will defer to whatever license Jan's version is under and license this
 # file under that (for this file ONLY)
 

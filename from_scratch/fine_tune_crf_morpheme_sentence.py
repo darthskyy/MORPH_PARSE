@@ -4,8 +4,8 @@ from ray import tune
 from ray.util.client import ray
 
 from bilstm_crf import BiLstmCrfTagger
-from common import AnnotatedCorpusDataset, split_words, tune_model, train_model, \
-    model_for_config, tokenize_into_morphemes, EmbedSingletonFeature, split_sentences, train_all
+from common import (AnnotatedCorpusDataset, tune_model, tokenize_into_morphemes, EmbedSingletonFeature, split_sentences,
+                    train_all)
 
 model = (
     "bilstm-crf",
@@ -56,7 +56,7 @@ def final_train():
         'embed_target_embed': 512
     }
 
-    train_all(model, splits, feature_level, cfg, langs=["XH", "ZU"], use_testset=False)
+    train_all(model, splits, feature_level, cfg)
 
 
 final_train()
