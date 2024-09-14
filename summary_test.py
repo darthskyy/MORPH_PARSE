@@ -1,12 +1,23 @@
+"""
+File for summarising the final test results of the project run in seeds of five
+"""
+
 import json
 import itertools
+import sys
 
-SUFFIX = "_SURFACE"
+if len(sys.argv) == 1:
+    SUFFIX = ""
+else:
+    SUFFIX = sys.argv[1]
+
+print(f"results for {SUFFIX}\n{'-'*30}")
 results = json.load(open(f"results/final{SUFFIX}.json", "r"))
 
 LANGUAGES = ["NR", "SS", "XH", "ZU"]
 MODELS = ["xlm-roberta-large", "Davlan/afro-xlmr-large-76L", "francois-meyer/nguni-xlmr-large"]
 
+pairs = [(model["language"], model["model"]) for _, model in results.items()]
 pairs = list(itertools.product(LANGUAGES, MODELS))
 
 micros = {
@@ -19,7 +30,10 @@ macros = {
     for pair in pairs
 }
 
-print(f"{'language':15}{'micro mean':<25}{'micro best':<25}{'macro mean':<25}{'macro best':<25}{'count':7}{'model'}")
+# print(micros)
+# print(macros)
+
+print(f"{'language':15}{'micro mean':<25}{'micro best':<25}{'macro mean':<25}{'macro best':<25}{'seed':7}{'model'}")
 
 old_language = pairs[0][0]
 for pair in pairs:
@@ -27,10 +41,10 @@ for pair in pairs:
         old_language = pair[0]
         print()
     output = f"{pair[0]:15}"
-    output += f"{sum(micros[pair])/len(micros[pair]):<25}" if len(micros[pair]) > 0 else f"{'null':25}"
-    output += f"{max(micros[pair]):<25}" if len(micros[pair]) > 0 else f"{'null':25}"
-    output += f"{sum(macros[pair])/len(macros[pair]):<25}" if len(micros[pair]) > 0 else f"{'null':25}"
-    output += f"{max(macros[pair]):<25}" if len(micros[pair]) > 0 else f"{'null':25}"
+    output += f"{sum(micros[pair])/len(micros[pair]):<25.4f}" if len(micros[pair]) > 0 else f"{'null':25}"
+    output += f"{max(micros[pair]):<25.4f}" if len(micros[pair]) > 0 else f"{'null':25}"
+    output += f"{sum(macros[pair])/len(macros[pair]):<25.4f}" if len(micros[pair]) > 0 else f"{'null':25}"
+    output += f"{max(macros[pair]):<25.4f}" if len(micros[pair]) > 0 else f"{'null':25}"
     output += f"{str(len(macros[pair])) + '/5':<7}"
     output += f"{pair[1]}"
 
@@ -59,7 +73,6 @@ models = [
 for i in range(5):
     output = f"Seed {seeds[i][0]['seed']}: "
     output += str(len([1 for item in seeds[i] if item["completed"] == True])) +  "/" + str(len(seeds[i]))
-
     if i < len(LANGUAGES):
         output += f"\t\tLanguage {languages[i][0]['language']}: "
         output += str(len([1 for item in languages[i] if item["completed"] == True])) +  "/" + str(len(languages[i]))
