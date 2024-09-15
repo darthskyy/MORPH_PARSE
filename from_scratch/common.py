@@ -30,6 +30,8 @@ tokenize_into_morphemes = dataset.tokenize_into_morphemes
 split_sentences = dataset.split_sentences
 
 class EmbedBySumming(nn.Module):
+    """Embed a given morpheme by embedding each character and then summing those embeddings together"""
+
     def __init__(self, trainset: AnnotatedCorpusDataset, target_embedding_dim):
         super(EmbedBySumming, self).__init__()
         self.dev = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
@@ -41,6 +43,8 @@ class EmbedBySumming(nn.Module):
 
 
 class EmbedSingletonFeature(nn.Module):
+    """Embed a given morpheme by mapping it to an embedding directly"""
+
     def __init__(self, trainset: AnnotatedCorpusDataset, target_embedding_dim):
         super(EmbedSingletonFeature, self).__init__()
         self.dev = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
@@ -52,18 +56,9 @@ class EmbedSingletonFeature(nn.Module):
         return torch.squeeze(self.embed(morphemes), dim=2)
 
 
-class EmbedRawChars(nn.Module):
-    def __init__(self, trainset: AnnotatedCorpusDataset, target_embedding_dim):
-        super(EmbedRawChars, self).__init__()
-        self.dev = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-        self.embed = nn.Embedding(trainset.num_submorphemes, target_embedding_dim, device=self.dev)
-        self.output_dim = target_embedding_dim
-
-    def forward(self, morphemes):
-        return self.embed(morphemes)  # SEQ_PAD_IX is 0, so this checks which words have non-padding submorpheme IXs
-
-
 class EmbedWithBiLSTM(nn.Module):
+    """Embed a given morpheme by running its characters through a bi-LSTM to get a final embedding output"""
+
     def __init__(self, trainset: AnnotatedCorpusDataset, hidden_embed_dim, hidden_dim, target_embedding_dim,
                  num_layers=1,
                  dropout=0):
@@ -94,6 +89,8 @@ class EmbedWithBiLSTM(nn.Module):
 
 
 def analyse_model(model, config, valid: AnnotatedCorpusDataset):
+    """Analyse the given model on the validation dataset"""
+
     valid_loader = DataLoader(
         valid,
         batch_sampler=BatchSampler(RandomSampler(valid), config["batch_size"], False),
@@ -109,17 +106,15 @@ def analyse_model(model, config, valid: AnnotatedCorpusDataset):
         valid_loss = 0.0
 
         for morphemes, expected_tags in valid_loader:
-            if not valid.is_surface:
+            if not valid.is_surface:  # Unfortunately does not work on surface due to # of tags != # of morphemes
                 loss = model.loss(morphemes, expected_tags)
                 valid_loss += loss.item() * morphemes.size(dim=0)
 
+            # Get the model's predicted tags
             predicted_tags = model.forward_tags_only(morphemes)
 
-            # vvvv Uncomment this for debugging, if desired vvvvv
-            # print("Sequence", list(valid.ix_to_morpheme[morph.item()] for morph in torch.flatten(morphemes) if morph.item() != SEQ_PAD_IX))
-            # print("Expected", list(valid.ix_to_tag[tag.item()] for tag in torch.flatten(expected_tags)))
-            # print("Predicted", list(valid.ix_to_tag[tag.item()] for tag in torch.flatten(predicted_tags)))
-            # print()
+            # For the F1 score, we essentially concatenate all the predicted tags into a list, and do the same with
+            # the gold standard tags. Then we call the f1_score function from sklearn.
 
             # This loop splits by batch
             for batch_elt_expected, batch_elt_pred in zip(torch.unbind(expected_tags), torch.unbind(predicted_tags)):
@@ -127,6 +122,8 @@ def analyse_model(model, config, valid: AnnotatedCorpusDataset):
                 batch_elt_expected = [valid.ix_to_tag[tag.item()] for tag in batch_elt_expected]
                 batch_elt_pred = [valid.ix_to_tag[tag.item()] for tag in batch_elt_pred]
 
+                # When evaluating on the gold standard tags with a surface model, the # of morphemes != # of tags, so
+                # we need to align at a word level
                 if valid.is_surface:
                     batch_elt_pred, batch_elt_expected = align_seqs(batch_elt_pred, batch_elt_expected, pad="PADDED")
 
@@ -142,15 +139,18 @@ def analyse_model(model, config, valid: AnnotatedCorpusDataset):
                 predicted.extend(predicted_this_batch)
                 expected.extend(expected_this_batch)
 
+        # Calculate scores & return
         f1_micro = f1_score(expected, predicted, average="micro")
         f1_macro = f1_score(expected, predicted, average="macro")
         f1_weighted = f1_score(expected, predicted, average="weighted")
+        report = classification_report(expected, predicted, zero_division=0.0)
 
-        return valid_loss, len(valid_loader), classification_report(expected, predicted,
-                                                                    zero_division=0.0), f1_micro, f1_macro, f1_weighted
+        return valid_loss, len(valid_loader), report, f1_micro, f1_macro, f1_weighted
 
 
 def _collate_by_padding(batch):
+    """Collate sequences by padding them - used to adapt `AnnotatedCorpusDataset` to torch's `DataLoader`"""
+
     # Check if the morphemes are divided into submorphemes
     # If so, we need to pad every item in the batch to the same length
     if batch[0][0].dim() == 2:
@@ -165,7 +165,9 @@ def _collate_by_padding(batch):
 
 
 def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
-                valid: AnnotatedCorpusDataset, best_ever_macro_f1: float = 0.0, use_ray=True, anneal=False):
+                valid: AnnotatedCorpusDataset, best_ever_macro_f1: float = 0.0, use_ray=True):
+    """Train the given model on the training set."""
+
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     train_set.to(device)
     valid.to(device)
@@ -178,6 +180,7 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
 
     optimizer = optim.AdamW(model.parameters(), lr=config["lr"], weight_decay=config["weight_decay"])
 
+    # When hyperparameter tuning with ray, we do some additional steps such as saving checkpoints
     start_epoch = 0
     if use_ray:
         checkpoint = get_checkpoint()
@@ -194,6 +197,7 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
     best_macro_epoch = 0
     micro_at_best_macro = 0.0
 
+    # Train the model for as many epochs as the config states
     batches = len(train_loader)
     for epoch in range(start_epoch, config["epochs"]):
         # Set model to training mode (affects layers such as BatchNorm)
@@ -212,6 +216,7 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
             torch.nn.utils.clip_grad_norm_(model.parameters(), config["gradient_clip"])
             optimizer.step()
 
+        # Print some output about how the model is doing in this epoch
         elapsed = time.time() - start
         print(f"Eval (elapsed = {elapsed:.2f}s)")
         elapsed = time.time() - start
@@ -221,6 +226,7 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
               f"Valid loss: {valid_loss / valid_batches:.3f}. "
               f"Micro F1: {f1_micro:.3f}. Macro f1: {f1_macro:.3f}")
 
+        # Save the model if it has done better than the previous best epochs
         if f1_macro > best_macro:
             best_macro = f1_macro
             best_macro_epoch = epoch
@@ -233,6 +239,7 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
                 with open(os.path.join(out_dir, name) + ".pt", "wb") as f:
                     torch.save(EncapsulatedModel(name, model, train_set), f)
 
+        # Checkpoint the model if hyperparameter tuning with ray
         if use_ray:
             checkpoint_data = {
                 "epoch": epoch,
@@ -260,6 +267,8 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
 
 def tune_model(model, main_config, feature_level, name: str, epochs, trainset: AnnotatedCorpusDataset,
                valid: AnnotatedCorpusDataset, cpus=4, hrs=11):
+    """Tune the given model with Ray"""
+
     ray.init(num_cpus=cpus)
 
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
@@ -268,6 +277,7 @@ def tune_model(model, main_config, feature_level, name: str, epochs, trainset: A
 
     config = {**main_config, **embed_config}
 
+    # We just use the basic ASHA schedular
     scheduler = ASHAScheduler(
         metric="loss",
         mode="min",
@@ -276,7 +286,10 @@ def tune_model(model, main_config, feature_level, name: str, epochs, trainset: A
         reduction_factor=2,
     )
 
+    # Move the trainset & validset into shared memory (they are very large)
     trainset, valid = ray.put(trainset), ray.put(valid)
+
+    # Do the hyperparameter tuning
     result = tune.run(
         lambda conf: train_model(model_for_config(mk_model, mk_embed, ray.get(trainset), conf), name, conf,
                                  ray.get(trainset),
@@ -284,12 +297,13 @@ def tune_model(model, main_config, feature_level, name: str, epochs, trainset: A
         resources_per_trial={"gpu": 1.0 / cpus} if torch.cuda.is_available() else None,
         config=config,
         num_samples=100,
-        time_budget_s=hrs * 60 * 60,  # 11h
+        time_budget_s=hrs * 60 * 60,
         search_alg=BasicVariantGenerator(constant_grid_search=True, max_concurrent=4),
         scheduler=scheduler,
         storage_path=os.environ["TUNING_CHECKPOINT_DIR"],
     )
 
+    # Print out the epoch with best macro & micro F1 scores
     for metric in ["f1_macro", "f1_micro"]:
         best_trial = result.get_best_trial(metric, "max", "all")
         print(f"Best trial by {metric}:")
@@ -316,6 +330,8 @@ def tune_model(model, main_config, feature_level, name: str, epochs, trainset: A
 
 
 def model_for_config(mk_model, mk_embed, trainset, config):
+    """Create a model with the given config"""
+
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     embed_module = mk_embed(config, trainset).to(device)
     model = mk_model(trainset, embed_module, config).to(device)
@@ -323,6 +339,8 @@ def model_for_config(mk_model, mk_embed, trainset, config):
 
 
 def train_all(model, splits, feature_level, cfg, langs=None, map_tag=dataset.identity, use_testset=True, use_surface=False, n_models=5):
+    """Train `n_models` seeds of the given model for all languages."""
+
     if langs is None:
         langs = ["ZU", "XH", "SS", "NR"]
 

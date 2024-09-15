@@ -5,7 +5,7 @@ import torch
 from sklearn.metrics import f1_score, classification_report
 
 from dataset import (split_sentences_raw, extract_morphemes_and_tags_from_file_2022, WORD_SEP_TEXT,
-                                  SEQ_PAD_TEXT, identity, tags_only_no_classes, classes_only_no_tags)
+                                  SEQ_PAD_TEXT, identity)
 from encapsulated_model import EncapsulatedModel
 from aligned_f1 import align_seqs
 
@@ -15,6 +15,9 @@ tag_pattern = re.compile(r'\[[a-zA-Z-_0-9|]*?]-?')
 
 
 def segment_query(q):
+    """Segment a query into its morphemes. Users can either input the entire (tagged) sequence from the dataset,
+    in which case the tags will be stripped, or they can just separate morphemes by hyphenation."""
+
     if tag_pattern.search(q):
         return [[morpheme for morpheme in tag_pattern.split(word) if morpheme != ""] for word in q.split(" ")]
     else:
@@ -22,6 +25,8 @@ def segment_query(q):
 
 
 def split_words(seq):
+    """Split a sentence into its words"""
+
     word = []
     for i in seq:
         if i != WORD_SEP_TEXT:
@@ -34,8 +39,9 @@ def split_words(seq):
 
 
 def eval_model(model, test_set, map_tag=identity):
+    """Evaluate a given model on the testset, returning its performance"""
+
     gold, pred = [], []
-    out = []
     for morphemes, gold_tags in test_set:
         if not morphemes:
             continue
@@ -67,7 +73,7 @@ def demo():
         with torch.no_grad():
             model_parameters = filter(lambda p: p.requires_grad, model.parameters())
             params = sum([np.prod(p.size()) for p in model_parameters])
-            print(f"Model has {params / 1_000_000:.2f}M parameters")  # TODO
+            print(f"Model has {params / 1_000_000:.2f}M parameters")
 
             suffix = "_SURFACE" if model.is_surface else ""
             # suffix = "_CANONICAL_PRED"  # <-- uncomment this and comment the above if you want to use predicted canonical segmentations

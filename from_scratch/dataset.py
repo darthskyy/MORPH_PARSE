@@ -1,4 +1,3 @@
-import itertools
 import re
 import random
 
@@ -6,7 +5,7 @@ import torch
 from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import Dataset
 
-
+# Constants for some foundational dataset elements (padding, word separators, unknown tokens)
 SEQ_PAD_TEXT = "<?pad?>"
 SEQ_PAD_IX = 0
 WORD_SEP_IX = 1
@@ -19,8 +18,6 @@ def split_words(sentence):
     morphemes, tags = sentence[0], sentence[1]
     morphemes_acc, tags_acc = [], []
 
-    # TODO it's the ragged issue again...
-
     for morpheme, tag in zip(morphemes, tags):
         if morpheme == WORD_SEP_TEXT:
             yield (morphemes_acc, tags_acc)
@@ -29,11 +26,8 @@ def split_words(sentence):
             morphemes_acc.append(morpheme)
             tags_acc.append(tag)
 
-    if morphemes_acc == []:
-        print(sentence)
-        print("right at end ????")
-
     yield (morphemes_acc, tags_acc)
+
 
 def split_sentences(sentence):
     """Split the corpus into sentences"""
@@ -92,24 +86,35 @@ def split_sentences_raw(words):
         yield (morphemes_acc, tags_acc)
 
 
-def tokenize_into_morphemes(word):
-    return [word]
+def tokenize_into_morphemes(morpheme):
+    """Tokenise a morpheme into its morphemes... which is just the morpheme itself"""
+    return [morpheme]  # The word passed in is already a list of morphemes
 
 
-def tokenize_into_lower_morphemes(word):
-    return [word.lower()]
+def tokenize_into_lower_morphemes(morpheme):
+    """Tokenise a word into its morphemes, lowercased (just the morpheme itself lowercased)"""
+    return [morpheme.lower()]
 
 
-def tokenize_into_chars(word):
-    return list(word) if word != WORD_SEP_TEXT else [WORD_SEP_TEXT]
+def tokenize_into_chars(morpheme):
+    """Tokenise a morphemes into its characters"""
+    return list(morpheme) if morpheme != WORD_SEP_TEXT else [WORD_SEP_TEXT]
 
 
-def tokenize_into_trigrams_with_sentinels(word):
-    word = ["START_MORPHEME"] + list(word) + ["END_MORPHEME"] if word != WORD_SEP_TEXT else [WORD_SEP_TEXT]
-    return [(word[i], word[i + 1], word[i + 2]) for i in range(len(word) - 2)]
+def tokenize_into_trigrams_with_sentinels(morpheme):
+    """
+    Tokenize a morpheme into its trigrams, using sentinels for the beginning and end.
+    For instance, "ndi" would be tokenized into <START_MORPHEME, n, d>, <n, d, i>, <d, i, END_MORPHEME>
+    """
+    morpheme = ["START_MORPHEME"] + list(morpheme) + ["END_MORPHEME"] if morpheme != WORD_SEP_TEXT else [WORD_SEP_TEXT]
+    return [(morpheme[i], morpheme[i + 1], morpheme[i + 2]) for i in range(len(morpheme) - 2)]
 
 
 def tokenize_into_trigrams_no_sentinels(word):
+    """
+    Tokenize a morpheme into its trigrams, without using sentinels for the beginning and end.
+    For instance, "enza" would be tokenized into <e, n, z>, <n, z, a>
+    """
     word = list(word) if word != WORD_SEP_TEXT else [WORD_SEP_TEXT]
     if len(word) == 1:
         return [word[0], SEQ_PAD_TEXT, SEQ_PAD_TEXT]
@@ -120,10 +125,12 @@ def tokenize_into_trigrams_no_sentinels(word):
 
 
 def identity(x):
+    """Simple identity function (used to map tags when wanting to use the full tagset)"""
     return x
 
 
 def tags_only_no_classes(tag):
+    """Map an NCHLT dataset grammatical tag to just the syntactic tag without noun classes. E.g., Dem14 -> Dem"""
     digits = [(i, c) for i, c in enumerate(tag) if c.isdigit()]
     if len(digits) > 0:
         return tag[:digits[0][0]]
@@ -132,6 +139,7 @@ def tags_only_no_classes(tag):
 
 
 def classes_only_no_tags(tag):
+    """Map an NCHLT dataset grammatical tag to just the noun class without syntactic tag. E.g., Dem14 -> 14"""
     digits = [(i, c) for i, c in enumerate(tag) if c.isdigit()]
     if len(digits) > 0:
         return tag[digits[0][0]:]
@@ -152,6 +160,7 @@ _DOUBLE_LABEL_PAT = re.compile("Pos[0-9]")
 
 
 def _clean_double_labelled_morphemes(morpheme_seq: list, tag_seq: list):
+    """Select the first tag of a morpheme in cases where they are doubly-tagged"""
     pos_tag_ix = [i for i, tag in enumerate(tag_seq) if _DOUBLE_LABEL_PAT.match(tag)]
     tag_seq.pop(pos_tag_ix[0])
 
@@ -160,6 +169,10 @@ def _clean_double_labelled_morphemes(morpheme_seq: list, tag_seq: list):
 
 
 def extract_morphemes_and_tags_from_file_2022(filename: str, use_surface, is_demo=False):
+    """Extract the morpheme & tag sequences from Gaustad & Puttkammer's 2022 dataset,
+    'Linguistically annotated dataset for four official South African languages with a conjunctive orthography:
+    IsiNdebele, isiXhosa, isiZulu, and Siswati' https://www.data-in-brief.com/article/S2352-3409(22)00205-0/fulltext
+    """
     with open(filename) as f:
         for line in f.readlines():
             cols = line.strip().split("\t")
@@ -179,13 +192,20 @@ def extract_morphemes_and_tags_from_file_2022(filename: str, use_surface, is_dem
 
 
 def inspect(x):
+    """Debugging function which prints the value and then returns it."""
     print(x)
     return x
 
 
 class AnnotatedCorpusDataset(Dataset):
+    """
+    `AnnotatedCorpusDataset` represents a loaded and parsed annotated corpus dataset (e.g. Gaustad & Puttkammer 2022).
+    It contains all morpheme and tag sequences as well as dictionaries mapping from submorphemes and tags to indices.
+    One instance of `AnnotatedCorpusDataset` will either be the training or validation/testing portion.
+    """
+
     def __init__(self, seqs, num_submorphemes: int, num_tags: int, ix_to_tag, tag_to_ix, ix_to_morpheme, morpheme_to_ix,
-                 tag_weights, is_surface, tokenize, split, lang):
+                 is_surface, tokenize, split, lang):
         super().__init__()
         self.seqs = seqs
         self.num_submorphemes = num_submorphemes
@@ -194,30 +214,39 @@ class AnnotatedCorpusDataset(Dataset):
         self.tag_to_ix = tag_to_ix
         self.ix_to_morpheme = ix_to_morpheme
         self.morpheme_to_ix = morpheme_to_ix
-        self.tag_weights = tag_weights
         self.is_surface = is_surface
         self.tokenize = tokenize
         self.split = split
         self.lang = lang
 
     @staticmethod
-    def load_data(lang: str, use_surface=False, use_testset=False, split=split_words, tokenize=tokenize_into_morphemes, map_tag=identity,
-                  use_2024=False, supp_training_langs=None):
-        if supp_training_langs is None:
-            supp_training_langs = []
+    def load_data(lang: str, use_surface=False, use_testset=False, split=split_words, tokenize=tokenize_into_morphemes,
+                  map_tag=identity):
+        """
+        Load the data from the annotated corpus dataset, and return the training and validation portions.
 
+        The major steps are as follows:
+        1. Load raw train data
+        2. Split into train/valid, OR load test data
+        3. Count submorpheme frequencies (this refers to tokenization level - either morpheme or character)
+        4. Create submorpheme<-->index and tag<-->index mappings
+        5. Replace raw (text) data with indices and transform into tensors
+        6. Return train & valid portions of dataset
+        """
+
+        # Initialise some index dictionaries used to map submorphemes & tags to indices
         submorpheme_to_ix = {SEQ_PAD_TEXT: SEQ_PAD_IX, WORD_SEP_TEXT: WORD_SEP_IX,
                              "<?unk?>": UNK_IDX}  # unk accounts for unseen morphemes
         ix_to_submorpheme = {SEQ_PAD_IX: SEQ_PAD_TEXT, WORD_SEP_IX: WORD_SEP_TEXT, UNK_IDX: "<?unk?>"}
         tag_to_ix = {SEQ_PAD_TEXT: SEQ_PAD_IX, WORD_SEP_TEXT: WORD_SEP_IX}
         ix_to_tag = {SEQ_PAD_IX: SEQ_PAD_TEXT, WORD_SEP_IX: WORD_SEP_TEXT}
         submorpheme_frequencies = dict()
-        tag_frequencies = dict()
 
         training_data = []
         testing_data = []
 
         def insert_tags_into_dicts(tag_sequence, is_train):
+            """Insert all tags from the given tag sequence into the tag <-> index dictionaries"""
             for tag in tag_sequence:
                 tag = map_tag(tag)
                 if tag not in tag_to_ix:
@@ -228,42 +257,20 @@ class AnnotatedCorpusDataset(Dataset):
                     tag_to_ix[tag] = ix
                     ix_to_tag[ix] = tag
 
-        def split_tags(text: str):
-            """Split a word into its canonical segmentation and morpheme tags."""
-            canon = [morph for morph in re.split(r'\[[a-zA-Z-_0-9]*?]-?', text) if morph != ""]
-            return (canon, re.findall(r'\[([a-zA-Z-_0-9]*?)]', text))
-
-        def extract_morphemes_and_tags_from_file_2024(filename: str):
-            with open(filename) as f:
-                for line in f.readlines():
-                    if line.startswith("<LINE"):
-                        continue
-
-                    analysis = line.strip().split()[1]
-                    morpheme_seq, tag_seq = split_tags(analysis)
-
-                    if len(morpheme_seq) != len(tag_seq):
-                        _clean_double_labelled_morphemes(morpheme_seq, tag_seq)
-
-                    if len(morpheme_seq) != len(tag_seq):
-                        print("Wrong len!", morpheme_seq, tag_seq)
-                    yield (morpheme_seq, tag_seq)
-
-        # First, we split by sentences in order to get a fair train/test split
         suffix = "_SURFACE" if use_surface else ""
         test_suffix = "SET_GOLD_SURFACE" if use_surface else ""
 
+        # STEP 1: load dataset
         raw = extract_morphemes_and_tags_from_file_2022(f"data/TRAIN/{lang}_TRAIN{suffix}.tsv", use_surface)
-        if use_2024:
-            raw = itertools.chain(
-                raw,
-                extract_morphemes_and_tags_from_file_2024(f"data/NEW/{lang}_NEW.txt")
-            )
 
+        # We split by sentences in order to get a fair train/test split. We do have sentence level models, so we
+        # want to ensure that we don't split words across sentences incorrectly.
         sentences = list(split_sentences_raw(raw))
 
+        # STEP 2: split into validation / load test data
+        # If not using the testset itself, automatically split of 10% of the data into the validation set. Otherwise,
+        # load the testset from the file.
         if not use_testset:
-            # Split the data in two
             test_amount = len(sentences) // 10
             random.shuffle(sentences)
             test_sentences = sentences[:test_amount]
@@ -272,58 +279,29 @@ class AnnotatedCorpusDataset(Dataset):
             print("Using testset")
             train_sentences = sentences
             test_sentences = list(
-                split_sentences_raw(extract_morphemes_and_tags_from_file_2022(f"data/TEST/{lang}_TEST{test_suffix}.tsv", use_surface)))
+                split_sentences_raw(
+                    extract_morphemes_and_tags_from_file_2022(f"data/TEST/{lang}_TEST{test_suffix}.tsv", use_surface)))
 
-        supp = []
-        for supp_lang in supp_training_langs:
-            raw_supp = itertools.chain(
-                extract_morphemes_and_tags_from_file_2024(f"data/NEW/{supp_lang}_NEW.txt"),
-                extract_morphemes_and_tags_from_file_2022(f"data/TRAIN/{supp_lang}_TRAIN{suffix}.tsv", use_surface)
-            )
-            supp = list(split_sentences_raw(raw_supp))
-
-        # Count submorpheme & tag frequencies
+        # STEP 3: Count submorpheme frequencies.
+        # We want to replace any submorpheme only seen once with `UNK` to improve generalization, so we only include
+        # submorphemes which occur more than once
         for sentence in train_sentences:
             for (morphemes, tags) in split(sentence):
                 for morpheme in morphemes:
                     for submorpheme in tokenize(morpheme):
                         submorpheme_frequencies.setdefault(submorpheme, 0)
                         submorpheme_frequencies[submorpheme] += 1
-                for i, tag in enumerate(tags):
-                    tag = map_tag(tag)
-                    tag_frequencies.setdefault(tag, 0)
-                    tag_frequencies[tag] += 1
 
-        for sentence in supp:
-            for (morphemes, tags) in split(sentence):
-                for morpheme in morphemes:
-                    for submorpheme in tokenize(morpheme):
-                        submorpheme_frequencies.setdefault(submorpheme, 0)
-                        submorpheme_frequencies[submorpheme] += 1
-
-        for sentence in supp:
-            for (morphemes, tags) in split(sentence):
-                # Insert submorphemes of morphemes from train set into the embedding indices
-                # Replace those with only 1 occurence with UNK though
-                for morpheme in morphemes:
-                    for submorpheme in tokenize(morpheme):
-                        if submorpheme_frequencies[submorpheme] > 1:
-                            submorpheme_to_ix.setdefault(submorpheme, len(submorpheme_to_ix))
-                            ix_to_submorpheme.setdefault(len(submorpheme_to_ix) - 1, submorpheme)
-
+        # STEP 4: Create tag<-->index and submorpheme<-->index mappings
         for sentence in train_sentences:
             for (morphemes, tags) in split(sentence):
                 # Insert submorphemes of morphemes from train set into the embedding indices
                 # Replace those with only 1 occurence with UNK though
                 for morpheme, tag in zip(morphemes, tags):
                     for submorpheme in tokenize(morpheme):
-                        # TODO try and lowercase before too
-                        non_grammar_tags = ["Foreign", "Num", "NStem", "VRoot", "AuxVStem", "VerbTerm", "Abbr", "ProperName", "AdjStem", "Intrans", "RelStem", "Ideoph"]
                         if submorpheme_frequencies[submorpheme] > 1:
                             submorpheme_to_ix.setdefault(submorpheme, len(submorpheme_to_ix))
                             ix_to_submorpheme.setdefault(len(submorpheme_to_ix) - 1, submorpheme)
-                        # elif tag in non_grammar_tags:
-                        #     print("'", submorpheme, f"' (tag {tag}) only appeared once! replacing with UNK", sep="")
 
                 # Also insert tags into embedding indices
                 insert_tags_into_dicts(tags, True)
@@ -334,7 +312,7 @@ class AnnotatedCorpusDataset(Dataset):
         for sentence in test_sentences:
             for (morphemes, tags) in split(sentence):
                 # We skip inserting morphemes from the test set into the embedding indices, because it is realistic
-                # that there may be unseen morphemes
+                # that there may be unseen morphemes in the final data, of course
 
                 # However, we _do_ insert tags, since we know all the tags upfront. Technically we should just have
                 # a predefined list, but that's annoying to do
@@ -352,6 +330,7 @@ class AnnotatedCorpusDataset(Dataset):
         device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
         def encode_dataset(dataset):
+            """Encode the dataset into tensors by converting all submorphemes/tags to indices and padding them"""
             return [
                 (pad_sequence([prepare_sequence(tokenize(m), submorpheme_to_ix, device) for m in morpheme_seq],
                               padding_value=SEQ_PAD_IX, batch_first=True),
@@ -359,32 +338,23 @@ class AnnotatedCorpusDataset(Dataset):
                 for (morpheme_seq, tag_seq) in dataset
             ]
 
-        # Encode everything
+        # STEP 5: Transform to tensors
         training_data, testing_data = encode_dataset(training_data), encode_dataset(testing_data)
 
         print("train, test len:", len(training_data), len(testing_data))
 
-        lowest_freq = sorted(freq for freq in tag_frequencies.values())[0]
-        tag_frequencies = [(tag_to_ix[tag], freq) for tag, freq in tag_frequencies.items()]
-        tag_frequencies = [freq for tag, freq in sorted(tag_frequencies, key=lambda t: t[0])]
-
-        for ix in tag_to_ix.values():
-            if ix >= len(tag_frequencies):
-                tag_frequencies.append(lowest_freq)
-
-        tag_frequencies = [1.0 / float(freq + 1) for freq in tag_frequencies]
-        tag_frequencies = torch.tensor(tag_frequencies)
-
+        # STEP 6: done - just return one part as training and one as testing
         return (
             AnnotatedCorpusDataset(training_data, len(submorpheme_to_ix), len(tag_to_ix), ix_to_tag, tag_to_ix,
-                                   ix_to_submorpheme, submorpheme_to_ix, tag_frequencies, use_surface, tokenize, split,
+                                   ix_to_submorpheme, submorpheme_to_ix, use_surface, tokenize, split,
                                    lang),
             AnnotatedCorpusDataset(testing_data, len(submorpheme_to_ix), len(tag_to_ix), ix_to_tag, tag_to_ix,
-                                   ix_to_submorpheme, submorpheme_to_ix, tag_frequencies, use_surface, tokenize, split,
+                                   ix_to_submorpheme, submorpheme_to_ix, use_surface, tokenize, split,
                                    lang),
         )
 
     def to(self, device):
+        """Move the dataset onto a specific device"""
         self.seqs = [(a.to(device), b.to(device)) for a, b in self.seqs]
 
     def __getitem__(self, item):
@@ -392,4 +362,3 @@ class AnnotatedCorpusDataset(Dataset):
 
     def __len__(self):
         return len(self.seqs)
-

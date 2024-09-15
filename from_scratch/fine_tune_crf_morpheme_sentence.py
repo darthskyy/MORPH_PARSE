@@ -7,6 +7,7 @@ from bilstm_crf import BiLstmCrfTagger
 from common import (AnnotatedCorpusDataset, tune_model, tokenize_into_morphemes, EmbedSingletonFeature, split_sentences,
                     train_all)
 
+# Some configurable aspects of the model - the model itself, context level, and submorpheme tokenisation
 model = (
     "bilstm-crf",
     lambda train_set, embed, config: BiLstmCrfTagger(embed, config, train_set)
@@ -29,6 +30,8 @@ name = f"split-{split_name}feature-{feature_level}_model-{model_name}"
 
 
 def fine_tune():
+    """Tune the model to select best hyperparameters"""
+
     print(f"Tuning {split_name}-level, {feature_name}-feature {model_name} for ZU")
     cfg = {
         "lr": tune.loguniform(1e-4, 1e-1),
@@ -45,6 +48,8 @@ def fine_tune():
 
 
 def final_train():
+    """Train & save the model with a given config"""
+
     cfg = {
         'lr': 0.0001723733700380886,
         'weight_decay': 2.6412896449908767e-07,

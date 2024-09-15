@@ -9,12 +9,12 @@ from common import (AnnotatedCorpusDataset, tokenize_into_morphemes, split_sente
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
+# Some configurable aspects of the model - the model itself, context level, and submorpheme tokenisation
 model = (
     "bilstm",
     lambda train_set, embed, config: BiLSTMTagger(embed, config, train_set)
 )
 splits = (split_sentences, "sentences", 20)
-
 feature_level = (
     "morpheme",
     {
@@ -32,6 +32,8 @@ name = f"split-{split_name}feature-{feature_level}_model-{model_name}"
 
 
 def fine_tune():
+    """Tune the model to select best hyperparameters"""
+
     print(f"Tuning {split_name}-level, {feature_name}-feature {model_name} for ZU")
     cfg = {
         "lr": tune.loguniform(1e-5, 1e-2),
@@ -48,6 +50,8 @@ def fine_tune():
 
 
 def final_train():
+    """Train & save the model with a given config"""
+
     cfg = {
         'lr': 0.00019401697177446437,
         'weight_decay': 9.230833759168172e-07,

@@ -167,6 +167,11 @@ class CRF(nn.Module):
 
 
 class BiLstmCrfTagger(nn.Module):
+    """
+    A `BiLstmCrfTagger` uses a bidirectional long short-term memory model to generate features fed to a conditional
+    random field in order to classify a given sequence of morphemes with their corresponding grammatical tags
+    """
+
     def __init__(self, embed, config, trainset: AnnotatedCorpusDataset,
                  num_rnn_layers=1, rnn="lstm"):
         super(BiLstmCrfTagger, self).__init__()
@@ -183,6 +188,8 @@ class BiLstmCrfTagger(nn.Module):
         self.crf = CRF(self.hidden_dim, self.tagset_size).to(self.dev)
 
     def __build_features(self, morphemes):
+        """Build features using a bi-lstm for the CRF to then tag"""
+
         masks = morphemes.any(dim=2)  # SEQ_PAD_IX is 0, so this checks which words have non-padding submorpheme IXs
         embeds = self.embedding(morphemes.long())
         embeds = self.drop(embeds)

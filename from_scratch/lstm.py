@@ -5,6 +5,11 @@ from common import AnnotatedCorpusDataset, SEQ_PAD_IX
 
 
 class BiLSTMTagger(nn.Module):
+    """
+    A `BiLSTMTagger` uses a bidirectional long short-term memory model to classify a given sequence of morphemes
+    with their corresponding grammatical tags
+    """
+
     def __init__(self, embed, config, trainset: AnnotatedCorpusDataset):
         super(BiLSTMTagger, self).__init__()
         self.dev = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
