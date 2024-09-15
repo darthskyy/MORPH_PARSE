@@ -2,6 +2,7 @@ import argparse
 from datetime import datetime
 import os
 import csv
+import re
 import warnings
 
 
@@ -70,6 +71,13 @@ class MorphParseDataset():
 
         train_data = pd.read_csv(train_path, delimiter="\t", names=self.column_names, quoting=csv.QUOTE_NONE)
         test_data = pd.read_csv(test_path, delimiter="\t", names=self.column_names, quoting=csv.QUOTE_NONE)
+
+        # uncomment this if you want to remove the double tags [Dem\d]_[Pos\d]
+        # pos_pattern = re.compile(r'Pos\d')
+        # def remove_pos(tags):
+        #     return [tag for tag in tags if not pos_pattern.match(tag)]
+        # train_data["tag"] = train_data["tag"].apply(lambda x: x.split("_")).apply(remove_pos).apply(lambda x: "_".join(x))
+        # test_data["tag"] = test_data["tag"].apply(lambda x: x.split("_")).apply(remove_pos).apply(lambda x: "_".join(x))
 
         # getting the validation data
         validation_data = train_data.sample(frac=self.validation_split, random_state=self.seed)
@@ -476,25 +484,102 @@ class MorphParseArgs():
         # core arguments
         self.parser.add_argument(
             "--output_dir",
-            type=str, default="output")
+            type=str, default="output",
+            help="The output directory where the model predictions and checkpoints will be written.")
         self.parser.add_argument(
             "--model_dir",
-            type=str, default="xlm-roberta-large")
+            type=str, default="xlm-roberta-large",
+            help="The directory or model identifier from huggingface.co/models where the model is loaded from.")
         self.parser.add_argument(
             "--data_dir",
-            type=str, default="data")
+            type=str, default="data",
+            help="The input data directory. Should contain the training files for the NER task.")
         self.parser.add_argument(
             "--log_file",
-            type=str, default="logs.log")
+            type=str, default="logs.log",
+            help="The file where the training and evaluation logs will be written.")
         self.parser.add_argument(
             "--language",
-            type=str, default="XH", choices=["NR", "SS", "XH", "ZU", "ALL"])
+            type=str, default="XH", choices=["NR", "SS", "XH", "ZU"],
+            help="The language code for the dataset to be used. Choices are: 'NR', 'SS', 'XH', 'ZU'.")
         self.parser.add_argument(
             "--cache_dir",
-            type=str, default=".cache")
+            type=str, default=".cache",
+            help="The directory where the pretrained models downloaded from huggingface.co will be cached.")
         self.parser.add_argument(
             "--seed",
-            type=int, default=42)
+            type=int, default=42,
+            help="Random seed for initialization.")
+        
+        # for the model (repeated here for the help function)
+        self.parser.add_argument(
+            "--num_train_epochs",
+            type=int, default=3,
+            help="Total number of training epochs to perform.")
+        self.parser.add_argument(
+            "--per_device_train_batch_size",
+            type=int, default=16,
+            help="Batch size per GPU/TPU core/CPU for training.")
+        self.parser.add_argument(
+            "--per_device_eval_batch_size",
+            type=int, default=16,
+            help="Batch size per GPU/TPU core/CPU for evaluation.")
+        self.parser.add_argument(
+            "--learning_rate",
+            type=float, default=2e-5,
+            help="The initial learning rate for Adam.")
+        self.parser.add_argument(
+            "--weight_decay",
+            type=float, default=0.01,
+            help="Weight decay if we apply some.")
+        
+        # saving/loading arguments
+        self.parser.add_argument(
+            "--eval_strategy",
+            type=str, default="steps", choices=["no", "steps", "epoch"],
+            help="The evaluation strategy to use.")
+        self.parser.add_argument(
+            "--eval_steps",
+            type=int, default=200,
+            help="Number of update steps between two evaluations. Can only be used if eval_strategy set to 'steps'.")
+        self.parser.add_argument(
+            "--save_strategy",
+            type=str, default="steps", choices=["no", "steps", "epoch"],
+            help="The checkpoint save strategy to use.")
+        self.parser.add_argument(
+            "--save_steps",
+            type=int, default=200,
+            help="Number of updates steps before two checkpoint saves.")
+        self.parser.add_argument(
+            "--save_total_limit",
+            type=int, default=2,
+            help="Limit the total amount of checkpoints. Deletes the older checkpoints in the output_dir.")
+            
+        self.parser.add_argument(
+            "--load_best_model_at_end",
+            action="store_true",
+            help="Whether to load the best model found at the end of training.")
+        self.parser.add_argument(
+            "--metric_for_best_model",
+            type=str, default="loss",
+            help="The metric to use to compare the best model.")
+        self.parser.add_argument(
+            "--greater_is_better",
+            action="store_true",
+            help="Whether the `metric_for_best_model` should be maximized or not.")
+        self.parser.add_argument(
+            "--resume_from_checkpoint",
+            action="store_true",
+            help="Whether to resume training from the last checkpoint.")
+        
+        self.parser.add_argument(
+            "--logging_steps",
+            type=int, default=100,
+            help="Number of update steps between two logs.")
+        self.parser.add_argument(
+            "--disable_tqdm",
+            action="store_true",
+            help="Whether to disable the tqdm progress bars.")
         
 
         self.args = self.parser.parse_known_args()[0]

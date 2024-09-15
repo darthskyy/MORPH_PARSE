@@ -4,4 +4,4 @@ pandas
 numpy
 seqeval
 accelerate
-evaluate
+requests
