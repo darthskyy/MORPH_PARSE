@@ -8,8 +8,7 @@ import warnings
 import torch
 import numpy as np
 import pandas as pd
-from datasets import Dataset, DatasetDict, load_metric
-import evaluate
+from datasets import Dataset, DatasetDict
 from seqeval.metrics import classification_report
 from transformers import XLMRobertaTokenizerFast, AutoModelForTokenClassification, DataCollatorForTokenClassification
 from transformers import Trainer, TrainingArguments
@@ -207,7 +206,6 @@ class MorphParseModel():
         self.language = language
         self.path = path
         self.model = None
-        self.metrics = evaluate.load("seqeval", experiment_id=datetime.now().strftime("%Y%m%d%H%M%S"))
         self.loaded = False
 
         # loading the tokenizer and dataset
@@ -439,9 +437,9 @@ class MorphParseModel():
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
             self.model.to("cuda")
-            print("put on gpu")
+            print("gpu available")
         else:
-            print("8888888888888888888888FFFFFFFFFFFFF88888888888888888888888888888")
+            print("gpu not available")
 
     def evaluate(self):
         """
@@ -501,6 +499,16 @@ class MorphParseArgs():
 
         self.args = self.parser.parse_known_args()[0]
     
+
+    def __getattr__(self, key):
+        return getattr(self.args, key)
+    
+    def __setattr__(self, key, value):
+        if key == "parser" or key == "args":
+            super().__setattr__(key, value)
+        else:
+            setattr(self.args, key, value)
+
     def __getitem__(self, key):
         return vars(self.args)[key]
     
@@ -587,6 +595,58 @@ class GenUtils():
             else:
                 for indices in GenUtils._gen_indices(length_diff - 1, first_coord):
                     yield first_coord, *indices
+
+    # * formatting the NER results
+    def format_ner_results(ner_results, model="xlmr"):
+        """
+        Format the NER results to be used for evaluation
+
+        Args:
+        ner_results (list of dictionaries): The NER results containing word and entity information.
+
+        Returns:
+        tuple: A tuple containing two lists - morphs and tags. Morphs is a list of morphemes extracted from the NER results, and tags is a list of corresponding entity tags.
+
+        Example:
+        >>> ner_results = [
+                {"word": "U", "Entity": "NPrePre15"},
+                {"word": "ku", "Entity": "BPre15"},
+                {"word": "eng", "Entity": "VRoot"},
+                {"word": "##ez", "Entity": "VRoot"},
+                {"word": "a", "Entity": "VerbTerm"}
+            ]
+        >>> format_ner_results(ner_results)
+        (["u", "ku", "engez", "a"], ["NPrePre15", "BPre15", "VRoot", "VerbTerm"])
+        """
+        morphs = []
+        tags = []
+
+        if model=="xlmr":
+            for i in range(len(ner_results)):
+                morph = ner_results[i]["word"]
+                tag = ner_results[i]["entity"]
+
+                if morph.startswith("▁"):
+                    morphs.append(morph[1:])
+                    if "Dem" in tag:
+                        continue
+                    tags.append(tag)
+                else:
+                    morphs[-1] += morph
+        elif model=="bert":
+            for i in range(len(ner_results)):
+                morph = ner_results[i]["word"]
+                tag = ner_results[i]["entity"]
+
+                if morph.startswith("##"):
+                    morphs[-1] += morph[2:]
+                else:
+                    morphs.append(morph)
+                    if "Dem" in tag:
+                        continue
+                    tags.append(tag)
+        
+        return morphs, tags
 
 def main():
     # disable the warnings
