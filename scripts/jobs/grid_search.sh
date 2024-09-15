@@ -1,7 +1,7 @@
 #!/bin/bash
-#PBS -N NR_grid_X
+#PBS -N auto_ZU_x
 #PBS -q gpu_1
-#PBS -l select=1:ncpus=2:ngpus=1
+#PBS -l select=1:ncpus=1:ngpus=1
 #PBS -P CSCI1674
 #PBS -l walltime=12:00:00
 #PBS -m abe
@@ -16,13 +16,18 @@ module load chpc/cuda/11.5.1/PCIe/11.5.1
 module load gcc/9.2.0
 
 echo "Installing requirements"
-pip3 install torch==1.10.1+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
-pip3 install -r requirements.txt
+pip3 install torch==1.10.1+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html -q
+pip3 install -r requirements.txt -q
 
-language=NR
-output_dir=plm/models/grid/${language}_search_X
+cp results/* results_backup
+language=ZU
+output_dir=plm/models/grid/${language}_$(date +%Y%m%d%H%M%S)
 data_dir=data
-model_dir=xlm-roberta-large
+model_dir=francois-meyer/nguni-xlmr-large
 python3 plm/grid_search.py --language $language --output_dir $output_dir \
-    --logging_steps 1000 --disable_tqdm --data_dir $data_dir --model_dir $model_dir \
-    --log_file ${language}_search_X.txt --overwrite_output_dir
+    --disable_tqdm --data_dir $data_dir --model_dir $model_dir \
+    --eval_strategy epoch --save_strategy no --logging_steps 2000 \
+    --log_file results/${language}_final.csv --overwrite_output_dir
+
+rm $output_dir -rf
+cp results/* results_backup

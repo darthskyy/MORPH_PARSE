@@ -45,15 +45,19 @@ def main():
     print("Evaluating the model on the test set")
     def reverse_ids(ids):
         return [dataset.id2label[id] for id in ids]
-    pos_pattern = re.compile(r'Pos\d')
-    def remove_pos(tags):
-        return [tag for tag in tags if not pos_pattern.match(tag)]
 
     # getting the morphemes, references, and predictions
     # morphemes are space separated so that the parser can process them
     morphemes = dataset.test.to_pandas()['morpheme'].apply(lambda x: ' '.join(x)).tolist()
     # references are converted from ids to labels and the Pos tags are removed as it often exists in a double tag
-    references = dataset.test.to_pandas()['tag'].apply(lambda x: reverse_ids(x)).apply(remove_pos).tolist()
+    references = dataset.test.to_pandas()['tag'].apply(lambda x: reverse_ids(x))
+
+    # pos_pattern = re.compile(r'Pos\d')
+    # def remove_pos(tags):
+    #     return [tag for tag in tags if not pos_pattern.match(tag)]
+    # references = references.apply(lambda x: remove_pos(x)) # uncomment this line if you want to remove the Pos tags
+    
+    references = references.tolist()
     # predictions are obtained from the parser and converted to labels
     predictions = parser(morphemes)
     predictions = [GenUtils.format_ner_results(p)[1] for p in predictions]
