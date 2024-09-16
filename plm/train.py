@@ -1,6 +1,5 @@
 from utils import MorphParseArgs, MorphParseDataset, MorphParseModel, GenUtils
 
-from pprint import pprint
 from seqeval.metrics import classification_report
 
 import logging
@@ -56,6 +55,8 @@ def main():
     # train the model
     if args.train:
         logger.info("Training the model")
+        logger.info("Model hyperparameters")
+        logger.info(model.args)
         model.train()
     model.save()
 
