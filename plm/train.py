@@ -2,6 +2,8 @@ from utils import MorphParseArgs, MorphParseDataset, MorphParseModel, GenUtils
 
 from pprint import pprint
 from seqeval.metrics import classification_report
+
+import argparse
 import re
 from transformers import XLMRobertaTokenizerFast, pipeline
 import torch
@@ -30,8 +32,9 @@ def main():
     model.load()
 
     # train the model
-    model.args.num_train_epochs = 1
-    model.train()
+    if args.train:
+        print("Training the model")
+        model.train()
     model.save()
 
     # evaluate the model on the test set
@@ -61,12 +64,21 @@ def main():
     # predictions are obtained from the parser and converted to labels
     predictions = parser(morphemes)
     predictions = [GenUtils.format_ner_results(p)[1] for p in predictions]
+    morphemes = dataset.test.to_pandas()['morpheme'].apply(lambda x: '_'.join(x)).tolist()
 
+    lines = ["morphemes\ttarget\tprediction\n"]
     # align the predictions and references if they are not the same length
     for i in range(len(predictions)):
-        references[i] = [r for r in references[i] if "Dem"]
         predictions[i], references[i] = GenUtils.align_seqs(predictions[i], references[i])
         # add the # to the predictions and references because the classification report expects NER
+
+        # write the morphemes, references, and predictions to a file
+        output = ""
+        output += morphemes[i] + "\t"
+        output += "_".join(references[i]) + "\t"
+        output += "_".join(predictions[i]) + "\n"
+        lines.append(output)
+
         predictions[i] = ["#" + p for p in predictions[i]]
         references[i] = ["#" + r for r in references[i]]
     results = classification_report(references, predictions, output_dict=True)
@@ -83,5 +95,9 @@ def main():
     pprint(results)
     with open(LOG_FILE, 'w') as f:
         f.write(str(results))
+    
+    if args.predictions:
+        with open(args.predictions, 'w') as f:
+            f.writelines(lines)
 if __name__ == '__main__':
     main()

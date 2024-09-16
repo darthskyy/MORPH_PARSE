@@ -581,6 +581,10 @@ class MorphParseArgs():
             action="store_true",
             help="Whether to disable the tqdm progress bars.")
         
+        
+        self.parser.add_argument("--predictions", type=str, default="", help="The file to save the predictions")
+        self.parser.add_argument("--train", type=bool, default=True, help="Whether to train the model")
+        
 
         self.args = self.parser.parse_known_args()[0]
     
