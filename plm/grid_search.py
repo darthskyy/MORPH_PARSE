@@ -61,7 +61,6 @@ def main():
     # the for loops are nested to create all the possible configurations
     if not os.path.exists(RESULTS_FILE):
         create_config_file(RESULTS_FILE, SUFFIX)
-    exit()
 
     START_TIME = time.time()
     END_TIME = START_TIME + 11.5 * 60 * 60

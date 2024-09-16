@@ -11,7 +11,8 @@ def get_percentage(search: str, search_space: list):
     return round(len([item for item in primary if item["completed"]])/len(primary) *100)
 
 
-def print_grid_search_summary(config, args):
+def print_grid_search_summary(args):
+    config = json.load(open(args.results_file))
     # key for sorting by macro_f1
     date_format = "%d %B, %Y %H:%M"
 
@@ -99,11 +100,10 @@ def print_grid_search_summary(config, args):
 def main():
     parser = argparse.ArgumentParser("Parser for grid parse summariser")
     parser.add_argument("--save_csv", required=False, type=str, help="file to save the results in csv format.")
+    parser.add_argument("--results_file", required=False, default="results/config.json", type=str, help="file containing the grid search results.")
     args = parser.parse_args()
 
-    config = json.load(open("results/config.json"))
-
-    print_grid_search_summary(args=args, config=config)
+    print_grid_search_summary(args=args)
 
 
 if __name__=="__main__":
