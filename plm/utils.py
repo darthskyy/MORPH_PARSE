@@ -402,7 +402,7 @@ class MorphParseModel():
         
         parser.add_argument(
             "--logging_steps",
-            type=int, default=10)
+            type=int, default=100)
         parser.add_argument(
             "--disable_tqdm",
             action="store_true")

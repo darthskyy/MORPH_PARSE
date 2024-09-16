@@ -3,7 +3,8 @@ from utils import MorphParseArgs, MorphParseDataset, MorphParseModel, GenUtils
 from pprint import pprint
 from seqeval.metrics import classification_report
 
-import argparse
+import logging
+import sys
 import re
 from transformers import XLMRobertaTokenizerFast, pipeline
 import torch
@@ -21,6 +22,27 @@ def main():
     CACHE_DIR = args.cache_dir
     SEED = args.seed
 
+    # setting up logging
+    logger = logging.getLogger(f"train_script_{LANGUAGE}")
+    logger.setLevel(logging.INFO)
+    formatter = logging.Formatter("%(asctime)s - %(message)s")
+
+    file_handler = logging.FileHandler(LOG_FILE)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+
+    logger.info(f"Output directory: {OUTPUT_DIR}")
+    logger.info(f"Model directory: {MODEL_DIR}")
+    logger.info(f"Data directory: {DATA_DIR}")
+    logger.info(f"Log file: {LOG_FILE}")
+    logger.info(f"Language: {LANGUAGE}")
+    logger.info(f"Cache directory: {CACHE_DIR}")
+    logger.info(f"Seed: {SEED}")
+
     # load the dataset and tokenizer
     tokenizer = XLMRobertaTokenizerFast.from_pretrained(MODEL_DIR, cache_dir=CACHE_DIR)
     dataset = MorphParseDataset(language=LANGUAGE, tokenizer=tokenizer, path=DATA_DIR, seed=SEED)
@@ -33,7 +55,7 @@ def main():
 
     # train the model
     if args.train:
-        print("Training the model")
+        logger.info("Training the model")
         model.train()
     model.save()
 
@@ -42,10 +64,10 @@ def main():
         parser = pipeline("ner", model=model.model, tokenizer=dataset.tokenizer, device=0, batch_size=16)
     else:
         parser = pipeline("ner", model=model.model, tokenizer=dataset.tokenizer)
-    print("Pipeline created")
+    logger.info("Evaluating the model on the test set")
 
     # evaluate the model on the test set
-    print("Evaluating the model on the test set")
+    logger.info("Evaluating the model on the test set")
     def reverse_ids(ids):
         return [dataset.id2label[id] for id in ids]
 
@@ -92,11 +114,16 @@ def main():
         "macro_recall": results["macro avg"]["recall"],
     }
 
-    pprint(results)
-    with open(LOG_FILE, 'w') as f:
-        f.write(str(results))
+    logger.info("RESULTS")
+    logger.info(f"Micro F1: {results['micro_f1']}")
+    logger.info(f"Macro F1: {results['macro_f1']}")
+    logger.info(f"Micro Precision: {results['micro_precision']}")
+    logger.info(f"Macro Precision: {results['macro_precision']}")
+    logger.info(f"Micro Recall: {results['micro_recall']}")
+    logger.info(f"Macro Recall: {results['macro_recall']}")
     
     if args.predictions:
+        logger.info(f"Writing predictions to {args.predictions}")
         with open(args.predictions, 'w') as f:
             f.writelines(lines)
 if __name__ == '__main__':
