@@ -2,6 +2,7 @@ data/
 myenv/
 *.tgz
 plm/models/
+plm/demo
 .cache/
 .venv
 checking
@@ -19,3 +20,6 @@ x.py
 test
 *.csv
 logs/
+plm/predictions
+results_backup
+tests

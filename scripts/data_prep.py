@@ -28,6 +28,7 @@ import io
 import os
 import requests
 import zipfile
+import platform
 
 # for extracting the data
 DIRS = ["TEST", "TRAIN"]
@@ -65,7 +66,15 @@ def remove_extras(out_dir: str):
         None
     """
     # removing unnecessary file
-    os.system(f"rmdir {os.path.join(out_dir, "Protocols")} /s /q")
+    # Check the operating system
+    current_os = platform.system()
+
+    if current_os == "Windows":
+        # Windows-specific command
+        os.system(f"rmdir {os.path.join(out_dir, 'Protocols')} /s /q")
+    else:
+        # Unix/Linux-specific command
+        os.system(f"rm -rf {os.path.join(out_dir, 'Protocols')}")
     os.remove(os.path.join(out_dir, "README.Data.txt"))
 
     for sub_dir in os.listdir(out_dir):
@@ -74,7 +83,7 @@ def remove_extras(out_dir: str):
                 os.remove(os.path.join(out_dir, sub_dir, file_))
 
 
-def read_lines(file_path: str) -> list:
+def read_lines(file_path: str):
     """
     Reads the lines of a file and returns them as a list.
 
@@ -88,7 +97,7 @@ def read_lines(file_path: str) -> list:
         return f.readlines()
 
 
-def format_line(line: str) -> str:
+def format_line(line: str):
     """
     Removes the Lemma and POS columns from the line then adds the canonical segmentation of the word without the morphological tags.
 
@@ -102,13 +111,15 @@ def format_line(line: str) -> str:
         format_line("a[DET]b[N]") -> "a\tb\ta_b\tDET_N"
     """
     line = line.rstrip()
+    if "<LINE#" in line:
+        return line
     raw, parsed = line.split()[:2]
     segmentation, tags = split_tags(parsed)
     line = [raw, parsed, "_".join(segmentation), "_".join(tags)]
     return "\t".join(line)
 
 
-def split_tags(text: str) -> tuple[str, list[str]]:
+def split_tags(text: str):
     """
     Split a word into its canonical segmentation and morpheme tags.
 
@@ -156,8 +167,8 @@ def main():
         remove_extras(args.out_dir)
     print("Download and extraction complete!")
 
-    for dir in DIRS:
-        for in_file in os.listdir(os.path.join(args.out_dir, dir)):
+    for dir_ in DIRS:
+        for in_file in os.listdir(os.path.join(args.out_dir, dir_)):
             # Skip the English files
             if "EN" in in_file or not in_file.endswith(".txt"):
                 continue
@@ -166,15 +177,15 @@ def main():
             lang = in_file.split(".")[1]
 
             # Read the lines of the file and remove the lines with the <LINE#> tag
-            lines = read_lines(os.path.join(args.out_dir, dir, in_file))
-            lines = [line for line in lines if "<LINE#" not in line]
+            lines = read_lines(os.path.join(args.out_dir, dir_, in_file))
+            # lines = [line for line in lines if "<LINE#" not in line]
             lines = [format_line(line) for line in lines]
 
             # Write the formatted lines to a new file
-            out_file = OUT_NAME_FORMAT.format(lang, dir)
-            write_lines(os.path.join(args.out_dir, dir, out_file), lines)
+            out_file = OUT_NAME_FORMAT.format(lang, dir_)
+            write_lines(os.path.join(args.out_dir, dir_, out_file), lines)
             if args.clean:
-                os.remove(os.path.join(args.out_dir, dir, in_file))
+                os.remove(os.path.join(args.out_dir, dir_, in_file))
 
 
 if __name__ == "__main__":
