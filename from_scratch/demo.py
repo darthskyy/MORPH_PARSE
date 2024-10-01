@@ -64,6 +64,18 @@ def eval_model(model, test_set, map_tag=identity):
     return micro, macro, report
 
 
+def load_model(path):
+    model: EncapsulatedModel = torch.load(path, map_location=device)
+    model.eval()
+    return model
+
+
+def eval_segmented(model, words):
+    with torch.no_grad():
+        annotated_words = [list(zip(word, tags)) for word, tags in zip(words, model.forward(words))]
+        return ["-".join(f"{morpheme}[{tag}]" for morpheme, tag in word) for word in annotated_words]
+
+
 def demo():
     while True:
         path = input("Model > ")
