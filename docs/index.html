@@ -98,8 +98,6 @@
                 <figcaption>The surface and canonical segmentations of the word "zobomi" (of life in IsiXhosa).</figcaption>
             </figure>
 
-            <!-- TODO we should explain morphological segmentation here -->
-
             <p>
                 <dfn id="morph-parse-dfn">Morphological parsing</dfn> is the task of identifying the grammatical role
                 of each morpheme within a word.  For example, "zobomi" (meaning "of life" in isiXhosa) is parsed as
@@ -238,6 +236,36 @@
             <p>CRFs usually rely on a set of hand-crafted features in order to assign probabilities. However, an
                 alternative to this is to use a neural network to generate these features. In this project, a bi-LSTM
                 is used to generate these features.
+
+            <h2>Results</h2>
+            <!-- TODO -->
+
+            <h2>Discussion</h2>
+            <p><strong>Both Bi-LSTMs and CRFs performed well, without having any clear leader.</strong> Therefore, the added CRF
+                layer did not significantly improve over the bi-LSTM that was generating its features. This could
+                be as a result of the CRF being organised only as a linear chain &mdash; perhaps higher-order
+                CRFs (which model dependence across more than just neighbours) could improve this.</p>
+            <p><strong>Sentence-level models were usually better than their word-level counterparts.</strong>
+                This makes intuitive sense, as in some cases, the added context allows for easier disambiguation.
+                For instance, it is not  obvious from the prefix alone whether "ipolisa" should be in class 5 or
+                class 9, since both have "i" as valid prefixes. However, if this is placed in the context of the
+                sentence "ipolisa liyahamba", the  "li" prefix can be used to unambigously identify "ipolisa" as
+                class 5.
+            <p><strong>Models classifying canonical segmentations outperformed those classifying surface segmentations.</strong>
+                This is likely because the canonical segmentation of a word provides more information to the model
+                than the surface segmentation. For instance, the word "kwicandelo" is canonically segmented as
+                "ku-i-(li)-candelo" and surface segmented as "kw-i-candelo". The "(li)" morpheme is lost in the
+                surface form, which is the noun prefix for class 5. Without it, the model may have a harder time
+                choosing between class 9 and 5 for the morpheme "i".
+            </p>
+            <p><strong>Models using morpheme-level embeddings outperformed character-level models.</strong>
+                This could be because morphemes are simply a more effective representation for this task.
+                Additionally, morpheme-level embeddings are more sensitive to small changes in the morpheme itself.
+                Since each morpheme is mapped to its own learnt embedding, even a single differing character can
+                yield an entirely different embedding. This lets the model identify rare classes more easily.
+            </p>
+
+            <!-- TODO shared documents section maybe? then we can add showcase video, poster, etc -->
 
             <h2>Documents</h2>
             <div class="exploration-content">
