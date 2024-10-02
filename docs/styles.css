@@ -3,11 +3,49 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Roboto, sans-serif;
     margin: 0;
     padding: 0;
     background: #FDF7ED;
 }
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 46px;
+    color: #333333;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    color: #444444;
+    font-weight: 700;
+    border-bottom: 2px solid #858053;
+    padding-bottom: 10px; /* Making a bit of space for the underline */
+}
+
+h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    color: #555555;
+    font-weight: 600;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.6;
+}
+
+p ul li {
+    font-family: "Roboto", sans-serif;
+}
+
 
 html {
     scroll-padding-top: 100px;
@@ -182,7 +220,6 @@ nav ul li.active {
 
 h1 {
     margin-top: 0;
-    font-size: 2em;
 }
 
 h1, h2, h3, h4 {
@@ -196,6 +233,7 @@ h1, h2, h3, h4 {
 .author {
     margin-top: 0;
     font-size: 1.2rem;
+    font-style: italic;
 }
 
 figure {
