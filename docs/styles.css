@@ -73,8 +73,8 @@ nav ul {
 }
 
 nav ul li {
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto;
+    width: max-content;
     display: inline;
 }
 
