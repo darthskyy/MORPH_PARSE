@@ -124,6 +124,10 @@ figure img {
     width: 100%;
 }
 
+video {
+    width: 100%;
+}
+
 #main-wrap {
   margin: 0 auto 8px;
   max-width: 100%;
@@ -149,6 +153,12 @@ section {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+section#demo-video {
+    padding: 0;
+    box-shadow: none;
+    background: none;
 }
 
 .exploration-content {
