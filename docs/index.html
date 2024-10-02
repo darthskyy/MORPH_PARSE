@@ -68,15 +68,19 @@
 
             <p>
                 <dfn id="morph-parse-dfn">Morphological parsing</dfn> is the task of identifying the grammatical role
-                of each morpheme within a word. For example, "aliqela" (meaning "they are several" in isiXhosa) is
-                split into the morphemes "a-li-qela", which is parsed as "a[RelConc6] - li[BPre5] - qela[NStem]".
+                of each morpheme within a word.  For example, "zobomi" (meaning "of life" in isiXhosa) is
+                split into the morphemes "za-u-(bu)-bomi", which is parsed as "za[PossConc14] - u[NPrePre14] - (bu)[BPre14] - bomi[NStem]"
+                The goal of morphological parsing is to predict these morpheme tags for arbitrary text. In our project
+                we focus on the tagging step, and text that is already segmented by another algorithm.
+            </p>
 
-            <!-- TODO here we would put a diagram -->
+            <figure>
+                <img src="files/parse-example.svg">
 
-            <p>
-                Each bracketed tag labels the preceding morpheme with its grammatical function and noun class. The
-                morpheme "qela" is the word's <em>noun stem</em> in this example. The goal of morphological parsing is
-                to predict these morpheme tags for arbitrary text.
+                <figcaption>Each bracketed tag labels the preceding morpheme with its grammatical function and noun class. The
+                morpheme "bomi" is the word's <em>noun stem</em> in this example.
+                </figcaption>
+            </figure>
 
             <p>
                 The <dfn>Nguni</dfn> languages are a group of widely-spoken South African languages, which include
