@@ -1,7 +1,7 @@
 window.addEventListener("DOMContentLoaded", function () {
     // getting all the sections and nav links
     const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('nav ul li a');
+    const navItems = document.querySelectorAll('nav ul li');
 
     // Detecting the current section and adding active class to the nav link
     function activateSection() {
@@ -14,10 +14,11 @@ window.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        navLinks.forEach(link => {
-            link.classList.remove('active');
+        navItems.forEach(li => {
+            li.classList.remove('active');
+            let link = li.querySelector("a");
             if (link.getAttribute('href').includes(currentSection)) {
-                link.classList.add('active');
+                li.classList.add('active');
             }
         });
     }
