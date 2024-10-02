@@ -20,7 +20,7 @@
         </div>
         <ul>
             <li><a href="#abstract">Abstract</a></li>
-            <li><a href="#background">Background</a></li>
+            <li><a href="#introduction">Background</a></li>
             <li><a href="#from-scratch">Models Trained From Scratch</a></li>
             <li><a href="#plms">Pre-trained Language Models</a></li>
             <li><a href="#results">Results</a></li>
@@ -40,9 +40,8 @@
                 this information for the Nguni languages still need to be refined.
 
             <p>
-                This paper evaluates the use of neural
-                    methods in morphological parsing, or the labelling of morphemes with their corresponding grammatical role.
-                We compare two main approaches:
+                This paper evaluates the use of neural  methods in morphological parsing, or the labelling of morphemes
+                with their corresponding grammatical role. We compare two main approaches:
                 <ul>
                     <li><a href="#from-scratch">Training neural models from scratch</a>, and</li>
                     <li><a href="#plms">Fine-tuning pre-trained language models.</a></li>
@@ -57,12 +56,95 @@
                 best.
         </section>
 
-        <section id="background">
-            <h1>Background</h1>
+        <section id="introduction">
+            <h1>Introduction</h1>
+
             <p>
-                Project description
-            </p>
+                Morphemes are the basic building blocks of meaning (semantics) in a language. By understanding the
+                grammatical role that morphemes play in a sentence, we can solve downstream Natural Language Processing
+                (NLP) tasks better. These tasks range from information retrieval to machine translation.
+
+            <!-- TODO we should explain morphological segmentation here -->
+
+            <p>
+                <dfn id="morph-parse-dfn">Morphological parsing</dfn> is the task of identifying the grammatical role
+                of each morpheme within a word. For example, "aliqela" (meaning "they are several" in isiXhosa) is
+                split into the morphemes "a-li-qela", which is parsed as "a[RelConc6] - li[BPre5] - qela[NStem]".
+
+            <!-- TODO here we would put a diagram -->
+
+            <p>
+                Each bracketed tag labels the preceding morpheme with its grammatical function and noun class. The
+                morpheme "qela" is the word's <em>noun stem</em> in this example. The goal of morphological parsing is
+                to predict these morpheme tags for arbitrary text.
+
+            <p>
+                The <dfn>Nguni</dfn> languages are a group of widely-spoken South African languages, which include
+                IsiXhosa, IsiZulu, IsiNdebele, and SiSwati. These languages are <dfn>low-resourced</dfn>, meaning that
+                there are few tools and <dfn>corpora</dfn> (collections of documents) available for these languages.
+
+            <!-- TODO map of nguni languages -->
+
+            <p>
+                Morphological information is especially important for NLP in Nguni languages for two main reasons:
+                <ul>
+                    <li>
+                        Nguni languages are <dfn>agglutinative</dfn>, meaning many words are created by combining
+                        multiple morphemes.
+                    </li>
+
+                    <li>
+                        Nguni languages are written conjunctively, meaning that morphemes are concatenated into a single
+                        word. For example, in isiXhosa, "andikambuzi" means "I haven't yet asked him", and is
+                        composed of the morphemes "a", "ndi", "ka", "m", "buza", and "i".
+                    </li>
+                </ul>
+
+            <p>
+                Few morphological parsers exist for the Nguni languages. One example of a morphological parser is the
+                rule-based <a href="https://portal.sadilar.org/FiniteState/demo/zulmorph/">ZulMorph parser for isiZulu.</a>
+                Rule-based parsers require linguists to manually incorporate stems, affixes, and grammar rules into the
+                software. This is a tedious process which requires a high degree of expertise.
+
+            <p>
+                By comparison, machine-learning approaches are data driven. Instead of manually incorporating information
+                into the algorithm, the parser can be automatically generated from linguistically-annotated data. This
+                means that the process is language agnostic and can leverage previously-existing datasets.
+
+            <p>
+                In this project, we investigated the use of neural methods for morphological parsing of Nguni languages.
+                We took two main approaches to this:
+                <ul>
+                    <li>
+                        Simbarashe Mawere examined the fine-tuning of pre-trained language models. Three different
+                        pre-trained language models (PLMs) were evaluated, with varying levels of inclusion of Nguni
+                        Languages. These were XLM-Roberta (XLM), Afro-XLMR, and Nguni-XLMR.
+                    </li>
+                    <li>
+                        Cael Marquard examined the use of training models from scratch. Two kinds of models were evaluated:
+                        bidirectional Long Short-Term Memory (bi-LSTM) models, and neural Conditional Random Fields (CRFs).
+                    </li>
+                </ul>
+
+            <p>
+                The three research questions that we aimed to answer were:
+                <ol>
+                    <li><strong>Can neural approaches outperform traditional approaches to morphological parsing for the Nguni
+                    languages?</strong></li>
+                    <li><strong>Do models trained from scratch or fine-tuned pre-trained language models perform better?</strong></li>
+                    <li><strong>Do models classifying surface segmentations or models classifying canonical segmentations
+                    perform better?</strong></li>
+                </ol>
+
+            <p>
+                In order to answer these questions, we compared the tagging quality of these models to each-other and
+                to a traditional, rule-based approach
+                (<a href="https://portal.sadilar.org/FiniteState/demo/zulmorph/">ZulMorph</a>) as a baseline. Comparisons
+                were also made across segmentation type.
         </section>
+
+        <!-- TODO separate aims maybe? -->
+        <!-- TODO methodology -->
 
         <section id="from-scratch">
             <h1>Models Trained From Scratch</h1>

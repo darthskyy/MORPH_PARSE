@@ -118,10 +118,6 @@ section {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#introduction {
-    margin: 120px 20px 20px 20px; /* Add space above the introduction section to clear the navbar */
-}
-
 .exploration-content {
     display: flex; /* Use Flexbox to arrange items side by side */
     justify-content: space-between; /* Space between the two items */
