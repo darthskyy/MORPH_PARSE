@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
+    background: #FDF7ED;
 }
 
 header {
@@ -145,4 +145,61 @@ footer {
     padding: 10px;
     background-color: #333;
     color: white;
+}
+
+/* Results tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+table thead th {
+    background-color: #333;
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+}
+
+
+table, th, td {
+    /* for boarders */
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+/* just for the alternate colors */
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover effect on table rows */
+table tr:hover {
+    background-color: #ddd;
+}
+
+/* Styling the best scores on the table */
+td strong {
+    font-weight: bold;
+    color: #d9534f;
+}
+
+u {
+    text-decoration: underline;
+    font-weight: bold;
+    color: #5bc0de;
+}
+
+/* Responsive table element to it with smaller fonts and less padding */
+@media (max-width: 768px) {
+    table {
+        font-size: 14px;
+    }
+
+    table thead th, table td {
+        padding: 6px;
+    }
 }
