@@ -63,19 +63,36 @@
                 Morphemes are the basic building blocks of meaning (semantics) in a language. By understanding the
                 grammatical role that morphemes play in a sentence, we can solve downstream Natural Language Processing
                 (NLP) tasks better. These tasks range from information retrieval to machine translation.
+            </p>
+
+            <p>
+                Splitting up text into its morphemes is known as <dfn>morphological segmentation.</dfn> There are two
+                kinds of morphological segmentation: canonical and surface segmentation. <dfn>Canonical segmentation</dfn>
+                splits the text into the full, underlying linguistic morphemes in their canonical forms. <dfn>Surface
+                segmentation</dfn> splits the text into its <dfn>morphs</dfn>, which are the morphemes as they appear
+                in the word after undergoing any sound or spelling changes that may occur.
+            </p>
+
+            <figure>
+                <img src="files/seg-example.svg" alt="Canonical and surface segmentations of 'zobomi'. The canonical
+                form is 'za-u-(bu)-bomi', whilst the surface form is 'zo-bomi'">
+                <figcaption>The surface and canonical segmentations of the word "zobomi" (of life in IsiXhosa).</figcaption>
+            </figure>
 
             <!-- TODO we should explain morphological segmentation here -->
 
             <p>
                 <dfn id="morph-parse-dfn">Morphological parsing</dfn> is the task of identifying the grammatical role
-                of each morpheme within a word.  For example, "zobomi" (meaning "of life" in isiXhosa) is
-                split into the morphemes "za-u-(bu)-bomi", which is parsed as "za[PossConc14] - u[NPrePre14] - (bu)[BPre14] - bomi[NStem]"
+                of each morpheme within a word.  For example, "zobomi" (meaning "of life" in isiXhosa) is parsed as
+                "za[PossConc14] - u[NPrePre14] - (bu)[BPre14] - bomi[NStem]"
                 The goal of morphological parsing is to predict these morpheme tags for arbitrary text. In our project
                 we focus on the tagging step, and text that is already segmented by another algorithm.
             </p>
 
             <figure>
-                <img src="files/parse-example.svg">
+                <img src="files/parse-example.svg" alt="Architecture diagram depicting how the word 'zobomi' is handled
+                by the parsing system. It is first segmented into za-u-(bu)-bomi by the segmenter. Then, it is passed
+                into MorphParse (our models), which produces the tagged output za[PossConc14]-u[NPrePre14]-(bu)[BPre14]-bomi[NStem]">
 
                 <figcaption>Each bracketed tag labels the preceding morpheme with its grammatical function and noun class. The
                 morpheme "bomi" is the word's <em>noun stem</em> in this example.
@@ -163,15 +180,17 @@
         <section id="from-scratch">
             <h1>Models Trained From Scratch</h1>
             <p class="author">Author: Cael Marquard</p>
-            <p>Details about the exploration.</p>
+            <p></p>
             <div class="exploration-content">
                 <div class="pdf-item">
                     <h3>Research Paper</h3>
-                    <embed class="pdf-embed" src="files/MRQCAE001_MorphParse_report.pdf" type="application/pdf">
+                    <embed class="pdf-embed" src="files/MRQCAE001_MorphParse_report.pdf" type="application/pdf"
+                           title="Cael Marquard's final report, dealing with models trained from scratch (PDF)">
                 </div>
                 <div class="pdf-item">
                     <h3>Literature Review</h3>
-                    <embed class="pdf-embed" src="files/MRQCAE001_MorphParse_literature_review.pdf" type="application/pdf">
+                    <embed class="pdf-embed" src="files/MRQCAE001_MorphParse_literature_review.pdf" type="application/pdf"
+                        title="Cael Marquard's extended literature review (PDF)">
                 </div>
             </div>
         </section>
@@ -183,11 +202,13 @@
             <div class="exploration-content">
                 <div class="pdf-item">
                     <h3>Research Paper</h3>
-                    <embed class="pdf-embed" src="files/MWRSIM003_MorphParse_Final_Report_site_version.pdf" type="application/pdf">
+                    <embed class="pdf-embed" src="files/MWRSIM003_MorphParse_Final_Report_site_version.pdf" type="application/pdf"
+                        title="Simbarashe Mawere's final report, dealing with pre-trained language models (PDF)">
                 </div>
                 <div class="pdf-item">
                     <h3>Literature Review</h3>
-                    <embed class="pdf-embed" src="path_to_your_literature_review2.pdf" type="application/pdf">
+                    <embed class="pdf-embed" src="path_to_your_literature_review2.pdf" type="application/pdf"
+                        title="Simbarashe Mawere's extended literature review (PDF)">
                 </div>
             </div>
         </section>
