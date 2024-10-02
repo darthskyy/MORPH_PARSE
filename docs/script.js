@@ -47,38 +47,46 @@ window.addEventListener("DOMContentLoaded", function () {
 // when that happens highlight the cells in the table of the same index as the th element hovered over with the class "best"
 // when the mouse leaves the th element remove the highlight from the cells in the table
 
-const scoreHeadings = document.querySelector('tr.score-heading');
-const thElements = scoreHeadings.querySelectorAll('th');
-thElements.forEach(th => {
-    th.addEventListener('mouseover', () => {
-        console.log(th.textContent);
-        const index = Array.from(th.parentElement.children).indexOf(th);
-        const tableRows = document.querySelectorAll('table tr');
-        tableRows.forEach(row => {
-            const cells = row.querySelectorAll('td.best');
-            cells.forEach((cell, i) => {
-                const cellIndex = Array.from(cell.parentElement.children).indexOf(cell);
-                if (cellIndex === index) {
-                    cell.style.backgroundColor = '#FFF59D';
-                }
+const scoreHeadings = document.querySelectorAll('tr.score-heading');
+scoreHeadings.forEach(scoreHeading => {
+    const thElements = scoreHeading.querySelectorAll('th');
+    thElements.forEach(th => {
+        th.addEventListener('mouseover', () => {
+            console.log(th.textContent);
+            const index = Array.from(th.parentElement.children).indexOf(th);
+            // get the current table
+            const table = th.closest('table');
+            const tableRows = table.querySelectorAll('tr');
+            tableRows.forEach(row => {
+                const cells = row.querySelectorAll('td.best');
+                cells.forEach((cell, i) => {
+                    const cellIndex = Array.from(cell.parentElement.children).indexOf(cell);
+                    if (cellIndex === index) {
+                        cell.style.backgroundColor = '#FFF59D';
+                        cell.style.boxShadow = '0 0 15px #FFF59D';
+                    }
+                });
             });
         });
     });
 });
 
-thElements.forEach(th => {
-    th.addEventListener('mouseout', () => {
-        console.log(th.textContent);
-        const index = Array.from(th.parentElement.children).indexOf(th);
-        const tableRows = document.querySelectorAll('table tr');
-        tableRows.forEach(row => {
-            const cells = row.querySelectorAll('td.best');
-            cells.forEach((cell, i) => {
-                const cellIndex = Array.from(cell.parentElement.children).indexOf(cell);
-                if (cellIndex === index) {
-                    cell.style.backgroundColor = '';
-                    cell.style.color = '';
-                }
+scoreHeadings.forEach(scoreHeading => {
+    const thElements = scoreHeading.querySelectorAll('th');
+    thElements.forEach(th => {
+        th.addEventListener('mouseout', () => {
+            console.log(th.textContent);
+            const index = Array.from(th.parentElement.children).indexOf(th);
+            const tableRows = document.querySelectorAll('table tr');
+            tableRows.forEach(row => {
+                const cells = row.querySelectorAll('td.best');
+                cells.forEach((cell, i) => {
+                    const cellIndex = Array.from(cell.parentElement.children).indexOf(cell);
+                    if (cellIndex === index) {
+                        cell.style.backgroundColor = '';
+                        cell.style.boxShadow = '';
+                    }
+                });
             });
         });
     });
@@ -93,6 +101,7 @@ function highlightBestCells(event) {
     const bestCells = row.querySelectorAll('td.best');
     bestCells.forEach(cell => {
         cell.style.backgroundColor = '#FFF59D';
+        cell.style.boxShadow = '0 0 15px #FFF59D';
     });
 }
 
@@ -102,6 +111,7 @@ function removeHighlightBestCells(event) {
     const bestCells = row.querySelectorAll('td.best');
     bestCells.forEach(cell => {
         cell.style.backgroundColor = '';
+        cell.style.boxShadow = '';
     });
 }
 
