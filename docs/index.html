@@ -10,60 +10,100 @@
 <body>
 
 <header>
+    <div class="uct-logo">
+        <img src="files/uctlogo.png" alt="University of Cape Town logo" class="uct-logo">
+    </div>
     <nav>
+        <div id="site-title">
+            <strong>MorphParse</strong>
+            <span id="site-subtitle">Deep Learning for Morphological Parsing</span>
+        </div>
         <ul>
-            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#abstract">Abstract</a></li>
             <li><a href="#background">Background</a></li>
-            <li><a href="#exploration1">Models Trained From Scratch</a></li>
-            <li><a href="#exploration2">Pre-trained Language Models</a></li>
+            <li><a href="#from-scratch">Models Trained From Scratch</a></li>
+            <li><a href="#plms">Pre-trained Language Models</a></li>
+            <li><a href="#results">Results</a></li>
         </ul>
     </nav>
 </header>
 
-<section id="introduction">
-    <h2>Introduction</h2>
-    <p>
-        Intro, motivation, goals, objectives, and research questions.
-    </p>
-</section>
+<div id="main-wrap">
+    <main>
+        <section id="abstract">
+            <h1>Abstract</h1>
+            <p>
+                <dfn>Morphemes</dfn> are the smallest units of meaning in a language. They play an important role in creating
+                meaning and grammatical syntax. This is especially true in agglutinative languages, such as the Nguni languages,
+                which construct words by concatenating many morphemes.Many Natural Language Processing (NLP) tasks, such as
+                machine translation, can be improved by incorporating morphological information. However, methods to extract
+                this information for the Nguni languages still need to be refined.
 
-<section id="background">
-    <h2>Background</h2>
-    <p>
-        Project description
-    </p>
-</section>
-<section id="exploration1">
-    <h3>Models Trained From Scratch</h3>
-    <p class="author">Author: Cael Marquad</p>
-    <p>Details about the exploration.</p>
-    <div class="exploration-content">
-        <div class="pdf-item">
-            <h4>Research Paper</h4>
-            <embed class="pdf-embed" src="path_to_your_research_paper1.pdf" type="application/pdf">
-        </div>
-        <div class="pdf-item">
-            <h4>Literature Review</h4>
-            <embed class="pdf-embed" src="path_to_your_literature_review1.pdf" type="application/pdf">
-        </div>
-    </div>
-</section>
+            <p>
+                This paper evaluates the use of neural
+                    methods in morphological parsing, or the labelling of morphemes with their corresponding grammatical role.
+                We compare two main approaches:
+                <ul>
+                    <li><a href="#from-scratch">Training neural models from scratch</a>, and</li>
+                    <li><a href="#plms">Fine-tuning pre-trained language models.</a></li>
+                </ul>
 
-<section id="exploration2">
-    <h3>Pre-trained Language Models</h3>
-    <p class="author">Author: Simbarashe Mawere</p>
-    <p>Details about the exploration.</p>
-    <div class="exploration-content">
-        <div class="pdf-item">
-            <h4>Research Paper</h4>
-            <embed class="pdf-embed" src="files/MWRSIM003_MorphParse_Final_Report_site_version.pdf" type="application/pdf">
-        </div>
-        <div class="pdf-item">
-            <h4>Literature Review</h4>
-            <embed class="pdf-embed" src="path_to_your_literature_review2.pdf" type="application/pdf">
-        </div>
-    </div>
-</section>
+            <p>We <a href="#results">compared the performance</a> of these models with
+                each-other as well as with traditional methods of solving the task, such as Finite-State Transducer (FST) models.
+
+            <p>
+                We found that models trained from scratch outperformed both fine-tuned pre-trained language models and the
+                traditional FST model. Models using morpheme-level embeddings and sentence-level context tended to perform the
+                best.
+        </section>
+
+        <section id="background">
+            <h1>Background</h1>
+            <p>
+                Project description
+            </p>
+        </section>
+
+        <section id="from-scratch">
+            <h1>Models Trained From Scratch</h1>
+            <p class="author">Author: Cael Marquad</p>
+            <p>Details about the exploration.</p>
+            <div class="exploration-content">
+                <div class="pdf-item">
+                    <h3>Research Paper</h3>
+                    <embed class="pdf-embed" src="files/MRQCAE001_MorphParse_report.pdf" type="application/pdf">
+                </div>
+                <div class="pdf-item">
+                    <h3>Literature Review</h3>
+                    <embed class="pdf-embed" src="files/MRQCAE001_MorphParse_literature_review.pdf" type="application/pdf">
+                </div>
+            </div>
+        </section>
+
+        <section id="plms">
+            <h1>Pre-trained Language Models</h1>
+            <p class="author">Author: Simbarashe Mawere</p>
+            <p>Details about the exploration.</p>
+            <div class="exploration-content">
+                <div class="pdf-item">
+                    <h3>Research Paper</h3>
+                    <embed class="pdf-embed" src="files/MWRSIM003_MorphParse_Final_Report_site_version.pdf" type="application/pdf">
+                </div>
+                <div class="pdf-item">
+                    <h3>Literature Review</h3>
+                    <embed class="pdf-embed" src="path_to_your_literature_review2.pdf" type="application/pdf">
+                </div>
+            </div>
+        </section>
+
+        <section id="results">
+            <h1>Results</h1>
+            <p>
+                Project results
+            </p>
+        </section>
+    </main>
+</div>
 
 <footer>
     <p>&copy; 2024 MorphParse | By Simbarashe Mawere and Cael Marquard</p>
