@@ -93,6 +93,8 @@ nav ul li a.active {
 
 h1 {
     margin-top: 0;
+    font-size: 2em;
+    margin-bottom: 0;
 }
 
 :is(#from-scratch, #plms) h1:first-child {
@@ -118,7 +120,7 @@ figure img {
     width: 60%;
 }
 
-.graph img {
+.wide-figure img {
     width: 100%;
 }
 

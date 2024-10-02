@@ -180,7 +180,47 @@
         <section id="from-scratch">
             <h1>Models Trained From Scratch</h1>
             <p class="author">Author: Cael Marquard</p>
-            <p></p>
+
+            <h2>Models</h2>
+            <p>
+                Two architectures were chosen: Bidirectional Long Short-Term Memory (Bi-LSTM) and
+                neural Conditional Random Fields (CRFs). These architectures have both been successfully applied to the
+                closely-related tasks of morphological segmentation and part-of-speech tagging for the Nguni languages.
+
+            <h3>Bi-LSTMs</h3>
+            <p>
+                <dfn>Bi-LSTM</dfn> models are a type of <dfn>recurrent neural network</dfn> (RNN), a class of
+                neural networks able to "remember" past inputs when computing future outputs. LSTMs are an
+                RNN architecture which avoid issues such as vanishing and exploding gradients, and are popular for
+                NLP tasks. Bidirectional LSTMs combine two separate LSTMs, one reading the input forward and one in
+                reverse. This allows bi-LSTMs to take into account both the future <em>and</em> the past of the sequence
+                that it is classifying in order to have better context.
+            </p>
+
+            <h3>CRFs</h3>
+
+            <p>
+                A <dfn>CRF</dfn> is a probabilistic model which explicitly models the statistical dependence of the output
+                (label) sequence on the input sequence, as <em>well</em> as the dependence of the output sequence
+                <em>on itself.</em> This allows them to explicitly model the grammar of the language. CRFs have been used
+                for morphological segmentation as well as part-of-speech tagging in the Nguni languages. For this project,
+                the CRF only models the interdependence of each label on the neighbouring labels and the input item.
+                This linear chain approach is simpler to implement and more computationally efficient to train.
+
+            <figure class="wide-figure">
+                <img src="files/crf.png" alt="Diagram of a CRF organised as a linear chain. Each output label depends on
+                 the previous and next output labels, as well as the input datum which it labels.">
+                <figcaption>An example of a CRF organised as a linear chain. Diamonds represent input variables
+                    <strong>X<sub>i</sub></strong>, circles represent output variables
+                    <strong>Y<sub>i</sub></strong>, and edges represent statistical interdependence.
+                </figcaption>
+            </figure>
+
+            <p>CRFs usually rely on a set of hand-crafted features in order to assign probabilities. However, an
+                alternative to this is to use a neural network to generate these features. In this project, a bi-LSTM
+                is used to generate these features.
+
+            <h2>Documents</h2>
             <div class="exploration-content">
                 <div class="pdf-item">
                     <h3>Research Paper</h3>
@@ -199,6 +239,8 @@
             <h1>Pre-trained Language Models</h1>
             <p class="author">Author: Simbarashe Mawere</p>
             <p>Details about the exploration.</p>
+
+            <h2>Documents</h2>
             <div class="exploration-content">
                 <div class="pdf-item">
                     <h3>Research Paper</h3>
@@ -219,7 +261,7 @@
                 Project results
             </p>
 
-            <figure class="graph">
+            <figure class="wide-figure">
                 <img src="files/basic-results.svg" alt="Graph comparing Macro F1 of ZulMorph with Afro-XLMR and
                 bi-LSTMs. In all cases, surface-based models are outperformed by their canonical counterparts. The
                 bi-LSTM models are best overall.">
