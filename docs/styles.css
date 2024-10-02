@@ -118,6 +118,10 @@ figure img {
     width: 60%;
 }
 
+.graph img {
+    width: 100%;
+}
+
 #main-wrap {
   margin: 0 auto 8px;
   max-width: 100%;
