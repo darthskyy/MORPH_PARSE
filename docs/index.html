@@ -13,43 +13,61 @@
     <div class="uct-logo">
         <img src="files/uctlogo.png" alt="University of Cape Town logo" class="uct-logo">
     </div>
+    <div id="site-title">
+        <strong>MorphParse</strong>
+        <span id="site-subtitle">Deep Learning for Morphological Parsing</span>
+    </div>
+    <div class="divider"></div>
     <nav>
-        <div id="site-title">
-            <strong>MorphParse</strong>
-            <span id="site-subtitle">Deep Learning for Morphological Parsing</span>
-        </div>
         <ul>
             <li><a href="#abstract">Abstract</a></li>
-            <li><a href="#background">Background</a></li>
+            <li><a href="#introduction">Introduction</a></li>
             <li><a href="#from-scratch">Models Trained From Scratch</a></li>
             <li><a href="#plms">Pre-trained Language Models</a></li>
             <li><a href="#results">Results</a></li>
         </ul>
     </nav>
+
+    <button id="hamburger" aria-label="Menu">
+    <span class="material-icons"><svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path>
+    </svg></span>
+    </button>
 </header>
 
+<div>
+
+</div>
 <div id="main-wrap">
     <main>
+        <section id="demo-video">
+            <video autoplay loop playsinline muted controls>
+                <source src="files/demo.mp4" type="video/mp4">
+
+                Your browser does not support playing embedded videos - download the demo video
+                <a href="files/demo.mp4" target="_blank">here</a> instead.
+            </video>
+        </section>
+
         <section id="abstract">
             <h1>Abstract</h1>
             <p>
                 <dfn>Morphemes</dfn> are the smallest units of meaning in a language. They play an important role in creating
                 meaning and grammatical syntax. This is especially true in agglutinative languages, such as the Nguni languages,
-                which construct words by concatenating many morphemes.Many Natural Language Processing (NLP) tasks, such as
+                which construct words by concatenating many morphemes. Many Natural Language Processing (NLP) tasks, such as
                 machine translation, can be improved by incorporating morphological information. However, methods to extract
                 this information for the Nguni languages still need to be refined.
 
             <p>
-                This paper evaluates the use of neural
-                    methods in morphological parsing, or the labelling of morphemes with their corresponding grammatical role.
-                We compare two main approaches:
+                This paper evaluates the use of neural  methods in morphological parsing, or the labelling of morphemes
+                with their corresponding grammatical role. We compare two main approaches:
                 <ul>
                     <li><a href="#from-scratch">Training neural models from scratch</a>, and</li>
                     <li><a href="#plms">Fine-tuning pre-trained language models.</a></li>
                 </ul>
 
             <p>We <a href="#results">compared the performance</a> of these models with
-                each-other as well as with traditional methods of solving the task, such as Finite-State Transducer (FST) models.
+                eachother as well as with traditional methods of solving the task, such as Finite State Transducer (FST) models.
 
             <p>
                 We found that models trained from scratch outperformed both fine-tuned pre-trained language models and the
@@ -57,25 +75,209 @@
                 best.
         </section>
 
-        <section id="background">
-            <h1>Background</h1>
+        <section id="introduction">
+            <h1>Introduction</h1>
+
             <p>
-                Project description
+                Morphemes are the basic building blocks of meaning (semantics) in a language. By understanding the
+                grammatical role that morphemes play in a sentence, we can solve downstream Natural Language Processing
+                (NLP) tasks better. These tasks range from information retrieval to machine translation.
             </p>
+
+            <p>
+                Splitting up text into its morphemes is known as <dfn>morphological segmentation.</dfn> There are two
+                kinds of morphological segmentation: canonical and surface segmentation. <dfn>Canonical segmentation</dfn>
+                splits the text into the full, underlying linguistic morphemes in their canonical forms. <dfn>Surface
+                segmentation</dfn> splits the text into its <dfn>morphs</dfn>, which are the morphemes as they appear
+                in the word after undergoing any sound or spelling changes that may occur.
+            </p>
+
+            <figure>
+                <img src="files/seg-example.svg" alt="Canonical and surface segmentations of 'zobomi'. The canonical
+                form is 'za-u-(bu)-bomi', whilst the surface form is 'zo-bomi'">
+                <figcaption>The surface and canonical segmentations of the word "zobomi" (of life in IsiXhosa).</figcaption>
+            </figure>
+
+            <p>
+                <dfn id="morph-parse-dfn">Morphological parsing</dfn> is the task of identifying the grammatical role
+                of each morpheme within a word.  For example, "zobomi" (meaning "of life" in isiXhosa) is parsed as
+                "za[PossConc14] - u[NPrePre14] - (bu)[BPre14] - bomi[NStem]"
+                The goal of morphological parsing is to predict these morpheme tags for arbitrary text. In our project
+                we focus on the tagging step, and text that is already segmented by another algorithm.
+            </p>
+
+            <figure>
+                <img src="files/parse-example.svg" alt="Architecture diagram depicting how the word 'zobomi' is handled
+                by the parsing system. It is first segmented into za-u-(bu)-bomi by the segmenter. Then, it is passed
+                into MorphParse (our models), which produces the tagged output za[PossConc14]-u[NPrePre14]-(bu)[BPre14]-bomi[NStem]">
+
+                <figcaption>Each bracketed tag labels the preceding morpheme with its grammatical function and noun class. The
+                morpheme "bomi" is the word's <em>noun stem</em> in this example.
+                </figcaption>
+            </figure>
+
+            <p>
+                The <dfn>Nguni</dfn> languages are a group of widely-spoken South African languages, which include
+                IsiXhosa, IsiZulu, IsiNdebele, and SiSwati. These languages are <dfn>low-resourced</dfn>, meaning that
+                there are few tools and <dfn>corpora</dfn> (collections of documents) available for these languages.
+            </p>
+
+            <figure>
+                <img src="files/nguni-speakers.svg" alt="A map of South Africa showing what proportion
+                of people speak a Nguni language at home. Speakership is most dominant in the south-east of the country,
+                covering almost the whole of the Eastern Cape and Kwa-Zulu Natal, but stretching into Gauteng and
+                Mpumalanga.">
+                <figcaption>Proportion of South Africans who speak a Nguni language at home.
+                    <a href="https://en.wikipedia.org/wiki/File:South_Africa_2011_Nguni_speakers_proportion_map.svg">(Original
+                    on Wikipedia</a>, public domain)
+                </figcaption>
+            </figure>
+
+            <p>
+                Morphological information is especially important for NLP in Nguni languages for two main reasons:
+                <ul>
+                    <li>
+                        Nguni languages are <dfn>agglutinative</dfn>, meaning many words are created by combining
+                        multiple morphemes.
+                    </li>
+
+                    <li>
+                        Nguni languages are written conjunctively, meaning that morphemes are concatenated into a single
+                        word. For example, in isiXhosa, "andikambuzi" means "I haven't yet asked him", and is
+                        composed of the morphemes "a", "ndi", "ka", "m", "buza", and "i".
+                    </li>
+                </ul>
+
+            <p>
+                Few morphological parsers exist for the Nguni languages. One example of a morphological parser is the
+                rule-based <a href="https://portal.sadilar.org/FiniteState/demo/zulmorph/">ZulMorph parser for isiZulu.</a>
+                Rule-based parsers require linguists to manually incorporate stems, affixes, and grammar rules into the
+                software. This is a tedious process which requires a high degree of expertise.
+
+            <p>
+                By comparison, machine-learning approaches are data driven. Instead of manually incorporating information
+                into the algorithm, the parser can be automatically generated from linguistically-annotated data. This
+                means that the process is language agnostic and can leverage previously-existing datasets.
+
+            <p>
+                In this project, we investigated the use of neural methods for morphological parsing of Nguni languages.
+                We took two main approaches to this:
+                <ul>
+                    <li>
+                        Simbarashe Mawere examined the fine-tuning of pre-trained language models. Three different
+                        pre-trained language models (PLMs) were evaluated, with varying levels of inclusion of Nguni
+                        Languages. These were XLM-Roberta (XLM), Afro-XLMR, and Nguni-XLMR.
+                    </li>
+                    <li>
+                        Cael Marquard examined the use of training models from scratch. Two kinds of models were evaluated:
+                        bidirectional Long Short-Term Memory (bi-LSTM) models, and neural Conditional Random Fields (CRFs).
+                    </li>
+                </ul>
+
+            <p>
+                The three research questions that we aimed to answer were:
+                <ol>
+                    <li><strong>Can neural approaches outperform traditional approaches to morphological parsing for the Nguni
+                    languages?</strong></li>
+                    <li><strong>Do models trained from scratch or fine-tuned pre-trained language models perform better?</strong></li>
+                    <li><strong>Do models classifying surface segmentations or models classifying canonical segmentations
+                    perform better?</strong></li>
+                </ol>
+
+            <p>
+                In order to answer these questions, we compared the tagging quality of these models to each-other and
+                to a traditional, rule-based approach
+                (<a href="https://portal.sadilar.org/FiniteState/demo/zulmorph/">ZulMorph</a>) as a baseline. Comparisons
+                were also made across segmentation type.
         </section>
+
+        <!-- TODO separate aims maybe? -->
+        <!-- TODO methodology -->
 
         <section id="from-scratch">
             <h1>Models Trained From Scratch</h1>
-            <p class="author">Author: Cael Marquad</p>
-            <p>Details about the exploration.</p>
+            <p class="author">Author: Cael Marquard</p>
+
+            <h2>Models</h2>
+            <p>
+                Two architectures were chosen: Bidirectional Long Short-Term Memory (Bi-LSTM) and
+                neural Conditional Random Fields (CRFs). These architectures have both been successfully applied to the
+                closely-related tasks of morphological segmentation and part-of-speech tagging for the Nguni languages.
+
+            <h3>Bi-LSTMs</h3>
+            <p>
+                <dfn>Bi-LSTM</dfn> models are a type of <dfn>recurrent neural network</dfn> (RNN), a class of
+                neural networks able to "remember" past inputs when computing future outputs. LSTMs are an
+                RNN architecture which avoid issues such as vanishing and exploding gradients, and are popular for
+                NLP tasks. Bidirectional LSTMs combine two separate LSTMs, one reading the input forward and one in
+                reverse. This allows bi-LSTMs to take into account both the future <em>and</em> the past of the sequence
+                that it is classifying in order to have better context.
+            </p>
+
+            <h3>CRFs</h3>
+
+            <p>
+                A <dfn>CRF</dfn> is a probabilistic model which explicitly models the statistical dependence of the output
+                (label) sequence on the input sequence, as <em>well</em> as the dependence of the output sequence
+                <em>on itself.</em> This allows them to explicitly model the grammar of the language. CRFs have been used
+                for morphological segmentation as well as part-of-speech tagging in the Nguni languages. For this project,
+                the CRF only models the interdependence of each label on the neighbouring labels and the input item.
+                This linear chain approach is simpler to implement and more computationally efficient to train.
+
+            <figure class="wide-figure">
+                <img src="files/crf.png" alt="Diagram of a CRF organised as a linear chain. Each output label depends on
+                 the previous and next output labels, as well as the input datum which it labels.">
+                <figcaption>An example of a CRF organised as a linear chain. Diamonds represent input variables
+                    <strong>X<sub>i</sub></strong>, circles represent output variables
+                    <strong>Y<sub>i</sub></strong>, and edges represent statistical interdependence.
+                </figcaption>
+            </figure>
+
+            <p>CRFs usually rely on a set of hand-crafted features in order to assign probabilities. However, an
+                alternative to this is to use a neural network to generate these features. In this project, a bi-LSTM
+                is used to generate these features.
+
+            <h2>Results</h2>
+            <!-- TODO -->
+
+            <h2>Discussion</h2>
+            <p><strong>Both Bi-LSTMs and CRFs performed well, without having any clear leader.</strong> Therefore, the added CRF
+                layer did not significantly improve over the bi-LSTM that was generating its features. This could
+                be as a result of the CRF being organised only as a linear chain &mdash; perhaps higher-order
+                CRFs (which model dependence across more than just neighbours) could improve this.</p>
+            <p><strong>Sentence-level models were usually better than their word-level counterparts.</strong>
+                This makes intuitive sense, as in some cases, the added context allows for easier disambiguation.
+                For instance, it is not  obvious from the prefix alone whether "ipolisa" should be in class 5 or
+                class 9, since both have "i" as valid prefixes. However, if this is placed in the context of the
+                sentence "ipolisa liyahamba", the  "li" prefix can be used to unambigously identify "ipolisa" as
+                class 5.
+            <p><strong>Models classifying canonical segmentations outperformed those classifying surface segmentations.</strong>
+                This is likely because the canonical segmentation of a word provides more information to the model
+                than the surface segmentation. For instance, the word "kwicandelo" is canonically segmented as
+                "ku-i-(li)-candelo" and surface segmented as "kw-i-candelo". The "(li)" morpheme is lost in the
+                surface form, which is the noun prefix for class 5. Without it, the model may have a harder time
+                choosing between class 9 and 5 for the morpheme "i".
+            </p>
+            <p><strong>Models using morpheme-level embeddings outperformed character-level models.</strong>
+                This could be because morphemes are simply a more effective representation for this task.
+                Additionally, morpheme-level embeddings are more sensitive to small changes in the morpheme itself.
+                Since each morpheme is mapped to its own learnt embedding, even a single differing character can
+                yield an entirely different embedding. This lets the model identify rare classes more easily.
+            </p>
+
+            <!-- TODO shared documents section maybe? then we can add showcase video, poster, etc -->
+
+            <h2>Documents</h2>
             <div class="exploration-content">
                 <div class="pdf-item">
                     <h3>Research Paper</h3>
-                    <embed class="pdf-embed" src="files/MRQCAE001_MorphParse_report.pdf" type="application/pdf">
+                    <embed class="pdf-embed" src="files/MRQCAE001_MorphParse_report.pdf" type="application/pdf"
+                           title="Cael Marquard's final report, dealing with models trained from scratch (PDF)">
                 </div>
                 <div class="pdf-item">
                     <h3>Literature Review</h3>
-                    <embed class="pdf-embed" src="files/MRQCAE001_MorphParse_literature_review.pdf" type="application/pdf">
+                    <embed class="pdf-embed" src="files/MRQCAE001_MorphParse_literature_review.pdf" type="application/pdf"
+                        title="Cael Marquard's extended literature review (PDF)">
                 </div>
             </div>
         </section>
@@ -84,14 +286,18 @@
             <h1>Pre-trained Language Models</h1>
             <p class="author">Author: Simbarashe Mawere</p>
             <p>Details about the exploration.</p>
+
+            <h2>Documents</h2>
             <div class="exploration-content">
                 <div class="pdf-item">
                     <h3>Research Paper</h3>
-                    <embed class="pdf-embed" src="files/MWRSIM003_MorphParse_Final_Report_site_version.pdf" type="application/pdf">
+                    <embed class="pdf-embed" src="files/MWRSIM003_MorphParse_Final_Report_site_version.pdf" type="application/pdf"
+                        title="Simbarashe Mawere's final report, dealing with pre-trained language models (PDF)">
                 </div>
                 <div class="pdf-item">
                     <h3>Literature Review</h3>
-                    <embed class="pdf-embed" src="path_to_your_literature_review2.pdf" type="application/pdf">
+                    <embed class="pdf-embed" src="path_to_your_literature_review2.pdf" type="application/pdf"
+                        title="Simbarashe Mawere's extended literature review (PDF)">
                 </div>
             </div>
         </section>
@@ -296,6 +502,13 @@
                     </tr>
                 </tbody>
             </table>
+
+            <figure class="wide-figure">
+                <img src="files/basic-results.svg" alt="Graph comparing Macro F1 of ZulMorph with Afro-XLMR and
+                bi-LSTMs. In all cases, surface-based models are outperformed by their canonical counterparts. The
+                bi-LSTM models are best overall.">
+                <figcaption>The Macro F<sub>1</sub> scores of three selected models (Afro-XLMR, Bi-LSTM, and ZulMorph).</figcaption>
+            </figure>
         </section>
     </main>
 </div>
