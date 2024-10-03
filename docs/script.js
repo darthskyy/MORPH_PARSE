@@ -2,6 +2,11 @@ window.addEventListener("DOMContentLoaded", function () {
     // getting all the sections and nav links
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('nav ul li');
+    const sectionIds = Array.from(sections).map(section => section.getAttribute('id'));
+    // six colors for the to cycle through for the background color of the sections
+    const scrollColors = true;
+    const colors = ['#EEF2FB', '#ADC0EB', '#6B8DDB', '#5B80D7', '#3A67CF', '#244594'];
+    
 
     // Detecting the current section and adding active class to the nav link
     function activateSection() {
@@ -9,7 +14,10 @@ window.addEventListener("DOMContentLoaded", function () {
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            if (pageYOffset >= sectionTop - 60) {
+            if (pageYOffset >= sectionTop - 300) {
+                console.log(sectionTop);
+                console.log(pageYOffset);
+                console.log(section.getAttribute('id'));
                 currentSection = section.getAttribute('id');
             }
         });
@@ -21,6 +29,11 @@ window.addEventListener("DOMContentLoaded", function () {
                 li.classList.add('active');
             }
         });
+        
+        if (!scrollColors) return;
+        // Changing the background color of the section
+        const sectionIndex = sectionIds.indexOf(currentSection);
+        document.body.style.backgroundColor = colors[sectionIndex];
     }
 
     // Event listener for scrolling
