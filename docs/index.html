@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="files/uctlogo.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 
@@ -283,8 +284,73 @@
         <section id="plms">
             <h1>Pre-trained Language Models</h1>
             <p class="author">Author: Simbarashe Mawere</p>
-            <p>Details about the exploration.</p>
+            <p>Pre-trained language models (PLMs) are transformer based models that have been trained on large corpora of text, allowing them to learn the structure of language. They make use of masked language modelling (MLM) as the pre-training task from which the models gain the pre-learned word contexts and embeddings. This is a task where a word is masked and the model is task on predicting what it was. After this the model can be fine-tuned on data for a different task with considerable performance at reduced time and resource expenditure. <br><br>
 
+            Beginning with BERT in there have been many models that have been developed and fine-tuned for different languages and tasks. These models have been shown to be effective in a wide range of NLP tasks and have been shown to be effective in low-resource languages. In this exploration we fine-tuned three models on the morphological parsing task for the Nguni languages. The models were XLM-RoBERTa, Afro-XLMR and Nguni-XLMR based on their varying levels of inclusion of the Nguni languages. <br><br>
+            </p>
+            
+            <figure class="wide-figure">
+                <img src="files/bert working.png" alt="">
+                <figcaption>Illustration of how BERT works. The model is trained on a masked language modelling task, where it predicts masked words in a sentence. This allows it to learn the structure of language and later use that knowledge when being fine-tuned on more down-stream tasks.</figcaption>
+            </figure>
+            <br><hr><br>
+            <h2>Models</h2>
+            <div id="modelsCarousel" class="carousel carousel-dark slide" data-bs-ride="true">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#modelsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#modelsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#modelsCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="d-flex justify-content-center">
+                            <div class="card w-75" style="height: 390px;">
+                                <div class="card-body">
+                                    <h3 class="card-title">XLM-RoBERTa</h3>
+                                    <p class="card-text">XLM-RoBERTa is a model that was proposed by {insert authors here} to be pre-trained on 100 languages and applied on various cross-lingual transfer tasks like cross-lingual natural language inference (XNLI) and named entity recognition (NER).</p>
+                                    <p><strong>Strength:</strong> High multilingual capabilities with strong results across different tasks and good performance for low-resource languages.</p>
+                                    <p><strong>Included Nguni Languages:</strong> isiXhosa</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="d-flex justify-content-center">
+                            <div class="card w-75" style="height: 390px;">
+                                <div class="card-body">
+                                    <h3 class="card-title">Afro-XLMR</h3>
+                                    <p class="card-text">Afro-XLMR is a version of XLM-RoBERTa fine-tuned using multilingual adaptive fine-tuning (MAFT) on 20 African languages by {insert authors} to improve performance on languages that were previously unseen in XLM-R's pre-training corpora.</p>
+                                    <p><strong>Strengths:</strong> Specialized for African languages with improved performance for low-resource languages and distilled size from XLM-R</p>
+                                    <p><strong>Included Nguni Languages:</strong> isiXhosa & isiZulu</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="d-flex justify-content-center">
+                            <div class="card" style="height: 390px; width: 700px;">
+                                <div class="card-body">
+                                    <h3 class="card-title">Nguni-XLMR</h3>
+                                    <p class="card-text">Nguni-XLMR follow the multilingual adaptive fine-tuning as in Afro-XLMR but on a narrower linguistic scope to leverage the similarity of the Nguni languages for cross-lingual transfer. This model was evaluate on a variety of natural language understanding tasks and showed improved over the two other PLMs.</p>
+                                    <p><strong>Strength:</strong> Optimized for Nguni languages, offering superior results in linguistic tasks.</p>
+                                    <p><strong>Included Nguni Languages:</strong> all</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#modelsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#modelsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <br><hr>
             <h2>Documents</h2>
             <div class="exploration-content">
                 <div class="pdf-item">
@@ -302,11 +368,11 @@
 
         <section id="results">
             <h1>Results</h1>
-            <p>Results of the exploration. Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro impedit vitae minima quisquam animi magnam, cumque non sed reprehenderit, similique ullam necessitatibus laboriosam ea fuga, aliquam magni sint perferendis placeat quod modi expedita voluptates molestiae rem explicabo. Est voluptatibus dicta tenetur quis facere rem perspiciatis voluptatem officiis, exercitationem vitae autem! Earum, temporibus cupiditate iusto expedita consequuntur nesciunt perferendis, corporis pariatur maxime, voluptatum facere! Eaque officia, aspernatur totam quasi molestiae suscipit sint natus accusamus esse similique alias explicabo deleniti blanditiis? Dolorem iure in illo, animi repellat nisi nobis veniam neque omnis. Sunt dolorem reiciendis ab vitae! Inventore laborum iste veritatis consequatur.</p>
+            <p>The results for the exploration were split based on the data which the models were trained on. The first exploration in the project was using expertly annotated canonical segmentations which were obtained from the Sadilar dataset. For the other result sets we used canonical and surface segmentations predicted using the morphological segmenters from MORPH-SEGMENT. For the models trained from scratch the models are split into word- and sentence-level </p>
 
 
             <!-- Gold Data -->
-            <h3>Results on Expert Annotated Canonical Segmentation</h3>
+            <h2>Results on Expert Annotated Canonical Segmentation</h2>
             <table id="gold-table">
                 <thead>
                     <tr>
@@ -372,7 +438,7 @@
             </table>            
             
             <!-- Canonical Segmentations -->
-            <h3>End-to-End Results on Predicted Canonical Segmentations</h3>
+            <h2>End-to-End Results on Predicted Canonical Segmentations</h2>
 
             <table id="canonical-table">
                 <thead>
@@ -454,7 +520,7 @@
             </table>
 
             <!-- Surface Segmentations -->
-            <h3>End-to-End Results on Predicted Surface Segmentations</h3>
+            <h2>End-to-End Results on Predicted Surface Segmentations</h2>
             <table>
                 <thead>
                     <tr>
@@ -490,7 +556,7 @@
                         <th colspan="9">Pre-trained Language Models</th>
                     </tr>
                     <tr>
-                        <td>XLM-RoBERTa</td><td class="best"><strong>0.7282</strong></td><td>0.4868</td><td>0.5107</td><td>0.2231</td><td>0.7244</td><td>0.5208</td><td>0.6759</td><td>0.4349</td>
+                        <td>XLM-RoBERTa</td><td class="best"><strong>0.7282</strong></td><td class="best"><strong>0.4868</strong></td><td>0.5107</td><td>0.2231</td><td>0.7244</td><td>0.5208</td><td>0.6759</td><td>0.4349</td>
                     </tr>
                     <tr>
                         <td>Afro-XLMR</td><td>0.7275</td><td>0.4832</td><td>0.5216</td><td>0.2412</td><td>0.7273</td><td class="best"><strong>0.5300</strong></td><td>0.6794</td><td>0.4495</td>
@@ -516,5 +582,6 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
