@@ -26,6 +26,7 @@
             <li><a href="#introduction">Introduction</a></li>
             <li><a href="#from-scratch">Models Trained From Scratch</a></li>
             <li><a href="#plms">Pre-trained Language Models</a></li>
+            <!-- <li><a href="#experimental-setup">Experimental Setup</a></li> -->
             <li><a href="#results">Results</a></li>
         </ul>
     </nav>
@@ -307,7 +308,7 @@
                             <div class="card w-75" style="height: 390px;">
                                 <div class="card-body">
                                     <h3 class="card-title">XLM-RoBERTa</h3>
-                                    <p class="card-text">XLM-RoBERTa is a model that was proposed by {insert authors here} to be pre-trained on 100 languages and applied on various cross-lingual transfer tasks like cross-lingual natural language inference (XNLI) and named entity recognition (NER).</p>
+                                    <p class="card-text">XLM-RoBERTa is a model that was proposed by <a href="https://arxiv.org/abs/1911.02116">Conneau et al.</a> to be pre-trained on 100 languages and applied on various cross-lingual transfer tasks like cross-lingual natural language inference (XNLI) and named entity recognition (NER).</p>
                                     <p><strong>Strength:</strong> High multilingual capabilities with strong results across different tasks and good performance for low-resource languages.</p>
                                     <p><strong>Included Nguni Languages:</strong> isiXhosa</p>
                                 </div>
@@ -319,7 +320,7 @@
                             <div class="card w-75" style="height: 390px;">
                                 <div class="card-body">
                                     <h3 class="card-title">Afro-XLMR</h3>
-                                    <p class="card-text">Afro-XLMR is a version of XLM-RoBERTa fine-tuned using multilingual adaptive fine-tuning (MAFT) on 20 African languages by {insert authors} to improve performance on languages that were previously unseen in XLM-R's pre-training corpora.</p>
+                                    <p class="card-text">Afro-XLMR is a version of XLM-RoBERTa fine-tuned using multilingual adaptive fine-tuning (MAFT) on 20 African languages by <a href="https://aclanthology.org/2024.eacl-long.14/#:~:text=In%20this%20paper%2C%20we%20create,Natural%20Language%20Understanding%20(NLU).">Alabi et al.</a> to improve performance on languages that were previously unseen in XLM-R's pre-training corpora.</p>
                                     <p><strong>Strengths:</strong> Specialized for African languages with improved performance for low-resource languages and distilled size from XLM-R</p>
                                     <p><strong>Included Nguni Languages:</strong> isiXhosa & isiZulu</p>
                                 </div>
@@ -331,7 +332,7 @@
                             <div class="card" style="height: 390px; width: 700px;">
                                 <div class="card-body">
                                     <h3 class="card-title">Nguni-XLMR</h3>
-                                    <p class="card-text">Nguni-XLMR follow the multilingual adaptive fine-tuning as in Afro-XLMR but on a narrower linguistic scope to leverage the similarity of the Nguni languages for cross-lingual transfer. This model was evaluate on a variety of natural language understanding tasks and showed improved over the two other PLMs.</p>
+                                    <p class="card-text">Nguni-XLMR by <a href="https://aclanthology.org/2024.lrec-main.1071/">Meyer et al.</a> follow the multilingual adaptive fine-tuning as in Afro-XLMR but on a narrower linguistic scope to leverage the similarity of the Nguni languages for cross-lingual transfer. This model was evaluate on a variety of natural language understanding tasks and showed improved over the two other PLMs.</p>
                                     <p><strong>Strength:</strong> Optimized for Nguni languages, offering superior results in linguistic tasks.</p>
                                     <p><strong>Included Nguni Languages:</strong> all</p>
                                 </div>
@@ -366,6 +367,39 @@
             </div>
         </section>
 
+        <!-- <section id="experimental-setup">
+            <h1>Experimental Setup</h1>
+            <h2>Resources</h2>
+            <p>
+            Given the nature of the project being experimental, there was need for both computational and data resources. The following resources were used in the project:
+            </p>
+            <h3>Computational Resources</h3>
+            <p>We made use of the National Integrated Cyberinfrastructure System's Centre for High-Performance Computing (NICIS CHPC) GPU cluster to train our models since the training runs were very computationally expensive. This was especially true for the PLMs which have hundreds of millions of paremeters. The main GPUs used were single NVIDIA V100 GPU cores which could be reserved for 12 hours of walltime at a time on the cluster.</p>
+            <h3>Dataset</h3>
+            <p>The dataset used in the project was the Sadilar dataset which consists of four parallel sets of data across all four Nguni languages. The data is from a collection of selected documents from South African governmnet websites. Each line consisted of a word, and its morphological parsing, lemma and part of speech. We took the morphological analysis and made input and output sequences for consisting of morphemes and their tags respectively.</p>
+
+            <h2>Evaluation</h2>
+            <p>
+                The models were evaluated using the <dfn>F1 score</dfn>, which is the harmonic mean of the <dfn>precision</dfn>
+                and <dfn>recall</dfn> of the model. The F1 score is a common metric for evaluating the performance of
+                classifiers, and is especially useful when the classes are imbalanced. The F1 score is calculated as:
+                <blockquote>
+                    F1 = 2 * (precision * recall) / (precision + recall)
+                </blockquote>
+                Where:
+                <ul>
+                    <li><dfn>Precision</dfn> is the number of true positives divided by the number of true positives plus
+                        the number of false positives. It is a measure of how many of the predicted positive morphological tags were
+                        actually positive.
+                    </li>
+                    <li><dfn>Recall</dfn> is the number of true positives divided by the number of true positives plus the
+                        number of false negatives. It is a measure of how many of the actual positive morphological tags were predicted
+                        as positive.
+                    </li>
+                </ul>
+            </p>
+        </section>
+         -->
         <section id="results">
             <h1>Results</h1>
             <p>The results for the exploration were split based on the data which the models were trained on. The first exploration in the project was using expertly annotated canonical segmentations which were obtained from the Sadilar dataset. For the other result sets we used canonical and surface segmentations predicted using the morphological segmenters from MORPH-SEGMENT. For the models trained from scratch the models are split into word- and sentence-level </p>
