@@ -508,6 +508,10 @@ figcaption {
         display: block;
     }
 
+    .horizontal-graph img {
+        width: 100%;
+    }
+
     .vertical-graph {
         display: none;
     }
