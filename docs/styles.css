@@ -112,7 +112,7 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background: #FDF7ED;
+    --bs-body-bg: rgb(238, 242, 251);
 }
 
 h1, h2, h3, h4, h5 {
@@ -452,6 +452,19 @@ u {
     text-decoration: underline;
     font-weight: bold;
     color: #5bc0de;
+}
+
+tr:hover td.best {
+    background-color: #FFF59D;
+    box-shadow: 0 0 15px #FFF59D;
+}
+
+#extended-results {
+    margin: 20px auto;
+    width: 50%;
+    display: grid;
+    grid-template: auto auto / auto auto;
+    grid-gap: 16px;
 }
 
 /* Responsive table element to it with smaller fonts and less padding */

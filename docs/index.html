@@ -354,40 +354,11 @@
                 segmentations predicted using the morphological segmenters from MORPH-SEGMENT. For the models trained
                 from scratch the models are split into word- and sentence-level.</p>
 
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Launch demo modal
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    ...
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gold-data">
-              Results on Expert Annotated Data
-            </button>
-
-            <!-- Modal -->
             <div class="modal fade modal-xl" id="gold-data" tabindex="-1" aria-labelledby="gold-data-label" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="gold-data-label">Results on Expert Annotated Data</h5>
+                    <h5 class="modal-title" id="gold-data-label">Results on Gold Standard Canonical Segmentations</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -459,138 +430,208 @@
               </div>
             </div>
 
+            <div class="modal fade modal-xl" id="gold-surf-data" tabindex="-1" aria-labelledby="gold-surf-label" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="gold-surf-label">Results on Gold Standard Surface Segmentations</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <table id="gold-surf-table">
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th colspan="2">isiNdebele</th>
+                                <th colspan="2">siSwati</th>
+                                <th colspan="2">isiXhosa</th>
+                                <th colspan="2">isiZulu</th>
+                            </tr>
+                            <tr class="score-heading">
+                                <th></th>
+                                <th>Micro F1</th>
+                                <th>Macro F1</th>
+                                <th>Micro F1</th>
+                                <th>Macro F1</th>
+                                <th>Micro F1</th>
+                                <th>Macro F1</th>
+                                <th>Micro F1</th>
+                                <th>Macro F1</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th colspan="9">Models Trained from Scratch</th>
+                            </tr>
+                            <tr>
+                                <td>Bi-LSTM, morpheme</td><td class="best"><u>0.911</u></td><td class="best"><u>0.677</u></td><td class="best"><u>0.905</u></td><td class="best"><u>0.657</u></td><td class="best"><u>0.952</u></td><td class="best"><u>0.767</u></td><td class="best"><u>0.912</u></td><td class="best"><u>0.659</u></td>
+                            </tr>
+                            <tr>
+                                <td>Bi-LSTM, char-sum</td><td>0.903</td><td>0.650</td><td>0.894</td><td>0.613</td><td>0.903</td><td>0.747</td><td>0.907</td><td>0.626</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <div class="modal fade modal-xl" id="e2e-pred-canon" tabindex="-1" aria-labelledby="e2e-pred-canon-label" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="e2e-pred-canon-label">End-to-End Results on Predicted Canonical Segmentations</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <table id="canonical-table">
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th colspan="2">isiNdebele</th>
+                                <th colspan="2">siSwati</th>
+                                <th colspan="2">isiXhosa</th>
+                                <th colspan="2">isiZulu</th>
+                            </tr>
+                            <tr class="score-heading">
+                                <th></th>
+                                <th>Micro F<sub>1</sub></th>
+                                <th>Macro F<sub>1</sub></th>
+                                <th>Micro F<sub>1</sub></th>
+                                <th>Macro F<sub>1</sub></th>
+                                <th>Micro F<sub>1</sub></th>
+                                <th>Macro F<sub>1</sub></th>
+                                <th>Micro F<sub>1</sub></th>
+                                <th>Macro F<sub>1</sub></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th colspan="9">Baselines</th>
+                            </tr>
+                            <tr>
+                                <td>ZulMorph</td>
+                                <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>0.6471</td><td>0.3378</td>
+                            </tr>
 
+                            <!-- <tr><td colspan="9"><hr></td></tr> -->
 
-            <!-- Canonical Segmentations -->
-            <h3>End-to-End Results on Predicted Canonical Segmentations</h3>
+                            <tr>
+                                <th colspan="9">Models Trained from Scratch</th>
+                            </tr>
+                            <tr>
+                                <td>Bi-LSTM, morpheme</td>
+                                <td>0.8084</td><td>0.5769</td><td>0.8230</td><td>0.5717</td><td>0.9110</td><td>0.6807</td><td>0.8250</td><td>0.5936</td>
+                            </tr>
+                            <tr>
+                                <td>Bi-LSTM, char-sum</td>
+                                <td class="best"><strong>0.8094</strong></td><td class="best"><u>0.6816</u></td><td>0.8289</td><td>0.5760</td><td>0.9107</td><td>0.6816</td><td>0.8248</td><td class="best"><u>0.6033</u></td>
+                            </tr>
 
-            <table id="canonical-table">
-                <thead>
-                    <tr>
-                        <th>Model</th>
-                        <th colspan="2">isiNdebele</th>
-                        <th colspan="2">siSwati</th>
-                        <th colspan="2">isiXhosa</th>
-                        <th colspan="2">isiZulu</th>
-                    </tr>
-                    <tr class="score-heading">
-                        <th></th>
-                        <th>Micro F<sub>1</sub></th>
-                        <th>Macro F<sub>1</sub></th>
-                        <th>Micro F<sub>1</sub></th>
-                        <th>Macro F<sub>1</sub></th>
-                        <th>Micro F<sub>1</sub></th>
-                        <th>Macro F<sub>1</sub></th>
-                        <th>Micro F<sub>1</sub></th>
-                        <th>Macro F<sub>1</sub></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th colspan="9">Baselines</th>
-                    </tr>
-                    <tr>
-                        <td>ZulMorph</td>
-                        <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>0.6471</td><td>0.3378</td>
-                    </tr>
-        
-                    <!-- <tr><td colspan="9"><hr></td></tr> -->
-        
-                    <tr>
-                        <th colspan="9">Models Trained from Scratch</th>
-                    </tr>
-                    <tr>
-                        <td>Bi-LSTM, morpheme</td>
-                        <td>0.8084</td><td>0.5769</td><td>0.8230</td><td>0.5717</td><td>0.9110</td><td>0.6807</td><td>0.8250</td><td>0.5936</td>
-                    </tr>
-                    <tr>
-                        <td>Bi-LSTM, char-sum</td>
-                        <td class="best"><strong>0.8094</strong></td><td class="best"><u>0.6816</u></td><td>0.8289</td><td>0.5760</td><td>0.9107</td><td>0.6816</td><td>0.8248</td><td class="best"><u>0.6033</u></td>
-                    </tr>
-                    
-                    <tr>
-                        <td>Bi-LSTM, morpheme<br>(Sentence-level)</td>
-                        <td>0.8059</td><td>0.5834</td><td>0.8274</td><td>0.5792</td><td>0.9172</td><td>0.7171</td><td>0.8265</td><td>0.5989</td>
-                    </tr>
-                    <tr>
-                        <td>Bi-LSTM, char-sum<br>(Sentence-level)</td>
-                        <td>0.8010</td><td>0.5814</td><td>0.8238</td><td>0.5749</td><td>0.9135</td><td>0.7020</td><td>0.8184</td><td>0.5903</td>
-                    </tr>
-                    <tr>
-                        <td>CRF, morpheme<br>(Sentence-level)</td>
-                        <td>0.8049</td><td>0.5961</td><td class="best"><u>0.8301</u></td><td class="best"><u>0.5860</u></td><td class="best"><u>0.9190</u></td><td class="best"><u>0.7224</u></td><td class="best"><u>0.8280</u></td><td>0.5991</td>
-                    </tr>
-                    <tr>
-                        <td>CRF, char-sum<br>(Sentence-level)</td>
-                        <td>0.8081</td><td>0.5893</td><td>0.8271</td><td>0.5782</td><td>0.9181</td><td>0.7084</td><td>0.8246</td><td>0.5973</td>
-                    </tr>
-        
-                    <tr>
-                        <th colspan="9">Pre-trained Language Models</th>
-                    </tr>
-                    <tr>
-                        <td>XLM-RoBERTa</td>
-                        <td class="best"><u>0.8151</u></td><td class="best"><strong>0.5509</strong></td><td class="best"><strong>0.8280</strong></td><td>0.5278</td><td>0.9137</td><td>0.6346</td><td>0.8251</td><td>0.5438</td>
-                    </tr>
-                    <tr>
-                        <td>Afro-XLMR</td>
-                        <td>0.8137</td><td>0.5413</td><td>0.8273</td><td class="best"><strong>0.5296</strong></td><td class="best"><strong>0.9140</strong></td><td class="best"><strong>0.6423</strong></td><td>0.8269</td><td>0.5469</td>
-                    </tr>
-                    <tr>
-                        <td>Nguni-XLMR</td>
-                        <td>0.8144</td><td>0.5468</td><td>0.8264</td><td>0.5285</td><td>0.9155</td><td>0.6390</td><td class="best"><strong>0.8272</strong></td><td class="best"><strong>0.5495</strong></td>
-                    </tr>
-                </tbody>
-            </table>
+                            <tr>
+                                <td>Bi-LSTM, morpheme<br>(Sentence-level)</td>
+                                <td>0.8059</td><td>0.5834</td><td>0.8274</td><td>0.5792</td><td>0.9172</td><td>0.7171</td><td>0.8265</td><td>0.5989</td>
+                            </tr>
+                            <tr>
+                                <td>Bi-LSTM, char-sum<br>(Sentence-level)</td>
+                                <td>0.8010</td><td>0.5814</td><td>0.8238</td><td>0.5749</td><td>0.9135</td><td>0.7020</td><td>0.8184</td><td>0.5903</td>
+                            </tr>
+                            <tr>
+                                <td>CRF, morpheme<br>(Sentence-level)</td>
+                                <td>0.8049</td><td>0.5961</td><td class="best"><u>0.8301</u></td><td class="best"><u>0.5860</u></td><td class="best"><u>0.9190</u></td><td class="best"><u>0.7224</u></td><td class="best"><u>0.8280</u></td><td>0.5991</td>
+                            </tr>
+                            <tr>
+                                <td>CRF, char-sum<br>(Sentence-level)</td>
+                                <td>0.8081</td><td>0.5893</td><td>0.8271</td><td>0.5782</td><td>0.9181</td><td>0.7084</td><td>0.8246</td><td>0.5973</td>
+                            </tr>
 
-            <!-- Surface Segmentations -->
-            <h3>End-to-End Results on Predicted Surface Segmentations</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Model</th>
-                        <th colspan="2">isiNdebele</th>
-                        <th colspan="2">siSwati</th>
-                        <th colspan="2">isiXhosa</th>
-                        <th colspan="2">isiZulu</th>
-                    </tr>
-                    <tr class="score-heading">
-                        <th></th>
-                        <th>Micro F<sub>1</sub></th>
-                        <th>Macro F<sub>1</sub></th>
-                        <th>Micro F<sub>1</sub></th>
-                        <th>Macro F<sub>1</sub></th>
-                        <th>Micro F<sub>1</sub></th>
-                        <th>Macro F<sub>1</sub></th>
-                        <th>Micro F<sub>1</sub></th>
-                        <th>Macro F<sub>1</sub></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th colspan="9">Models Trained from Scratch</th>
-                    </tr>
-                    <tr>
-                        <td>Bi-LSTM, morpheme</td><td class="best"><strong><u>0.7830</u></strong></td><td class="best"><strong><u>0.5409</u></strong></td><td class="best"><strong><u>0.8129</u></strong></td><td class="best"><strong><u>0.5274</u></strong></td><td class="best"><strong><u>0.8661</u></strong></td><td class="best"><strong><u>0.6724</u></strong></td><td class="best"><strong><u>0.8023</u></strong></td><td class="best"><strong><u>0.5529</u></strong></td>
-                    </tr>
-                    <tr>
-                        <td>Bi-LSTM, char-sum</td><td>0.7742</td><td>0.5238</td><td>0.8053</td><td>0.5212</td><td>0.7994</td><td>0.6054</td><td>0.7976</td><td>0.5511</td>
-                    </tr>
-                    <tr>
-                        <th colspan="9">Pre-trained Language Models</th>
-                    </tr>
-                    <tr>
-                        <td>XLM-RoBERTa</td><td class="best"><strong>0.7282</strong></td><td class="best"><strong>0.4868</strong></td><td>0.5107</td><td>0.2231</td><td>0.7244</td><td>0.5208</td><td>0.6759</td><td>0.4349</td>
-                    </tr>
-                    <tr>
-                        <td>Afro-XLMR</td><td>0.7275</td><td>0.4832</td><td>0.5216</td><td>0.2412</td><td>0.7273</td><td class="best"><strong>0.5300</strong></td><td>0.6794</td><td>0.4495</td>
-                    </tr>
-                    <tr>
-                        <td>Nguni-XLMR</td><td>0.7258</td><td>0.4746</td><td class="best"><strong>0.5328</strong></td><td class="best"><strong>0.2505</strong></td><td class="best"><strong>0.7309</strong></td><td>0.5270</td><td class="best"><strong>0.6818</strong></td><td class="best"><strong>0.4512</strong></td>
-                    </tr>
-                </tbody>
-            </table>
+                            <tr>
+                                <th colspan="9">Pre-trained Language Models</th>
+                            </tr>
+                            <tr>
+                                <td>XLM-RoBERTa</td>
+                                <td class="best"><u>0.8151</u></td><td class="best"><strong>0.5509</strong></td><td class="best"><strong>0.8280</strong></td><td>0.5278</td><td>0.9137</td><td>0.6346</td><td>0.8251</td><td>0.5438</td>
+                            </tr>
+                            <tr>
+                                <td>Afro-XLMR</td>
+                                <td>0.8137</td><td>0.5413</td><td>0.8273</td><td class="best"><strong>0.5296</strong></td><td class="best"><strong>0.9140</strong></td><td class="best"><strong>0.6423</strong></td><td>0.8269</td><td>0.5469</td>
+                            </tr>
+                            <tr>
+                                <td>Nguni-XLMR</td>
+                                <td>0.8144</td><td>0.5468</td><td>0.8264</td><td>0.5285</td><td>0.9155</td><td>0.6390</td><td class="best"><strong>0.8272</strong></td><td class="best"><strong>0.5495</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade modal-xl" id="e2e-surface-pred" tabindex="-1" aria-labelledby="e2e-surface-pred-label" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="e2e-surface-pred-label">End-to-End Results on Predicted Surface Segmentations</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th colspan="2">isiNdebele</th>
+                                <th colspan="2">siSwati</th>
+                                <th colspan="2">isiXhosa</th>
+                                <th colspan="2">isiZulu</th>
+                            </tr>
+                            <tr class="score-heading">
+                                <th></th>
+                                <th>Micro F<sub>1</sub></th>
+                                <th>Macro F<sub>1</sub></th>
+                                <th>Micro F<sub>1</sub></th>
+                                <th>Macro F<sub>1</sub></th>
+                                <th>Micro F<sub>1</sub></th>
+                                <th>Macro F<sub>1</sub></th>
+                                <th>Micro F<sub>1</sub></th>
+                                <th>Macro F<sub>1</sub></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th colspan="9">Models Trained from Scratch</th>
+                            </tr>
+                            <tr>
+                                <td>Bi-LSTM, morpheme</td><td class="best"><strong><u>0.7830</u></strong></td><td class="best"><strong><u>0.5409</u></strong></td><td class="best"><strong><u>0.8129</u></strong></td><td class="best"><strong><u>0.5274</u></strong></td><td class="best"><strong><u>0.8661</u></strong></td><td class="best"><strong><u>0.6724</u></strong></td><td class="best"><strong><u>0.8023</u></strong></td><td class="best"><strong><u>0.5529</u></strong></td>
+                            </tr>
+                            <tr>
+                                <td>Bi-LSTM, char-sum</td><td>0.7742</td><td>0.5238</td><td>0.8053</td><td>0.5212</td><td>0.7994</td><td>0.6054</td><td>0.7976</td><td>0.5511</td>
+                            </tr>
+                            <tr>
+                                <th colspan="9">Pre-trained Language Models</th>
+                            </tr>
+                            <tr>
+                                <td>XLM-RoBERTa</td><td class="best"><strong>0.7282</strong></td><td class="best"><strong>0.4868</strong></td><td>0.5107</td><td>0.2231</td><td>0.7244</td><td>0.5208</td><td>0.6759</td><td>0.4349</td>
+                            </tr>
+                            <tr>
+                                <td>Afro-XLMR</td><td>0.7275</td><td>0.4832</td><td>0.5216</td><td>0.2412</td><td>0.7273</td><td class="best"><strong>0.5300</strong></td><td>0.6794</td><td>0.4495</td>
+                            </tr>
+                            <tr>
+                                <td>Nguni-XLMR</td><td>0.7258</td><td>0.4746</td><td class="best"><strong>0.5328</strong></td><td class="best"><strong>0.2505</strong></td><td class="best"><strong>0.7309</strong></td><td>0.5270</td><td class="best"><strong>0.6818</strong></td><td class="best"><strong>0.4512</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <figure class="wide-figure">
                 <img src="files/basic-results.svg" alt="Graph comparing Macro F1 of ZulMorph with Afro-XLMR and
@@ -598,6 +639,26 @@
                 bi-LSTM models are best overall.">
                 <figcaption>The Macro F<sub>1</sub> scores of three selected models (Afro-XLMR, Bi-LSTM, and ZulMorph).</figcaption>
             </figure>
+
+            Click to view the full tables of results:
+            <div id="extended-results">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gold-data">
+                    Gold standard canonical segmentations
+                </button>
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gold-surf-data">
+                    Gold standard surface segmentations
+                </button>
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#e2e-pred-canon">
+                    End-to-end on predicted canonical segmentations
+                </button>
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#e2e-surface-pred">
+                    End-to-end on predicted surface segmentations
+                </button>
+            </div>
+
 
             <h2>Discussion</h2>
 
