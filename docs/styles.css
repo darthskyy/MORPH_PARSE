@@ -400,6 +400,11 @@ section#demo-video {
     border: 1px solid #ddd;
 }
 
+#anal-of-dataset[data-bs-toggle="modal"]:hover {
+    box-shadow: 0 0 5px #007bff;
+    border-radius: 5px;
+}
+
 footer {
     text-align: center;
     margin-top: 40px;
@@ -467,6 +472,26 @@ tr:hover td.best {
     grid-gap: 16px;
 }
 
+.graph {
+    display: block;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+}
+
+.graph img {
+    width: unset;
+}
+
+.move-graph-up {
+    margin-top: -20px;
+}
+
+figcaption {
+    font-style: italic;
+}
+
 .research-q {
     font-style: italic;
     margin-bottom: 0;
@@ -476,6 +501,7 @@ tr:hover td.best {
     display: flex;
     flex-direction: row;
     gap: 30px;
+    margin-bottom: 30px
 }
 
 .horizontal-graph {
@@ -485,6 +511,10 @@ tr:hover td.best {
 @media (max-width: 1000px) {
     .horizontal-graph {
         display: block;
+    }
+
+    .horizontal-graph img {
+        width: 100%;
     }
 
     .vertical-graph {

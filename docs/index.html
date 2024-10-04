@@ -69,7 +69,7 @@
                 </ul>
 
             <p>We <a href="#outcomes">compared the performance</a> of these models with
-                eachother as well as with traditional methods of solving the task, such as Finite State Transducer (FST) models.
+                each other as well as with traditional methods of solving the task, such as Finite State Transducer (FST) models.
 
             <p>
                 We found that models trained from scratch outperformed both fine-tuned pre-trained language models and the
@@ -247,7 +247,7 @@
 
             Beginning with BERT in there have been many models that have been developed and fine-tuned for different languages and tasks. These models have been shown to be effective in a wide range of NLP tasks and have been shown to be effective in low-resource languages. In this exploration we fine-tuned three models on the morphological parsing task for the Nguni languages. The models were XLM-RoBERTa, Afro-XLMR and Nguni-XLMR based on their varying levels of inclusion of the Nguni languages. <br><br>
             </p>
-            
+
             <figure class="wide-figure">
                 <img src="files/bert working.png" alt="">
                 <figcaption>Illustration of how BERT works. The model is trained on a masked language modelling task, where it predicts masked words in a sentence. This allows it to learn the structure of language and later use that knowledge when being fine-tuned on more down-stream tasks.</figcaption>
@@ -362,9 +362,9 @@
             <h2>Results</h2>
             <p>The results for the exploration were split based on the data which the models were trained on. The first
                 exploration in the project was using expertly annotated canonical segmentations which were obtained from
-                the Gaustad & Puttkammer's (2022) dataset. For the other result sets we used canonical and surface
-                segmentations predicted using the morphological segmenters from MORPH-SEGMENT. For the models trained
-                from scratch the models are split into word- and sentence-level.</p>
+                the dataset. For the other result sets, we used canonical and surface segmentations predicted using the
+                morphological segmenters from MORPH-SEGMENT. For the models trained from scratch, the models are split
+                into word- and sentence-level.</p>
 
             <p>Click to view the full tables of results:</p>
             <div id="extended-results">
@@ -594,10 +594,6 @@
                         </tbody>
                     </table>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -656,10 +652,6 @@
                         </tbody>
                     </table>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -673,7 +665,7 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <table cellpadding="10" cellspacing="0">
+                        <table>
                             <thead>
                               <tr>
                                 <th></th>
@@ -727,7 +719,7 @@
                                 <td>252</td><td>342</td><td>340</td><td>350</td>
                               </tr>
                             </tbody>
-                          </table>                          
+                          </table>
                     </div>
                   </div>
                 </div>
@@ -843,7 +835,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <p>Results of the grid search showing the best version of each model in each of the Nguni languages. The F1 score reported is the macro-F1 average. Asterisk (*) indicates the language was present in the pre-training of the model. The <strong>bold</strong> results are the best model per language indicating the best hyperparameters. The <u>underlined</u> result is the best model performance in the grid search irrespective of language or model.</p>                        
+                        <p>Results of the grid search showing the best version of each model in each of the Nguni languages. The F1 score reported is the macro-F1 average. Asterisk (*) indicates the language was present in the pre-training of the model. The <strong>bold</strong> results are the best model per language indicating the best hyperparameters. The <u>underlined</u> result is the best model performance in the grid search irrespective of language or model.</p>
                     </div>
                   </div>
                 </div>
@@ -851,15 +843,14 @@
 
             <h2>Discussion</h2>
 
+            <h3>Models Trained from Scratch</h3>
             <div class="discussion">
                 <div class="discussion-text">
-                    <h3>Models Trained from Scratch</h3>
-
                     <p><strong>Both Bi-LSTMs and CRFs performed well.</strong> The CRF
                         layer did not improve significantly over the bi-LSTM used to generate its features. This could
                         be due to the CRF being a simple linear chain &mdash; perhaps higher-order
                         CRFs
-<!--                         (which model dependence across more than just neighbours) c-->
+                         (which model dependence across more than just neighbours)
                         could improve this.</p>
                     <p><strong>Sentence-level was better than word-level.</strong>
                         This makes intuitive sense as the added context allows for easier disambiguation.
@@ -877,37 +868,36 @@
                     <p><strong>Morpheme-level models outperformed character-level models.</strong>
                         This could be because morphemes are a more effective representation, or because
                         morpheme embeddings are more sensitive to small changes in the morpheme.
-<!--                        Since each morpheme is mapped to its own learnt embedding, even a single differing character can-->
-<!--                        yield an entirely different embedding. This lets the model identify rare classes more easily.-->
-                    </p>
-
-                    <h3>Pre-trained Language Models</h3>
-                    <p><strong>Effect of Nguni-specific transfer learning.</strong>
-                        It was the expectation that the Nguni-XLMR model would outperform the other PLMs due to its specialized pre-training on tasks for the Nguni languages however this was not the case. The model performed well but was not the best in any of the tasks. This could be due to the fact that the model was trained on a narrower linguistic scope than the other PLMs and thus did not have the same level of generalization as the other models. The model was also not able to leverage the similarity of the Nguni languages as effectively as expected.
-                    </p>
-                    <p><strong>Effect of subword tokenization.</strong>
-                        Since the models were adapted from XLM-RoBERTa, they all used a SentencePiece tokenizer which is optimised for subword tokenization. This is suboptimal for our task since its inputs are already subword units. By subword tokenizing individual morphemes, we reduced the models ability to learn the morphological structure.
-                    </p>
-                    <p><strong>Lexical analysis of datasets.</strong>
-                        <span data-bs-toggle="modal" data-bs-target="#lex-analysis" style="color: #007bff; text-decoration: none; cursor: pointer; transition: box-shadow 0.3s;">
-                            Analysis of the dataset
-                        </span> revealed that isiXhosa had an advantage over the other languages since it had less unique morphemes and thus the model was able to learn the morphological structure more effectively. It achieve significantly higher (+9%) macro-F1 score over the other languages.
-                        <style>
-                            span[data-bs-toggle="modal"]:hover {
-                                box-shadow: 0 0 5px #007bff;
-                                border-radius: 5px;
-                            }
-                        </style>
+                        Since each morpheme is mapped to its own learnt embedding, even a single differing character can
+                        yield an entirely different embedding. This lets the model identify rare classes more easily.
                     </p>
                 </div>
 
-                <div class="graph">
-                    <img src="files/graph-vertical.svg" alt="Graph comparing Macro F1 of ZulMorph with Afro-XLMR and
-                    bi-LSTMs. In all cases, surface-based models are outperformed by their canonical counterparts. The
-                    bi-LSTM models are best overall.">
-                </div>
+                <figure class="graph vertical-graph move-graph-up">
+                    <img src="files/from-scratch-vertical.svg" alt="Graph comparing Macro F1s of from-scratch models on
+                    gold canonical data.">
+                    <figcaption>Comparison of Macro F<sub>1</sub> scores of different from-scratch models on gold canonical data.</figcaption>
+                </figure>
 
+                <figure class="graph horizontal-graph">
+                    <img src="files/from-scratch-horizontal.svg" alt="Graph comparing Macro F1s of from-scratch models on
+                    gold canonical data.">
+                    <figcaption>Comparison of Macro F<sub>1</sub> scores of different from-scratch models on gold canonical data.</figcaption>
+                </figure>
             </div>
+
+            <h3>Pre-trained Language Models</h3>
+            <p><strong>Effect of Nguni-specific transfer learning.</strong>
+                It was the expectation that the Nguni-XLMR model would outperform the other PLMs due to its specialized pre-training on tasks for the Nguni languages however this was not the case. The model performed well but was not the best in any of the tasks. This could be due to the fact that the model was trained on a narrower linguistic scope than the other PLMs and thus did not have the same level of generalization as the other models. The model was also not able to leverage the similarity of the Nguni languages as effectively as expected.
+            </p>
+            <p><strong>Effect of subword tokenization.</strong>
+                Since the models were adapted from XLM-RoBERTa, they all used a SentencePiece tokenizer which is optimised for subword tokenization. This is suboptimal for our task since its inputs are already subword units. By subword tokenizing individual morphemes, we reduced the models ability to learn the morphological structure.
+            </p>
+            <p><strong>Lexical analysis of datasets.</strong>
+                <span id="anal-of-dataset" data-bs-toggle="modal" data-bs-target="#lex-analysis" style="color: #007bff; text-decoration: none; cursor: pointer; transition: box-shadow 0.3s;">
+                    Analysis of the dataset
+                </span> revealed that isiXhosa had an advantage over the other languages since it had less unique morphemes and thus the model was able to learn the morphological structure more effectively. It achieve significantly higher (+9%) macro-F1 score over the other languages.
+            </p>
 
             <h2>Conclusions</h2>
             <div class="discussion">
@@ -937,19 +927,19 @@
                     </ol>
                 </div>
 
-                <div class="graph vertical-graph">
+                <figure class="graph vertical-graph">
                     <img src="files/graph-vertical.svg" alt="Graph comparing Macro F1 of ZulMorph with Afro-XLMR and
                     bi-LSTMs. In all cases, surface-based models are outperformed by their canonical counterparts. The
                     bi-LSTM models are best overall.">
-                </div>
+                    <figcaption>Comparison of Macro F<sub>1</sub> scores of ZulMorph with Afro-XLMR and bi-LSTMs.</figcaption>
+                </figure>
 
-                <div class="graph horizontal-graph">
-                    <figure class="wide-figure">
+                <figure class="graph horizontal-graph wide-figure">
                         <img src="files/graph-horizontal.svg" alt="Graph comparing Macro F1 of ZulMorph with Afro-XLMR and
                         bi-LSTMs. In all cases, surface-based models are outperformed by their canonical counterparts. The
                         bi-LSTM models are best overall.">
-                    </figure>
-                </div>
+                        <figcaption>Comparison of Macro F<sub>1</sub> scores of ZulMorph with Afro-XLMR and bi-LSTMs.</figcaption>
+                </figure>
             </div>
 
             <p>Our project's contributions are as follows:</p>
@@ -1007,7 +997,7 @@
 </div>
 
 <footer>
-    <p>&copy; 2024 MorphParse | By Simbarashe Mawere and Cael Marquard</p>
+    <p>&copy; 2024 MorphParse | By Simbarashe Mawere and Cael Marquard. Supervised by Francois Meyer.</p>
 </footer>
 
 <script src="script.js"></script>
