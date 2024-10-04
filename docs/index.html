@@ -6,8 +6,7 @@
     <title>MorphParse: Deep Learning for Morphological Parsing</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="files/uctlogo.png" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&family=Fira+Code&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="files/http_cdn.jsdelivr.net_npm_bootstrap@5.3.3_dist_css_bootstrap.css" rel="stylesheet">
 </head>
 <body>
 
@@ -27,7 +26,7 @@
             <li><a href="#from-scratch">Models Trained From Scratch</a></li>
             <li><a href="#plms">Pre-trained Language Models</a></li>
             <!-- <li><a href="#experimental-setup">Experimental Setup</a></li> -->
-            <li><a href="#results">Results</a></li>
+            <li><a href="#outcomes">Outcomes</a></li>
         </ul>
     </nav>
 
@@ -69,7 +68,7 @@
                     <li><a href="#plms">Fine-tuning pre-trained language models.</a></li>
                 </ul>
 
-            <p>We <a href="#results">compared the performance</a> of these models with
+            <p>We <a href="#outcomes">compared the performance</a> of these models with
                 eachother as well as with traditional methods of solving the task, such as Finite State Transducer (FST) models.
 
             <p>
@@ -239,47 +238,6 @@
             <p>CRFs usually rely on a set of hand-crafted features in order to assign probabilities. However, an
                 alternative to this is to use a neural network to generate these features. In this project, a bi-LSTM
                 is used to generate these features.
-
-            <h2>Discussion</h2>
-            <p><strong>Both Bi-LSTMs and CRFs performed well, without having any clear leader.</strong> Therefore, the added CRF
-                layer did not significantly improve over the bi-LSTM that was generating its features. This could
-                be as a result of the CRF being organised only as a linear chain &mdash; perhaps higher-order
-                CRFs (which model dependence across more than just neighbours) could improve this.</p>
-            <p><strong>Sentence-level models were usually better than their word-level counterparts.</strong>
-                This makes intuitive sense, as in some cases, the added context allows for easier disambiguation.
-                For instance, it is not  obvious from the prefix alone whether "ipolisa" should be in class 5 or
-                class 9, since both have "i" as valid prefixes. However, if this is placed in the context of the
-                sentence "ipolisa liyahamba", the  "li" prefix can be used to unambigously identify "ipolisa" as
-                class 5.
-            <p><strong>Models classifying canonical segmentations outperformed those classifying surface segmentations.</strong>
-                This is likely because the canonical segmentation of a word provides more information to the model
-                than the surface segmentation. For instance, the word "kwicandelo" is canonically segmented as
-                "ku-i-(li)-candelo" and surface segmented as "kw-i-candelo". The "(li)" morpheme is lost in the
-                surface form, which is the noun prefix for class 5. Without it, the model may have a harder time
-                choosing between class 9 and 5 for the morpheme "i".
-            </p>
-            <p><strong>Models using morpheme-level embeddings outperformed character-level models.</strong>
-                This could be because morphemes are simply a more effective representation for this task.
-                Additionally, morpheme-level embeddings are more sensitive to small changes in the morpheme itself.
-                Since each morpheme is mapped to its own learnt embedding, even a single differing character can
-                yield an entirely different embedding. This lets the model identify rare classes more easily.
-            </p>
-
-            <!-- TODO shared documents section maybe? then we can add showcase video, poster, etc -->
-
-            <h2>Documents</h2>
-            <div class="exploration-content">
-                <div class="pdf-item">
-                    <h3>Research Paper</h3>
-                    <embed class="pdf-embed" src="files/MRQCAE001_MorphParse_report.pdf" type="application/pdf"
-                           title="Cael Marquard's final report, dealing with models trained from scratch (PDF)">
-                </div>
-                <div class="pdf-item">
-                    <h3>Literature Review</h3>
-                    <embed class="pdf-embed" src="files/MRQCAE001_MorphParse_literature_review.pdf" type="application/pdf"
-                        title="Cael Marquard's extended literature review (PDF)">
-                </div>
-            </div>
         </section>
 
         <section id="plms">
@@ -350,21 +308,6 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-
-            <br><hr>
-            <h2>Documents</h2>
-            <div class="exploration-content">
-                <div class="pdf-item">
-                    <h3>Research Paper</h3>
-                    <embed class="pdf-embed" src="files/MWRSIM003_MorphParse_Final_Report_site_version.pdf" type="application/pdf"
-                        title="Simbarashe Mawere's final report, dealing with pre-trained language models (PDF)">
-                </div>
-                <div class="pdf-item">
-                    <h3>Literature Review</h3>
-                    <embed class="pdf-embed" src="files/MWRSIM003_MorphParse_Literature_Review_site_version.pdf" type="application/pdf"
-                        title="Simbarashe Mawere's extended literature review (PDF)">
-                </div>
-            </div>
         </section>
 
         <!-- <section id="experimental-setup">
@@ -400,79 +343,127 @@
             </p>
         </section>
          -->
-        <section id="results">
-            <h1>Results</h1>
-            <p>The results for the exploration were split based on the data which the models were trained on. The first exploration in the project was using expertly annotated canonical segmentations which were obtained from the Sadilar dataset. For the other result sets we used canonical and surface segmentations predicted using the morphological segmenters from MORPH-SEGMENT. For the models trained from scratch the models are split into word- and sentence-level.</p>
+
+        <section id="outcomes">
+            <h1>Outcomes</h1>
+
+            <h2>Results</h2>
+            <p>The results for the exploration were split based on the data which the models were trained on. The first
+                exploration in the project was using expertly annotated canonical segmentations which were obtained from
+                the Gaustad & Puttkammer's (2022) dataset. For the other result sets we used canonical and surface
+                segmentations predicted using the morphological segmenters from MORPH-SEGMENT. For the models trained
+                from scratch the models are split into word- and sentence-level.</p>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Launch demo modal
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    ...
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gold-data">
+              Results on Expert Annotated Data
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade modal-xl" id="gold-data" tabindex="-1" aria-labelledby="gold-data-label" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="gold-data-label">Results on Expert Annotated Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <table id="gold-table">
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th colspan="2">isiNdebele</th>
+                                <th colspan="2">siSwati</th>
+                                <th colspan="2">isiXhosa</th>
+                                <th colspan="2">isiZulu</th>
+                            </tr>
+                            <tr class="score-heading">
+                                <th></th>
+                                <th>Micro F1</th>
+                                <th>Macro F1</th>
+                                <th>Micro F1</th>
+                                <th>Macro F1</th>
+                                <th>Micro F1</th>
+                                <th>Macro F1</th>
+                                <th>Micro F1</th>
+                                <th>Macro F1</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th colspan="9">Baselines</th>
+                            </tr>
+                            <tr>
+                                <td>ZulMorph</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>0.6471</td><td>0.3378</td>
+                            </tr>
+                            <tr>
+                                <th colspan="9">Models Trained from Scratch</th>
+                            </tr>
+                            <tr>
+                                <td>Bi-LSTM, morpheme</td><td>0.9222</td><td>0.6950</td><td>0.9160</td><td>0.6761</td><td>0.9529</td><td>0.7359</td><td>0.9264</td><td class="best"><u>0.6860</u></td>
+                            </tr>
+                            <tr>
+                                <td>Bi-LSTM, char-sum</td><td class="best"><u>0.9226</u></td><td>0.6907</td><td>0.9177</td><td>0.6835</td><td>0.9553</td><td>0.7418</td><td>0.9271</td><td>0.6817</td>
+                            </tr>
+                            <tr>
+                                <td>Bi-LSTM, morpheme</td><td>0.9188</td><td>0.7009</td><td>0.9190</td><td>0.6872</td><td>0.9609</td><td>0.7694</td><td>0.9263</td><td>0.6812</td>
+                            </tr>
+                            <tr>
+                                <td>Bi-LSTM, char-sum</td><td>0.9142</td><td>0.6901</td><td>0.9132</td><td>0.6748</td><td>0.9585</td><td>0.7604</td><td>0.9210</td><td>0.6661</td>
+                            </tr>
+                            <tr>
+                                <td>CRF, morpheme</td><td>0.9189</td><td class="best"><u>0.7047</u></td><td class="best"><u>0.9196</u></td><td class="best"><u>0.6945</u></td><td>0.9619</td><td class="best"><u>0.7777</u></td><td class="best"><strong>0.9272</strong></td><td>0.6825</td>
+                            </tr>
+                            <tr>
+                                <td>CRF, char-sum</td><td>0.9167</td><td>0.7007</td><td>0.9179</td><td>0.6855</td><td class="best"><u>0.9623</u></td><td>0.7633</td><td>0.9255</td><td>0.6730</td>
+                            </tr>
+                            <tr>
+                                <th colspan="9">Pre-trained Language Models</th>
+                            </tr>
+                            <tr>
+                                <td>XLM-RoBERTa</td><td class="best"><strong>0.9152</strong></td><td class="best"><strong>0.6425</strong></td><td>0.9095</td><td>0.6420</td><td>0.9467</td><td>0.6773</td><td>0.9132</td><td>0.6157</td>
+                            </tr>
+                            <tr>
+                                <td>Afro-XLMR</td><td>0.9133</td><td>0.6273</td><td class="best"><strong>0.9100</strong></td><td class="best"><strong>0.6460</strong></td><td class="best"><strong>0.9583</strong></td><td class="best"><strong>0.7363</strong></td><td class="best"><u>0.9282</u></td><td class="best"><strong>0.6610</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Nguni-XLMR</td><td>0.9104</td><td>0.6190</td><td>0.9042</td><td>0.6176</td><td>0.9488</td><td>0.6738</td><td>0.9187</td><td>0.6302</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
 
 
-            <!-- Gold Data -->
-            <h2>Results on Expert Annotated Canonical Segmentation</h2>
-            <table id="gold-table">
-                <thead>
-                    <tr>
-                        <th>Model</th>
-                        <th colspan="2">isiNdebele</th>
-                        <th colspan="2">siSwati</th>
-                        <th colspan="2">isiXhosa</th>
-                        <th colspan="2">isiZulu</th>
-                    </tr>
-                    <tr class="score-heading">
-                        <th></th>
-                        <th>Micro F1</th>
-                        <th>Macro F1</th>
-                        <th>Micro F1</th>
-                        <th>Macro F1</th>
-                        <th>Micro F1</th>
-                        <th>Macro F1</th>
-                        <th>Micro F1</th>
-                        <th>Macro F1</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th colspan="9">Baselines</th>
-                    </tr>
-                    <tr>
-                        <td>ZulMorph</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>0.6471</td><td>0.3378</td>
-                    </tr>
-                    <tr>
-                        <th colspan="9">Models Trained from Scratch</th>
-                    </tr>
-                    <tr>
-                        <td>Bi-LSTM, morpheme</td><td>0.9222</td><td>0.6950</td><td>0.9160</td><td>0.6761</td><td>0.9529</td><td>0.7359</td><td>0.9264</td><td class="best"><u>0.6860</u></td>
-                    </tr>
-                    <tr>
-                        <td>Bi-LSTM, char-sum</td><td class="best"><u>0.9226</u></td><td>0.6907</td><td>0.9177</td><td>0.6835</td><td>0.9553</td><td>0.7418</td><td>0.9271</td><td>0.6817</td>
-                    </tr>
-                    <tr>
-                        <td>Bi-LSTM, morpheme</td><td>0.9188</td><td>0.7009</td><td>0.9190</td><td>0.6872</td><td>0.9609</td><td>0.7694</td><td>0.9263</td><td>0.6812</td>
-                    </tr>
-                    <tr>
-                        <td>Bi-LSTM, char-sum</td><td>0.9142</td><td>0.6901</td><td>0.9132</td><td>0.6748</td><td>0.9585</td><td>0.7604</td><td>0.9210</td><td>0.6661</td>
-                    </tr>
-                    <tr>
-                        <td>CRF, morpheme</td><td>0.9189</td><td class="best"><u>0.7047</u></td><td class="best"><u>0.9196</u></td><td class="best"><u>0.6945</u></td><td>0.9619</td><td class="best"><u>0.7777</u></td><td class="best"><strong>0.9272</strong></td><td>0.6825</td>
-                    </tr>
-                    <tr>
-                        <td>CRF, char-sum</td><td>0.9167</td><td>0.7007</td><td>0.9179</td><td>0.6855</td><td class="best"><u>0.9623</u></td><td>0.7633</td><td>0.9255</td><td>0.6730</td>
-                    </tr>
-                    <tr>
-                        <th colspan="9">Pre-trained Language Models</th>
-                    </tr>
-                    <tr>
-                        <td>XLM-RoBERTa</td><td class="best"><strong>0.9152</strong></td><td class="best"><strong>0.6425</strong></td><td>0.9095</td><td>0.6420</td><td>0.9467</td><td>0.6773</td><td>0.9132</td><td>0.6157</td>
-                    </tr>
-                    <tr>
-                        <td>Afro-XLMR</td><td>0.9133</td><td>0.6273</td><td class="best"><strong>0.9100</strong></td><td class="best"><strong>0.6460</strong></td><td class="best"><strong>0.9583</strong></td><td class="best"><strong>0.7363</strong></td><td class="best"><u>0.9282</u></td><td class="best"><strong>0.6610</strong></td>
-                    </tr>
-                    <tr>
-                        <td>Nguni-XLMR</td><td>0.9104</td><td>0.6190</td><td>0.9042</td><td>0.6176</td><td>0.9488</td><td>0.6738</td><td>0.9187</td><td>0.6302</td>
-                    </tr>
-                </tbody>
-            </table>            
-            
+
+
             <!-- Canonical Segmentations -->
-            <h2>End-to-End Results on Predicted Canonical Segmentations</h2>
+            <h3>End-to-End Results on Predicted Canonical Segmentations</h3>
 
             <table id="canonical-table">
                 <thead>
@@ -554,7 +545,7 @@
             </table>
 
             <!-- Surface Segmentations -->
-            <h2>End-to-End Results on Predicted Surface Segmentations</h2>
+            <h3>End-to-End Results on Predicted Surface Segmentations</h3>
             <table>
                 <thead>
                     <tr>
@@ -607,6 +598,66 @@
                 bi-LSTM models are best overall.">
                 <figcaption>The Macro F<sub>1</sub> scores of three selected models (Afro-XLMR, Bi-LSTM, and ZulMorph).</figcaption>
             </figure>
+
+            <h2>Discussion</h2>
+
+            <h3>Models Trained from Scratch</h3>
+
+            <p><strong>Both Bi-LSTMs and CRFs performed well, without having any clear leader.</strong> Therefore, the added CRF
+                layer did not significantly improve over the bi-LSTM that was generating its features. This could
+                be as a result of the CRF being organised only as a linear chain &mdash; perhaps higher-order
+                CRFs (which model dependence across more than just neighbours) could improve this.</p>
+            <p><strong>Sentence-level models were usually better than their word-level counterparts.</strong>
+                This makes intuitive sense, as in some cases, the added context allows for easier disambiguation.
+                For instance, it is not  obvious from the prefix alone whether "ipolisa" should be in class 5 or
+                class 9, since both have "i" as valid prefixes. However, if this is placed in the context of the
+                sentence "ipolisa liyahamba", the  "li" prefix can be used to unambigously identify "ipolisa" as
+                class 5.
+            <p><strong>Models classifying canonical segmentations outperformed those classifying surface segmentations.</strong>
+                This is likely because the canonical segmentation of a word provides more information to the model
+                than the surface segmentation. For instance, the word "kwicandelo" is canonically segmented as
+                "ku-i-(li)-candelo" and surface segmented as "kw-i-candelo". The "(li)" morpheme is lost in the
+                surface form, which is the noun prefix for class 5. Without it, the model may have a harder time
+                choosing between class 9 and 5 for the morpheme "i".
+            </p>
+            <p><strong>Models using morpheme-level embeddings outperformed character-level models.</strong>
+                This could be because morphemes are simply a more effective representation for this task.
+                Additionally, morpheme-level embeddings are more sensitive to small changes in the morpheme itself.
+                Since each morpheme is mapped to its own learnt embedding, even a single differing character can
+                yield an entirely different embedding. This lets the model identify rare classes more easily.
+            </p>
+
+            <h3>Pre-trained Language Models</h3>
+
+            <h2>Conclusions</h2>
+
+            <h2>Deliverables</h2>
+            <div class="exploration-content">
+                <div class="pdf-item">
+                    <h3>Research Paper</h3>
+                    <embed class="pdf-embed" src="files/MWRSIM003_MorphParse_Final_Report_site_version.pdf" type="application/pdf"
+                        title="Simbarashe Mawere's final report, dealing with pre-trained language models (PDF)">
+                </div>
+                <div class="pdf-item">
+                    <h3>Literature Review</h3>
+                    <embed class="pdf-embed" src="files/MWRSIM003_MorphParse_Literature_Review_site_version.pdf" type="application/pdf"
+                        title="Simbarashe Mawere's extended literature review (PDF)">
+                </div>
+            </div>
+
+            <div class="exploration-content">
+                <div class="pdf-item">
+                    <h3>Research Paper</h3>
+                    <embed class="pdf-embed" src="files/MRQCAE001_MorphParse_report.pdf" type="application/pdf"
+                           title="Cael Marquard's final report, dealing with models trained from scratch (PDF)">
+                </div>
+                <div class="pdf-item">
+                    <h3>Literature Review</h3>
+                    <embed class="pdf-embed" src="files/MRQCAE001_MorphParse_literature_review.pdf" type="application/pdf"
+                        title="Cael Marquard's extended literature review (PDF)">
+                </div>
+            </div>
+
         </section>
     </main>
 </div>
@@ -616,6 +667,6 @@
 </footer>
 
 <script src="script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="files/http_cdn.jsdelivr.net_npm_bootstrap@5.3.3_dist_js_bootstrap.bundle.js"></script>
 </body>
 </html>
