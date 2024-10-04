@@ -652,67 +652,91 @@
               </div>
             </div>
 
-            <figure class="wide-figure" id="results-graph">
-                <img src="files/basic-results.svg" alt="Graph comparing Macro F1 of ZulMorph with Afro-XLMR and
-                bi-LSTMs. In all cases, surface-based models are outperformed by their canonical counterparts. The
-                bi-LSTM models are best overall.">
-                <figcaption>The Macro F<sub>1</sub> scores of three selected models (Afro-XLMR, Bi-LSTM, and ZulMorph).</figcaption>
-            </figure>
-
             <h2>Discussion</h2>
 
-            <h3>Models Trained from Scratch</h3>
+            <div class="discussion">
+                <div class="discussion-text">
+                    <h3>Models Trained from Scratch</h3>
 
-            <p><strong>Both Bi-LSTMs and CRFs performed well, without having any clear leader.</strong> Therefore, the added CRF
-                layer did not significantly improve over the bi-LSTM that was generating its features. This could
-                be as a result of the CRF being organised only as a linear chain &mdash; perhaps higher-order
-                CRFs (which model dependence across more than just neighbours) could improve this.</p>
-            <p><strong>Sentence-level models were usually better than their word-level counterparts.</strong>
-                This makes intuitive sense, as in some cases, the added context allows for easier disambiguation.
-                For instance, it is not  obvious from the prefix alone whether "ipolisa" should be in class 5 or
-                class 9, since both have "i" as valid prefixes. However, if this is placed in the context of the
-                sentence "ipolisa liyahamba", the  "li" prefix can be used to unambigously identify "ipolisa" as
-                class 5.
-<!--            <p><strong>Models classifying canonical segmentations outperformed those classifying surface segmentations.</strong>-->
-<!--                This is likely because the canonical segmentation of a word provides more information to the model-->
-<!--                than the surface segmentation. For instance, the word "kwicandelo" is canonically segmented as-->
-<!--                "ku-i-(li)-candelo" and surface segmented as "kw-i-candelo". The "(li)" morpheme is lost in the-->
-<!--                surface form, which is the noun prefix for class 5. Without it, the model may have a harder time-->
-<!--                choosing between class 9 and 5 for the morpheme "i".-->
-<!--            </p>-->
-            <p><strong>Models using morpheme-level embeddings outperformed character-level models.</strong>
-                This could be because morphemes are simply a more effective representation for this task.
-                Additionally, morpheme-level embeddings are more sensitive to small changes in the morpheme itself.
-                Since each morpheme is mapped to its own learnt embedding, even a single differing character can
-                yield an entirely different embedding. This lets the model identify rare classes more easily.
-            </p>
+                    <p><strong>Both Bi-LSTMs and CRFs performed well.</strong> The CRF
+                        layer did not improve significantly over the bi-LSTM used to generate its features. This could
+                        be due to the CRF being a simple linear chain &mdash; perhaps higher-order
+                        CRFs
+<!--                         (which model dependence across more than just neighbours) c-->
+                        could improve this.</p>
+                    <p><strong>Sentence-level was better than word-level.</strong>
+                        This makes intuitive sense as the added context allows for easier disambiguation.
+<!--                        For instance, it is not  obvious from the prefix alone whether "ipolisa" should be in class 5 or-->
+<!--                        class 9, since both have "i" as valid prefixes. However, if this is placed in the context of the-->
+<!--                        sentence "ipolisa liyahamba", the  "li" prefix can be used to unambigously identify "ipolisa" as-->
+<!--                        class 5.-->
+        <!--            <p><strong>Models classifying canonical segmentations outperformed those classifying surface segmentations.</strong>-->
+        <!--                This is likely because the canonical segmentation of a word provides more information to the model-->
+        <!--                than the surface segmentation. For instance, the word "kwicandelo" is canonically segmented as-->
+        <!--                "ku-i-(li)-candelo" and surface segmented as "kw-i-candelo". The "(li)" morpheme is lost in the-->
+        <!--                surface form, which is the noun prefix for class 5. Without it, the model may have a harder time-->
+        <!--                choosing between class 9 and 5 for the morpheme "i".-->
+        <!--            </p>-->
+                    <p><strong>Morpheme-level models outperformed character-level models.</strong>
+                        This could be because morphemes are a more effective representation, or because
+                        morpheme embeddings are more sensitive to small changes in the morpheme.
+<!--                        Since each morpheme is mapped to its own learnt embedding, even a single differing character can-->
+<!--                        yield an entirely different embedding. This lets the model identify rare classes more easily.-->
+                    </p>
 
-            <h3>Pre-trained Language Models</h3>
+                    <h3>Pre-trained Language Models</h3>
+                </div>
+
+                <div class="graph">
+                    <img src="files/graph-vertical.svg" alt="Graph comparing Macro F1 of ZulMorph with Afro-XLMR and
+                    bi-LSTMs. In all cases, surface-based models are outperformed by their canonical counterparts. The
+                    bi-LSTM models are best overall.">
+                </div>
+
+            </div>
 
             <h2>Conclusions</h2>
-            <p>Our research questions can be answered as follows:</p>
-            <ol>
-                <li>
-                    <p class="research-q">Can neural approaches outperform traditional approaches to morphological parsing for the Nguni
-                    languages?</p>
-                    <p class="research-ans"><strong>Yes.</strong> Our deep-learning approaches (MorphParse) outperformed the rule-based baseline (ZulMorph).</p>
-                </li>
-                <li>
-                    <p class="research-q">Do models trained from scratch or fine-tuned pre-trained language models perform better?</p>
-                    <p class="research-ans"><strong>Models trained from scratch.</strong> The gap is not huge, though, and
-                    this could be due to issues like suitability of the PLM's tokenisers. Both approaches performed well
-                    overall and outperformed the baseline by similar margins.</p>
-                </li>
-                <li>
-                    <p class="research-q">Do models classifying surface segmentations or models classifying canonical segmentations
-                    perform better?</p>
-                    <p class="research-ans"><strong>Canonical segmentations.</strong> The models performed significantly
-                        better on canonical segmentations than on surface segmentations. This could be because canonical
-                        segmentations provide the model with more linguistic information, and tend to segment the text
-                        into more morphemes (advantaging our sequence-tagging models).
-                    </p>
-                </li>
-            </ol>
+            <div class="discussion">
+                <div class="discussion-text">
+                    <p>Our research questions can be answered as follows:</p>
+                    <ol>
+                        <li>
+                            <p class="research-q">Can neural approaches outperform traditional approaches to morphological parsing for the Nguni
+                            languages?</p>
+                            <p class="research-ans"><strong>Yes.</strong> Our deep-learning approaches (MorphParse) outperformed the rule-based baseline (ZulMorph).</p>
+                        </li>
+                        <li>
+                            <p class="research-q">Do models trained from scratch or fine-tuned pre-trained language models perform better?</p>
+                            <p class="research-ans"><strong>Models trained from scratch.</strong> The gap is not huge, though, and
+                            this could be due to issues like suitability of the PLM's tokenisers. Both approaches performed well
+                            overall and outperformed the baseline by similar margins.</p>
+                        </li>
+                        <li>
+                            <p class="research-q">Do models classifying surface segmentations or models classifying canonical segmentations
+                            perform better?</p>
+                            <p class="research-ans"><strong>Canonical segmentations.</strong> The models performed significantly
+                                better on canonical segmentations than on surface segmentations. This could be because canonical
+                                segmentations provide the model with more linguistic information, and tend to segment the text
+                                into more morphemes (advantaging our sequence-tagging models).
+                            </p>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="graph vertical-graph">
+                    <img src="files/graph-vertical.svg" alt="Graph comparing Macro F1 of ZulMorph with Afro-XLMR and
+                    bi-LSTMs. In all cases, surface-based models are outperformed by their canonical counterparts. The
+                    bi-LSTM models are best overall.">
+                </div>
+
+                <div class="graph horizontal-graph">
+                    <figure class="wide-figure">
+                        <img src="files/graph-horizontal.svg" alt="Graph comparing Macro F1 of ZulMorph with Afro-XLMR and
+                        bi-LSTMs. In all cases, surface-based models are outperformed by their canonical counterparts. The
+                        bi-LSTM models are best overall.">
+                    </figure>
+                </div>
+            </div>
 
             <p>Our project's contributions are as follows:</p>
             <ul>
