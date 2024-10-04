@@ -400,6 +400,11 @@ section#demo-video {
     border: 1px solid #ddd;
 }
 
+#anal-of-dataset[data-bs-toggle="modal"]:hover {
+    box-shadow: 0 0 5px #007bff;
+    border-radius: 5px;
+}
+
 footer {
     text-align: center;
     margin-top: 40px;

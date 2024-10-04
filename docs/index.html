@@ -252,7 +252,7 @@
                 <img src="files/bert working.png" alt="">
                 <figcaption>Illustration of how BERT works. The model is trained on a masked language modelling task, where it predicts masked words in a sentence. This allows it to learn the structure of language and later use that knowledge when being fine-tuned on more down-stream tasks.</figcaption>
             </figure>
-            <br><hr><br>
+            <hr><br>
             <h2>Models</h2>
             <div id="modelsCarousel" class="carousel carousel-dark slide" data-bs-ride="true">
                 <div class="carousel-indicators">
@@ -308,6 +308,18 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+
+            <h2>Training and Fine-tuning</h2>
+            <p>All three models were adapted from the Hugging Face Transformers library in their largest variants to ensure the best performance. Since they were all derivative of XLM-RoBERTa, the SentencePiece tokenizer was used for the tokenization and alignment of input. Due to the size of the models, and the storage and time limitations of the CHPC cluster, the choice of fine-tuning hyperparameters was limited to the number of training epochs, batch size and initial learning rate. With 3 choices in each hyperparameter, 4 languages in the project and 3 models to consider, 108 different configurations had to be trained and evaluated on a validation set to find the best setting for each model-language pair. The selection was limited to ensure enough time for training and testing on limited 12-hour cluster slots.                <span data-bs-toggle="modal" data-bs-target="#grid-search" style="color: #007bff; text-decoration: none; cursor: pointer; transition: box-shadow 0.3s;">
+                    Grid search results.
+            </span>
+                <style>
+                    span[data-bs-toggle="modal"]:hover {
+                        box-shadow: 0 0 5px #007bff;
+                        border-radius: 5px;
+                    }
+                </style>
+            </p>
         </section>
 
         <!-- <section id="experimental-setup">
@@ -644,6 +656,191 @@
               </div>
             </div>
 
+            <!-- Modal for PLM Lex Analysis Section -->
+            <div class="modal fade modal-xl" id="lex-analysis" tabindex="-1" aria-labelledby="lex-analysis-label" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="lex-analysis-label">Lexical Analysis of the Dataset</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>isiNdebele</th>
+                                <th>siSwati</th>
+                                <th>isiXhosa</th>
+                                <th>isiZulu</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th>Word count</th>
+                                <td>49689</td><td>47385</td><td>48735</td><td>49097</td>
+                              </tr>
+                              <tr>
+                                <th colspan="5" style="text-align:center;">Canonical Segmentations</th>
+                              </tr>
+                              <tr>
+                                <th>Morpheme count</th>
+                                <td>137400</td><td>127698</td><td>149294</td><td>144047</td>
+                              </tr>
+                              <tr>
+                                <th>Morphemes/word</th>
+                                <td>2.77</td><td>2.69</td><td>3.06</td><td>2.93</td>
+                              </tr>
+                              <tr>
+                                <th>Unique morphemes</th>
+                                <td>5100</td><td>3389</td><td>2453</td><td>3284</td>
+                              </tr>
+                              <tr>
+                                <th>Unique tags</th>
+                                <td>240</td><td>246</td><td>236</td><td>256</td>
+                              </tr>
+                              <tr>
+                                <th colspan="5" style="text-align:center;">Surface Segmentations</th>
+                              </tr>
+                              <tr>
+                                <th>Morpheme count</th>
+                                <td>131204</td><td>125282</td><td>133244</td><td>133476</td>
+                              </tr>
+                              <tr>
+                                <th>Morphemes/word</th>
+                                <td>2.64</td><td>2.64</td><td>2.73</td><td>2.72</td>
+                              </tr>
+                              <tr>
+                                <th>Unique morphemes</th>
+                                <td>5843</td><td>4932</td><td>3762</td><td>4240</td>
+                              </tr>
+                              <tr>
+                                <th>Unique tags</th>
+                                <td>252</td><td>342</td><td>340</td><td>350</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal fade modal-xl" id="grid-search" tabindex="-1" aria-labelledby="grid-search-label" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="grid-search-label">PLM grid search results</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table cellpadding="10" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Language</th>
+                                    <th>Model</th>
+                                    <th>Epochs</th>
+                                    <th>LR</th>
+                                    <th>Batch</th>
+                                    <th>F1</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="3">isiNdebele</td>
+                                    <td>XLMR</td>
+                                    <td>10</td>
+                                    <td>5e-5</td>
+                                    <td>32</td>
+                                    <td>0.7412</td>
+                                </tr>
+                                <tr>
+                                    <td>Afro-XLMR</td>
+                                    <td>5</td>
+                                    <td>3e-5</td>
+                                    <td>16</td>
+                                    <td>0.7405</td>
+                                </tr>
+                                <tr>
+                                    <td>Nguni-XLMR*</td>
+                                    <td>5</td>
+                                    <td>5e-5</td>
+                                    <td>32</td>
+                                    <td><strong>0.7455</strong></td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="3">siSwati</td>
+                                    <td>XLMR</td>
+                                    <td>15</td>
+                                    <td>5e-5</td>
+                                    <td>16</td>
+                                    <td>0.7248</td>
+                                </tr>
+                                <tr>
+                                    <td>Afro-XLMR</td>
+                                    <td>15</td>
+                                    <td>5e-5</td>
+                                    <td>16</td>
+                                    <td>0.7087</td>
+                                </tr>
+                                <tr>
+                                    <td>Nguni-XLMR*</td>
+                                    <td>10</td>
+                                    <td>5e-5</td>
+                                    <td>16</td>
+                                    <td><strong>0.7309</strong></td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="3">isiXhosa</td>
+                                    <td>XLMR*</td>
+                                    <td>5</td>
+                                    <td>5e-5</td>
+                                    <td>16</td>
+                                    <td>0.7391</td>
+                                </tr>
+                                <tr>
+                                    <td>Afro-XLMR*</td>
+                                    <td>10</td>
+                                    <td>3e-5</td>
+                                    <td>32</td>
+                                    <td><strong><u>0.7516</u></strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Nguni-XLMR*</td>
+                                    <td>10</td>
+                                    <td>1e-5</td>
+                                    <td>16</td>
+                                    <td>0.7432</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="3">isiZulu</td>
+                                    <td>XLMR</td>
+                                    <td>10</td>
+                                    <td>3e-5</td>
+                                    <td>32</td>
+                                    <td>0.6912</td>
+                                </tr>
+                                <tr>
+                                    <td>Afro-XLMR*</td>
+                                    <td>10</td>
+                                    <td>3e-5</td>
+                                    <td>16</td>
+                                    <td><strong>0.6981</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Nguni-XLMR*</td>
+                                    <td>10</td>
+                                    <td>5e-5</td>
+                                    <td>32</td>
+                                    <td>0.6803</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Results of the grid search showing the best version of each model in each of the Nguni languages. The F1 score reported is the macro-F1 average. Asterisk (*) indicates the language was present in the pre-training of the model. The <strong>bold</strong> results are the best model per language indicating the best hyperparameters. The <u>underlined</u> result is the best model performance in the grid search irrespective of language or model.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
             <h2>Discussion</h2>
 
             <h3>Models Trained from Scratch</h3>
@@ -690,19 +887,17 @@
             </div>
 
             <h3>Pre-trained Language Models</h3>
-            <div class="discussion">
-                <div class="discussion-text">
-                    <!-- TODO simba discussion here -->
-                </div>
-
-                <div class="graph vertical-graph">
-                    <!-- TODO SIMBA GRAPH HERE -->
-                </div>
-
-                <div class="graph horizontal-graph">
-                    <!-- TODO SIMBA GRAPH HERE -->
-                </div>
-            </div>
+            <p><strong>Effect of Nguni-specific transfer learning.</strong>
+                It was the expectation that the Nguni-XLMR model would outperform the other PLMs due to its specialized pre-training on tasks for the Nguni languages however this was not the case. The model performed well but was not the best in any of the tasks. This could be due to the fact that the model was trained on a narrower linguistic scope than the other PLMs and thus did not have the same level of generalization as the other models. The model was also not able to leverage the similarity of the Nguni languages as effectively as expected.
+            </p>
+            <p><strong>Effect of subword tokenization.</strong>
+                Since the models were adapted from XLM-RoBERTa, they all used a SentencePiece tokenizer which is optimised for subword tokenization. This is suboptimal for our task since its inputs are already subword units. By subword tokenizing individual morphemes, we reduced the models ability to learn the morphological structure.
+            </p>
+            <p><strong>Lexical analysis of datasets.</strong>
+                <span id="anal-of-dataset" data-bs-toggle="modal" data-bs-target="#lex-analysis" style="color: #007bff; text-decoration: none; cursor: pointer; transition: box-shadow 0.3s;">
+                    Analysis of the dataset
+                </span> revealed that isiXhosa had an advantage over the other languages since it had less unique morphemes and thus the model was able to learn the morphological structure more effectively. It achieve significantly higher (+9%) macro-F1 score over the other languages.
+            </p>
 
             <h2>Conclusions</h2>
             <div class="discussion">
