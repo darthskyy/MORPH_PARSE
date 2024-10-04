@@ -781,6 +781,15 @@
                     </p>
 
                     <h3>Pre-trained Language Models</h3>
+                    <p><strong>Effect of Nguni-specific transfer learning.</strong>
+                        It was the expectation that the Nguni-XLMR model would outperform the other PLMs due to its specialized pre-training on tasks for the Nguni languages however this was not the case. The model performed well but was not the best in any of the tasks. This could be due to the fact that the model was trained on a narrower linguistic scope than the other PLMs and thus did not have the same level of generalization as the other models. The model was also not able to leverage the similarity of the Nguni languages as effectively as expected. Af
+                    </p>
+                    <p><strong>Effect of subword tokenization.</strong>
+                        Since the models were adapted from XLM-RoBERTa, they all used a SentencePiece tokenizer which is optimised for subword tokenization. This is suboptimal for our task since its inputs are already subword units. By subword tokenizing individual morphemes, we reduced the models ability to learn the morphological structure.
+                    </p>
+                    <p><strong>Lexical analysis of datasets.</strong>
+                        <button data-bs-toggle="modal" data-bs-target="#lex-analysis">Analysis of the dataset</button> revealed that isiXhosa had an advantage over the other languages since it had less unique morphemes and thus the model was able to learn the morphological structure more effectively. It achieve significantly higher (+9%) macro-F1 score over the other languages.
+                    </p>
                 </div>
 
                 <div class="graph">
@@ -790,15 +799,6 @@
                 </div>
 
             </div>
-            <p><strong>Effect of Nguni-specific transfer learning.</strong>
-                It was the expectation that the Nguni-XLMR model would outperform the other PLMs due to its specialized pre-training on tasks for the Nguni languages however this was not the case. The model performed well but was not the best in any of the tasks. This could be due to the fact that the model was trained on a narrower linguistic scope than the other PLMs and thus did not have the same level of generalization as the other models. The model was also not able to leverage the similarity of the Nguni languages as effectively as expected. Af
-            </p>
-            <p><strong>Effect of subword tokenization.</strong>
-                Since the models were adapted from XLM-RoBERTa, they all used a SentencePiece tokenizer which is optimised for subword tokenization. This is suboptimal for our task since its inputs are already subword units. By subword tokenizing individual morphemes, we reduced the models ability to learn the morphological structure.
-            </p>
-            <p><strong>Lexical analysis of datasets.</strong>
-                <button data-bs-toggle="modal" data-bs-target="#lex-analysis">Analysis of the dataset</button> revealed that isiXhosa had an advantage over the other languages since it had less unique morphemes and thus the model was able to learn the morphological structure more effectively. It achieve significantly higher (+9%) macro-F1 score over the other languages.
-            </p>
 
             <h2>Conclusions</h2>
             <div class="discussion">
