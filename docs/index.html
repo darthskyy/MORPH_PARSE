@@ -313,12 +313,6 @@
             <p>All three models were adapted from the Hugging Face Transformers library in their largest variants to ensure the best performance. Since they were all derivative of XLM-RoBERTa, the SentencePiece tokenizer was used for the tokenization and alignment of input. Due to the size of the models, and the storage and time limitations of the CHPC cluster, the choice of fine-tuning hyperparameters was limited to the number of training epochs, batch size and initial learning rate. With 3 choices in each hyperparameter, 4 languages in the project and 3 models to consider, 108 different configurations had to be trained and evaluated on a validation set to find the best setting for each model-language pair. The selection was limited to ensure enough time for training and testing on limited 12-hour cluster slots.                <span data-bs-toggle="modal" data-bs-target="#grid-search" style="color: #007bff; text-decoration: none; cursor: pointer; transition: box-shadow 0.3s;">
                     Grid search results.
             </span>
-                <style>
-                    span[data-bs-toggle="modal"]:hover {
-                        box-shadow: 0 0 5px #007bff;
-                        border-radius: 5px;
-                    }
-                </style>
             </p>
         </section>
 
@@ -733,7 +727,7 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <table cellpadding="10" cellspacing="0">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Language</th>
