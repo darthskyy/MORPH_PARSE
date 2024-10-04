@@ -280,6 +280,10 @@ h1, h2, h3, h4 {
     font-style: italic;
 }
 
+.author strong {
+    font-size: 1.5rem;
+}
+
 figure {
     display: flex;
     flex-direction: column;
@@ -483,6 +487,13 @@ figcaption {
     }
 }
 
+.credit:nth-child(2) {
+    margin-bottom: 0;
+}
+
+.credit:nth-child(3) {
+    margin-top: 0;
+}
 
 #extended-results > * {
     min-width: 0;
