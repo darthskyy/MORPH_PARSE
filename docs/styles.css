@@ -483,6 +483,10 @@ tr:hover td.best {
     margin-top: -20px;
 }
 
+figcaption {
+    font-style: italic;
+}
+
 .research-q {
     font-style: italic;
     margin-bottom: 0;
