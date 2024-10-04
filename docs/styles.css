@@ -467,6 +467,11 @@ tr:hover td.best {
     grid-gap: 16px;
 }
 
+.research-q {
+    font-style: italic;
+    margin-bottom: 0;
+}
+
 /* Responsive table element to it with smaller fonts and less padding */
 @media (max-width: 768px) {
     table {
