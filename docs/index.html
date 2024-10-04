@@ -654,15 +654,14 @@
 
             <h2>Discussion</h2>
 
+            <h3>Models Trained from Scratch</h3>
             <div class="discussion">
                 <div class="discussion-text">
-                    <h3>Models Trained from Scratch</h3>
-
                     <p><strong>Both Bi-LSTMs and CRFs performed well.</strong> The CRF
                         layer did not improve significantly over the bi-LSTM used to generate its features. This could
                         be due to the CRF being a simple linear chain &mdash; perhaps higher-order
                         CRFs
-<!--                         (which model dependence across more than just neighbours) c-->
+                         (which model dependence across more than just neighbours)
                         could improve this.</p>
                     <p><strong>Sentence-level was better than word-level.</strong>
                         This makes intuitive sense as the added context allows for easier disambiguation.
@@ -680,19 +679,37 @@
                     <p><strong>Morpheme-level models outperformed character-level models.</strong>
                         This could be because morphemes are a more effective representation, or because
                         morpheme embeddings are more sensitive to small changes in the morpheme.
-<!--                        Since each morpheme is mapped to its own learnt embedding, even a single differing character can-->
-<!--                        yield an entirely different embedding. This lets the model identify rare classes more easily.-->
+                        Since each morpheme is mapped to its own learnt embedding, even a single differing character can
+                        yield an entirely different embedding. This lets the model identify rare classes more easily.
                     </p>
-
-                    <h3>Pre-trained Language Models</h3>
                 </div>
 
-                <div class="graph">
-                    <img src="files/graph-vertical.svg" alt="Graph comparing Macro F1 of ZulMorph with Afro-XLMR and
-                    bi-LSTMs. In all cases, surface-based models are outperformed by their canonical counterparts. The
-                    bi-LSTM models are best overall.">
+                <figure class="graph vertical-graph move-graph-up">
+                    <img src="files/from-scratch-vertical.svg" alt="Graph comparing Macro F1s of from-scratch models on
+                    gold canonical data.">
+                    <figcaption>Comparison of Macro F<sub>1</sub> scores of different from-scratch models on gold canonical data.</figcaption>
+                </figure>
+
+                <figure class="graph horizontal-graph">
+                    <img src="files/from-scratch-horizontal.svg" alt="Graph comparing Macro F1s of from-scratch models on
+                    gold canonical data.">
+                    <figcaption>Comparison of Macro F<sub>1</sub> scores of different from-scratch models on gold canonical data.</figcaption>
+                </figure>
+            </div>
+
+            <h3>Pre-trained Language Models</h3>
+            <div class="discussion">
+                <div class="discussion-text">
+                    <!-- TODO simba discussion here -->
                 </div>
 
+                <div class="graph vertical-graph">
+                    <!-- TODO SIMBA GRAPH HERE -->
+                </div>
+
+                <div class="graph horizontal-graph">
+                    <!-- TODO SIMBA GRAPH HERE -->
+                </div>
             </div>
 
             <h2>Conclusions</h2>
@@ -723,19 +740,19 @@
                     </ol>
                 </div>
 
-                <div class="graph vertical-graph">
+                <figure class="graph vertical-graph">
                     <img src="files/graph-vertical.svg" alt="Graph comparing Macro F1 of ZulMorph with Afro-XLMR and
                     bi-LSTMs. In all cases, surface-based models are outperformed by their canonical counterparts. The
                     bi-LSTM models are best overall.">
-                </div>
+                    <figcaption>Comparison of Macro F<sub>1</sub> scores of ZulMorph with Afro-XLMR and bi-LSTMs.</figcaption>
+                </figure>
 
-                <div class="graph horizontal-graph">
-                    <figure class="wide-figure">
+                <figure class="graph horizontal-graph wide-figure">
                         <img src="files/graph-horizontal.svg" alt="Graph comparing Macro F1 of ZulMorph with Afro-XLMR and
                         bi-LSTMs. In all cases, surface-based models are outperformed by their canonical counterparts. The
                         bi-LSTM models are best overall.">
-                    </figure>
-                </div>
+                        <figcaption>Comparison of Macro F<sub>1</sub> scores of ZulMorph with Afro-XLMR and bi-LSTMs.</figcaption>
+                </figure>
             </div>
 
             <p>Our project's contributions are as follows:</p>
@@ -793,7 +810,7 @@
 </div>
 
 <footer>
-    <p>&copy; 2024 MorphParse | By Simbarashe Mawere and Cael Marquard</p>
+    <p>&copy; 2024 MorphParse | By Simbarashe Mawere and Cael Marquard. Supervised by Francois Meyer.</p>
 </footer>
 
 <script src="script.js"></script>
