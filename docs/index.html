@@ -633,6 +633,75 @@
               </div>
             </div>
 
+            <!-- Modal for PLM Lex Analysis Section -->
+            <div class="modal fade modal-xl" id="lex-analysis" tabindex="-1" aria-labelledby="lex-analysis-label" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="lex-analysis-label">Lexical Analysis of the Dataset</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table border="1" cellpadding="10" cellspacing="0">
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>isiNdebele</th>
+                                <th>siSwati</th>
+                                <th>isiXhosa</th>
+                                <th>isiZulu</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th>Word count</th>
+                                <td>49689</td><td>47385</td><td>48735</td><td>49097</td>
+                              </tr>
+                              <tr>
+                                <th colspan="5" style="text-align:center;">Canonical Segmentations</th>
+                              </tr>
+                              <tr>
+                                <th>Morpheme count</th>
+                                <td>137400</td><td>127698</td><td>149294</td><td>144047</td>
+                              </tr>
+                              <tr>
+                                <th>Morphemes/word</th>
+                                <td>2.77</td><td>2.69</td><td>3.06</td><td>2.93</td>
+                              </tr>
+                              <tr>
+                                <th>Unique morphemes</th>
+                                <td>5100</td><td>3389</td><td>2453</td><td>3284</td>
+                              </tr>
+                              <tr>
+                                <th>Unique tags</th>
+                                <td>240</td><td>246</td><td>236</td><td>256</td>
+                              </tr>
+                              <tr>
+                                <th colspan="5" style="text-align:center;">Surface Segmentations</th>
+                              </tr>
+                              <tr>
+                                <th>Morpheme count</th>
+                                <td>131204</td><td>125282</td><td>133244</td><td>133476</td>
+                              </tr>
+                              <tr>
+                                <th>Morphemes/word</th>
+                                <td>2.64</td><td>2.64</td><td>2.73</td><td>2.72</td>
+                              </tr>
+                              <tr>
+                                <th>Unique morphemes</th>
+                                <td>5843</td><td>4932</td><td>3762</td><td>4240</td>
+                              </tr>
+                              <tr>
+                                <th>Unique tags</th>
+                                <td>252</td><td>342</td><td>340</td><td>350</td>
+                              </tr>
+                            </tbody>
+                          </table>                          
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             <figure class="wide-figure">
                 <img src="files/basic-results.svg" alt="Graph comparing Macro F1 of ZulMorph with Afro-XLMR and
                 bi-LSTMs. In all cases, surface-based models are outperformed by their canonical counterparts. The
@@ -689,6 +758,15 @@
             </p>
 
             <h3>Pre-trained Language Models</h3>
+            <p><strong>Effect of Nguni-specific transfer learning.</strong>
+                It was the expectation that the Nguni-XLMR model would outperform the other PLMs due to its specialized pre-training on tasks for the Nguni languages however this was not the case. The model performed well but was not the best in any of the tasks. This could be due to the fact that the model was trained on a narrower linguistic scope than the other PLMs and thus did not have the same level of generalization as the other models. The model was also not able to leverage the similarity of the Nguni languages as effectively as expected. Af
+            </p>
+            <p><strong>Effect of subword tokenization.</strong>
+                Since the models were adapted from XLM-RoBERTa, they all used a SentencePiece tokenizer which is optimised for subword tokenization. This is suboptimal for our task since its inputs are already subword units. By subword tokenizing individual morphemes, we reduced the models ability to learn the morphological structure.
+            </p>
+            <p><strong>Lexical analysis of datasets.</strong>
+                <button data-bs-toggle="modal" data-bs-target="#lex-analysis">Analysis of the dataset</button> revealed that isiXhosa had an advantage over the other languages since it had less unique morphemes and thus the model was able to learn the morphological structure more effectively. It achieve significantly higher (+9%) macro-F1 score over the other languages.
+            </p>
 
             <h2>Conclusions</h2>
 
