@@ -467,6 +467,36 @@ tr:hover td.best {
     grid-gap: 16px;
 }
 
+.research-q {
+    font-style: italic;
+    margin-bottom: 0;
+}
+
+.discussion {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.horizontal-graph {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    .horizontal-graph {
+        display: block;
+    }
+
+    .vertical-graph {
+        display: none;
+    }
+
+    .discussion {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+}
+
 /* Responsive table element to it with smaller fonts and less padding */
 @media (max-width: 768px) {
     table {
