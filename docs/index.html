@@ -25,7 +25,6 @@
             <li><a href="#introduction">Introduction</a></li>
             <li><a href="#from-scratch">Models Trained From Scratch</a></li>
             <li><a href="#plms">Pre-trained Language Models</a></li>
-            <!-- <li><a href="#experimental-setup">Experimental Setup</a></li> -->
             <li><a href="#outcomes">Outcomes</a></li>
         </ul>
     </nav>
@@ -193,9 +192,6 @@
                 were also made across segmentation type.
         </section>
 
-        <!-- TODO separate aims maybe? -->
-        <!-- TODO methodology -->
-
         <section id="from-scratch">
             <h1>Models Trained From Scratch</h1>
             <p class="author">Author: Cael Marquard</p>
@@ -238,6 +234,14 @@
             <p>CRFs usually rely on a set of hand-crafted features in order to assign probabilities. However, an
                 alternative to this is to use a neural network to generate these features. In this project, a bi-LSTM
                 is used to generate these features.
+
+            <h2>Implementation and training</h2>
+            <p>All the models were implemented using the Torch machine learning library.</p>
+
+            <p>Models were trained on the Centre for High-Performance Computing's (CHPC) Lengau GPU cluster. Each model
+            was also tuned to find optimal hyperparameters. The parameters selected were the learning rate, weight decay,
+            hidden state dimension, dropout, and gradient clip. The Ray tuning library was used to assist in this
+            process.</p>
         </section>
 
         <section id="plms">
@@ -298,7 +302,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Carousel Controls -->
                 <button class="carousel-control-prev" type="button" data-bs-target="#modelsCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
@@ -316,44 +319,13 @@
             </p>
         </section>
 
-        <!-- <section id="experimental-setup">
-            <h1>Experimental Setup</h1>
-            <h2>Resources</h2>
-            <p>
-            Given the nature of the project being experimental, there was need for both computational and data resources. The following resources were used in the project:
-            </p>
-            <h3>Computational Resources</h3>
-            <p>We made use of the National Integrated Cyberinfrastructure System's Centre for High-Performance Computing (NICIS CHPC) GPU cluster to train our models since the training runs were very computationally expensive. This was especially true for the PLMs which have hundreds of millions of paremeters. The main GPUs used were single NVIDIA V100 GPU cores which could be reserved for 12 hours of walltime at a time on the cluster.</p>
-            <h3>Dataset</h3>
-            <p>The dataset used in the project was the Sadilar dataset which consists of four parallel sets of data across all four Nguni languages. The data is from a collection of selected documents from South African governmnet websites. Each line consisted of a word, and its morphological parsing, lemma and part of speech. We took the morphological analysis and made input and output sequences for consisting of morphemes and their tags respectively.</p>
-
-            <h2>Evaluation</h2>
-            <p>
-                The models were evaluated using the <dfn>F1 score</dfn>, which is the harmonic mean of the <dfn>precision</dfn>
-                and <dfn>recall</dfn> of the model. The F1 score is a common metric for evaluating the performance of
-                classifiers, and is especially useful when the classes are imbalanced. The F1 score is calculated as:
-                <blockquote>
-                    F1 = 2 * (precision * recall) / (precision + recall)
-                </blockquote>
-                Where:
-                <ul>
-                    <li><dfn>Precision</dfn> is the number of true positives divided by the number of true positives plus
-                        the number of false positives. It is a measure of how many of the predicted positive morphological tags were
-                        actually positive.
-                    </li>
-                    <li><dfn>Recall</dfn> is the number of true positives divided by the number of true positives plus the
-                        number of false negatives. It is a measure of how many of the actual positive morphological tags were predicted
-                        as positive.
-                    </li>
-                </ul>
-            </p>
-        </section>
-         -->
-
         <section id="outcomes">
             <h1>Outcomes</h1>
 
             <h2>Results</h2>
+            <p>The Macro and Micro F<sub>1</sub> scores were chosen to evaluate the quality of the models. The Macro
+            F<sub>1</sub> score was the main metric, though, as it is more difficult for the model to optimise for.</p>
+
             <p>The results for the exploration were split based on the data which the models were trained on. The first
                 exploration in the project was using expertly annotated canonical segmentations which were obtained from
                 the dataset. For the other result sets, we used canonical and surface segmentations predicted using the
@@ -539,8 +511,6 @@
                                 <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>0.6471</td><td>0.3378</td>
                             </tr>
 
-                            <!-- <tr><td colspan="9"><hr></td></tr> -->
-
                             <tr>
                                 <th colspan="9">Models Trained from Scratch</th>
                             </tr>
@@ -650,7 +620,6 @@
               </div>
             </div>
 
-            <!-- Modal for PLM Lex Analysis Section -->
             <div class="modal fade modal-xl" id="lex-analysis" tabindex="-1" aria-labelledby="lex-analysis-label" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -848,17 +817,6 @@
                         could improve this.</p>
                     <p><strong>Sentence-level was better than word-level.</strong>
                         This makes intuitive sense as the added context allows for easier disambiguation.
-<!--                        For instance, it is not  obvious from the prefix alone whether "ipolisa" should be in class 5 or-->
-<!--                        class 9, since both have "i" as valid prefixes. However, if this is placed in the context of the-->
-<!--                        sentence "ipolisa liyahamba", the  "li" prefix can be used to unambigously identify "ipolisa" as-->
-<!--                        class 5.-->
-        <!--            <p><strong>Models classifying canonical segmentations outperformed those classifying surface segmentations.</strong>-->
-        <!--                This is likely because the canonical segmentation of a word provides more information to the model-->
-        <!--                than the surface segmentation. For instance, the word "kwicandelo" is canonically segmented as-->
-        <!--                "ku-i-(li)-candelo" and surface segmented as "kw-i-candelo". The "(li)" morpheme is lost in the-->
-        <!--                surface form, which is the noun prefix for class 5. Without it, the model may have a harder time-->
-        <!--                choosing between class 9 and 5 for the morpheme "i".-->
-        <!--            </p>-->
                     <p><strong>Morpheme-level models outperformed character-level models.</strong>
                         This could be because morphemes are a more effective representation, or because
                         morpheme embeddings are more sensitive to small changes in the morpheme.
@@ -983,6 +941,18 @@
                     <h3>Poster</h3>
                     <embed class="pdf-embed" src="files/poster.pdf" type="application/pdf"
                         title="Cael Marquard's extended literature review (PDF)">
+                </div>
+            </div>
+
+            <h3>Code</h3>
+            <div class="exploration-content">
+                <div>
+                    <p>Simbarashe Mawere's code (PLMs)</p>
+                     <a class="btn btn-primary" href="files/MWRSIM003_MORPH_PARSE_code.zip">Download</a>
+                </div>
+                <div>
+                    <p>Cael Marquard's code (models trained from scratch)</p>
+                    <a class="btn btn-primary" href="files/MRQCAE001_MORPH_PARSE.zip">Download</a>
                 </div>
             </div>
 
