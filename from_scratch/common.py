@@ -4,9 +4,10 @@ import tempfile
 import time
 from pathlib import Path
 import random
+import copy
 
 import torch
-from torch import optim, nn
+from torch import optim, nn, Tensor
 from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import DataLoader, BatchSampler, RandomSampler
 from sklearn.metrics import f1_score, classification_report
@@ -28,6 +29,7 @@ split_words = dataset.split_words
 tokenize_into_chars = dataset.tokenize_into_chars
 tokenize_into_morphemes = dataset.tokenize_into_morphemes
 split_sentences = dataset.split_sentences
+
 
 class EmbedBySumming(nn.Module):
     """Embed a given morpheme by embedding each character and then summing those embeddings together"""
@@ -164,7 +166,46 @@ def _collate_by_padding(batch):
     return (morphemes, expected_tags)
 
 
-def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
+def encoded_morpheme_to_text(dset: AnnotatedCorpusDataset, morpheme: Tensor) -> str:
+    if morpheme.size(dim=0) == 1:
+        return dset.ix_to_morpheme[morpheme.item()]
+    else:
+        return "".join(
+            dset.ix_to_morpheme[submorpheme.item()] for submorpheme in morpheme if submorpheme.item() != SEQ_PAD_IX
+        )
+
+
+def predict_for_test_set(model, test_set: AnnotatedCorpusDataset):
+    with torch.no_grad():
+        # Set model to evaluation mode (affects layers such as BatchNorm)
+        model.eval()
+
+        rows = []
+        for morphemes, expected_tags in test_set:
+            predicted_tags = model.forward_tags_only(morphemes.unsqueeze(1))
+
+            morphemes = [encoded_morpheme_to_text(test_set, morpheme) for morpheme in morphemes]
+            expected_tags = [test_set.ix_to_tag[tag.item()] for tag in expected_tags]
+            predicted_tags = [test_set.ix_to_tag[tag.item()] for tag in predicted_tags]
+
+            empty_row = {"morphemes": [], "expected_tags": [], "predicted_tags": []}
+            current_row = copy.deepcopy(empty_row)
+            for morpheme, expected_tag, predicted_tag in zip(morphemes, expected_tags, predicted_tags):
+                if morpheme == WORD_SEP_TEXT:
+                    rows.append(current_row)
+                    current_row = copy.deepcopy(empty_row)
+                    continue
+
+                current_row["morphemes"].append(morpheme)
+                current_row["expected_tags"].append(expected_tag)
+                current_row["predicted_tags"].append(predicted_tag)
+
+            rows.append(current_row)
+
+        return rows
+
+
+def train_model(model, name: str, config, epochs, train_set: AnnotatedCorpusDataset,
                 valid: AnnotatedCorpusDataset, best_ever_macro_f1: float = 0.0, use_ray=True):
     """Train the given model on the training set."""
 
@@ -199,7 +240,7 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
 
     # Train the model for as many epochs as the config states
     batches = len(train_loader)
-    for epoch in range(start_epoch, config["epochs"]):
+    for epoch in range(start_epoch, epochs):
         # Set model to training mode (affects layers such as BatchNorm)
         model.train()
 
@@ -219,8 +260,8 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
         # Print some output about how the model is doing in this epoch
         elapsed = time.time() - start
         print(f"Eval (elapsed = {elapsed:.2f}s)")
-        elapsed = time.time() - start
         valid_loss, valid_batches, _report, f1_micro, f1_macro, f1_weighted = analyse_model(model, config, valid)
+        elapsed = time.time() - start
         print(f"Epoch {epoch} done in {elapsed:.2f}s. "
               f"Train loss: {train_loss / batches:.3f}. "
               f"Valid loss: {valid_loss / valid_batches:.3f}. "
@@ -235,6 +276,7 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
             out_dir = os.environ.get("MODEL_OUT_DIR")
             if out_dir and not use_ray and best_macro >= best_ever_macro_f1:
                 print(f"Saving model because best macro {best_macro} >= best ever {best_ever_macro_f1}")
+                out_dir = os.path.join(out_dir, "checkpoints", name)
                 os.makedirs(out_dir, exist_ok=True)
                 with open(os.path.join(out_dir, name) + ".pt", "wb") as f:
                     torch.save(EncapsulatedModel(name, model, train_set), f)
@@ -262,11 +304,11 @@ def train_model(model, name: str, config, train_set: AnnotatedCorpusDataset,
 
     print(f"Best Macro f1: {best_macro} in epoch {best_macro_epoch} (micro here was {micro_at_best_macro})")
 
-    return micro_at_best_macro, best_macro
+    return micro_at_best_macro, best_macro, model
 
 
 def tune_model(model, main_config, feature_level, name: str, epochs, trainset: AnnotatedCorpusDataset,
-               valid: AnnotatedCorpusDataset, cpus=4, hrs=11):
+               valid: AnnotatedCorpusDataset, cpus=4, hrs=11, lang="ZU"):
     """Tune the given model with Ray"""
 
     ray.init(num_cpus=cpus)
@@ -292,8 +334,7 @@ def tune_model(model, main_config, feature_level, name: str, epochs, trainset: A
     # Do the hyperparameter tuning
     result = tune.run(
         lambda conf: train_model(model_for_config(mk_model, mk_embed, ray.get(trainset), conf), name, conf,
-                                 ray.get(trainset),
-                                 ray.get(valid)),
+                                 conf["epochs"][lang], ray.get(trainset), ray.get(valid)),
         resources_per_trial={"gpu": 1.0 / cpus} if torch.cuda.is_available() else None,
         config=config,
         num_samples=100,
@@ -325,7 +366,8 @@ def tune_model(model, main_config, feature_level, name: str, epochs, trainset: A
             _, _, report, f1_micro, f1_macro, f1_weighted = analyse_model(best_model, best_trial.config, ray.get(valid))
             print(f" {name}: Micro F1: {f1_micro}. Macro f1: {f1_macro}. Weighted F1: {f1_weighted}")
             print(
-                f" {name}: Best macro f1: {best_checkpoint_data['best_macro']} at epoch {best_checkpoint_data['best_epoch']}")
+                f" {name}: Best macro f1: {best_checkpoint_data['best_macro']} at epoch "
+                f"{best_checkpoint_data['best_epoch']}")
             print(report)
 
 
@@ -338,13 +380,14 @@ def model_for_config(mk_model, mk_embed, trainset, config):
     return model
 
 
-def train_all(model, splits, feature_level, cfg, langs=None, map_tag=dataset.identity, use_testset=True, use_surface=False, n_models=5):
+def train_all(model, splits, feature_level, cfg, langs=None, map_tag=dataset.identity, use_testset=True,
+              use_surface=False, n_models=5):
     """Train `n_models` seeds of the given model for all languages."""
 
     if langs is None:
         langs = ["ZU", "XH", "SS", "NR"]
 
-    split, split_name, epochs = splits
+    split, split_name, _ = splits
     model_name, mk_model = model
     (feature_name, _, extract_features, embed_features) = feature_level
     model_name = model_name + "-no-testset" if not use_testset else model_name
@@ -352,19 +395,47 @@ def train_all(model, splits, feature_level, cfg, langs=None, map_tag=dataset.ide
     print(f"Config: {cfg}")
 
     for lang in langs:
-        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features, use_testset=use_testset,
-                                                        use_surface=use_surface, map_tag=map_tag)
+        train, valid = AnnotatedCorpusDataset.load_data(lang, split=split, tokenize=extract_features,
+                                                        use_testset=use_testset, use_surface=use_surface,
+                                                        map_tag=map_tag)
         macros = []
         micros = []
         best_ever_macro_f1 = 0.0
+        epochs = cfg["epochs"][lang]
+
         for seed in [0, 1, 2, 3, 4][:n_models]:
             print(f"Training {split_name}-level, {feature_name}-feature {model_name} for {lang}")
             random.seed(seed)
             torch.manual_seed(seed)
-            micro_in_best_macro, best_macro = train_model(
-                model_for_config(mk_model, embed_features, train, cfg), f"{model_name}-{split_name}-{feature_name}-{lang}", cfg, train,
+            model_full_name = f"{model_name}-{split_name}-{feature_name}"
+            model_full_name = model_full_name + "-surface" if use_surface else model_full_name
+
+            micro_in_best_macro, best_macro, model = train_model(
+                model_for_config(mk_model, embed_features, train, cfg),
+                f"{model_full_name}-{lang}", cfg, epochs, train,
                 valid, best_ever_macro_f1=best_ever_macro_f1, use_ray=False
             )
+
+            out_dir = os.environ.get("MODEL_OUT_DIR")
+            if out_dir:
+                out_dir = os.path.join(out_dir, model_full_name)
+                name = f"{model_full_name}-{lang}-seed-{seed}-final-epoch-{epochs}"
+                os.makedirs(out_dir, exist_ok=True)
+
+                print(f"Saving model because training is done")
+
+                with open(os.path.join(out_dir, "results-" + name) + ".txt", "w") as f:
+                    f.write("morphemes\ttarget\tprediction\n")
+                    for row in predict_for_test_set(model, valid):
+                        f.write(
+                            "_".join(row["morphemes"]) + "\t" +
+                            "_".join(row["expected_tags"]) + "\t" +
+                            "_".join(row["predicted_tags"]) + "\n"
+                        )
+
+                with open(os.path.join(out_dir, name) + ".pt", "wb") as f:
+                    torch.save(EncapsulatedModel(name, model, train), f)
+
             macros.append(best_macro)
             micros.append(micro_in_best_macro)
 
@@ -373,4 +444,3 @@ def train_all(model, splits, feature_level, cfg, langs=None, map_tag=dataset.ide
         print(f"{lang} mean macro across {n_models} seeds:", float(sum(macros)) / n_models)
         print(f"{lang} best macro across {n_models} seeds:", max(macros))
         print(f"{lang} mean micro across {n_models} seeds:", float(sum(micros)) / n_models)
-

@@ -1,3 +1,6 @@
+from typing import Tuple
+
+
 class ValidsetLanguageResults:
     def __init__(self, lang_code):
         self.lang_code = lang_code
@@ -25,6 +28,7 @@ class TestsetLanguageResults:
     def __repr__(self):
         return f"TestsetLanguage(lang={self.lang_code}, seeds={self.seeds})"
 
+
 class TestsetSeedResults:
     def __init__(self):
         self.epochs = []
@@ -33,13 +37,20 @@ class TestsetSeedResults:
         return f"Seed(epochs={self.epochs})"
 
 
-
-def parse_validset_results(lines) -> dict[str, ValidsetLanguageResults]:
+def parse_validset_results(lines) -> Tuple[dict[str, ValidsetLanguageResults], list[str]]:
     langs = dict()
     current_lang = None
+    config_lines = None
 
     for line in lines:
-        if line.startswith("Training"):
+        if line.startswith("Config: "):
+            config = line[len("Config: "):]
+
+            # Bit of a hack to split { and } onto own lines
+            config = config.replace("{", "{, ").replace("}", ", }")
+            config = config.replace("'gradient_clip': inf", "'gradient_clip': float('inf')")
+            config_lines = config.split(", ")
+        elif line.startswith("Training"):
             lang_code = line[-2:]
             current_lang = langs.setdefault(lang_code, ValidsetLanguageResults(lang_code))
         elif line.startswith("Best Macro f1:"):
@@ -49,7 +60,7 @@ def parse_validset_results(lines) -> dict[str, ValidsetLanguageResults]:
         else:
             continue
 
-    return langs
+    return langs, config_lines
 
 
 def parse_testset_results(lines) -> dict[str, TestsetLanguageResults]:
@@ -80,34 +91,32 @@ def lang_sort_key(lang):
     return langs.index(lang)
 
 
-if __name__ == "__main__":
-    path = "out_models/crf_sentence-embed_morpheme_canon"
-    with open(f"{path}/out_crf_morpheme_sentence_embed-notest.txt") as valid_out:
+def main():
+    path = "out_models/old/bilstm_word_char_sum_canon"
+    print(path)
+    with open(f"{path}/out_bilstm_char_sum-notest.txt") as valid_out:
         valid_lines = valid_out.read().splitlines(keepends=False)
-        valid_res = parse_validset_results(valid_lines)
-
-    with open(f"{path}/out_crf_morpheme_sentence_embed-test.txt") as test_out:
-        test_lines = test_out.read().splitlines(keepends=False)
-        test_res = parse_testset_results(test_lines)
+        valid_res, config_lines = parse_validset_results(valid_lines)
 
     langs = dict()
-    latex = []
     for (lang, lang_valid) in valid_res.items():
-        lang_test = test_res[lang]
+        all_best_epochs = []
+        for seed_best_epoch in lang_valid.seed_best_epochs:
+            all_best_epochs.append(seed_best_epoch.epoch_number)
+        mean_epoch = round(sum(all_best_epochs) / 5)
+        langs[lang] = mean_epoch
 
-        macro, micro = 0, 0
-        for seed_best_epoch, test_epochs in zip(lang_valid.seed_best_epochs, lang_test.seeds):
-            test_epoch = test_epochs.epochs[seed_best_epoch.epoch_number]
-            micro += test_epoch.micro
-            macro += test_epoch.macro
+    for line in config_lines:
+        if "'epochs'" in line:
+            print("    'epochs': {")
+            for lang, mean in sorted(langs.items(), key=lambda lang_and_epoch: lang_and_epoch[0]):
+                print(f'        "{lang}": {mean},')
+            print("    },")
+        elif line in ["{", "}"]:
+            print(line)
+        else:
+            print(f"    {line},")
 
-        n_seeds = len(lang_valid.seed_best_epochs)
-        macro, micro = macro / n_seeds, micro / n_seeds
-        print(f"{lang} Macro F1 {macro:.3f}, Micro F1 {micro:.3f}")
-        langs[lang] = (macro, micro)
 
-    langs = list(langs.items())
-    langs.sort(key=lambda item: lang_sort_key(item[0]))
-    latex = [f"{macro:.3f} & {micro:.3f}" for (lang, (macro, micro)) in langs]
-
-    print(" & ".join(latex))
+if __name__ == "__main__":
+    main()

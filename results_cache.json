@@ -1,0 +1,1464 @@
+{
+  "canonical": {
+    "plm": {
+      "words": {
+        "Afro-XLMR": {
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.9019289804918081,
+                "macro": 0.6199374234647375
+              },
+              "gold_segmentation": {
+                "micro": 0.9503333303324635,
+                "macro": 0.6785368015530824
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.9243644367062738,
+                "macro": 0.6340485773017872
+              },
+              "gold_segmentation": {
+                "micro": 0.9506372664200742,
+                "macro": 0.6790166847330855
+              }
+            }
+          },
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.797282560042102,
+                "macro": 0.535459574359069
+              },
+              "gold_segmentation": {
+                "micro": 0.9182113286008681,
+                "macro": 0.6223215153931069
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8549863696532434,
+                "macro": 0.5526674500650772
+              },
+              "gold_segmentation": {
+                "micro": 0.9198945907245122,
+                "macro": 0.6247912230390933
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7934829582415882,
+                "macro": 0.5302476981084441
+              },
+              "gold_segmentation": {
+                "micro": 0.9115514865531406,
+                "macro": 0.6203377222856432
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8400216492853536,
+                "macro": 0.545652577760903
+              },
+              "gold_segmentation": {
+                "micro": 0.9144462185517325,
+                "macro": 0.6229837940770345
+              }
+            }
+          },
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.8082616474981184,
+                "macro": 0.5163432552207639
+              },
+              "gold_segmentation": {
+                "micro": 0.902959875246361,
+                "macro": 0.6274528237865473
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8506477829080688,
+                "macro": 0.5338166424313762
+              },
+              "gold_segmentation": {
+                "micro": 0.9125368649303127,
+                "macro": 0.6325562690629483
+              }
+            }
+          }
+        },
+        "Nguni-XLMR": {
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.8039825010987629,
+                "macro": 0.5080811865562705
+              },
+              "gold_segmentation": {
+                "micro": 0.897165416970901,
+                "macro": 0.6132367866579722
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8461163971930811,
+                "macro": 0.5254200700867653
+              },
+              "gold_segmentation": {
+                "micro": 0.906773481369238,
+                "macro": 0.6183557027251041
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7926440546816833,
+                "macro": 0.5300253821116347
+              },
+              "gold_segmentation": {
+                "micro": 0.9121859866606427,
+                "macro": 0.6251733265025156
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8387981376611412,
+                "macro": 0.545072040142583
+              },
+              "gold_segmentation": {
+                "micro": 0.915312647934923,
+                "macro": 0.6280260212526485
+              }
+            }
+          },
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.797217230489739,
+                "macro": 0.5303506214347338
+              },
+              "gold_segmentation": {
+                "micro": 0.9181537105508312,
+                "macro": 0.6174883294159309
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8550057008600052,
+                "macro": 0.5475280305058629
+              },
+              "gold_segmentation": {
+                "micro": 0.9196316306075994,
+                "macro": 0.6189197496357153
+              }
+            }
+          },
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.9033653789309041,
+                "macro": 0.6275891973061354
+              },
+              "gold_segmentation": {
+                "micro": 0.95077005877869,
+                "macro": 0.6805293985733101
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.9258802726565761,
+                "macro": 0.6438034190053521
+              },
+              "gold_segmentation": {
+                "micro": 0.9510872018482704,
+                "macro": 0.6810575582549129
+              }
+            }
+          }
+        },
+        "XLM-R-large": {
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.806799526407802,
+                "macro": 0.5113306786449099
+              },
+              "gold_segmentation": {
+                "micro": 0.9021725809644128,
+                "macro": 0.6238073847518973
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8495584612476517,
+                "macro": 0.5288487312806878
+              },
+              "gold_segmentation": {
+                "micro": 0.9121831297139587,
+                "macro": 0.6294446958163851
+              }
+            }
+          },
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.901986907472236,
+                "macro": 0.6184502143690265
+              },
+              "gold_segmentation": {
+                "micro": 0.9494298363717911,
+                "macro": 0.6738654484658135
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.9245134933940763,
+                "macro": 0.6345239215857257
+              },
+              "gold_segmentation": {
+                "micro": 0.9496676890905137,
+                "macro": 0.6743520086012722
+              }
+            }
+          },
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7959020104136123,
+                "macro": 0.5268538554130151
+              },
+              "gold_segmentation": {
+                "micro": 0.9164134886095809,
+                "macro": 0.6161338814573677
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8536625181175127,
+                "macro": 0.5440731619911215
+              },
+              "gold_segmentation": {
+                "micro": 0.9179598694430237,
+                "macro": 0.6177383155011725
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7949695038107822,
+                "macro": 0.5385645413906064
+              },
+              "gold_segmentation": {
+                "micro": 0.9135230484785659,
+                "macro": 0.6333338608466305
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.841197023875227,
+                "macro": 0.5542270243382965
+              },
+              "gold_segmentation": {
+                "micro": 0.9164326535009014,
+                "macro": 0.6362772776444716
+              }
+            }
+          }
+        }
+      }
+    },
+    "from_scratch": {
+      "sentences": {
+        "CRF, morpheme": {
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.798035629614577,
+                "macro": 0.5702748608661755
+              },
+              "gold_segmentation": {
+                "micro": 0.9209375319845792,
+                "macro": 0.6605141876744032
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8565196775723092,
+                "macro": 0.5874077503202649
+              },
+              "gold_segmentation": {
+                "micro": 0.9225342021766572,
+                "macro": 0.6607717988896866
+              }
+            }
+          },
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.8100490948143604,
+                "macro": 0.563282814723016
+              },
+              "gold_segmentation": {
+                "micro": 0.9045807123837456,
+                "macro": 0.6695146948697308
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8528689782141761,
+                "macro": 0.5783194873836233
+              },
+              "gold_segmentation": {
+                "micro": 0.9143673059854127,
+                "macro": 0.6716054036804298
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7914420871559633,
+                "macro": 0.5708494026076738
+              },
+              "gold_segmentation": {
+                "micro": 0.9126196755663137,
+                "macro": 0.6787751195936755
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8372563073394496,
+                "macro": 0.5845457489894532
+              },
+              "gold_segmentation": {
+                "micro": 0.9156111131182485,
+                "macro": 0.6805751372945974
+              }
+            }
+          },
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.9081198551201843,
+                "macro": 0.6952435713366288
+              },
+              "gold_segmentation": {
+                "micro": 0.957241834378093,
+                "macro": 0.7521703558462691
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.9306420810009879,
+                "macro": 0.7114804794989028
+              },
+              "gold_segmentation": {
+                "micro": 0.9575585615308478,
+                "macro": 0.752709766738848
+              }
+            }
+          }
+        },
+        "BiLSTM, character-sum": {
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7931856668698775,
+                "macro": 0.5586306619704148
+              },
+              "gold_segmentation": {
+                "micro": 0.9149602538296202,
+                "macro": 0.6451999260256513
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8509787983472193,
+                "macro": 0.5752238921669396
+              },
+              "gold_segmentation": {
+                "micro": 0.9164477499914707,
+                "macro": 0.6455207363437243
+              }
+            }
+          },
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.8058300092052777,
+                "macro": 0.5395155232997303
+              },
+              "gold_segmentation": {
+                "micro": 0.8982518427044341,
+                "macro": 0.6447498887738041
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.848312365756367,
+                "macro": 0.5545563189865923
+              },
+              "gold_segmentation": {
+                "micro": 0.907884073630996,
+                "macro": 0.6467450352793019
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7881737385321101,
+                "macro": 0.5584511392830913
+              },
+              "gold_segmentation": {
+                "micro": 0.9069980851909388,
+                "macro": 0.664586095431721
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8340739678899084,
+                "macro": 0.5728833183143708
+              },
+              "gold_segmentation": {
+                "micro": 0.9101340366342715,
+                "macro": 0.6664712055081926
+              }
+            }
+          },
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.9043398090220611,
+                "macro": 0.6651763716863484
+              },
+              "gold_segmentation": {
+                "micro": 0.9545496535796767,
+                "macro": 0.7204114185846311
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.9268620349028647,
+                "macro": 0.6811776755395809
+              },
+              "gold_segmentation": {
+                "micro": 0.9549851534147145,
+                "macro": 0.720960133077091
+              }
+            }
+          }
+        },
+        "BiLSTM, morpheme": {
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7986452618031565,
+                "macro": 0.5667114510505324
+              },
+              "gold_segmentation": {
+                "micro": 0.919832144928525,
+                "macro": 0.6595290763811477
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8568583621215199,
+                "macro": 0.5835022097998268
+              },
+              "gold_segmentation": {
+                "micro": 0.9214288151206033,
+                "macro": 0.6601353535714605
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7921158256880735,
+                "macro": 0.5697670467843258
+              },
+              "gold_segmentation": {
+                "micro": 0.912677481122873,
+                "macro": 0.6776050988050321
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8379300458715596,
+                "macro": 0.5834429133391457
+              },
+              "gold_segmentation": {
+                "micro": 0.9156111131182485,
+                "macro": 0.6793941970150551
+              }
+            }
+          },
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.8095121202822952,
+                "macro": 0.5569460167864608
+              },
+              "gold_segmentation": {
+                "micro": 0.9036236637980934,
+                "macro": 0.6701202316389572
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.852193924516723,
+                "macro": 0.572759259347541
+              },
+              "gold_segmentation": {
+                "micro": 0.9134874387373134,
+                "macro": 0.6724427632827308
+              }
+            }
+          },
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.9081330260125122,
+                "macro": 0.6922268421825455
+              },
+              "gold_segmentation": {
+                "micro": 0.9572022434839986,
+                "macro": 0.7469532859117448
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.9302864669081329,
+                "macro": 0.7073294426478739
+              },
+              "gold_segmentation": {
+                "micro": 0.957452985813263,
+                "macro": 0.7474617697451226
+              }
+            }
+          }
+        },
+        "CRF, character-sum": {
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7962744699586806,
+                "macro": 0.5644913237507929
+              },
+              "gold_segmentation": {
+                "micro": 0.919422742315172,
+                "macro": 0.6567309190560934
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8545146650409808,
+                "macro": 0.5814369638947091
+              },
+              "gold_segmentation": {
+                "micro": 0.9210330592610283,
+                "macro": 0.6570171759016633
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7908830275229358,
+                "macro": 0.5690507778429794
+              },
+              "gold_segmentation": {
+                "micro": 0.9102496477473897,
+                "macro": 0.6709205458269014
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8375,
+                "macro": 0.5839384375692134
+              },
+              "gold_segmentation": {
+                "micro": 0.9138624950323349,
+                "macro": 0.6731934801193394
+              }
+            }
+          },
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.8115833077631176,
+                "macro": 0.556596776073323
+              },
+              "gold_segmentation": {
+                "micro": 0.9039632616833251,
+                "macro": 0.6585967261289996
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8541884013501073,
+                "macro": 0.5722705057170036
+              },
+              "gold_segmentation": {
+                "micro": 0.9135800563423764,
+                "macro": 0.6604903399248868
+              }
+            }
+          },
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.9084886401053671,
+                "macro": 0.6816024202966612
+              },
+              "gold_segmentation": {
+                "micro": 0.9581788188716596,
+                "macro": 0.7468005303003178
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.9309581824168587,
+                "macro": 0.6981297759747308
+              },
+              "gold_segmentation": {
+                "micro": 0.9585219399538106,
+                "macro": 0.747392548629917
+              }
+            }
+          }
+        }
+      },
+      "words": {
+        "BiLSTM, character-sum": {
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7951548165137614,
+                "macro": 0.5634180480883731
+              },
+              "gold_segmentation": {
+                "micro": 0.9163047797969579,
+                "macro": 0.6704354742756704
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8414134174311926,
+                "macro": 0.5780269951304975
+              },
+              "gold_segmentation": {
+                "micro": 0.91948408540771,
+                "macro": 0.6724090416482016
+              }
+            }
+          },
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.8078398281681499,
+                "macro": 0.553731413336467
+              },
+              "gold_segmentation": {
+                "micro": 0.9024813800023155,
+                "macro": 0.66262974011189
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8503375268487267,
+                "macro": 0.569722164414344
+              },
+              "gold_segmentation": {
+                "micro": 0.9122371010689616,
+                "macro": 0.6647646281019469
+              }
+            }
+          },
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.8003386845492109,
+                "macro": 0.5832857321857727
+              },
+              "gold_segmentation": {
+                "micro": 0.9220975060557469,
+                "macro": 0.6687286807315117
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8580505317347422,
+                "macro": 0.6001288084709934
+              },
+              "gold_segmentation": {
+                "micro": 0.9237487632629389,
+                "macro": 0.6690700295008536
+              }
+            }
+          },
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.9005992756009219,
+                "macro": 0.6623571391504699
+              },
+              "gold_segmentation": {
+                "micro": 0.9512504124051467,
+                "macro": 0.7223339230591341
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.9230951596970695,
+                "macro": 0.6785374525385538
+              },
+              "gold_segmentation": {
+                "micro": 0.9516331243813922,
+                "macro": 0.7230343398224856
+              }
+            }
+          }
+        },
+        "BiLSTM, morpheme": {
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7971821445505656,
+                "macro": 0.5656491708517805
+              },
+              "gold_segmentation": {
+                "micro": 0.919245334516052,
+                "macro": 0.6651654395841546
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8554765291607396,
+                "macro": 0.5830355839583724
+              },
+              "gold_segmentation": {
+                "micro": 0.9209238852308006,
+                "macro": 0.665520279786167
+              }
+            }
+          },
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.8043571647744706,
+                "macro": 0.541457589849218
+              },
+              "gold_segmentation": {
+                "micro": 0.8998263419905068,
+                "macro": 0.6527446799326354
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8470082847499233,
+                "macro": 0.5568692140219763
+              },
+              "gold_segmentation": {
+                "micro": 0.9095666267896423,
+                "macro": 0.6548485185827461
+              }
+            }
+          },
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.8996773131379652,
+                "macro": 0.6550357437057057
+              },
+              "gold_segmentation": {
+                "micro": 0.9486638073243153,
+                "macro": 0.7141831187496901
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.9219492920645374,
+                "macro": 0.6695567405139681
+              },
+              "gold_segmentation": {
+                "micro": 0.9490993071593534,
+                "macro": 0.7148152963799647
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7953841743119267,
+                "macro": 0.5692551856985013
+              },
+              "gold_segmentation": {
+                "micro": 0.9148885436612593,
+                "macro": 0.6746756527427455
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8406536697247706,
+                "macro": 0.5826219434353488
+              },
+              "gold_segmentation": {
+                "micro": 0.9178944326023339,
+                "macro": 0.6765085719689263
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "surface": {
+    "plm": {
+      "words": {
+        "Afro-XLMR": {
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.6082197424892704,
+                "macro": 0.4627938362330132
+              },
+              "gold_segmentation": {
+                "micro": 0.6082472103004293,
+                "macro": 0.46578100652975907
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7850300429184548,
+                "macro": 0.5187500657238724
+              },
+              "gold_segmentation": {
+                "micro": 0.7849476394849785,
+                "macro": 0.5231361707099245
+              }
+            }
+          },
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.5820937022104824,
+                "macro": 0.40016327260654005
+              },
+              "gold_segmentation": {
+                "micro": 0.5812317530932851,
+                "macro": 0.4008321445517081
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7281940775754205,
+                "macro": 0.43610416387628986
+              },
+              "gold_segmentation": {
+                "micro": 0.7284860280828583,
+                "macro": 0.4376218287466725
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.6495513467149874,
+                "macro": 0.4358461692268116
+              },
+              "gold_segmentation": {
+                "micro": 0.6498601915265635,
+                "macro": 0.4425296554169849
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7738236172899196,
+                "macro": 0.46871080750172095
+              },
+              "gold_segmentation": {
+                "micro": 0.7741204937754129,
+                "macro": 0.4769981617086428
+              }
+            }
+          },
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.39983519313304716,
+                "macro": 0.1954150349165889
+              },
+              "gold_segmentation": {
+                "micro": 0.3987811158798283,
+                "macro": 0.19800012906547426
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.5574042918454936,
+                "macro": 0.2302187984736718
+              },
+              "gold_segmentation": {
+                "micro": 0.5562403433476395,
+                "macro": 0.23400559824246087
+              }
+            }
+          }
+        },
+        "Nguni-XLMR": {
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.40745064377682405,
+                "macro": 0.20141811271578097
+              },
+              "gold_segmentation": {
+                "micro": 0.4087896995708155,
+                "macro": 0.20376793673117502
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.5628841201716739,
+                "macro": 0.23668646685670924
+              },
+              "gold_segmentation": {
+                "micro": 0.5664549356223176,
+                "macro": 0.23932540368130936
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.6499687180013536,
+                "macro": 0.43527244039824337
+              },
+              "gold_segmentation": {
+                "micro": 0.6510635225162851,
+                "macro": 0.4466448242064887
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7736578065481051,
+                "macro": 0.4692446926497305
+              },
+              "gold_segmentation": {
+                "micro": 0.7754471532606808,
+                "macro": 0.48092936682386017
+              }
+            }
+          },
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.5828235784790768,
+                "macro": 0.3993716224557931
+              },
+              "gold_segmentation": {
+                "micro": 0.5841790629778951,
+                "macro": 0.4055713247228397
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7297372445433059,
+                "macro": 0.4385212750491268
+              },
+              "gold_segmentation": {
+                "micro": 0.731196997080495,
+                "macro": 0.44084208652976614
+              }
+            }
+          },
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.6122575107296139,
+                "macro": 0.45861671092084705
+              },
+              "gold_segmentation": {
+                "micro": 0.6128755364806867,
+                "macro": 0.4656514507998522
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7878454935622319,
+                "macro": 0.5165151379090499
+              },
+              "gold_segmentation": {
+                "micro": 0.7898231759656652,
+                "macro": 0.5244798903559778
+              }
+            }
+          }
+        },
+        "XLM-R-large": {
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.39743175965665234,
+                "macro": 0.18723440468037328
+              },
+              "gold_segmentation": {
+                "micro": 0.39716738197424895,
+                "macro": 0.19161189869305179
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.5538197424892705,
+                "macro": 0.2213243575802996
+              },
+              "gold_segmentation": {
+                "micro": 0.5538884120171674,
+                "macro": 0.2270334587671917
+              }
+            }
+          },
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.6072675250357653,
+                "macro": 0.45669720103940215
+              },
+              "gold_segmentation": {
+                "micro": 0.6076394849785408,
+                "macro": 0.4605715420501409
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7801316165951361,
+                "macro": 0.5136191619426733
+              },
+              "gold_segmentation": {
+                "micro": 0.7810815450643777,
+                "macro": 0.5173970845849497
+              }
+            }
+          },
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.580383706381204,
+                "macro": 0.3949522635595072
+              },
+              "gold_segmentation": {
+                "micro": 0.5796190740998194,
+                "macro": 0.39577634481680646
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7270262755456693,
+                "macro": 0.43135937543518754
+              },
+              "gold_segmentation": {
+                "micro": 0.7263728625052134,
+                "macro": 0.43068126652426386
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.6514893546909138,
+                "macro": 0.44334187020643867
+              },
+              "gold_segmentation": {
+                "micro": 0.6512338127557695,
+                "macro": 0.44505159088999935
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7753659898297378,
+                "macro": 0.4773117511477568
+              },
+              "gold_segmentation": {
+                "micro": 0.7750952534213695,
+                "macro": 0.48011346528448007
+              }
+            }
+          }
+        }
+      }
+    },
+    "from_scratch": {
+      "sentences": {
+        "BiLSTM, morpheme-lower": {
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7668114817688132,
+                "macro": 0.537102434160485
+              },
+              "gold_segmentation": {
+                "micro": 0.9066729470874548,
+                "macro": 0.6578693517301282
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8103646237393327,
+                "macro": 0.5578383941457006
+              },
+              "gold_segmentation": {
+                "micro": 0.9068142565551891,
+                "macro": 0.6579761625963982
+              }
+            }
+          },
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7506622516556292,
+                "macro": 0.5365774876831791
+              },
+              "gold_segmentation": {
+                "micro": 0.9127152803224625,
+                "macro": 0.659314336881845
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7974805643535847,
+                "macro": 0.5531205991280602
+              },
+              "gold_segmentation": {
+                "micro": 0.9129791132282887,
+                "macro": 0.659504733710671
+              }
+            }
+          },
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.8323982160840167,
+                "macro": 0.6496056291315853
+              },
+              "gold_segmentation": {
+                "micro": 0.9527630141973062,
+                "macro": 0.7600597588055612
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8758739749676305,
+                "macro": 0.6824996135805929
+              },
+              "gold_segmentation": {
+                "micro": 0.9530979250091007,
+                "macro": 0.7601811330673385
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7390801142341801,
+                "macro": 0.5259779174189249
+              },
+              "gold_segmentation": {
+                "micro": 0.9110807736063709,
+                "macro": 0.6865211952212142
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7847286938223359,
+                "macro": 0.5463146897755667
+              },
+              "gold_segmentation": {
+                "micro": 0.9117330299582859,
+                "macro": 0.68727331590197
+              }
+            }
+          }
+        },
+        "BiLSTM, morpheme": {
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7503167290526922,
+                "macro": 0.5339667081976032
+              },
+              "gold_segmentation": {
+                "micro": 0.9124807621839501,
+                "macro": 0.6558080705822757
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7967463288223439,
+                "macro": 0.5497418853923811
+              },
+              "gold_segmentation": {
+                "micro": 0.9129351410773177,
+                "macro": 0.6561310336228072
+              }
+            }
+          },
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.8307150050352468,
+                "macro": 0.6477666327076901
+              },
+              "gold_segmentation": {
+                "micro": 0.9509428467419003,
+                "macro": 0.7608782200079702
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8737879441806934,
+                "macro": 0.6799726452610874
+              },
+              "gold_segmentation": {
+                "micro": 0.9512486348744084,
+                "macro": 0.7609707378772654
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7379227416203217,
+                "macro": 0.5262531445613072
+              },
+              "gold_segmentation": {
+                "micro": 0.910185817216534,
+                "macro": 0.682996505006875
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7835863520216444,
+                "macro": 0.5467688913329664
+              },
+              "gold_segmentation": {
+                "micro": 0.910701554797118,
+                "macro": 0.6836196820876372
+              }
+            }
+          },
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7667494181536074,
+                "macro": 0.5311394735830332
+              },
+              "gold_segmentation": {
+                "micro": 0.9056837808133145,
+                "macro": 0.6592520624973414
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8098836307214896,
+                "macro": 0.5517193159917616
+              },
+              "gold_segmentation": {
+                "micro": 0.9058564923849897,
+                "macro": 0.6593773004626355
+              }
+            }
+          }
+        },
+        "BiLSTM, character-sum": {
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7591931730023274,
+                "macro": 0.49611596443772044
+              },
+              "gold_segmentation": {
+                "micro": 0.896027633851468,
+                "macro": 0.612588213719207
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8041427463149728,
+                "macro": 0.518163323668747
+              },
+              "gold_segmentation": {
+                "micro": 0.8962945517349663,
+                "macro": 0.61275677903843
+              }
+            }
+          },
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7472358191765045,
+                "macro": 0.5166577581396048
+              },
+              "gold_segmentation": {
+                "micro": 0.9069109563942837,
+                "macro": 0.6325482892248353
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.795983299740858,
+                "macro": 0.5356297584289029
+              },
+              "gold_segmentation": {
+                "micro": 0.907292048369366,
+                "macro": 0.6327350122791935
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7321659401773637,
+                "macro": 0.5028838128794642
+              },
+              "gold_segmentation": {
+                "micro": 0.9030716723549487,
+                "macro": 0.6509370309408649
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7829249962422966,
+                "macro": 0.5279957694122448
+              },
+              "gold_segmentation": {
+                "micro": 0.9040879787637467,
+                "macro": 0.6519674054110922
+              }
+            }
+          },
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.8292907495324414,
+                "macro": 0.6177604552586962
+              },
+              "gold_segmentation": {
+                "micro": 0.9467783036039317,
+                "macro": 0.7356234262991606
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8770105020860308,
+                "macro": 0.655929797129643
+              },
+              "gold_segmentation": {
+                "micro": 0.9472442664725154,
+                "macro": 0.7359309004627645
+              }
+            }
+          }
+        },
+        "BiLSTM, character-sum-lower": {
+          "SS": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7597051978277735,
+                "macro": 0.49583306231310564
+              },
+              "gold_segmentation": {
+                "micro": 0.8964829643586121,
+                "macro": 0.6076483613735039
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8038789759503491,
+                "macro": 0.5161635797106172
+              },
+              "gold_segmentation": {
+                "micro": 0.8966870780342283,
+                "macro": 0.6077805403775788
+              }
+            }
+          },
+          "NR": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7327972343303772,
+                "macro": 0.5066632203259029
+              },
+              "gold_segmentation": {
+                "micro": 0.903496397421312,
+                "macro": 0.6533553430474578
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7817676236284383,
+                "macro": 0.5289590457970512
+              },
+              "gold_segmentation": {
+                "micro": 0.904406522563519,
+                "macro": 0.6543989982990722
+              }
+            }
+          },
+          "XH": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.8281254495756007,
+                "macro": 0.619443749766878
+              },
+              "gold_segmentation": {
+                "micro": 0.9468511103021477,
+                "macro": 0.7369483445429821
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.8752985181988203,
+                "macro": 0.6524797998917873
+              },
+              "gold_segmentation": {
+                "micro": 0.9471423370950127,
+                "macro": 0.7370965929323212
+              }
+            }
+          },
+          "ZU": {
+            "aligned_set": {
+              "predicted_segmentation": {
+                "micro": 0.7477109127555427,
+                "macro": 0.5159829785610743
+              },
+              "gold_segmentation": {
+                "micro": 0.9073799926713082,
+                "macro": 0.6316607709011267
+              }
+            },
+            "aligned_multiset": {
+              "predicted_segmentation": {
+                "micro": 0.7955801900374316,
+                "macro": 0.5330985949471255
+              },
+              "gold_segmentation": {
+                "micro": 0.9076877977281056,
+                "macro": 0.6318010147950883
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

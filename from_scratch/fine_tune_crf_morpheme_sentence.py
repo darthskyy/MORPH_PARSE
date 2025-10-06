@@ -56,12 +56,17 @@ def final_train():
         'hidden_dim': 1024,
         'dropout': 0.2,
         'batch_size': 1,
-        'epochs': 40,
+        'epochs': {
+            "NR": 18,
+            "SS": 27,
+            "XH": 25,
+            "ZU": 17,
+        },
         'gradient_clip': 4,
-        'embed_target_embed': 512
+        'embed_target_embed': 512,
     }
 
-    train_all(model, splits, feature_level, cfg)
+    train_all(model, splits, feature_level, cfg, use_testset=True, langs=["NR", "SS"])
 
 
 final_train()

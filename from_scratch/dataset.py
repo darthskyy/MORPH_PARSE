@@ -101,6 +101,11 @@ def tokenize_into_chars(morpheme):
     return list(morpheme) if morpheme != WORD_SEP_TEXT else [WORD_SEP_TEXT]
 
 
+def tokenize_into_lower_chars(morpheme):
+    """Tokenise a morphemes into its characters"""
+    return [c.lower() for c in morpheme] if morpheme != WORD_SEP_TEXT else [WORD_SEP_TEXT]
+
+
 def tokenize_into_trigrams_with_sentinels(morpheme):
     """
     Tokenize a morpheme into its trigrams, using sentinels for the beginning and end.
@@ -221,7 +226,7 @@ class AnnotatedCorpusDataset(Dataset):
 
     @staticmethod
     def load_data(lang: str, use_surface=False, use_testset=False, split=split_words, tokenize=tokenize_into_morphemes,
-                  map_tag=identity):
+                  map_tag=identity, use_lower=False):
         """
         Load the data from the annotated corpus dataset, and return the training and validation portions.
 

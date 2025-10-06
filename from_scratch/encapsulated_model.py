@@ -51,8 +51,8 @@ class EncapsulatedModel(nn.Module):
             encoded = torch.stack([pad_sequence(all_encoded, padding_value=SEQ_PAD_IX, batch_first=True)], dim=0)
 
             word_tags = []
-            for tag_ix in torch.flatten(self.model.forward_tags_only(encoded)).tolist():
-                if tag_ix == WORD_SEP_IX:
+            for tag_ix, morpheme_text in zip(torch.flatten(self.model.forward_tags_only(encoded)).tolist(), morphemes):
+                if morpheme_text == WORD_SEP_TEXT:
                     tags.append(word_tags)
                     word_tags = []
                     continue

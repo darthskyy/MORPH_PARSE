@@ -3,14 +3,15 @@ import re
 
 from sklearn.metrics import classification_report, f1_score
 
-from aligned_f1 import align_seqs
 from data_prep import split_tags
+from scripts.evaluation import eval_model_aligned_multiset
 
 with open("data/ZulMorph/ZulMorph_ZU_TEST.tsv") as f:
     zulmorph_lines = list(csv.reader(f, delimiter='\t', quotechar='"'))[1:-1]  # Skip header & closing LF
 
 with open("data/TEST/ZU_TEST.tsv") as f:
     gold_lines = list(csv.reader(f, delimiter='\t', quotechar='"'))
+
 
 def normalize_zm_tag(zm_tag: str, idx: int, context_morphemes: list[str]) -> list[str]:
     # - ComplExt? Rewrote to IntensExt
@@ -66,13 +67,10 @@ def classification_scores():
         zm_seg, zm_tags = split_tags(zm_analysis)  # Things with \t+? (that ZulMorph can't segment) get zm_tags = []
         zm_tags = [final_tag for i, t in enumerate(zm_tags) for final_tag in normalize_zm_tag(t, i, zm_seg)]
 
-        zm_tags, gold_tags = align_seqs(zm_tags, gold_tags)
-        all_gold.extend(gold_tags)
-        all_zm.extend(zm_tags)
+        all_gold.append(gold_tags)
+        all_zm.append(zm_tags)
 
-    f1_micro = f1_score(all_gold, all_zm, average="micro")
-    f1_macro = f1_score(all_gold, all_zm, average="macro")
-    print(classification_report(all_gold, all_zm, zero_division=0.0))
+    f1_micro, f1_macro = eval_model_aligned_multiset(all_zm, all_gold)
     print(f"Classification micro F1: {f1_micro:.4f}, macro f1: {f1_macro:.4f}")
 
 
@@ -92,25 +90,12 @@ def segmentation_scores():
         if len(zm_tags) > 0 and (zm_tags[0] in ("Punct", "Num", "Item")):
             zm_seg = [zm_raw]
 
-        zm_seg, gold_seg = align_seqs(zm_seg, gold_seg)
-        all_gold.extend(gold_seg)
-        all_zm.extend(zm_seg)
+        all_gold.append(gold_seg)
+        all_zm.append(zm_seg)
 
-    f1_micro = f1_score(all_gold, all_zm, average="micro")
-    f1_macro = f1_score(all_gold, all_zm, average="macro")
+    f1_micro, f1_macro = eval_model_aligned_multiset(all_zm, all_gold)
     print(f"Segmentation micro F1: {f1_micro:.4f}, macro f1: {f1_macro:.4f}")
 
 
 classification_scores()
 segmentation_scores()
-
-known_incorrect = {
-    "AdjPref14", "EnumConc1", "EnumConc11", "ImpPre", "ImpSuf", "HortPre", "OC1pp", "OC1ps", "OC2pp", "OC2ps", "Pos3a",
-    "PronStem14", "PronStem2pp", "QuantConc14", "QuantConc1pp", "RelConc1pp", "SC2pp", "RelConc1ps", "SC14", "SCNeg1",
-    "DemCop10"
-}
-
-postponed = {
-    "DemCop15",
-}
-
