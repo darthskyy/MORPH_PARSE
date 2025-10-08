@@ -5,7 +5,7 @@ import torch
 from torch import nn
 from torch.nn.utils.rnn import pad_sequence, pack_padded_sequence, pad_packed_sequence
 
-from common import AnnotatedCorpusDataset, SEQ_PAD_IX
+from .common import AnnotatedCorpusDataset, SEQ_PAD_IX
 
 
 def log_sum_exp(x):

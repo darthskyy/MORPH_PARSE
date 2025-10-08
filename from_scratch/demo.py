@@ -5,10 +5,12 @@ import numpy as np
 import torch
 from sklearn.metrics import f1_score, classification_report
 
-from dataset import (split_sentences_raw, extract_morphemes_and_tags_from_file_2022, WORD_SEP_TEXT,
+from from_scratch import encapsulated_model, lstm, bilstm_crf, dataset, common
+from .dataset import (split_sentences_raw, extract_morphemes_and_tags_from_file_2022, WORD_SEP_TEXT,
                      SEQ_PAD_TEXT, identity)
-from encapsulated_model import EncapsulatedModel
-from aligned_f1 import align_seqs
+from .encapsulated_model import EncapsulatedModel
+from .aligned_f1 import align_seqs
+import sys
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
@@ -221,8 +223,31 @@ def eval_model(model, test_set, map_tag=identity):
         return micro, macro, report
 
 
+def _with_sys_modules(func, **modules):
+    old_modules = dict()
+    for module_name, module in modules.items():
+        if module_name in sys.modules:
+            old_modules[module_name] = sys.modules[module_name]
+        sys.modules[module_name] = module
+
+    ret = func()
+
+    for module_name, module in modules.items():
+        if module_name in old_modules:
+            sys.modules[module_name] = old_modules[module_name]
+
+    return ret
+
+
 def load_model(path):
-    model: EncapsulatedModel = torch.load(path, map_location=device, weights_only=False)
+    model: EncapsulatedModel = _with_sys_modules(
+        lambda: torch.load(path, map_location=device, weights_only=False),
+        encapsulated_model=encapsulated_model,
+        lstm=lstm,
+        bilstm_crf=bilstm_crf,
+        dataset=dataset,
+        common=common,
+    )
     model.eval()
     return model
 
@@ -235,7 +260,18 @@ def annotate_sentence(model, words):
 
 def predict_tags_for_word(model, morphemes):
     with torch.no_grad():
-        return model.forward([morphemes])[0]
+        # Return the first sentence's first word (we have one word per sentence, which there is also one of, here)
+        return model.forward([[morphemes]])[0][0]
+
+
+def predict_tags_for_words_batched(model, words):
+    """Predict the tags for a list of _unrelated_ words (i.e. batch, not together in a sentence)"""
+    with torch.no_grad():
+        # Wrap each word in a list so it is, itself, treated as a sentence
+        tags = model.forward([[word] for word in words])
+
+        # Return the first word of each sentence (we have one word per sentence here)
+        return [sentence[0] for sentence in tags]
 
 
 """

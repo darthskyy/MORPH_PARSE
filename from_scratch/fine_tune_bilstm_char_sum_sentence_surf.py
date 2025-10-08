@@ -6,7 +6,7 @@ from ray.util.client import ray
 from bilstm_crf import BiLstmCrfTagger
 from common import (AnnotatedCorpusDataset, tune_model, tokenize_into_morphemes, EmbedSingletonFeature, split_sentences,
                     train_all, EmbedBySumming, tokenize_into_chars)
-from dataset import tokenize_into_lower_chars
+from .dataset import tokenize_into_lower_chars
 from lstm import BiLSTMTagger
 
 # Some configurable aspects of the model - the model itself, context level, and submorpheme tokenisation

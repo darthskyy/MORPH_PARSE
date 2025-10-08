@@ -17,10 +17,10 @@ from ray.tune.schedulers import ASHAScheduler
 from ray.tune.search import BasicVariantGenerator
 from ray.util.client import ray
 
-from aligned_f1 import align_seqs
-from encapsulated_model import EncapsulatedModel
-from dataset import AnnotatedCorpusDataset, SEQ_PAD_IX, WORD_SEP_TEXT, SEQ_PAD_TEXT
-import dataset
+from .aligned_f1 import align_seqs
+from .encapsulated_model import EncapsulatedModel
+from .dataset import AnnotatedCorpusDataset, SEQ_PAD_IX, WORD_SEP_TEXT, SEQ_PAD_TEXT
+from . import dataset
 
 torch.manual_seed(0)
 random.seed(0)
